@@ -1,0 +1,32 @@
+{
+  // === Editor behavior ===
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+
+  // === ESLint ===
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+
+  // === Tailwind ===
+  "tailwindCSS.includeLanguages": {
+    "astro": "html"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["class:([A-Za-z0-9\\-:]+)", "class:\\1"]
+  ],
+
+  // === Spellchecker ===
+  "cSpell.language": "en,cs",
+  "cSpell.enableFiletypes": ["astro", "markdown"],
+
+  // === Headwind ===
+  "headwind.runOnSave": true,
+
+  // === File associations ===
+  "files.associations": {
+    "*.astro": "astro"
+  }
+}
