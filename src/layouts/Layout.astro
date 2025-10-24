@@ -1,22 +1,48 @@
+---
+import '../styles/global.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import { SEO } from 'astro-seo';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Zdravíčko - Dětská ordinace',
+  description = 'Moderní dětská ordinace s komplexní péčí o vaše děti. Odborné lékařské služby v přátelském prostředí.'
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="cs">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<SEO
+			title={title}
+			description={description}
+			openGraph={{
+				basic: {
+					title: title,
+					type: 'website',
+					image: '/og-image.jpg',
+				}
+			}}
+		/>
 	</head>
-	<body>
+	<body class="font-sans antialiased">
 		<slot />
 	</body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
+<style is:global>
+	:root {
+		font-family: 'Inter', system-ui, -apple-system, sans-serif;
 	}
 </style>
