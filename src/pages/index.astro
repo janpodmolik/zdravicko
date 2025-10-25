@@ -1,9 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
-import { getTodayOpeningHours } from '../utils/openingHours';
+import { getTodayOpeningHours, getSpecialNotice } from '../utils/openingHours';
+import { getLatestAktuality } from '../data/aktuality';
+import AktualitaCard from '../components/AktualitaCard.astro';
 
 const todayInfo = getTodayOpeningHours();
+const specialNotice = getSpecialNotice();
+const latestAktuality = getLatestAktuality(3); // Show 3 latest aktuality items
 ---
 
 <Layout title="Zdravíčko - Dětská ordinace | Kvalitní péče o vaše děti">
@@ -21,6 +25,7 @@ const todayInfo = getTodayOpeningHours();
         <!-- Desktop Menu -->
         <div class="hidden md:flex gap-6">
           <a href="#o-nas" class="text-gray-600 hover:text-blue-600 transition-colors">O nás</a>
+          <a href="#aktuality" class="text-gray-600 hover:text-blue-600 transition-colors">Aktuality</a>
           <a href="#sluzby" class="text-gray-600 hover:text-blue-600 transition-colors">Služby</a>
           <a href="#ordinacni-hodiny" class="text-gray-600 hover:text-blue-600 transition-colors">Ordinační hodiny</a>
           <a href="/cenik" class="text-gray-600 hover:text-blue-600 transition-colors">Ceník</a>
@@ -64,6 +69,7 @@ const todayInfo = getTodayOpeningHours();
       <nav class="flex-1 overflow-y-auto p-6">
         <div class="flex flex-col gap-2">
           <a href="#o-nas" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">O nás</a>
+          <a href="#aktuality" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Aktuality</a>
           <a href="#sluzby" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Služby</a>
           <a href="#ordinacni-hodiny" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Ordinační hodiny</a>
           <a href="/cenik" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Ceník</a>
@@ -108,7 +114,7 @@ const todayInfo = getTodayOpeningHours();
   <section class="py-12 bg-white">
     <div class="container mx-auto px-4">
       <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        <div class:list={['flex gap-4 p-6 bg-blue-50 rounded-xl', todayInfo.hours ? 'items-start' : 'items-center']}>
+        <a href="#ordinacni-hodiny" class:list={['flex gap-4 p-6 bg-blue-50 rounded-xl transition-all hover:bg-blue-100 hover:shadow-md cursor-pointer', todayInfo.hours ? 'items-start' : 'items-center']}>
           <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
             <Icon name="mdi:clock-outline" class="w-6 h-6 text-white" />
           </div>
@@ -118,8 +124,8 @@ const todayInfo = getTodayOpeningHours();
               <p class="text-gray-600 text-sm">{todayInfo.hours}</p>
             )}
           </div>
-        </div>
-        <div class="flex items-start gap-4 p-6 bg-cyan-50 rounded-xl">
+        </a>
+        <a href="tel:+420123456789" class="flex items-start gap-4 p-6 bg-cyan-50 rounded-xl transition-all hover:bg-cyan-100 hover:shadow-md cursor-pointer">
           <div class="w-12 h-12 bg-cyan-600 rounded-lg flex items-center justify-center shrink-0">
             <Icon name="mdi:phone" class="w-6 h-6 text-white" />
           </div>
@@ -127,8 +133,8 @@ const todayInfo = getTodayOpeningHours();
             <h3 class="font-semibold text-gray-900 mb-1">Telefonní kontakt</h3>
             <p class="text-gray-600 text-sm">+420 123 456 789</p>
           </div>
-        </div>
-        <div class="flex items-start gap-4 p-6 bg-purple-50 rounded-xl">
+        </a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Hlavní+123,+Praha+1" target="_blank" rel="noopener noreferrer" class="flex items-start gap-4 p-6 bg-purple-50 rounded-xl transition-all hover:bg-purple-100 hover:shadow-md cursor-pointer">
           <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center shrink-0">
             <Icon name="mdi:map-marker" class="w-6 h-6 text-white" />
           </div>
@@ -136,10 +142,41 @@ const todayInfo = getTodayOpeningHours();
             <h3 class="font-semibold text-gray-900 mb-1">Naše adresa</h3>
             <p class="text-gray-600 text-sm">Hlavní 123, Praha 1</p>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
+
+  {specialNotice && (
+    <section class="py-8 bg-linear-to-r from-amber-50 to-orange-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white rounded-xl shadow-md border-2 border-amber-300 p-6 md:p-8">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-amber-500 rounded-lg flex items-center justify-center shrink-0">
+                <Icon name="mdi:alert-circle" class="w-7 h-7 text-white" />
+              </div>
+              <div class="flex-1">
+                <h3 class="font-bold text-xl text-gray-900 mb-2 flex items-center gap-2">
+                  <span>Změna ordinační doby</span>
+                  <span class="text-sm font-normal text-amber-600 bg-amber-100 px-3 py-1 rounded-full">Dnes</span>
+                </h3>
+                <p class="text-gray-700 text-lg leading-relaxed">
+                  {specialNotice.message}
+                </p>
+                {specialNotice.hours && (
+                  <div class="mt-4 inline-flex items-center gap-2 text-amber-700 bg-amber-50 px-4 py-2 rounded-lg">
+                    <Icon name="mdi:clock-outline" class="w-5 h-5" />
+                    <span class="font-semibold">{specialNotice.hours}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- About Us Section -->
   <section id="o-nas" class="py-20 bg-gray-50">
@@ -173,6 +210,33 @@ const todayInfo = getTodayOpeningHours();
             <p class="text-gray-600">Prostředí navržené pro děti</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aktuality Section -->
+  <section id="aktuality" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Aktuality</h2>
+          <p class="text-lg text-gray-600">
+            Aktuální informace z naší ordinace
+          </p>
+        </div>
+        
+        {latestAktuality.length > 0 ? (
+          <div class="space-y-4">
+            {latestAktuality.map((aktualita) => (
+              <AktualitaCard aktualita={aktualita} />
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-12 bg-gray-50 rounded-xl">
+            <Icon name="mdi:newspaper-variant-outline" class="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <p class="text-gray-500">Momentálně nejsou k dispozici žádné aktuality</p>
+          </div>
+        )}
       </div>
     </div>
   </section>
