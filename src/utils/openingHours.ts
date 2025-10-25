@@ -12,11 +12,11 @@ export interface SpecialNotice {
 
 const openingHoursByDay: Record<number, string | null> = {
   0: null, // Sunday - closed
-  1: "8:00 - 16:00", // Monday
-  2: "8:00 - 16:00", // Tuesday
-  3: "8:00 - 16:00", // Wednesday
-  4: "8:00 - 16:00", // Thursday
-  5: "8:00 - 16:00", // Friday
+  1: "7:30 - 16:00", // Monday
+  2: "7:30 - 13:00", // Tuesday
+  3: "7:30 - 13:00", // Wednesday
+  4: "7:30 - 13:30", // Thursday
+  5: "7:30 - 12:00", // Friday
   6: null, // Saturday - closed
 };
 
