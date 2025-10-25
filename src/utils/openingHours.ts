@@ -22,7 +22,7 @@ const openingHoursByDay: Record<number, string | null> = {
 
 // This will be managed via GitHub/Netlify in the future
 const specialNotice: SpecialNotice = {
-  active: true,
+  active: false,
   date: "2025-10-25",
   message: "Dnes ordinujeme pouze do 14:00 z důvodu školení personálu",
   hours: "8:00 - 14:00",

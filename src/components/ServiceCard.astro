@@ -11,8 +11,11 @@ const { service } = Astro.props;
 const colors = colorClasses[service.color];
 ---
 
-<article class={`bg-white rounded-xl border-2 ${colors.border} ${colors.hoverBorder} hover:shadow-lg transition-all overflow-hidden`}>
-  <div class="p-6">
+<a 
+  href={`/sluzby/${service.slug}`}
+  class={`block bg-white rounded-xl border-2 ${colors.border} ${colors.hoverBorder} hover:shadow-lg transition-all overflow-hidden cursor-pointer`}
+>
+  <article class="p-6">
     <div class="flex items-start gap-4 mb-4">
       <div class={`w-14 h-14 ${colors.bg} rounded-lg flex items-center justify-center shrink-0`}>
         <Icon name={service.icon} class="w-7 h-7 text-white" />
@@ -27,26 +30,25 @@ const colors = colorClasses[service.color];
       </div>
     </div>
     
-    {service.duration && (
-      <div class="flex items-center gap-2 text-sm text-gray-500 mb-2">
-        <Icon name="mdi:clock-outline" class="w-4 h-4" />
-        <span>{service.duration}</span>
-      </div>
-    )}
+    <div class="space-y-2 mb-4">
+      {service.duration && (
+        <div class="flex items-center gap-2 text-sm text-gray-500">
+          <Icon name="mdi:clock-outline" class="w-4 h-4" />
+          <span>{service.duration}</span>
+        </div>
+      )}
+      
+      {service.price && (
+        <div class="flex items-center gap-2 text-sm text-gray-500">
+          <Icon name="mdi:currency-eur" class="w-4 h-4" />
+          <span>{service.price}</span>
+        </div>
+      )}
+    </div>
     
-    {service.price && (
-      <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
-        <Icon name="mdi:currency-eur" class="w-4 h-4" />
-        <span>{service.price}</span>
-      </div>
-    )}
-    
-    <a 
-      href={`/sluzby/${service.slug}`}
-      class={`inline-flex items-center gap-2 ${colors.text} hover:underline font-medium text-sm`}
-    >
+    <div class={`inline-flex items-center gap-2 ${colors.text} font-medium text-sm`}>
       Více informací
       <Icon name="mdi:arrow-right" class="w-4 h-4" />
-    </a>
-  </div>
-</article>
+    </div>
+  </article>
+</a>
