@@ -1,0 +1,37 @@
+---
+import { Icon } from 'astro-icon/components';
+import AktualitaCard from '../AktualitaCard.astro';
+import type { AktualitaItem } from '../../data/aktuality';
+
+interface Props {
+  aktuality: AktualitaItem[];
+}
+
+const { aktuality } = Astro.props;
+---
+
+<section id="aktuality" class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Aktuality</h2>
+        <p class="text-lg text-gray-600">
+          Aktuální informace z naší ordinace
+        </p>
+      </div>
+      
+      {aktuality.length > 0 ? (
+        <div class="space-y-4">
+          {aktuality.map((aktualita) => (
+            <AktualitaCard aktualita={aktualita} />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12 bg-gray-50 rounded-xl">
+          <Icon name="mdi:newspaper-variant-outline" class="w-16 h-16 text-gray-400 mx-auto mb-4" />
+          <p class="text-gray-500">Momentálně nejsou k dispozici žádné aktuality</p>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

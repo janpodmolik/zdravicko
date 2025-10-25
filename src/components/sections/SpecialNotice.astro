@@ -1,0 +1,39 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { SpecialNotice } from '../../utils/openingHours';
+
+interface Props {
+  notice: SpecialNotice;
+}
+
+const { notice } = Astro.props;
+---
+
+<section class="py-8 bg-linear-to-r from-amber-50 to-orange-50">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-white rounded-xl shadow-md border-2 border-amber-300 p-6 md:p-8">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-amber-500 rounded-lg flex items-center justify-center shrink-0">
+            <Icon name="mdi:alert-circle" class="w-7 h-7 text-white" />
+          </div>
+          <div class="flex-1">
+            <h3 class="font-bold text-xl text-gray-900 mb-2 flex items-center gap-2">
+              <span>Změna ordinační doby</span>
+              <span class="text-sm font-normal text-amber-600 bg-amber-100 px-3 py-1 rounded-full">Dnes</span>
+            </h3>
+            <p class="text-gray-700 text-lg leading-relaxed">
+              {notice.message}
+            </p>
+            {notice.hours && (
+              <div class="mt-4 inline-flex items-center gap-2 text-amber-700 bg-amber-50 px-4 py-2 rounded-lg">
+                <Icon name="mdi:clock-outline" class="w-5 h-5" />
+                <span class="font-semibold">{notice.hours}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

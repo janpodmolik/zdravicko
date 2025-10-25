@@ -1,0 +1,68 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<section id="kontakt" class="py-20 relative overflow-hidden">
+  <!-- Gradient Background -->
+  <div class="absolute inset-0 bg-linear-to-br from-blue-600 via-cyan-600 to-blue-700"></div>
+  
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl font-bold mb-12 text-center text-white">Kontaktujte nás</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="space-y-6 text-white">
+          <div>
+            <h3 class="font-semibold text-xl mb-4">Ordinace Zdravíčko</h3>
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <Icon name="mdi:map-marker" class="w-6 h-6 shrink-0 mt-1" />
+                <div>
+                  <p>Hlavní 123</p>
+                  <p>110 00 Praha 1</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <Icon name="mdi:phone" class="w-6 h-6 shrink-0" />
+                <a href="tel:+420123456789" class="hover:underline">+420 123 456 789</a>
+              </div>
+              <div class="flex items-center gap-3">
+                <Icon name="mdi:email" class="w-6 h-6 shrink-0" />
+                <a href="mailto:info@zdravicko.cz" class="hover:underline">info@zdravicko.cz</a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-2">Pro objednání</h4>
+            <p class="text-blue-100">Zavolejte nám nebo napište email. Rádi vám najdeme vhodný termín.</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-lg">
+          <h3 class="font-semibold text-xl mb-4 text-gray-900">Rychlý kontakt</h3>
+          <form class="space-y-4">
+            <input
+              type="text"
+              placeholder="Vaše jméno"
+              class="w-full px-4 py-3 rounded-lg bg-gray-50 border-2 border-gray-200 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <input
+              type="email"
+              placeholder="Váš email"
+              class="w-full px-4 py-3 rounded-lg bg-gray-50 border-2 border-gray-200 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <textarea
+              placeholder="Vaše zpráva"
+              rows="4"
+              class="w-full px-4 py-3 rounded-lg bg-gray-50 border-2 border-gray-200 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            ></textarea>
+            <button
+              type="submit"
+              class="w-full bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-md"
+            >
+              Odeslat zprávu
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

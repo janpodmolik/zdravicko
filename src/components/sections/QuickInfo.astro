@@ -1,0 +1,46 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { OpeningHoursInfo } from '../../utils/openingHours';
+
+interface Props {
+  todayInfo: OpeningHoursInfo;
+}
+
+const { todayInfo } = Astro.props;
+---
+
+<section class="py-12 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <a href="#ordinacni-hodiny" class:list={['flex gap-4 p-6 rounded-xl transition-all hover:shadow-md cursor-pointer', todayInfo.hours ? 'items-start bg-blue-50 hover:bg-blue-100' : 'items-center bg-blue-50 hover:bg-blue-100']}>
+        <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
+          <Icon name="mdi:clock-outline" class="w-6 h-6 text-white" />
+        </div>
+        <div>
+          <h3 class:list={['font-semibold text-gray-900', todayInfo.hours && 'mb-1']}>{todayInfo.title}</h3>
+          {todayInfo.hours && (
+            <p class="text-gray-600 text-sm">{todayInfo.hours}</p>
+          )}
+        </div>
+      </a>
+      <a href="tel:+420123456789" class="flex items-start gap-4 p-6 bg-cyan-50 rounded-xl transition-all hover:bg-cyan-100 hover:shadow-md cursor-pointer">
+        <div class="w-12 h-12 bg-cyan-600 rounded-lg flex items-center justify-center shrink-0">
+          <Icon name="mdi:phone" class="w-6 h-6 text-white" />
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-1">Telefonní kontakt</h3>
+          <p class="text-gray-600 text-sm">+420 123 456 789</p>
+        </div>
+      </a>
+      <a href="https://www.google.com/maps/search/?api=1&query=Hlavní+123,+Praha+1" target="_blank" rel="noopener noreferrer" class="flex items-start gap-4 p-6 bg-purple-50 rounded-xl transition-all hover:bg-purple-100 hover:shadow-md cursor-pointer">
+        <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center shrink-0">
+          <Icon name="mdi:map-marker" class="w-6 h-6 text-white" />
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-1">Naše adresa</h3>
+          <p class="text-gray-600 text-sm">Hlavní 123, Praha 1</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>

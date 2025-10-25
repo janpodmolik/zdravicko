@@ -1,408 +1,45 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Icon } from 'astro-icon/components';
+import Header from '../components/Header.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import Hero from '../components/sections/Hero.astro';
+import QuickInfo from '../components/sections/QuickInfo.astro';
+import SpecialNotice from '../components/sections/SpecialNotice.astro';
+import About from '../components/sections/About.astro';
+import Aktuality from '../components/sections/Aktuality.astro';
+import Services from '../components/sections/Services.astro';
+import OpeningHours from '../components/sections/OpeningHours.astro';
+import Contact from '../components/sections/Contact.astro';
+import Footer from '../components/Footer.astro';
+
 import { getTodayOpeningHours, getSpecialNotice } from '../utils/openingHours';
 import { getLatestAktuality } from '../data/aktuality';
-import AktualitaCard from '../components/AktualitaCard.astro';
 
 const todayInfo = getTodayOpeningHours();
 const specialNotice = getSpecialNotice();
-const latestAktuality = getLatestAktuality(3); // Show 3 latest aktuality items
+const latestAktuality = getLatestAktuality(3);
 ---
 
 <Layout title="Zdravíčko - Dětská ordinace | Kvalitní péče o vaše děti">
-  <!-- Header & Navigation -->
-  <header class="bg-white shadow-sm sticky top-0 z-50">
-    <nav class="container mx-auto px-4 py-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <div class="w-10 h-10 bg-linear-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
-            <span class="text-white text-xl font-bold">Z</span>
-          </div>
-          <span class="text-2xl font-bold text-gray-900">Zdravíčko</span>
-        </div>
-        
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex gap-6">
-          <a href="#o-nas" class="text-gray-600 hover:text-blue-600 transition-colors">O nás</a>
-          <a href="#aktuality" class="text-gray-600 hover:text-blue-600 transition-colors">Aktuality</a>
-          <a href="#sluzby" class="text-gray-600 hover:text-blue-600 transition-colors">Služby</a>
-          <a href="#ordinacni-hodiny" class="text-gray-600 hover:text-blue-600 transition-colors">Ordinační hodiny</a>
-          <a href="/cenik" class="text-gray-600 hover:text-blue-600 transition-colors">Ceník</a>
-          <a href="/blog" class="text-gray-600 hover:text-blue-600 transition-colors">Blog</a>
-          <a href="#kontakt" class="text-gray-600 hover:text-blue-600 transition-colors">Kontakt</a>
-        </div>
-        
-        <!-- Desktop CTA -->
-        <a href="tel:+420123456789" class="hidden md:block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-          Zavolat
-        </a>
-        
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-600 p-2" aria-label="Otevřít menu">
-          <Icon name="mdi:menu" class="w-6 h-6" />
-        </button>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Mobile Menu Overlay -->
-  <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 z-50 hidden md:hidden transition-opacity" aria-hidden="true"></div>
+  <Header activePage="home" />
+  <MobileMenu activePage="home" />
   
-  <!-- Mobile Menu Sidebar -->
-  <div id="mobile-menu" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
-    <div class="flex flex-col h-full">
-      <!-- Menu Header -->
-      <div class="flex items-center justify-between p-6 border-b border-gray-200">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 bg-linear-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
-            <span class="text-white text-lg font-bold">Z</span>
-          </div>
-          <span class="text-xl font-bold text-gray-900">Zdravíčko</span>
-        </div>
-        <button id="mobile-menu-close" class="text-gray-600 hover:text-blue-600 p-2" aria-label="Zavřít menu">
-          <Icon name="mdi:close" class="w-6 h-6" />
-        </button>
-      </div>
-      
-      <!-- Menu Items -->
-      <nav class="flex-1 overflow-y-auto p-6">
-        <div class="flex flex-col gap-2">
-          <a href="#o-nas" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">O nás</a>
-          <a href="#aktuality" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Aktuality</a>
-          <a href="#sluzby" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Služby</a>
-          <a href="#ordinacni-hodiny" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Ordinační hodiny</a>
-          <a href="/cenik" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Ceník</a>
-          <a href="/blog" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Blog</a>
-          <a href="#kontakt" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Kontakt</a>
-        </div>
-      </nav>
-      
-      <!-- Menu Footer -->
-      <div class="p-6 border-t border-gray-200">
-        <a href="tel:+420123456789" class="block bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 transition-colors text-center font-semibold">
-          <Icon name="mdi:phone" class="w-5 h-5 inline-block mr-2" />
-          Zavolat
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Hero Section -->
-  <section class="bg-linear-to-br from-blue-50 via-cyan-50 to-blue-100 py-20">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-          Péče o vaše děti s láskou a profesionalitou
-        </h1>
-        <p class="text-xl text-gray-600 mb-8">
-          Moderní dětská ordinace v srdci města. Poskytujeme komplexní zdravotní péči pro děti od narození.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="#o-nas" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-lg border-2 border-blue-600">
-            Více o nás
-          </a>
-          <a href="#kontakt" class="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg">
-            Kontakt
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Quick Info Cards -->
-  <section class="py-12 bg-white">
-    <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        <a href="#ordinacni-hodiny" class:list={['flex gap-4 p-6 bg-blue-50 rounded-xl transition-all hover:bg-blue-100 hover:shadow-md cursor-pointer', todayInfo.hours ? 'items-start' : 'items-center']}>
-          <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
-            <Icon name="mdi:clock-outline" class="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <h3 class:list={['font-semibold text-gray-900', todayInfo.hours && 'mb-1']}>{todayInfo.title}</h3>
-            {todayInfo.hours && (
-              <p class="text-gray-600 text-sm">{todayInfo.hours}</p>
-            )}
-          </div>
-        </a>
-        <a href="tel:+420123456789" class="flex items-start gap-4 p-6 bg-cyan-50 rounded-xl transition-all hover:bg-cyan-100 hover:shadow-md cursor-pointer">
-          <div class="w-12 h-12 bg-cyan-600 rounded-lg flex items-center justify-center shrink-0">
-            <Icon name="mdi:phone" class="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <h3 class="font-semibold text-gray-900 mb-1">Telefonní kontakt</h3>
-            <p class="text-gray-600 text-sm">+420 123 456 789</p>
-          </div>
-        </a>
-        <a href="https://www.google.com/maps/search/?api=1&query=Hlavní+123,+Praha+1" target="_blank" rel="noopener noreferrer" class="flex items-start gap-4 p-6 bg-purple-50 rounded-xl transition-all hover:bg-purple-100 hover:shadow-md cursor-pointer">
-          <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center shrink-0">
-            <Icon name="mdi:map-marker" class="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <h3 class="font-semibold text-gray-900 mb-1">Naše adresa</h3>
-            <p class="text-gray-600 text-sm">Hlavní 123, Praha 1</p>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  {specialNotice && (
-    <section class="py-8 bg-linear-to-r from-amber-50 to-orange-50">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-          <div class="bg-white rounded-xl shadow-md border-2 border-amber-300 p-6 md:p-8">
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-amber-500 rounded-lg flex items-center justify-center shrink-0">
-                <Icon name="mdi:alert-circle" class="w-7 h-7 text-white" />
-              </div>
-              <div class="flex-1">
-                <h3 class="font-bold text-xl text-gray-900 mb-2 flex items-center gap-2">
-                  <span>Změna ordinační doby</span>
-                  <span class="text-sm font-normal text-amber-600 bg-amber-100 px-3 py-1 rounded-full">Dnes</span>
-                </h3>
-                <p class="text-gray-700 text-lg leading-relaxed">
-                  {specialNotice.message}
-                </p>
-                {specialNotice.hours && (
-                  <div class="mt-4 inline-flex items-center gap-2 text-amber-700 bg-amber-50 px-4 py-2 rounded-lg">
-                    <Icon name="mdi:clock-outline" class="w-5 h-5" />
-                    <span class="font-semibold">{specialNotice.hours}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- About Us Section -->
-  <section id="o-nas" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-4xl font-bold text-gray-900 mb-6 text-center">O naší ordinaci</h2>
-        <p class="text-lg text-gray-600 mb-8 text-center">
-          Jsme tým zkušených lékařů a zdravotních sester, kteří se specializují na péči o děti.
-          Naší prioritou je poskytovat kvalitní a individuální přístup ke každému dítěti v příjemném prostředí.
-        </p>
-        <div class="grid md:grid-cols-3 gap-8 mt-12">
-          <div class="text-center">
-            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Icon name="mdi:doctor" class="w-8 h-8 text-white" />
-            </div>
-            <h3 class="font-semibold text-xl mb-2">Odborný tým</h3>
-            <p class="text-gray-600">Certifikovaní pediatři s mnohaletou praxí</p>
-          </div>
-          <div class="text-center">
-            <div class="w-16 h-16 bg-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Icon name="mdi:heart-pulse" class="w-8 h-8 text-white" />
-            </div>
-            <h3 class="font-semibold text-xl mb-2">Moderní vybavení</h3>
-            <p class="text-gray-600">Nejnovější diagnostická technika</p>
-          </div>
-          <div class="text-center">
-            <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Icon name="mdi:emoticon-happy" class="w-8 h-8 text-white" />
-            </div>
-            <h3 class="font-semibold text-xl mb-2">Dětsky přátelské</h3>
-            <p class="text-gray-600">Prostředí navržené pro děti</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Aktuality Section -->
-  <section id="aktuality" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-12">
-          <h2 class="text-4xl font-bold text-gray-900 mb-4">Aktuality</h2>
-          <p class="text-lg text-gray-600">
-            Aktuální informace z naší ordinace
-          </p>
-        </div>
-        
-        {latestAktuality.length > 0 ? (
-          <div class="space-y-4">
-            {latestAktuality.map((aktualita) => (
-              <AktualitaCard aktualita={aktualita} />
-            ))}
-          </div>
-        ) : (
-          <div class="text-center py-12 bg-gray-50 rounded-xl">
-            <Icon name="mdi:newspaper-variant-outline" class="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <p class="text-gray-500">Momentálně nejsou k dispozici žádné aktuality</p>
-          </div>
-        )}
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Section -->
-  <section id="sluzby" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-4xl font-bold text-gray-900 mb-4 text-center">Naše služby</h2>
-        <p class="text-lg text-gray-600 mb-12 text-center">
-          Poskytujeme kompletní péči pro vaše děti od narození
-        </p>
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="p-6 border-2 border-gray-200 rounded-xl hover:border-blue-400 transition-colors">
-            <Icon name="mdi:stethoscope" class="w-10 h-10 text-blue-600 mb-4" />
-            <h3 class="font-semibold text-xl mb-2">Preventivní prohlídky</h3>
-            <p class="text-gray-600">Pravidelné kontroly růstu a vývoje dítěte</p>
-          </div>
-          <div class="p-6 border-2 border-gray-200 rounded-xl hover:border-blue-400 transition-colors">
-            <Icon name="mdi:needle" class="w-10 h-10 text-cyan-600 mb-4" />
-            <h3 class="font-semibold text-xl mb-2">Očkování</h3>
-            <p class="text-gray-600">Kompletní vakcinační program dle kalendáře</p>
-          </div>
-          <div class="p-6 border-2 border-gray-200 rounded-xl hover:border-blue-400 transition-colors">
-            <Icon name="mdi:hospital-box" class="w-10 h-10 text-purple-600 mb-4" />
-            <h3 class="font-semibold text-xl mb-2">Akutní péče</h3>
-            <p class="text-gray-600">Ošetření běžných dětských onemocnění</p>
-          </div>
-          <div class="p-6 border-2 border-gray-200 rounded-xl hover:border-blue-400 transition-colors">
-            <Icon name="mdi:clipboard-text" class="w-10 h-10 text-pink-600 mb-4" />
-            <h3 class="font-semibold text-xl mb-2">Konzultace</h3>
-            <p class="text-gray-600">Poradenství v oblasti výživy a vývoje</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Opening Hours Section -->
-  <section id="ordinacni-hodiny" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center">Ordinační hodiny</h2>
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-          <div class="p-8">
-            <div class="space-y-4">
-              <div class="flex justify-between items-center py-3 border-b border-gray-200">
-                <span class="font-semibold text-gray-900">Pondělí</span>
-                <span class="text-gray-600">8:00 - 16:00</span>
-              </div>
-              <div class="flex justify-between items-center py-3 border-b border-gray-200">
-                <span class="font-semibold text-gray-900">Úterý</span>
-                <span class="text-gray-600">8:00 - 16:00</span>
-              </div>
-              <div class="flex justify-between items-center py-3 border-b border-gray-200">
-                <span class="font-semibold text-gray-900">Středa</span>
-                <span class="text-gray-600">8:00 - 16:00</span>
-              </div>
-              <div class="flex justify-between items-center py-3 border-b border-gray-200">
-                <span class="font-semibold text-gray-900">Čtvrtek</span>
-                <span class="text-gray-600">8:00 - 16:00</span>
-              </div>
-              <div class="flex justify-between items-center py-3 border-b border-gray-200">
-                <span class="font-semibold text-gray-900">Pátek</span>
-                <span class="text-gray-600">8:00 - 14:00</span>
-              </div>
-              <div class="flex justify-between items-center py-3">
-                <span class="font-semibold text-gray-900">Sobota - Neděle</span>
-                <span class="text-red-600 font-semibold">Zavřeno</span>
-              </div>
-            </div>
-            <div class="mt-8 p-4 bg-blue-50 rounded-lg">
-              <p class="text-sm text-gray-700">
-                <strong>Důležité:</strong> Na všechny vyšetření je nutné se objednat předem telefonicky nebo online.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="kontakt" class="py-20 bg-linear-to-br from-blue-600 to-cyan-600 text-white">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-4xl font-bold mb-12 text-center">Kontaktujte nás</h2>
-        <div class="grid md:grid-cols-2 gap-8">
-          <div class="space-y-6">
-            <div>
-              <h3 class="font-semibold text-xl mb-4">Ordinace Zdravíčko</h3>
-              <div class="space-y-3">
-                <div class="flex items-start gap-3">
-                  <Icon name="mdi:map-marker" class="w-6 h-6 shrink-0 mt-1" />
-                  <div>
-                    <p>Hlavní 123</p>
-                    <p>110 00 Praha 1</p>
-                  </div>
-                </div>
-                <div class="flex items-center gap-3">
-                  <Icon name="mdi:phone" class="w-6 h-6 shrink-0" />
-                  <a href="tel:+420123456789" class="hover:underline">+420 123 456 789</a>
-                </div>
-                <div class="flex items-center gap-3">
-                  <Icon name="mdi:email" class="w-6 h-6 shrink-0" />
-                  <a href="mailto:info@zdravicko.cz" class="hover:underline">info@zdravicko.cz</a>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h4 class="font-semibold mb-2">Pro objednání</h4>
-              <p class="text-blue-100">Zavolejte nám nebo napište email. Rádi vám najdeme vhodný termín.</p>
-            </div>
-          </div>
-          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-            <h3 class="font-semibold text-xl mb-4">Rychlý kontakt</h3>
-            <form class="space-y-4">
-              <input
-                type="text"
-                placeholder="Vaše jméno"
-                class="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50"
-              />
-              <input
-                type="email"
-                placeholder="Váš email"
-                class="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50"
-              />
-              <textarea
-                placeholder="Vaše zpráva"
-                rows="4"
-                class="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50"
-              ></textarea>
-              <button
-                type="submit"
-                class="w-full bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 transition-colors"
-              >
-                Odeslat zprávu
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-400 py-12">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="flex items-center justify-center gap-2 mb-4">
-          <div class="w-8 h-8 bg-linear-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
-            <span class="text-white text-lg font-bold">Z</span>
-          </div>
-          <span class="text-xl font-bold text-white">Zdravíčko</span>
-        </div>
-        <p class="mb-6">Dětská ordinace s láskou a profesionalitou</p>
-        <div class="border-t border-gray-800 pt-6">
-          <p class="text-sm">&copy; {new Date().getFullYear()} Zdravíčko. Všechna práva vyhrazena.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <Hero />
+  <QuickInfo todayInfo={todayInfo} />
+  
+  {specialNotice && <SpecialNotice notice={specialNotice} />}
+  
+  <About />
+  <Aktuality aktuality={latestAktuality} />
+  <Services />
+  <OpeningHours />
+  <Contact />
+  
+  <Footer />
 </Layout>
 
 <script>
-  // Mobile menu toggle with slide animation
+  // Mobile menu toggle
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenuClose = document.getElementById('mobile-menu-close');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -410,50 +47,26 @@ const latestAktuality = getLatestAktuality(3); // Show 3 latest aktuality items
   
   function openMenu() {
     if (mobileMenu && mobileMenuOverlay) {
-      // Show overlay
       mobileMenuOverlay.classList.remove('hidden');
-      // Trigger reflow for animation
-      mobileMenuOverlay.offsetHeight;
+      mobileMenuOverlay.offsetHeight; // Trigger reflow
       mobileMenuOverlay.classList.add('opacity-100');
-      
-      // Slide in menu
       mobileMenu.classList.remove('translate-x-full');
     }
   }
   
   function closeMenu() {
     if (mobileMenu && mobileMenuOverlay) {
-      // Slide out menu
       mobileMenu.classList.add('translate-x-full');
-      
-      // Hide overlay
       mobileMenuOverlay.classList.remove('opacity-100');
-      setTimeout(() => {
-        mobileMenuOverlay.classList.add('hidden');
-      }, 300); // Match transition duration
+      setTimeout(() => mobileMenuOverlay.classList.add('hidden'), 300);
     }
   }
   
-  // Open menu
-  if (mobileMenuButton) {
-    mobileMenuButton.addEventListener('click', openMenu);
-  }
+  mobileMenuButton?.addEventListener('click', openMenu);
+  mobileMenuClose?.addEventListener('click', closeMenu);
+  mobileMenuOverlay?.addEventListener('click', closeMenu);
   
-  // Close menu via close button
-  if (mobileMenuClose) {
-    mobileMenuClose.addEventListener('click', closeMenu);
-  }
-  
-  // Close menu via overlay
-  if (mobileMenuOverlay) {
-    mobileMenuOverlay.addEventListener('click', closeMenu);
-  }
-  
-  // Close menu when clicking on a link
-  if (mobileMenu) {
-    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-    mobileMenuLinks.forEach(link => {
-      link.addEventListener('click', closeMenu);
-    });
-  }
+  // Close menu when clicking a link
+  const menuLinks = document.querySelectorAll('#mobile-menu a');
+  menuLinks.forEach(link => link.addEventListener('click', closeMenu));
 </script>

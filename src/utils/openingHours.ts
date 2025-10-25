@@ -1,9 +1,9 @@
-interface OpeningHoursInfo {
+export interface OpeningHoursInfo {
   title: string;
   hours: string;
 }
 
-interface SpecialNotice {
+export interface SpecialNotice {
   active: boolean;
   date: string; // YYYY-MM-DD format
   message: string;

@@ -14,21 +14,33 @@ const categoryConfig = {
   info: {
     icon: 'mdi:information',
     color: 'blue',
+    bgColor: 'bg-blue-600',
+    textColor: 'text-blue-600',
+    bgLight: 'bg-blue-50',
     label: 'Informace'
   },
   health: {
     icon: 'mdi:medical-bag',
-    color: 'green',
+    color: 'cyan',
+    bgColor: 'bg-cyan-600',
+    textColor: 'text-cyan-600',
+    bgLight: 'bg-cyan-50',
     label: 'Zdraví'
   },
   announcement: {
     icon: 'mdi:bullhorn',
-    color: 'orange',
+    color: 'purple',
+    bgColor: 'bg-purple-600',
+    textColor: 'text-purple-600',
+    bgLight: 'bg-purple-50',
     label: 'Oznámení'
   },
   event: {
     icon: 'mdi:calendar-star',
-    color: 'purple',
+    color: 'pink',
+    bgColor: 'bg-pink-600',
+    textColor: 'text-pink-600',
+    bgLight: 'bg-pink-50',
     label: 'Akce'
   }
 };
@@ -38,12 +50,12 @@ const config = categoryConfig[aktualita.category];
 
 <article class="bg-white rounded-xl border-2 border-gray-200 p-6 hover:border-blue-400 hover:shadow-md transition-all">
   <div class="flex items-start gap-4">
-    <div class={`w-12 h-12 bg-${config.color}-600 rounded-lg flex items-center justify-center shrink-0`}>
+    <div class={`w-12 h-12 ${config.bgColor} rounded-lg flex items-center justify-center shrink-0`}>
       <Icon name={config.icon} class="w-6 h-6 text-white" />
     </div>
     <div class="flex-1">
       <div class="flex items-center gap-2 mb-2">
-        <span class={`text-xs font-medium text-${config.color}-600 bg-${config.color}-50 px-2 py-1 rounded`}>
+        <span class={`text-xs font-medium ${config.textColor} ${config.bgLight} px-2 py-1 rounded`}>
           {config.label}
         </span>
         {aktualita.important && (
