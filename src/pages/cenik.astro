@@ -1,0 +1,300 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<Layout title="Ceník služeb - Zdravíčko" description="Přehled cen služeb dětské ordinace Zdravíčko. Základní péče je hrazena z veřejného zdravotního pojištění.">
+  <!-- Header & Navigation -->
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <nav class="container mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-10 h-10 bg-linear-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
+            <span class="text-white text-xl font-bold">Z</span>
+          </div>
+          <span class="text-2xl font-bold text-gray-900">Zdravíčko</span>
+        </a>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex gap-6">
+          <a href="/#o-nas" class="text-gray-600 hover:text-blue-600 transition-colors">O nás</a>
+          <a href="/#sluzby" class="text-gray-600 hover:text-blue-600 transition-colors">Služby</a>
+          <a href="/#ordinacni-hodiny" class="text-gray-600 hover:text-blue-600 transition-colors">Ordinační hodiny</a>
+          <a href="/cenik" class="text-blue-600 font-semibold">Ceník</a>
+          <a href="/blog" class="text-gray-600 hover:text-blue-600 transition-colors">Blog</a>
+          <a href="/#kontakt" class="text-gray-600 hover:text-blue-600 transition-colors">Kontakt</a>
+        </div>
+        
+        <!-- Desktop CTA -->
+        <a href="tel:+420123456789" class="hidden md:block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+          Zavolat
+        </a>
+        
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-600 p-2" aria-label="Otevřít menu">
+          <Icon name="mdi:menu" class="w-6 h-6" />
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 z-50 hidden md:hidden transition-opacity" aria-hidden="true"></div>
+  
+  <!-- Mobile Menu Sidebar -->
+  <div id="mobile-menu" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+    <div class="flex flex-col h-full">
+      <!-- Menu Header -->
+      <div class="flex items-center justify-between p-6 border-b border-gray-200">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-linear-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
+            <span class="text-white text-lg font-bold">Z</span>
+          </div>
+          <span class="text-xl font-bold text-gray-900">Zdravíčko</span>
+        </div>
+        <button id="mobile-menu-close" class="text-gray-600 hover:text-blue-600 p-2" aria-label="Zavřít menu">
+          <Icon name="mdi:close" class="w-6 h-6" />
+        </button>
+      </div>
+      
+      <!-- Menu Items -->
+      <nav class="flex-1 overflow-y-auto p-6">
+        <div class="flex flex-col gap-2">
+          <a href="/#o-nas" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">O nás</a>
+          <a href="/#sluzby" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Služby</a>
+          <a href="/#ordinacni-hodiny" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Ordinační hodiny</a>
+          <a href="/cenik" class="text-blue-600 bg-blue-50 py-3 px-4 rounded-lg font-semibold">Ceník</a>
+          <a href="/blog" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Blog</a>
+          <a href="/#kontakt" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Kontakt</a>
+        </div>
+      </nav>
+      
+      <!-- Menu Footer -->
+      <div class="p-6 border-t border-gray-200">
+        <a href="tel:+420123456789" class="block bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 transition-colors text-center font-semibold">
+          <Icon name="mdi:phone" class="w-5 h-5 inline-block mr-2" />
+          Zavolat
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Header -->
+  <section class="bg-linear-to-br from-blue-50 via-cyan-50 to-blue-100 py-16">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-5xl font-bold text-gray-900 mb-4">
+          Ceník služeb
+        </h1>
+        <p class="text-xl text-gray-600">
+          Základní péče je hrazena z veřejného zdravotního pojištění
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Page - Main Content -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        
+        <!-- Services Covered by Insurance -->
+        <div class="mb-12">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+              <Icon name="mdi:check-circle" class="w-8 h-8 text-green-600" />
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900">Služby hrazené pojišťovnou</h2>
+          </div>
+          <div class="bg-green-50 rounded-2xl p-8">
+            <div class="space-y-4">
+              <div class="flex justify-between items-center py-4 border-b border-green-200">
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Preventivní prohlídky</h3>
+                  <p class="text-sm text-gray-600">Pravidelné kontroly vývoje dítěte dle doporučeného rozpisu</p>
+                </div>
+                <span class="font-semibold text-green-600 text-lg">Hrazeno</span>
+              </div>
+              <div class="flex justify-between items-center py-4 border-b border-green-200">
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Očkování (dle kalendáře)</h3>
+                  <p class="text-sm text-gray-600">Povinné i doporučené vakcíny podle očkovacího kalendáře</p>
+                </div>
+                <span class="font-semibold text-green-600 text-lg">Hrazeno</span>
+              </div>
+              <div class="flex justify-between items-center py-4 border-b border-green-200">
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Akutní vyšetření</h3>
+                  <p class="text-sm text-gray-600">Ošetření běžných dětských onemocnění a úrazů</p>
+                </div>
+                <span class="font-semibold text-green-600 text-lg">Hrazeno</span>
+              </div>
+              <div class="flex justify-between items-center py-4">
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Dispenzární péče</h3>
+                  <p class="text-sm text-gray-600">Dlouhodobá péče o děti s chronickými onemocněními</p>
+                </div>
+                <span class="font-semibold text-green-600 text-lg">Hrazeno</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Premium Services -->
+        <div class="mb-12">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+              <Icon name="mdi:star" class="w-8 h-8 text-blue-600" />
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900">Nadstandardní služby</h2>
+          </div>
+          <div class="bg-gray-50 rounded-2xl p-8">
+            <div class="space-y-4">
+              <div class="flex justify-between items-center py-4 border-b border-gray-200">
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Nadstandardní vyšetření</h3>
+                  <p class="text-sm text-gray-600">Speciální vyšetření mimo rámec pojištění</p>
+                </div>
+                <span class="font-semibold text-gray-900 text-lg">Od 500 Kč</span>
+              </div>
+              <div class="flex justify-between items-center py-4 border-b border-gray-200">
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Cestovní očkování</h3>
+                  <p class="text-sm text-gray-600">Vakcíny pro cesty do exotických destinací</p>
+                </div>
+                <span class="font-semibold text-gray-900 text-lg">Dle typu vakcíny</span>
+              </div>
+              <div class="flex justify-between items-center py-4 border-b border-gray-200">
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Lékařské potvrzení</h3>
+                  <p class="text-sm text-gray-600">Potvrzení pro školu, kroužky, tábory</p>
+                </div>
+                <span class="font-semibold text-gray-900 text-lg">200 Kč</span>
+              </div>
+              <div class="flex justify-between items-center py-4 border-b border-gray-200">
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Konzultace mimo ordinační hodiny</h3>
+                  <p class="text-sm text-gray-600">Konzultace po domluvě mimo standardní hodiny</p>
+                </div>
+                <span class="font-semibold text-gray-900 text-lg">800 Kč</span>
+              </div>
+              <div class="flex justify-between items-center py-4">
+                <div>
+                  <h3 class="font-semibold text-gray-900 mb-1">Online konzultace</h3>
+                  <p class="text-sm text-gray-600">Telefonická nebo video konzultace (30 min)</p>
+                </div>
+                <span class="font-semibold text-gray-900 text-lg">400 Kč</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Important Information -->
+        <div class="bg-blue-50 rounded-xl p-6">
+          <div class="flex items-start gap-4">
+            <Icon name="mdi:information" class="w-6 h-6 text-blue-600 shrink-0 mt-1" />
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-2">Důležité informace</h3>
+              <ul class="space-y-2 text-gray-700">
+                <li>• Všechny ceny zahrnují DPH</li>
+                <li>• Platba je možná v hotovosti nebo kartou</li>
+                <li>• Pro nadstandardní služby je nutná předchozí objednávka</li>
+                <li>• Některé služby mohou být částečně hrazeny z připojištění</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="mt-12 text-center">
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Máte dotazy k ceníku?</h3>
+          <p class="text-gray-600 mb-6">Rádi vám poskytneme podrobnější informace</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="tel:+420123456789" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center justify-center gap-2">
+              <Icon name="mdi:phone" class="w-5 h-5" />
+              Zavolat
+            </a>
+            <a href="/#kontakt" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors border-2 border-blue-600">
+              Napsat email
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-12">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="flex items-center justify-center gap-2 mb-4">
+          <div class="w-8 h-8 bg-linear-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
+            <span class="text-white text-lg font-bold">Z</span>
+          </div>
+          <span class="text-xl font-bold text-white">Zdravíčko</span>
+        </div>
+        <p class="mb-6">Dětská ordinace s láskou a profesionalitou</p>
+        <div class="border-t border-gray-800 pt-6">
+          <p class="text-sm">&copy; {new Date().getFullYear()} Zdravíčko. Všechna práva vyhrazena.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</Layout>
+
+<script>
+  // Mobile menu toggle with slide animation
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  
+  function openMenu() {
+    if (mobileMenu && mobileMenuOverlay) {
+      // Show overlay
+      mobileMenuOverlay.classList.remove('hidden');
+      // Trigger reflow for animation
+      mobileMenuOverlay.offsetHeight;
+      mobileMenuOverlay.classList.add('opacity-100');
+      
+      // Slide in menu
+      mobileMenu.classList.remove('translate-x-full');
+    }
+  }
+  
+  function closeMenu() {
+    if (mobileMenu && mobileMenuOverlay) {
+      // Slide out menu
+      mobileMenu.classList.add('translate-x-full');
+      
+      // Hide overlay
+      mobileMenuOverlay.classList.remove('opacity-100');
+      setTimeout(() => {
+        mobileMenuOverlay.classList.add('hidden');
+      }, 300); // Match transition duration
+    }
+  }
+  
+  // Open menu
+  if (mobileMenuButton) {
+    mobileMenuButton.addEventListener('click', openMenu);
+  }
+  
+  // Close menu via close button
+  if (mobileMenuClose) {
+    mobileMenuClose.addEventListener('click', closeMenu);
+  }
+  
+  // Close menu via overlay
+  if (mobileMenuOverlay) {
+    mobileMenuOverlay.addEventListener('click', closeMenu);
+  }
+  
+  // Close menu when clicking on a link
+  if (mobileMenu) {
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  }
+</script>

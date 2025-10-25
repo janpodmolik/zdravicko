@@ -1,0 +1,53 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  activePage?: 'home' | 'cenik' | 'blog';
+}
+
+const { activePage = 'home' } = Astro.props;
+
+const navItems = [
+  { href: '/#o-nas', label: 'O nás', homeOnly: true },
+  { href: '/#sluzby', label: 'Služby', homeOnly: true },
+  { href: '/#ordinacni-hodiny', label: 'Ordinační hodiny', homeOnly: true },
+  { href: '/cenik', label: 'Ceník', page: 'cenik' },
+  { href: '/blog', label: 'Blog', page: 'blog' },
+  { href: activePage === 'home' ? '#kontakt' : '/#kontakt', label: 'Kontakt', homeOnly: false }
+];
+---
+
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <nav class="container mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-10 h-10 bg-linear-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
+          <span class="text-white text-xl font-bold">Z</span>
+        </div>
+        <span class="text-2xl font-bold text-gray-900">Zdravíčko</span>
+      </a>
+      
+      <div class="hidden md:flex gap-6">
+        {navItems.map(item => (
+          <a 
+            href={item.href} 
+            class:list={[
+              'transition-colors',
+              item.page === activePage ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-blue-600'
+            ]}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+      
+      <a href="tel:+420123456789" class="hidden md:block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+        Zavolat
+      </a>
+      
+      <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-600 p-2" aria-label="Otevřít menu">
+        <Icon name="mdi:menu" class="w-6 h-6" />
+      </button>
+    </div>
+  </nav>
+</header>

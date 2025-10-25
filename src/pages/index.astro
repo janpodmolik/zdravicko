@@ -4,7 +4,7 @@ import { Icon } from 'astro-icon/components';
 ---
 
 <Layout title="Zdravíčko - Dětská ordinace | Kvalitní péče o vaše děti">
-  <!-- Header / Navigation -->
+  <!-- Header & Navigation -->
   <header class="bg-white shadow-sm sticky top-0 z-50">
     <nav class="container mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
@@ -14,19 +14,70 @@ import { Icon } from 'astro-icon/components';
           </div>
           <span class="text-2xl font-bold text-gray-900">Zdravíčko</span>
         </div>
+        
+        <!-- Desktop Menu -->
         <div class="hidden md:flex gap-6">
           <a href="#o-nas" class="text-gray-600 hover:text-blue-600 transition-colors">O nás</a>
           <a href="#sluzby" class="text-gray-600 hover:text-blue-600 transition-colors">Služby</a>
           <a href="#ordinacni-hodiny" class="text-gray-600 hover:text-blue-600 transition-colors">Ordinační hodiny</a>
-          <a href="#cenik" class="text-gray-600 hover:text-blue-600 transition-colors">Ceník</a>
+          <a href="/cenik" class="text-gray-600 hover:text-blue-600 transition-colors">Ceník</a>
+          <a href="/blog" class="text-gray-600 hover:text-blue-600 transition-colors">Blog</a>
           <a href="#kontakt" class="text-gray-600 hover:text-blue-600 transition-colors">Kontakt</a>
         </div>
+        
+        <!-- Desktop CTA -->
         <a href="tel:+420123456789" class="hidden md:block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
           Zavolat
         </a>
+        
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-600 p-2" aria-label="Otevřít menu">
+          <Icon name="mdi:menu" class="w-6 h-6" />
+        </button>
       </div>
     </nav>
   </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 z-50 hidden md:hidden transition-opacity" aria-hidden="true"></div>
+  
+  <!-- Mobile Menu Sidebar -->
+  <div id="mobile-menu" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+    <div class="flex flex-col h-full">
+      <!-- Menu Header -->
+      <div class="flex items-center justify-between p-6 border-b border-gray-200">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-linear-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
+            <span class="text-white text-lg font-bold">Z</span>
+          </div>
+          <span class="text-xl font-bold text-gray-900">Zdravíčko</span>
+        </div>
+        <button id="mobile-menu-close" class="text-gray-600 hover:text-blue-600 p-2" aria-label="Zavřít menu">
+          <Icon name="mdi:close" class="w-6 h-6" />
+        </button>
+      </div>
+      
+      <!-- Menu Items -->
+      <nav class="flex-1 overflow-y-auto p-6">
+        <div class="flex flex-col gap-2">
+          <a href="#o-nas" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">O nás</a>
+          <a href="#sluzby" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Služby</a>
+          <a href="#ordinacni-hodiny" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Ordinační hodiny</a>
+          <a href="/cenik" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Ceník</a>
+          <a href="/blog" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Blog</a>
+          <a href="#kontakt" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors py-3 px-4 rounded-lg font-medium">Kontakt</a>
+        </div>
+      </nav>
+      
+      <!-- Menu Footer -->
+      <div class="p-6 border-t border-gray-200">
+        <a href="tel:+420123456789" class="block bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 transition-colors text-center font-semibold">
+          <Icon name="mdi:phone" class="w-5 h-5 inline-block mr-2" />
+          Zavolat
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- Hero Section -->
   <section class="bg-linear-to-br from-blue-50 via-cyan-50 to-blue-100 py-20">
@@ -85,7 +136,7 @@ import { Icon } from 'astro-icon/components';
     </div>
   </section>
 
-  <!-- O nás -->
+  <!-- About Us Section -->
   <section id="o-nas" class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
@@ -121,7 +172,7 @@ import { Icon } from 'astro-icon/components';
     </div>
   </section>
 
-  <!-- Služby -->
+  <!-- Services Section -->
   <section id="sluzby" class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
@@ -155,7 +206,7 @@ import { Icon } from 'astro-icon/components';
     </div>
   </section>
 
-  <!-- Ordinační hodiny -->
+  <!-- Opening Hours Section -->
   <section id="ordinacni-hodiny" class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">
@@ -199,47 +250,7 @@ import { Icon } from 'astro-icon/components';
     </div>
   </section>
 
-  <!-- Ceník -->
-  <section id="cenik" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-4xl font-bold text-gray-900 mb-4 text-center">Ceník služeb</h2>
-        <p class="text-lg text-gray-600 mb-12 text-center">
-          Základní péče je hrazena z veřejného zdravotního pojištění
-        </p>
-        <div class="bg-gray-50 rounded-2xl p-8">
-          <div class="space-y-4">
-            <div class="flex justify-between items-center py-3 border-b border-gray-200">
-              <span class="text-gray-900">Preventivní prohlídka</span>
-              <span class="font-semibold text-green-600">Hrazeno pojišťovnou</span>
-            </div>
-            <div class="flex justify-between items-center py-3 border-b border-gray-200">
-              <span class="text-gray-900">Očkování (dle kalendáře)</span>
-              <span class="font-semibold text-green-600">Hrazeno pojišťovnou</span>
-            </div>
-            <div class="flex justify-between items-center py-3 border-b border-gray-200">
-              <span class="text-gray-900">Akutní vyšetření</span>
-              <span class="font-semibold text-green-600">Hrazeno pojišťovnou</span>
-            </div>
-            <div class="flex justify-between items-center py-3 border-b border-gray-200">
-              <span class="text-gray-900">Nadstandardní vyšetření</span>
-              <span class="font-semibold text-gray-900">Od 500 Kč</span>
-            </div>
-            <div class="flex justify-between items-center py-3 border-b border-gray-200">
-              <span class="text-gray-900">Cestovní očkování</span>
-              <span class="font-semibold text-gray-900">Dle typu vakcíny</span>
-            </div>
-            <div class="flex justify-between items-center py-3">
-              <span class="text-gray-900">Lékařské potvrzení</span>
-              <span class="font-semibold text-gray-900">200 Kč</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Kontakt -->
+  <!-- Contact Section -->
   <section id="kontakt" class="py-20 bg-linear-to-br from-blue-600 to-cyan-600 text-white">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
@@ -320,3 +331,60 @@ import { Icon } from 'astro-icon/components';
     </div>
   </footer>
 </Layout>
+
+<script>
+  // Mobile menu toggle with slide animation
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  
+  function openMenu() {
+    if (mobileMenu && mobileMenuOverlay) {
+      // Show overlay
+      mobileMenuOverlay.classList.remove('hidden');
+      // Trigger reflow for animation
+      mobileMenuOverlay.offsetHeight;
+      mobileMenuOverlay.classList.add('opacity-100');
+      
+      // Slide in menu
+      mobileMenu.classList.remove('translate-x-full');
+    }
+  }
+  
+  function closeMenu() {
+    if (mobileMenu && mobileMenuOverlay) {
+      // Slide out menu
+      mobileMenu.classList.add('translate-x-full');
+      
+      // Hide overlay
+      mobileMenuOverlay.classList.remove('opacity-100');
+      setTimeout(() => {
+        mobileMenuOverlay.classList.add('hidden');
+      }, 300); // Match transition duration
+    }
+  }
+  
+  // Open menu
+  if (mobileMenuButton) {
+    mobileMenuButton.addEventListener('click', openMenu);
+  }
+  
+  // Close menu via close button
+  if (mobileMenuClose) {
+    mobileMenuClose.addEventListener('click', closeMenu);
+  }
+  
+  // Close menu via overlay
+  if (mobileMenuOverlay) {
+    mobileMenuOverlay.addEventListener('click', closeMenu);
+  }
+  
+  // Close menu when clicking on a link
+  if (mobileMenu) {
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  }
+</script>
