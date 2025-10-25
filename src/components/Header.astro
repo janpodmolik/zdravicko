@@ -2,13 +2,13 @@
 import { Icon } from 'astro-icon/components';
 
 interface Props {
-  activePage?: 'home' | 'cenik' | 'blog' | 'sluzby';
+  activePage?: 'home' | 'cenik' | 'blog' | 'sluzby' | 'o-nas';
 }
 
 const { activePage = 'home' } = Astro.props;
 
 const navItems = [
-  { href: '/#o-nas', label: 'O nás', homeOnly: true },
+  { href: '/o-nas', label: 'O nás', page: 'o-nas' },
   { href: '/#aktuality', label: 'Aktuality', homeOnly: true },
   { href: '/sluzby', label: 'Služby', page: 'sluzby' },
   { href: '/#ordinacni-hodiny', label: 'Ordinační hodiny', homeOnly: true },

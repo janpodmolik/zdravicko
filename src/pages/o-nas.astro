@@ -1,0 +1,282 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import Footer from '../components/Footer.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { Icon } from 'astro-icon/components';
+
+type ColorName = 'blue' | 'cyan' | 'purple' | 'pink';
+
+interface TeamMember {
+  name: string;
+  role: string;
+  description: string;
+  icon: string;
+  color: ColorName;
+}
+
+const teamMembers: TeamMember[] = [
+  {
+    name: 'MUDr. Jana Podmolik',
+    role: 'Praktický lékař pro děti a dorost',
+    description: 'Specializace na preventivní péči a diagnostiku běžných dětských onemocnění. V oboru pracuje od roku 2015.',
+    icon: 'mdi:doctor',
+    color: 'blue'
+  },
+  {
+    name: 'MUDr. Petra Nováková',
+    role: 'Praktický lékař pro děti a dorost',
+    description: 'Zaměřuje se na alergologii a imunologii u dětí. Přináší dlouholeté zkušenosti z nemocniční praxe.',
+    icon: 'mdi:doctor',
+    color: 'cyan'
+  },
+  {
+    name: 'Jana Svobodová',
+    role: 'Zdravotní sestra',
+    description: 'Stará se o organizaci ordinace a přípravu pacientů na vyšetření. Má zkušenosti s ošetřovatelskou péčí.',
+    icon: 'mdi:account-heart',
+    color: 'purple'
+  },
+  {
+    name: 'Markéta Dvořáková',
+    role: 'Zdravotní sestra',
+    description: 'Specializuje se na preventivní prohlídky a očkování. Vytváří příjemné prostředí pro malé pacienty.',
+    icon: 'mdi:account-heart',
+    color: 'pink'
+  }
+];
+
+const colorClasses: Record<ColorName, { bg: string; text: string; bgLight: string }> = {
+  blue: {
+    bg: 'bg-blue-600',
+    text: 'text-blue-600',
+    bgLight: 'bg-blue-50'
+  },
+  cyan: {
+    bg: 'bg-cyan-600',
+    text: 'text-cyan-600',
+    bgLight: 'bg-cyan-50'
+  },
+  purple: {
+    bg: 'bg-purple-600',
+    text: 'text-purple-600',
+    bgLight: 'bg-purple-50'
+  },
+  pink: {
+    bg: 'bg-pink-600',
+    text: 'text-pink-600',
+    bgLight: 'bg-pink-50'
+  }
+};
+---
+
+<Layout title="O nás - Zdravíčko">
+  <Header activePage="o-nas" />
+  <MobileMenu activePage="o-nas" />
+  
+  <main>
+    <!-- Page Header -->
+    <PageHeader 
+      title="O naší ordinaci"
+      description="Poznejte náš tým a historii ordinace, která se stará o zdraví vašich dětí s láskou a profesionalitou"
+    />
+
+    <!-- Our Story -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="flex items-center gap-3 mb-6">
+            <Icon name="mdi:book-open-page-variant" class="w-8 h-8 text-blue-600" />
+            <h2 class="text-3xl font-bold text-gray-900">Naše historie</h2>
+          </div>
+          
+          <div class="prose prose-lg max-w-none text-gray-700 space-y-4">
+            <p>
+              Ordinace <strong>Zdravíčko</strong> byla založena v roce 2015 s vizí poskytovat kvalitní a moderní 
+              pediatrickou péči v Přerově a okolí. Od samého začátku jsme se zaměřili na individuální přístup 
+              ke každému malému pacientovi a vytvoření příjemného prostředí, kde se děti cítí bezpečně.
+            </p>
+            
+            <p>
+              Za posledních 10 let jsme se stali důvěryhodným partnerem pro stovky rodin. Naše ordinace 
+              prošla modernizací, vybavili jsme ji nejnovější diagnostickou technikou a neustále rozšiřujeme 
+              spektrum poskytovaných služeb.
+            </p>
+            
+            <p>
+              Jsme hrdí na to, že můžeme být součástí růstu vašich dětí – od prvních dnů života 
+              přes předškolní a školní léta až po dospívání. Naší prioritou je nejen léčit, ale především 
+              předcházet nemocem prostřednictvím pravidelné preventivní péče a osvěty.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <div class="flex items-center gap-3 mb-12 justify-center">
+            <Icon name="mdi:star" class="w-8 h-8 text-blue-600" />
+            <h2 class="text-3xl font-bold text-gray-900">Naše hodnoty</h2>
+          </div>
+          
+          <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
+                <Icon name="mdi:heart-pulse" class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="font-bold text-xl mb-3 text-gray-900">Profesionalita</h3>
+              <p class="text-gray-600">
+                Neustále se vzdělávame a sledujeme nejnovější trendy v pediatrii, 
+                abychom mohli poskytovat péči na nejvyšší úrovni.
+              </p>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div class="w-16 h-16 bg-cyan-600 rounded-full flex items-center justify-center mb-4">
+                <Icon name="mdi:heart" class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="font-bold text-xl mb-3 text-gray-900">Empatie</h3>
+              <p class="text-gray-600">
+                Každé dítě je pro nás jedinečné. Přistupujeme k němu s porozuměním, 
+                trpělivostí a laskavostí.
+              </p>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mb-4">
+                <Icon name="mdi:shield-check-outline" class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="font-bold text-xl mb-3 text-gray-900">Důvěryhodnost</h3>
+              <p class="text-gray-600">
+                Stavíme na otevřené komunikaci s rodiči a transparentním přístupu 
+                ke zdravotní péči jejich dětí.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+          <div class="flex items-center gap-3 mb-12 justify-center">
+            <Icon name="mdi:account-group" class="w-8 h-8 text-blue-600" />
+            <h2 class="text-3xl font-bold text-gray-900">Náš tým</h2>
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-8">
+            {teamMembers.map((member) => {
+              const colors = colorClasses[member.color];
+              return (
+                <div class={`${colors.bgLight} rounded-2xl p-8 border-2 border-gray-100 hover:border-${member.color}-200 transition-all`}>
+                  <div class="flex items-start gap-6">
+                    <div class={`${colors.bg} w-20 h-20 rounded-full flex items-center justify-center shrink-0`}>
+                      <Icon name={member.icon} class="w-10 h-10 text-white" />
+                    </div>
+                    <div class="flex-1">
+                      <h3 class="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
+                      <p class={`${colors.text} font-semibold text-sm mb-3`}>{member.role}</p>
+                      <p class="text-gray-700 leading-relaxed">{member.description}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-16 bg-linear-to-br from-blue-50 to-cyan-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="flex items-center gap-3 mb-12 justify-center">
+            <Icon name="mdi:thumb-up-outline" class="w-8 h-8 text-blue-600" />
+            <h2 class="text-3xl font-bold text-gray-900">Proč si vybrat nás?</h2>
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <div class="flex items-start gap-4">
+                <Icon name="mdi:clock-check-outline" class="w-6 h-6 text-blue-600 shrink-0 mt-1" />
+                <div>
+                  <h3 class="font-bold text-lg mb-2 text-gray-900">Flexibilní ordinační hodiny</h3>
+                  <p class="text-gray-600">Ordinujeme každý pracovní den, vždy se snažíme vyjít vstříc potřebám pracujících rodičů.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <div class="flex items-start gap-4">
+                <Icon name="mdi:calendar-check-outline" class="w-6 h-6 text-cyan-600 shrink-0 mt-1" />
+                <div>
+                  <h3 class="font-bold text-lg mb-2 text-gray-900">Online objednávání</h3>
+                  <p class="text-gray-600">Možnost sjednat si termín online nebo telefonicky bez zbytečného čekání.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <div class="flex items-start gap-4">
+                <Icon name="mdi:hospital-building" class="w-6 h-6 text-purple-600 shrink-0 mt-1" />
+                <div>
+                  <h3 class="font-bold text-lg mb-2 text-gray-900">Moderní ordinace</h3>
+                  <p class="text-gray-600">Čisté a příjemné prostředí s čekárnou plnou hraček a knih pro děti.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <div class="flex items-start gap-4">
+                <Icon name="mdi:phone-in-talk" class="w-6 h-6 text-pink-600 shrink-0 mt-1" />
+                <div>
+                  <h3 class="font-bold text-lg mb-2 text-gray-900">Dostupnost</h3>
+                  <p class="text-gray-600">V případě potřeby jsme vám k dispozici telefonicky i mimo ordinační hodiny.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-blue-600">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl font-bold text-white mb-4">
+            Staňte se součástí naší ordinace
+          </h2>
+          <p class="text-xl text-blue-100 mb-8">
+            Registrujte své dítě k nám a získejte přístup ke kvalitní pediatrické péči
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="tel:+420731232333"
+              class="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition-colors shadow-lg"
+            >
+              <Icon name="mdi:phone" class="w-5 h-5" />
+              Zavolat nám
+            </a>
+            <a 
+              href="#kontakt"
+              class="inline-flex items-center gap-2 px-8 py-4 bg-blue-700 text-white rounded-full font-semibold hover:bg-blue-800 transition-colors border-2 border-white/20"
+            >
+              <Icon name="mdi:email" class="w-5 h-5" />
+              Napsat e-mail
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
