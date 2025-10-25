@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 
 interface Props {
-  activePage?: 'home' | 'cenik' | 'blog';
+  activePage?: 'home' | 'cenik' | 'blog' | 'sluzby';
 }
 
 const { activePage = 'home' } = Astro.props;
@@ -10,7 +10,7 @@ const { activePage = 'home' } = Astro.props;
 const navItems = [
   { href: '/#o-nas', label: 'O nás', homeOnly: true },
   { href: '/#aktuality', label: 'Aktuality', homeOnly: true },
-  { href: '/#sluzby', label: 'Služby', homeOnly: true },
+  { href: '/sluzby', label: 'Služby', page: 'sluzby' },
   { href: '/#ordinacni-hodiny', label: 'Ordinační hodiny', homeOnly: true },
   { href: '/cenik', label: 'Ceník', page: 'cenik' },
   { href: '/blog', label: 'Blog', page: 'blog' },

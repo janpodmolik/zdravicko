@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Footer from '../components/Footer.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import { services } from '../data/services';
+import { Icon } from 'astro-icon/components';
+---
+
+<Layout 
+  title="Naše služby - Zdravíčko" 
+  description="Kompletní přehled našich služeb - preventivní prohlídky, očkování, akutní péče a další"
+>
+  <Header activePage="sluzby" />
+  <MobileMenu activePage="sluzby" />
+  
+  <main>
+    <PageHeader 
+      title="Naše služby"
+      description="Poskytujeme kompletní pediatrickou péči pro děti všech věkových kategorií. Od preventivních prohlídek až po akutní péči - vždy s individuálním přístupem."
+      badge={{ icon: 'mdi:medical-bag', text: 'Komplexní péče' }}
+    />
+
+    <!-- Services Grid -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service) => (
+              <ServiceCard service={service} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            Potřebujete poradit?
+          </h2>
+          <p class="text-lg text-gray-600 mb-8">
+            Nejste si jistí, kterou službu potřebujete? Rádi vám poradíme a pomůžeme vybrat tu správnou péči pro vaše dítě.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="tel:+420123456789"
+              class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              <Icon name="mdi:phone" class="w-5 h-5" />
+              Zavolejte nám
+            </a>
+            <a 
+              href="/#kontakt"
+              class="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-gray-400 hover:bg-gray-50 transition-colors"
+            >
+              <Icon name="mdi:email" class="w-5 h-5" />
+              Napište nám
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>

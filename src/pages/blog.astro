@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import MobileMenu from '../components/MobileMenu.astro';
+import PageHeader from '../components/PageHeader.astro';
 import BlogCard from '../components/BlogCard.astro';
 import Footer from '../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
@@ -12,19 +13,10 @@ import { blogPosts } from '../data/blogPosts';
   <Header activePage="blog" />
   <MobileMenu activePage="blog" />
 
-  <!-- Page Header -->
-  <section class="bg-linear-to-br from-blue-50 via-cyan-50 to-blue-100 py-16">
-    <div class="container mx-auto px-4">
-      <div class="max-w-3xl mx-auto text-center">
-        <h1 class="text-5xl font-bold text-gray-900 mb-4">
-          Blog
-        </h1>
-        <p class="text-xl text-gray-600">
-          Odborné články a rady pro rodiče od našeho týmu
-        </p>
-      </div>
-    </div>
-  </section>
+  <PageHeader 
+    title="Blog"
+    description="Odborné články a rady pro rodiče od našeho týmu"
+  />
 
 
   <section class="py-16 bg-white">
