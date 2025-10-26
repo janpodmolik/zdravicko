@@ -10,12 +10,14 @@ export type PageId =
   | "o-nas"
   | "aktuality"
   | "ordinacni-hodiny"
-  | "kontakt";
+  | "kontakt"
+  | "kojeni";
 
 export interface NavItem {
   href: string;
   label: string;
   page: PageId;
+  color?: "blue" | "pink"; // Default blue if not specified
 }
 
 export const navItems: NavItem[] = [
@@ -23,6 +25,7 @@ export const navItems: NavItem[] = [
   { href: "/o-nas", label: "O nás", page: "o-nas" },
   { href: "/aktuality", label: "Aktuality", page: "aktuality" },
   { href: "/sluzby", label: "Služby", page: "sluzby" },
+  { href: "/kojeni", label: "Kojení", page: "kojeni", color: "pink" },
   {
     href: "/ordinacni-hodiny",
     label: "Ordinační hodiny",

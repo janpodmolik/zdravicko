@@ -10,15 +10,20 @@ interface Props {
   icon?: string;
   title?: string;
   items: string[];
-  variant?: 'blue' | 'amber' | 'green';
+  variant?: 'blue' | 'amber' | 'green' | 'pink';
+  color?: 'blue' | 'amber' | 'green' | 'pink'; // Alias for variant
 }
 
 const {
   icon = 'mdi:information',
   title = 'Důležité informace:',
   items,
-  variant = 'blue'
+  variant,
+  color
 } = Astro.props;
+
+// Use color prop if provided, otherwise use variant, default to blue
+const selectedVariant = color || variant || 'blue';
 
 const variantClasses = {
   blue: {
@@ -35,10 +40,15 @@ const variantClasses = {
     bg: 'bg-green-50',
     border: 'border-green-100',
     icon: 'text-green-600'
+  },
+  pink: {
+    bg: 'bg-pink-50',
+    border: 'border-pink-100',
+    icon: 'text-pink-600'
   }
 };
 
-const colors = variantClasses[variant];
+const colors = variantClasses[selectedVariant];
 ---
 
 <div class:list={['p-6 rounded-xl border-2', colors.bg, colors.border]}>

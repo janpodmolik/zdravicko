@@ -8,6 +8,17 @@ interface Props {
 }
 
 const { activePage = 'home' } = Astro.props;
+
+const colorStyles = {
+  blue: {
+    active: 'text-blue-600 bg-blue-50 font-semibold',
+    inactive: 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+  },
+  pink: {
+    active: 'text-pink-600 bg-pink-50 font-semibold',
+    inactive: 'text-pink-600 hover:text-pink-700 hover:bg-pink-50'
+  }
+} as const;
 ---
 
 <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 z-50 hidden md:hidden transition-opacity" aria-hidden="true"></div>
@@ -28,19 +39,23 @@ const { activePage = 'home' } = Astro.props;
 
     <nav class="flex-1 overflow-y-auto p-6">
       <div class="flex flex-col gap-2">
-        {navItems.map(item => (
-          <a
-            href={item.href}
-            class:list={[
-              'transition-colors py-3 px-4 rounded-lg font-medium',
-              item.page === activePage
-                ? 'text-blue-600 bg-blue-50 font-semibold'
-                : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
-            ]}
-          >
-            {item.label}
-          </a>
-        ))}
+        {navItems.map(item => {
+          const color = item.color || 'blue';
+          const isActive = item.page === activePage;
+          const styles = colorStyles[color];
+
+          return (
+            <a
+              href={item.href}
+              class:list={[
+                'transition-colors py-3 px-4 rounded-lg font-medium',
+                isActive ? styles.active : styles.inactive
+              ]}
+            >
+              {item.label}
+            </a>
+          );
+        })}
       </div>
     </nav>
 

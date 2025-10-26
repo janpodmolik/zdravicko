@@ -21,8 +21,15 @@ const todayInfo = getTodayOpeningHours();
 const latestNews = (await getPublishedNews()).slice(0, 3);
 const latestBlogPosts = (await getPublishedBlogPosts()).slice(0, 3);
 
-// Prioritní služby (top 3)
+// Prioritní služby (top 4)
 const priorityServices = [
+  {
+    icon: 'mdi:mother-nurse',
+    title: 'Laktační poradenství',
+    description: 'Profesionální podpora a pomoc při kojení',
+    href: '/kojeni',
+    color: 'pink' as const
+  },
   {
     icon: 'mdi:stethoscope',
     title: 'Preventivní prohlídky',

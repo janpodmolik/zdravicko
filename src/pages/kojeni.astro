@@ -1,0 +1,365 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/common/Header.astro';
+import MobileMenu from '../components/common/MobileMenu.astro';
+import Footer from '../components/common/Footer.astro';
+import CTAButtons from '../components/common/CTAButtons.astro';
+import ValueCard from '../components/cards/ValueCard.astro';
+import FeatureCard from '../components/cards/FeatureCard.astro';
+import InfoBox from '../components/common/InfoBox.astro';
+import { Icon } from 'astro-icon/components';
+
+// TypeScript interfaces pro čistotu kódu
+interface Benefit {
+  icon: string;
+  title: string;
+  description: string;
+  bgColor: string;
+}
+
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
+  iconColor: string;
+}
+
+interface PageSection {
+  title: string;
+  description: string;
+}
+
+// Konstanty
+const PAGE_SECTIONS: Record<string, PageSection> = {
+  benefits: {
+    title: 'Proč je kojení tak důležité?',
+    description: 'Mateřské mléko je přesně to, co příroda navrhla jako ideální výživu pro lidské miminko'
+  },
+  advisors: {
+    title: 'Naši laktační poradci',
+    description: 'Všichni naši lékaři prošli specializovaným školením v laktačním poradenství'
+  },
+  help: {
+    title: 'S čím vám pomůžeme?',
+    description: 'Řešíme jakékoliv potíže s kojením - od technických problémů až po emoční podporu'
+  }
+} as const;
+
+// Data pro benefity kojení
+const benefits: Benefit[] = [
+  {
+    icon: 'mdi:food-apple',
+    title: 'Ideální výživa',
+    description: 'Mateřské mléko obsahuje přesně to, co vaše dítě v daném věku potřebuje. Jeho složení se mění podle potřeb rostoucího miminka.',
+    bgColor: 'bg-pink-600'
+  },
+  {
+    icon: 'mdi:shield-check',
+    title: 'Posílení imunity',
+    description: 'Kojení přenáší na dítě protilátky a pomáhá budovat silný imunitní systém, který chrání před infekcemi a nemocemi.',
+    bgColor: 'bg-rose-600'
+  },
+  {
+    icon: 'mdi:heart-pulse',
+    title: 'Prevence nemocí',
+    description: 'Kojené děti mají nižší riziko obezity, diabetu, astmatu, alergií a některých typů rakoviny v pozdějším věku.',
+    bgColor: 'bg-pink-700'
+  },
+  {
+    icon: 'mdi:emoticon-happy',
+    title: 'Emoční pouto',
+    description: 'Kojení podporuje vznik hlubokého citového pouta mezi matkou a dítětem, což je důležité pro zdravý psychický vývoj.',
+    bgColor: 'bg-fuchsia-600'
+  },
+  {
+    icon: 'mdi:brain',
+    title: 'Vývoj mozku',
+    description: 'Látky obsažené v mateřském mléce podporují vývoj mozku a kognitivních funkcí, což se projevuje i v dospělosti.',
+    bgColor: 'bg-pink-600'
+  },
+  {
+    icon: 'mdi:cash',
+    title: 'Ekonomické',
+    description: 'Kojení je zdarma, dostupné kdykoliv a kdekoliv, bez nutnosti přípravy, ohřívání nebo sterilizace.',
+    bgColor: 'bg-rose-600'
+  }
+];
+
+// Data pro funkce laktační poradny
+const features: Feature[] = [
+  {
+    icon: 'mdi:school',
+    title: 'Školení laktační poradci',
+    description: 'Všichni naši lékaři jsou proškoleni v laktačním poradenství a mají certifikaci od uznávaných institucí.',
+    iconColor: 'text-pink-600'
+  },
+  {
+    icon: 'mdi:account-supervisor',
+    title: 'Individuální konzultace',
+    description: 'Nabízíme osobní konzultace přímo v ordinaci i online, kde řešíme vaše konkrétní problémy s kojením.',
+    iconColor: 'text-rose-600'
+  },
+  {
+    icon: 'mdi:phone',
+    title: 'Poradna kdykoliv',
+    description: 'Pro naše maminky máme dostupnou telefonickou laktační poradnu, kde můžete získat radu i mimo ordinační hodiny.',
+    iconColor: 'text-fuchsia-600'
+  },
+  {
+    icon: 'mdi:baby-face',
+    title: 'Od prvních dní',
+    description: 'Pomáháme již od narození - jak s prvním přiložením, tak později s řešením jakýchkoliv komplikací.',
+    iconColor: 'text-pink-600'
+  },
+  {
+    icon: 'mdi:book-open',
+    title: 'Edukace a materiály',
+    description: 'Poskytujeme kvalitní edukační materiály, návody a tipy založené na aktuálních vědeckých poznatcích.',
+    iconColor: 'text-rose-600'
+  },
+  {
+    icon: 'mdi:weight',
+    title: 'Sledování prospívání',
+    description: 'Pravidelně kontrolujeme hmotnostní přírůstky a vývoj miminka, abychom zajistili správný průběh kojení.',
+    iconColor: 'text-fuchsia-600'
+  }
+];
+
+// Běžné problémy s kojením
+const commonIssues: string[] = [
+  'Problémy s přisátím a technikou kojení',
+  'Bolestivé bradavky a ragády',
+  'Nedostatečná nebo nadměrná tvorba mléka',
+  'Ucpané mléčné kanálky a zánět prsu',
+  'Návrat do zaměstnání a odlučování',
+  'Kojení dvojčat nebo nemocného dítěte',
+  'Kombinované krmení (kojení + umělá výživa)',
+  'Ukončování kojení v přirozeném tempu'
+];
+
+// Důležité informace
+const infoItems: string[] = [
+  'Kojení je přirozený proces, ale vyžaduje trpělivost a podporu',
+  'WHO doporučuje výhradní kojení po dobu 6 měsíců',
+  'Kojení lze úspěšně kombinovat s pracovní kariérou',
+  'Každá kapka mateřského mléka má velkou hodnotu'
+];
+
+// SEO metadata
+const SEO = {
+  title: 'Kojení a laktační poradenství - Zdravíčko',
+  description: 'Odborná podpora při kojení od certifikovaných laktačních poradců. Pomůžeme vám s kojením od prvních dní až po přirozené ukončení.'
+} as const;
+---
+
+<Layout title={SEO.title} description={SEO.description}>
+  <Header activePage="kojeni" />
+  <MobileMenu activePage="kojeni" />
+
+  <!-- Custom růžový page header -->
+  <section class="pt-12 pb-6 md:pt-16 md:pb-12 bg-linear-to-br from-pink-50 via-rose-50 to-pink-100">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-5">
+          <Icon name="mdi:heart" class="w-5 h-5" />
+          <span>Laktační poradenství</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mb-5">
+          Kojení
+        </h1>
+        <p class="text-base md:text-xl text-gray-600 leading-relaxed">
+          Nejlepší start do života vašeho miminka
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero sekce s důležitými informacemi -->
+  <section class="py-16 md:py-24 bg-linear-to-br from-pink-50 via-rose-50 to-pink-100">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 bg-pink-100 text-pink-800 px-6 py-3 rounded-full mb-8 font-semibold">
+          <Icon name="mdi:star" class="w-5 h-5" />
+          Certifikovaní laktační poradci
+        </div>
+
+        <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+          Kojení není jen výživa.<br class="hidden md:inline" />
+          Je to láska, která se dá změřit.
+        </h2>
+
+        <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+          V dnešní uspěchané době se na kojení často zapomíná nebo je považováno za něco "zastaralého".
+          Přitom je to <strong class="text-pink-700">nejcennější dar</strong>, který můžete svému dítěti dát.
+          Naši lékaři jsou všichni <strong class="text-pink-700">proškolení laktační poradci</strong> a
+          pomohou vám s kojením od prvního přiložení až po přirozené ukončení.
+        </p>
+
+        <a
+          href="/kontakt"
+          class="inline-flex items-center gap-2 bg-linear-to-r from-pink-600 to-rose-600 text-white px-8 py-4 rounded-xl hover:from-pink-700 hover:to-rose-700 transition-all shadow-lg hover:shadow-xl font-semibold text-lg"
+        >
+          <Icon name="mdi:calendar-check" class="w-6 h-6" />
+          Objednat konzultaci
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proč je kojení důležité -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{PAGE_SECTIONS.benefits.title}</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">{PAGE_SECTIONS.benefits.description}</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {benefits.map(benefit => (
+          <ValueCard
+            icon={benefit.icon}
+            title={benefit.title}
+            description={benefit.description}
+            bgColor={benefit.bgColor}
+          />
+        ))}
+      </div>
+
+      <div class="mt-12 max-w-3xl mx-auto">
+        <div class="bg-linear-to-br from-pink-100 to-rose-100 rounded-2xl p-8 border-2 border-pink-200">
+          <div class="flex items-start gap-4">
+            <div class="shrink-0">
+              <div class="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center">
+                <Icon name="mdi:alert-circle" class="w-6 h-6 text-white" />
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 mb-3">Na kojení se bohužel často zapomíná</h3>
+              <p class="text-gray-700 leading-relaxed">
+                V moderní společnosti je kojení někdy považováno za nepohodlné, zastaralé nebo nepraktické.
+                Často čelí negativním reakcím v veřejném prostoru. My věříme, že každá maminka má právo kojit
+                a že kojení je nejpřirozenější a nejzdravější způsob výživy pro miminka. Proto aktivně
+                <strong>podporujeme a propagujeme kojení</strong> a pomáháme maminkám překonat jakékoliv překážky.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Naši laktační poradci -->
+  <section id="nasi-poradci" class="py-16 md:py-20 bg-linear-to-br from-pink-50 to-rose-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{PAGE_SECTIONS.advisors.title}</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">{PAGE_SECTIONS.advisors.description}</p>
+      </div>
+
+      <div class="max-w-3xl mx-auto mb-12">
+        <div class="bg-white rounded-2xl shadow-xl p-8 border-2 border-pink-200">
+          <div class="flex flex-col md:flex-row items-center gap-6">
+            <div class="shrink-0">
+              <div class="w-24 h-24 bg-linear-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center">
+                <Icon name="mdi:certificate" class="w-12 h-12 text-white" />
+              </div>
+            </div>
+            <div class="flex-1 text-center md:text-left">
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">Certifikace a odbornost</h3>
+              <p class="text-gray-700 leading-relaxed">
+                <strong class="text-pink-700">MUDr. Jana Šlechtová</strong> a celý náš tým absolvovali
+                akreditované školení laktačního poradenství. Pravidelně se účastníme konferencí a
+                vzdělávacích akcí, abychom vám mohli poskytovat nejnovější a ověřené informace založené
+                na vědeckých poznatcích a mezinárodních doporučeních (WHO, UNICEF, La Leche League).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {features.map(feature => (
+          <FeatureCard
+            icon={feature.icon}
+            title={feature.title}
+            description={feature.description}
+            iconColor={feature.iconColor}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S čím pomůžeme -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{PAGE_SECTIONS.help.title}</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">{PAGE_SECTIONS.help.description}</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-12">
+          {commonIssues.map(issue => (
+            <div class="flex items-start gap-4 bg-pink-50 p-6 rounded-xl border border-pink-200 hover:bg-pink-100 transition-colors">
+              <div class="shrink-0 mt-1">
+                <Icon name="mdi:check-circle" class="w-6 h-6 text-pink-600" />
+              </div>
+              <p class="text-gray-800 font-medium">{issue}</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="bg-linear-to-r from-pink-600 to-rose-600 rounded-2xl p-8 md:p-12 text-white text-center shadow-xl">
+          <Icon name="mdi:heart" class="w-16 h-16 mx-auto mb-6 opacity-90" />
+          <h3 class="text-2xl md:text-3xl font-bold mb-4">
+            Nejste v tom samy!
+          </h3>
+          <p class="text-lg md:text-xl mb-8 opacity-95 max-w-2xl mx-auto">
+            Mnoho maminek má na začátku s kojením potíže. Je to naprosto normální a řešitelné.
+            Jsme tu, abychom vám pomohli a podpořili vás na této krásné cestě.
+          </p>
+          <a
+            href="/kontakt"
+            class="inline-flex items-center gap-2 bg-white text-pink-700 px-8 py-4 rounded-xl hover:bg-pink-50 transition-colors font-semibold text-lg shadow-lg"
+          >
+            <Icon name="mdi:phone" class="w-6 h-6" />
+            Kontaktujte nás
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Důležité informace -->
+  <section class="py-0 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <InfoBox
+          title="Důležité informace o kojení"
+          items={infoItems}
+          icon="mdi:information-outline"
+          color="pink"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA sekce -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+          Potřebujete pomoc s kojením?
+        </h2>
+        <p class="text-xl text-gray-700 mb-10">
+          Neváhejte nás kontaktovat. Rádi vám pomůžeme osobně v ordinaci,
+          telefonicky nebo online.
+        </p>
+        <CTAButtons />
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
