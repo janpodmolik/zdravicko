@@ -35,7 +35,7 @@ const cardStyle = colorStyles[news.data.color] || colorStyles.blue;
 const iconStyle = iconBgStyles[news.data.color] || iconBgStyles.blue;
 ---
 
-<article class={`rounded-xl border-2 ${cardStyle} p-5 transition-all shadow-sm hover:shadow-md`}>
+<article id={`news-${news.id}`} class={`rounded-xl border-2 ${cardStyle} p-5 transition-all shadow-sm hover:shadow-md scroll-mt-24`}>
   <div class="flex items-start gap-4">
     <!-- Ikona -->
     <div class={`w-11 h-11 ${iconStyle} rounded-lg flex items-center justify-center shrink-0 shadow-sm`}>

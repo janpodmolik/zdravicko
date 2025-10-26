@@ -1,0 +1,124 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import MobileMenu from '../../components/MobileMenu.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Footer from '../../components/Footer.astro';
+import { Icon } from 'astro-icon/components';
+import type { BlogCardData } from '../../components/BlogCard.astro';
+import { getPublishedBlogPosts, blogEntryToCardData } from '../../utils/contentHelpers';
+import { contactInfo } from '../../data/contact';
+import type { Page } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths({ paginate }: any) {
+  const allPosts = await getPublishedBlogPosts();
+  // 9 příspěvků na stránku (3x3 grid)
+  return paginate(allPosts, { pageSize: 9 });
+}
+
+type Props = {
+  page: Page<CollectionEntry<'blog'>>;
+};
+
+const { page } = Astro.props;
+
+// Transformovat příspěvky pro BlogCard
+const posts = page.data.map((entry, index) => 
+  blogEntryToCardData(entry, (page.currentPage - 1) * page.size + index + 1)
+);
+---
+
+<Layout title="Blog - Zdravíčko" description="Odborné články a rady pro rodiče od MUDr. Jany Novákové. Zdraví dětí, prevence, výživa a mnoho dalšího.">
+  <Header activePage="blog" />
+  <MobileMenu activePage="blog" />
+
+  <PageHeader 
+    title="Blog"
+    description="Odborné články a rady pro rodiče od našeho týmu"
+  />
+
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        {page.data.length > 0 ? (
+          <>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {posts.map((post: BlogCardData) => <BlogCard {...post} />)}
+            </div>
+
+            <!-- Pagination -->
+            {(page.lastPage > 1) && (
+              <nav class="mt-12 flex items-center justify-center gap-2" aria-label="Stránkování">
+                {page.url.prev && (
+                  <a 
+                    href={page.url.prev}
+                    class="px-4 py-2 bg-white border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium flex items-center gap-2"
+                  >
+                    <Icon name="mdi:chevron-left" class="w-5 h-5" />
+                    Předchozí
+                  </a>
+                )}
+                
+                <div class="flex items-center gap-2">
+                  {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((pageNum) => (
+                    <a
+                      href={pageNum === 1 ? '/blog' : `/blog/${pageNum}`}
+                      class:list={[
+                        'w-10 h-10 flex items-center justify-center rounded-lg font-medium transition-colors',
+                        pageNum === page.currentPage
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                      ]}
+                      aria-current={pageNum === page.currentPage ? 'page' : undefined}
+                    >
+                      {pageNum}
+                    </a>
+                  ))}
+                </div>
+
+                {page.url.next && (
+                  <a 
+                    href={page.url.next}
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center gap-2"
+                  >
+                    Další
+                    <Icon name="mdi:chevron-right" class="w-5 h-5" />
+                  </a>
+                )}
+              </nav>
+            )}
+          </>
+        ) : (
+          <div class="text-center py-12 bg-gray-50 rounded-xl">
+            <Icon name="mdi:post-outline" class="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <p class="text-gray-500">Momentálně nejsou k dispozici žádné příspěvky</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Máte dotaz?</h2>
+        <p class="text-lg text-gray-600 mb-6">
+          Pokud máte konkrétní otázku ohledně zdraví vašeho dítěte, neváhejte nás kontaktovat.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href={`tel:${contactInfo.phones.doctor.number}`} class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center justify-center gap-2">
+            <Icon name="mdi:phone" class="w-5 h-5" />
+            Zavolat
+          </a>
+          <a href="/kontakt" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors border-2 border-blue-600">
+            Napsat email
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

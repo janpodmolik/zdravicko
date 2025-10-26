@@ -28,42 +28,42 @@ const colors = colorClasses[service.color];
   
   <main>
     <!-- Hero Section -->
-    <section class={`pt-32 pb-16 bg-linear-to-br ${colors.gradient}`}>
+    <section class={`pt-4 pb-8 md:pt-8 md:pb-14 bg-linear-to-br ${colors.gradient}`}>
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <a 
             href="/sluzby"
-            class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 font-medium"
+            class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8 md:mb-10 font-medium"
           >
             <Icon name="mdi:arrow-left" class="w-5 h-5" />
             Zpět na všechny služby
           </a>
           
-          <div class="flex items-start gap-6 mb-8">
-            <div class={`w-20 h-20 ${colors.bg} rounded-2xl flex items-center justify-center shrink-0`}>
-              <Icon name={service.icon} class="w-10 h-10 text-white" />
+          <div class="flex items-start gap-3 md:gap-6 mb-5 md:mb-8">
+            <div class={`w-14 h-14 md:w-20 md:h-20 ${colors.bg} rounded-2xl flex items-center justify-center shrink-0`}>
+              <Icon name={service.icon} class="w-7 h-7 md:w-10 md:h-10 text-white" />
             </div>
             <div class="flex-1">
-              <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 md:mb-4">
                 {service.title}
               </h1>
-              <p class="text-xl text-gray-600">
+              <p class="text-sm md:text-xl text-gray-600">
                 {service.excerpt}
               </p>
             </div>
           </div>
 
-          <div class="flex flex-wrap gap-4">
+          <div class="flex flex-wrap gap-2 md:gap-4">
             {service.duration && (
-              <div class={`flex items-center gap-2 ${colors.bgLight} px-4 py-2 rounded-lg`}>
-                <Icon name="mdi:clock-outline" class={`w-5 h-5 ${colors.text}`} />
-                <span class="text-gray-700 font-medium">{service.duration}</span>
+              <div class={`flex items-center gap-2 ${colors.bgLight} px-3 py-1.5 md:px-4 md:py-2 rounded-lg`}>
+                <Icon name="mdi:clock-outline" class={`w-4 h-4 md:w-5 md:h-5 ${colors.text}`} />
+                <span class="text-sm md:text-base text-gray-700 font-medium">{service.duration}</span>
               </div>
             )}
             {service.price && (
-              <div class={`flex items-center gap-2 ${colors.bgLight} px-4 py-2 rounded-lg`}>
-                <Icon name="mdi:currency-eur" class={`w-5 h-5 ${colors.text}`} />
-                <span class="text-gray-700 font-medium">{service.price}</span>
+              <div class={`flex items-center gap-2 ${colors.bgLight} px-3 py-1.5 md:px-4 md:py-2 rounded-lg`}>
+                <Icon name="mdi:currency-eur" class={`w-4 h-4 md:w-5 md:h-5 ${colors.text}`} />
+                <span class="text-sm md:text-base text-gray-700 font-medium">{service.price}</span>
               </div>
             )}
           </div>
@@ -72,11 +72,11 @@ const colors = colorClasses[service.color];
     </section>
 
     <!-- Content Section -->
-    <section class="py-20 bg-white">
+    <section class="py-10 md:py-16 bg-white">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
-          <div class="prose prose-lg max-w-none mb-12">
-            <p class="text-gray-700 leading-relaxed text-lg">
+          <div class="prose prose-lg max-w-none mb-8 md:mb-12">
+            <p class="text-gray-700 leading-relaxed text-base md:text-lg">
               {service.description}
             </p>
           </div>
