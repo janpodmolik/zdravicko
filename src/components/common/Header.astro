@@ -31,7 +31,7 @@ const colorStyles = {
         <span class="text-2xl font-bold text-gray-900">Zdravíčko</span>
       </a>
 
-      <div class="hidden md:flex gap-6">
+      <div class="hidden lg:flex gap-6">
         {navItems.map(item => {
           const color = item.color || 'blue';
           const isActive = item.page === activePage;
@@ -51,11 +51,11 @@ const colorStyles = {
         })}
       </div>
 
-      <a href={`tel:${contactInfo.phones.doctor.number}`} class="hidden md:block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+      <a href={`tel:${contactInfo.phones.doctor.number}`} class="hidden lg:block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
         Zavolat
       </a>
 
-      <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-600 p-3 -mr-3" aria-label="Otevřít menu">
+      <button id="mobile-menu-button" class="lg:hidden text-gray-600 hover:text-blue-600 p-3 -mr-3" aria-label="Otevřít menu">
         <Icon name="mdi:menu" class="w-7 h-7" />
       </button>
     </div>
