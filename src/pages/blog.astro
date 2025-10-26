@@ -6,7 +6,31 @@ import PageHeader from '../components/PageHeader.astro';
 import BlogCard from '../components/BlogCard.astro';
 import Footer from '../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
-import { blogPosts } from '../data/blogPosts';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import type { BlogPost } from '../data/blogPosts';
+
+// Získat všechny publikované příspěvky z Content Collections
+const allPosts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => {
+  return data.published !== false;
+});
+
+// Seřadit podle data (nejnovější první) a namapovat na formát pro BlogCard
+const posts = allPosts
+  .sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => {
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  })
+  .map((entry: CollectionEntry<'blog'>, index: number) => ({
+    id: index + 1,
+    slug: entry.slug,
+    title: entry.data.title,
+    excerpt: entry.data.excerpt,
+    category: entry.data.category,
+    date: entry.data.date.toISOString(),
+    readTime: entry.data.readTime,
+    author: entry.data.author,
+    image: entry.data.image || '/images/blog-placeholder.jpg',
+    content: '',
+  }));
 ---
 
 <Layout title="Blog - Zdravíčko" description="Odborné články a rady pro rodiče od MUDr. Jany Novákové. Zdraví dětí, prevence, výživa a mnoho dalšího.">
@@ -23,7 +47,7 @@ import { blogPosts } from '../data/blogPosts';
     <div class="container mx-auto px-4">
       <div class="max-w-6xl mx-auto">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map(post => <BlogCard post={post} />)}
+          {posts.map((post: BlogPost) => <BlogCard post={post} />)}
         </div>
       </div>
     </div>

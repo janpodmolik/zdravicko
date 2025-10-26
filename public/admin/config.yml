@@ -1,0 +1,56 @@
+# Pro lokální testování použij test-repo (bez autentizace)
+# Pro produkci změň na: git-gateway nebo github
+backend:
+  name: test-repo
+
+# Publikování - články se ukládají přímo do Gitu
+publish_mode: editorial_workflow
+
+# Cesta k uploadovaným médiím
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+# Kolekce obsahu
+collections:
+  # Blog články
+  - name: "blog"
+    label: "Blog články"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titulek", name: "title", widget: "string" }
+      - { label: "Datum publikování", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Kategorie", name: "category", widget: "select", options: ["Zdraví", "Prevence", "Výživa", "Očkování", "Tipy pro rodiče"] }
+      - { label: "Perex", name: "excerpt", widget: "text" }
+      - { label: "Obrázek", name: "image", widget: "image", required: false }
+      - { label: "Čas čtení", name: "readTime", widget: "string", default: "5 min" }
+      - { label: "Obsah článku", name: "body", widget: "markdown" }
+      - { label: "Autor", name: "author", widget: "select", options: ["MUDr. Jana Podmolik", "MUDr. Petra Nováková"], required: false }
+      - { label: "Publikováno", name: "published", widget: "boolean", default: true }
+
+  # Aktuality
+  - name: "news"
+    label: "Aktuality"
+    folder: "src/content/news"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titulek", name: "title", widget: "string" }
+      - { label: "Typ", name: "type", widget: "select", options: ["info", "warning", "success"] }
+      - { label: "Ikona", name: "icon", widget: "string", default: "mdi:information" }
+      - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Obsah", name: "body", widget: "markdown" }
+      - { label: "Publikováno", name: "published", widget: "boolean", default: true }
+
+  # Special Notice (Změny ordinačních hodin)
+  - name: "special_notice"
+    label: "Důležitá oznámení"
+    folder: "src/content/special_notice"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Zpráva", name: "message", widget: "text" }
+      - { label: "Datum platnosti", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Upravené hodiny", name: "hours", widget: "string", required: false }
+      - { label: "Aktivní", name: "active", widget: "boolean", default: true }
