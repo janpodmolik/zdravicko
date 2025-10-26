@@ -63,34 +63,50 @@ const navItems = [
   </div>
 </div>
 
-<script>
-  const menuButton = document.getElementById('mobile-menu-button');
-  const menuClose = document.getElementById('mobile-menu-close');
-  const menu = document.getElementById('mobile-menu');
-  const overlay = document.getElementById('mobile-menu-overlay');
-  
-  function openMenu() {
-    if (menu && overlay) {
-      overlay.classList.remove('hidden');
-      overlay.offsetHeight;
-      overlay.classList.add('opacity-100');
-      menu.classList.remove('translate-x-full');
+<script is:inline>
+  (function() {
+    function initMobileMenu() {
+      const menuButton = document.getElementById('mobile-menu-button');
+      const menuClose = document.getElementById('mobile-menu-close');
+      const menu = document.getElementById('mobile-menu');
+      const overlay = document.getElementById('mobile-menu-overlay');
+      
+      if (!menuButton || !menuClose || !menu || !overlay) return;
+      
+      menuButton.onclick = function() {
+        overlay.classList.remove('hidden');
+        setTimeout(function() {
+          overlay.classList.add('opacity-100');
+          menu.classList.remove('translate-x-full');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+      };
+      
+      function closeMenu() {
+        menu.classList.add('translate-x-full');
+        overlay.classList.remove('opacity-100');
+        document.body.style.overflow = '';
+        setTimeout(function() {
+          overlay.classList.add('hidden');
+        }, 300);
+      }
+      
+      menuClose.onclick = closeMenu;
+      overlay.onclick = closeMenu;
+      
+      menu.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', closeMenu);
+      });
     }
-  }
-  
-  function closeMenu() {
-    if (menu && overlay) {
-      menu.classList.add('translate-x-full');
-      overlay.classList.remove('opacity-100');
-      setTimeout(() => overlay.classList.add('hidden'), 300);
+    
+    // Initial load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMobileMenu);
+    } else {
+      initMobileMenu();
     }
-  }
-  
-  menuButton?.addEventListener('click', openMenu);
-  menuClose?.addEventListener('click', closeMenu);
-  overlay?.addEventListener('click', closeMenu);
-  
-  menu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
+    
+    // Re-initialize after Astro view transitions
+    document.addEventListener('astro:page-load', initMobileMenu);
+  })();
 </script>
