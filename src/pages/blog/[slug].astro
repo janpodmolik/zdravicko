@@ -5,11 +5,12 @@ import MobileMenu from '../../components/MobileMenu.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import Footer from '../../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
-import { getCollection, type CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import { formatDate } from '../../utils/dateFormat';
+import { getPublishedBlogPosts, blogEntryToCardData } from '../../utils/contentHelpers';
 
 export async function getStaticPaths() {
-  const blogPosts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => data.published !== false);
+  const blogPosts = await getPublishedBlogPosts();
   return blogPosts.map((post: CollectionEntry<'blog'>) => ({
     params: { slug: post.slug },
     props: { post },
@@ -23,8 +24,8 @@ interface Props {
 const { post } = Astro.props;
 const { Content } = await post.render();
 
-// Související články
-const allPosts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => data.published !== false);
+// Související články - načti všechny kromě aktuálního
+const allPosts = await getPublishedBlogPosts();
 const relatedPosts = allPosts
   .filter((p: CollectionEntry<'blog'>) => p.slug !== post.slug)
   .slice(0, 3);
@@ -131,18 +132,7 @@ const relatedPosts = allPosts
         
         <div class="grid md:grid-cols-3 gap-8">
           {relatedPosts.map((p: CollectionEntry<'blog'>, index: number) => (
-            <BlogCard post={{
-              id: index + 1,
-              title: p.data.title,
-              excerpt: p.data.excerpt,
-              category: p.data.category,
-              readTime: p.data.readTime,
-              date: p.data.date.toISOString(),
-              slug: p.slug,
-              image: p.data.image || '/images/blog-placeholder.jpg',
-              author: p.data.author,
-              content: '',
-            }} />
+            <BlogCard post={blogEntryToCardData(p, index + 1)} />
           ))}
         </div>
         
