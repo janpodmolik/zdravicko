@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import BlogCard, { type BlogCardData } from '../BlogCard.astro';
+import EmptyState from '../EmptyState.astro';
 
 interface Props {
   posts: BlogCardData[];
@@ -58,10 +59,10 @@ const displayPosts = posts.slice(0, maxPosts);
           )}
         </div>
       ) : (
-        <div class="text-center py-12 bg-white rounded-xl">
-          <Icon name="mdi:post-outline" class="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <p class="text-gray-500">Zatím nejsou k dispozici žádné články</p>
-        </div>
+        <EmptyState
+          icon="mdi:post-outline"
+          message="Zatím nejsou k dispozici žádné články"
+        />
       )}
     </div>
   </div>

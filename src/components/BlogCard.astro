@@ -1,7 +1,18 @@
 ---
+/**
+ * BlogCard - Komponenta pro zobrazení náhledu článku
+ *
+ * Zobrazuje kartu blogu s obrázkem, kategorií, datem, nadpisem a perexem.
+ * Slouží jako odkaz na detail článku.
+ *
+ * @component
+ */
 import { Icon } from 'astro-icon/components';
 import { formatDateShort } from '../utils/dateFormat';
 
+/**
+ * Data pro blogovou kartu
+ */
 export interface BlogCardData {
   id: number;
   slug: string;
@@ -17,14 +28,26 @@ export interface BlogCardData {
 interface Props extends BlogCardData {}
 
 const { slug, title, category, date, excerpt, image, author } = Astro.props;
+
+// Konstanty
+const DEFAULT_ICON = 'mdi:file-document-outline';
+const ARROW_ICON = 'mdi:arrow-right';
+const CALENDAR_ICON = 'mdi:calendar';
 ---
 
 <a
   href={`/blog/${slug}`}
-  class="block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-gray-100 cursor-pointer"
+  class:list={[
+    'block bg-white rounded-2xl overflow-hidden border border-gray-100 cursor-pointer',
+    'shadow-md hover:shadow-xl transition-shadow'
+  ]}
 >
   <article>
-    <div class="relative h-48 bg-linear-to-br from-blue-100 to-cyan-100 overflow-hidden">
+    <!-- Obrázek článku nebo placeholder -->
+    <div class:list={[
+      'relative h-48 overflow-hidden',
+      'bg-linear-to-br from-blue-100 to-cyan-100'
+    ]}>
       {image ? (
         <img
           src={image}
@@ -34,37 +57,46 @@ const { slug, title, category, date, excerpt, image, author } = Astro.props;
         />
       ) : (
         <div class="w-full h-full flex items-center justify-center">
-          <Icon name="mdi:file-document-outline" class="w-20 h-20 text-blue-300" />
+          <Icon name={DEFAULT_ICON} class="w-20 h-20 text-blue-300" />
         </div>
       )}
+      <!-- Kategorie badge -->
       <div class="absolute top-4 left-4">
-        <span class="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-blue-600">
+        <span class:list={[
+          'bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold',
+          'text-blue-600'
+        ]}>
           {category}
         </span>
       </div>
     </div>
 
+    <!-- Obsah karty -->
     <div class="p-6">
+      <!-- Metadata -->
       <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
         <div class="flex items-center gap-1">
-          <Icon name="mdi:calendar" class="w-4 h-4" />
+          <Icon name={CALENDAR_ICON} class="w-4 h-4" />
           <time datetime={date}>
             {formatDateShort(date)}
           </time>
         </div>
       </div>
 
+      <!-- Nadpis -->
       <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
         {title}
       </h3>
 
+      <!-- Perex -->
       <p class="text-gray-600 mb-4 line-clamp-2">
         {excerpt}
       </p>
 
+      <!-- Call to action -->
       <div class="text-blue-600 font-semibold flex items-center gap-1 text-sm">
         Číst více
-        <Icon name="mdi:arrow-right" class="w-4 h-4" />
+        <Icon name={ARROW_ICON} class="w-4 h-4" />
       </div>
     </div>
   </article>

@@ -12,7 +12,20 @@ interface Props {
   rel?: string;
 }
 
-const { icon, title, bgColor = 'bg-blue-100', iconColor = 'text-blue-600', href, isClickable = false, target, rel } = Astro.props;
+const DEFAULT_BG_COLOR = 'bg-blue-100';
+const DEFAULT_ICON_COLOR = 'text-blue-600';
+
+const {
+  icon,
+  title,
+  bgColor = DEFAULT_BG_COLOR,
+  iconColor = DEFAULT_ICON_COLOR,
+  href,
+  isClickable = false,
+  target,
+  rel
+} = Astro.props;
+
 const Component = href ? 'a' : 'div';
 ---
 
@@ -31,6 +44,7 @@ const Component = href ? 'a' : 'div';
   ]}>
     <Icon name={icon} class:list={['w-6 h-6', iconColor]} />
   </div>
+
   <div class="flex-1 min-w-0">
     <h3 class="font-semibold text-gray-900 mb-2">{title}</h3>
     <slot />

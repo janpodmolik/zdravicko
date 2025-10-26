@@ -1,44 +1,48 @@
 ---
+/**
+ * AktualitaCard - Komponenta pro zobrazení jedné aktuality
+ *
+ * Zobrazuje kartu aktuality s ikonou, nadpisem, datem a markdown obsahem.
+ * Barva karty se mění podle typu aktuality.
+ *
+ * @component
+ */
 import { Icon } from 'astro-icon/components';
 import { formatDateShort } from '../utils/dateFormat';
+import { getNewsCardClasses, getNewsIconBg } from '../utils/newsColors';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
+  /** Aktualita z content kolekce */
   news: CollectionEntry<'news'>;
 }
 
 const { news } = Astro.props;
 
+// Konstanta pro ID prefix
+const NEWS_ID_PREFIX = 'news-';
+
 // Renderovat markdown obsah
 const { Content } = await news.render();
 
-// Mapování barev na styly (statické třídy)
-const colorStyles: Record<string, string> = {
-  blue: 'bg-blue-50 border-blue-200 hover:border-blue-300',
-  orange: 'bg-orange-50 border-orange-200 hover:border-orange-300',
-  green: 'bg-green-50 border-green-200 hover:border-green-300',
-  red: 'bg-red-50 border-red-200 hover:border-red-300',
-  yellow: 'bg-yellow-50 border-yellow-200 hover:border-yellow-300',
-  purple: 'bg-purple-50 border-purple-200 hover:border-purple-300'
-};
-
-const iconBgStyles: Record<string, string> = {
-  blue: 'bg-blue-500',
-  orange: 'bg-orange-500',
-  green: 'bg-green-500',
-  red: 'bg-red-500',
-  yellow: 'bg-yellow-500',
-  purple: 'bg-purple-500'
-};
-
-const cardStyle = colorStyles[news.data.color] ?? colorStyles.blue;
-const iconStyle = iconBgStyles[news.data.color] ?? iconBgStyles.blue;
+// Získat styly podle barvy
+const cardClasses = getNewsCardClasses(news.data.color);
+const iconBgClass = getNewsIconBg(news.data.color);
 ---
 
-<article id={`news-${news.id}`} class={`rounded-xl border-2 ${cardStyle} p-5 transition-all shadow-sm hover:shadow-md scroll-mt-24`}>
+<article
+  id={`${NEWS_ID_PREFIX}${news.id}`}
+  class:list={[
+    'rounded-xl border-2 p-5 transition-all shadow-sm hover:shadow-md scroll-mt-24',
+    cardClasses
+  ]}
+>
   <div class="flex items-start gap-4">
     <!-- Ikona -->
-    <div class={`w-11 h-11 ${iconStyle} rounded-lg flex items-center justify-center shrink-0 shadow-sm`}>
+    <div class:list={[
+      'w-11 h-11 rounded-lg flex items-center justify-center shrink-0 shadow-sm',
+      iconBgClass
+    ]}>
       <Icon name={news.data.icon} class="w-6 h-6 text-white" />
     </div>
 

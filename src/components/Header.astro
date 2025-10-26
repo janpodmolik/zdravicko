@@ -1,23 +1,13 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { contactInfo } from '../data/contact';
+import { navItems, type PageId } from '../data/navigation';
 
 interface Props {
-  activePage?: 'home' | 'cenik' | 'blog' | 'sluzby' | 'o-nas' | 'aktuality' | 'ordinacni-hodiny' | 'kontakt';
+  activePage?: PageId;
 }
 
 const { activePage = 'home' } = Astro.props;
-
-const navItems = [
-  { href: '/', label: 'Domů', page: 'home' },
-  { href: '/o-nas', label: 'O nás', page: 'o-nas' },
-  { href: '/aktuality', label: 'Aktuality', page: 'aktuality' },
-  { href: '/sluzby', label: 'Služby', page: 'sluzby' },
-  { href: '/ordinacni-hodiny', label: 'Ordinační hodiny', page: 'ordinacni-hodiny' },
-  { href: '/cenik', label: 'Ceník', page: 'cenik' },
-  { href: '/blog', label: 'Blog', page: 'blog' },
-  { href: '/kontakt', label: 'Kontakt', page: 'kontakt' }
-];
 ---
 
 <header class="bg-white shadow-sm sticky top-0 z-50">

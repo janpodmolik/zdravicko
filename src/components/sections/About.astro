@@ -1,5 +1,36 @@
 ---
 import { Icon } from 'astro-icon/components';
+
+interface Feature {
+  icon: string;
+  bgColor: string;
+  title: string;
+  description: string;
+}
+
+const features: Feature[] = [
+  {
+    icon: 'mdi:doctor',
+    bgColor: 'bg-blue-600',
+    title: 'Odborný tým',
+    description: 'Certifikovaní pediatři s mnohaletou praxí'
+  },
+  {
+    icon: 'mdi:heart-pulse',
+    bgColor: 'bg-cyan-600',
+    title: 'Moderní vybavení',
+    description: 'Nejnovější diagnostická technika'
+  },
+  {
+    icon: 'mdi:emoticon-happy',
+    bgColor: 'bg-purple-600',
+    title: 'Dětsky přátelské',
+    description: 'Prostředí navržené pro děti'
+  }
+];
+
+const INFO_ICON = 'mdi:information';
+const ARROW_ICON = 'mdi:arrow-right';
 ---
 
 <section id="o-nas" class="py-12 md:py-20 bg-gray-50">
@@ -11,38 +42,33 @@ import { Icon } from 'astro-icon/components';
         Naší prioritou je poskytovat kvalitní a individuální přístup ke každému dítěti v příjemném prostředí.
       </p>
       <div class="grid md:grid-cols-3 gap-6 md:gap-8 mt-8 md:mt-12">
-        <div class="text-center">
-          <div class="w-12 h-12 md:w-16 md:h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
-            <Icon name="mdi:doctor" class="w-6 h-6 md:w-8 md:h-8 text-white" />
+        {features.map(feature => (
+          <div class="text-center">
+            <div class:list={[
+              'w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4',
+              feature.bgColor
+            ]}>
+              <Icon name={feature.icon} class="w-6 h-6 md:w-8 md:h-8 text-white" />
+            </div>
+            <h3 class="font-semibold text-lg md:text-xl mb-2">{feature.title}</h3>
+            <p class="text-sm md:text-base text-gray-600">{feature.description}</p>
           </div>
-          <h3 class="font-semibold text-lg md:text-xl mb-2">Odborný tým</h3>
-          <p class="text-sm md:text-base text-gray-600">Certifikovaní pediatři s mnohaletou praxí</p>
-        </div>
-        <div class="text-center">
-          <div class="w-12 h-12 md:w-16 md:h-16 bg-cyan-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
-            <Icon name="mdi:heart-pulse" class="w-6 h-6 md:w-8 md:h-8 text-white" />
-          </div>
-          <h3 class="font-semibold text-lg md:text-xl mb-2">Moderní vybavení</h3>
-          <p class="text-sm md:text-base text-gray-600">Nejnovější diagnostická technika</p>
-        </div>
-        <div class="text-center">
-          <div class="w-12 h-12 md:w-16 md:h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
-            <Icon name="mdi:emoticon-happy" class="w-6 h-6 md:w-8 md:h-8 text-white" />
-          </div>
-          <h3 class="font-semibold text-lg md:text-xl mb-2">Dětsky přátelské</h3>
-          <p class="text-sm md:text-base text-gray-600">Prostředí navržené pro děti</p>
-        </div>
+        ))}
       </div>
 
       <!-- CTA to full About page -->
       <div class="mt-8 md:mt-12 text-center">
         <a
           href="/o-nas"
-          class="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl text-sm md:text-base"
+          class:list={[
+            'inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold',
+            'bg-blue-600 text-white hover:bg-blue-700 transition-colors',
+            'shadow-lg hover:shadow-xl text-sm md:text-base'
+          ]}
         >
-          <Icon name="mdi:information" class="w-4 h-4 md:w-5 md:h-5" />
+          <Icon name={INFO_ICON} class="w-4 h-4 md:w-5 md:h-5" />
           Více o nás
-          <Icon name="mdi:arrow-right" class="w-4 h-4 md:w-5 md:h-5" />
+          <Icon name={ARROW_ICON} class="w-4 h-4 md:w-5 md:h-5" />
         </a>
         <p class="text-xs md:text-sm text-gray-500 mt-3 md:mt-4">
           Poznejte náš tým, historii ordinace a naše hodnoty
