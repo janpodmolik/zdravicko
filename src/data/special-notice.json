@@ -1,7 +1,7 @@
 {
-  "active": true,
-  "message": "Ordinace bude 24. prosince zavřená. Přejeme krásné svátky!",
-  "hours": "",
+  "active": false,
+  "message": "Ordinace dnes otevrena jen do 12. Přejeme krásné svátky!",
+  "hours": "8:00 - 12:00",
   "type": "warning",
   "validFrom": "",
   "validTo": ""

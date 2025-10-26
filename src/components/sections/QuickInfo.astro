@@ -17,14 +17,25 @@ const { todayInfo } = Astro.props;
         href="/ordinacni-hodiny" 
         class="group"
       >
-        <div class="flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-blue-100 transition-all hover:border-blue-400 hover:shadow-lg h-full">
-          <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-            <Icon name="mdi:clock-outline" class="w-5 h-5 text-white" />
+        <div class:list={[
+          "flex items-center gap-3 p-4 bg-white rounded-xl border-2 transition-all hover:shadow-lg h-full",
+          todayInfo.isModified ? "border-amber-300 bg-amber-50/50" : "border-blue-100 hover:border-blue-400"
+        ]}>
+          <div class:list={[
+            "w-10 h-10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform",
+            todayInfo.isModified ? "bg-gradient-to-br from-amber-500 to-orange-500" : "bg-gradient-to-br from-blue-500 to-blue-600"
+          ]}>
+            <Icon name={todayInfo.isModified ? "mdi:alert-circle-outline" : "mdi:clock-outline"} class="w-5 h-5 text-white" />
           </div>
           <div class="flex-1 min-w-0">
-            <h3 class="font-bold text-sm text-gray-900 leading-tight mb-0.5">{todayInfo.title}</h3>
+            <h3 class="font-bold text-sm text-gray-900 leading-tight mb-0.5">
+              {todayInfo.title}
+            </h3>
             {todayInfo.hours && (
-              <p class="text-gray-600 text-xs font-medium">{todayInfo.hours}</p>
+              <p class:list={[
+                "text-xs font-medium",
+                todayInfo.isModified ? "text-amber-700 font-bold" : "text-gray-600"
+              ]}>{todayInfo.hours}</p>
             )}
           </div>
         </div>

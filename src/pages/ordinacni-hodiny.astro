@@ -7,17 +7,17 @@ import Footer from '../components/Footer.astro';
 import CTAButtons from '../components/CTAButtons.astro';
 import { Icon } from 'astro-icon/components';
 import { contactInfo } from '../data/contact';
-import { getTodayOpeningHours } from '../utils/openingHours';
+import { getTodayOpeningHours, getOpeningHoursForDay } from '../utils/openingHours';
 
 const todayInfo = getTodayOpeningHours();
 const today = new Date().getDay();
 
 const weekSchedule = [
-  { day: 'Pondělí', hours: '7:30 - 16:00', isToday: today === 1 },
-  { day: 'Úterý', hours: '7:30 - 13:00', isToday: today === 2 },
-  { day: 'Středa', hours: '7:30 - 13:00', isToday: today === 3 },
-  { day: 'Čtvrtek', hours: '7:30 - 13:30', isToday: today === 4 },
-  { day: 'Pátek', hours: '7:30 - 12:00', isToday: today === 5 },
+  { day: 'Pondělí', hours: getOpeningHoursForDay(1) || 'Zavřeno', isToday: today === 1 },
+  { day: 'Úterý', hours: getOpeningHoursForDay(2) || 'Zavřeno', isToday: today === 2 },
+  { day: 'Středa', hours: getOpeningHoursForDay(3) || 'Zavřeno', isToday: today === 3 },
+  { day: 'Čtvrtek', hours: getOpeningHoursForDay(4) || 'Zavřeno', isToday: today === 4 },
+  { day: 'Pátek', hours: getOpeningHoursForDay(5) || 'Zavřeno', isToday: today === 5 },
   { day: 'Sobota - Neděle', hours: 'Zavřeno', isToday: today === 0 || today === 6, isClosed: true },
 ];
 ---
@@ -39,21 +39,42 @@ const weekSchedule = [
     <section class="py-8 bg-linear-to-br from-blue-50 to-cyan-50">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto">
-          <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-blue-100">
+          <div class:list={[
+            "rounded-2xl shadow-lg p-8 border-2",
+            todayInfo.isModified ? "bg-amber-50 border-amber-300" : "bg-white border-blue-100"
+          ]}>
             <div class="flex items-center gap-4 mb-4">
-              <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-                <Icon name="mdi:clock-outline" class="w-6 h-6 text-white" />
+              <div class:list={[
+                "w-12 h-12 rounded-full flex items-center justify-center",
+                todayInfo.isModified ? "bg-amber-600" : "bg-blue-600"
+              ]}>
+                <Icon name={todayInfo.isModified ? "mdi:alert-circle-outline" : "mdi:clock-outline"} class="w-6 h-6 text-white" />
               </div>
               <div>
-                <h2 class="text-2xl font-bold text-gray-900">{todayInfo.title}</h2>
+                <h2 class="text-2xl font-bold text-gray-900">
+                  {todayInfo.title}
+                </h2>
                 <p class="text-gray-600">
                   {new Date().toLocaleDateString('cs-CZ', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
               </div>
             </div>
             {todayInfo.hours ? (
-              <div class="text-3xl font-bold text-blue-600">
-                {todayInfo.hours}
+              <div>
+                <div class:list={[
+                  "text-3xl font-bold mb-2",
+                  todayInfo.isModified ? "text-amber-700" : "text-blue-600"
+                ]}>
+                  {todayInfo.hours}
+                </div>
+                {todayInfo.isModified && todayInfo.notice && (
+                  <div class="mt-4 p-4 bg-amber-100 border-l-4 border-amber-500 rounded">
+                    <p class="text-amber-900 text-sm font-medium">
+                      <Icon name="mdi:information" class="w-4 h-4 inline mr-1" />
+                      {todayInfo.notice}
+                    </p>
+                  </div>
+                )}
               </div>
             ) : (
               <div class="text-2xl font-bold text-red-600">
@@ -86,11 +107,16 @@ const weekSchedule = [
                       isToday ? 'text-blue-900' : 'text-gray-900'
                     ]}>
                       {day}
-                      {isToday && <span class="ml-2 text-xs bg-blue-600 text-white px-2 py-1 rounded-full">Dnes</span>}
+                      {isToday && (
+                        <span class="ml-2 text-xs bg-blue-600 text-white px-2 py-1 rounded-full">
+                          Dnes
+                        </span>
+                      )}
                     </span>
                     <span class:list={[
                       'font-medium',
-                      isClosed ? 'text-red-600' : isToday ? 'text-blue-700' : 'text-gray-600'
+                      isClosed ? 'text-red-600' : 
+                      isToday ? 'text-blue-700' : 'text-gray-600'
                     ]}>
                       {hours}
                     </span>
@@ -115,6 +141,7 @@ const weekSchedule = [
           </div>
         </div>
       </div>
+    </section>
     </section>
     
     <!-- Emergency and contact -->
