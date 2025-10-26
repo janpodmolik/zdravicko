@@ -1,7 +1,12 @@
-# Pro lokální testování použij test-repo (bez autentizace)
-# Pro produkci změň na: git-gateway nebo github
+# Backend - proxy server pro lokální vývoj
+# Pro lokální testování použij: npx decap-server
+# Pro produkci změň na: github backend s OAuth
 backend:
-  name: test-repo
+  name: git-gateway
+  branch: main
+  
+# Pro lokální vývoj bez autentizace
+local_backend: true
 
 # Publikování - články se ukládají přímo do Gitu
 publish_mode: editorial_workflow
