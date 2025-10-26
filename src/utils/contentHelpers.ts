@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { siteConfig } from '../data/siteConfig';
 
 /**
  * Načte všechny publikované blog příspěvky seřazené podle data (nejnovější první)
@@ -51,7 +52,7 @@ export function blogEntryToCardData(entry: CollectionEntry<'blog'>, id: number) 
     excerpt: entry.data.excerpt,
     category: entry.data.category,
     date: entry.data.date.toISOString(),
-    author: entry.data.author || 'MUDr. Jana Podmolik',
+    author: entry.data.author || siteConfig.doctor.name,
     image: entry.data.image || '',
     content: '',
   };

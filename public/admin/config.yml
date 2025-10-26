@@ -57,7 +57,7 @@ collections:
           - "Ordinační hodiny"
       - { label: "Úvodní text", name: "excerpt", widget: "text" }
       - { label: "Hlavní obrázek článku", name: "image", widget: "image", required: false, hint: "Volitelný - obrázek v záhlaví článku (doporučené 1200x630px)" }
-      - { label: "Autor", name: "author", widget: "select", options: ["MUDr. Jana Podmolik", "MUDr. Petra Nováková"], required: false }
+      - { label: "Autor", name: "author", widget: "select", options: ["MUDr. Jana Šlechtová", "MUDr. Petra Nováková"], required: false }
       - { label: "Publikováno", name: "published", widget: "boolean", default: true }
       - label: "Obsah článku"
         name: "body"

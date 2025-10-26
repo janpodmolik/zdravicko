@@ -1,9 +1,18 @@
 ---
 import { Icon } from 'astro-icon/components';
-import type { BlogPost } from '../data/blogPosts';
 import { formatDateShort } from '../utils/dateFormat';
 
-export interface BlogCardData extends BlogPost {}
+export interface BlogCardData {
+  id: number;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  image: string;
+  category: string;
+  date: string;
+  author: string;
+}
 
 interface Props extends BlogCardData {}
 

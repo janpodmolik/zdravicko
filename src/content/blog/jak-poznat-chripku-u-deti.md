@@ -6,7 +6,7 @@ excerpt: Chřipka je časté virové onemocnění, které postihuje děti zejmé
   zimních měsících. Naučte se rozpoznat příznaky a zjistěte, kdy je nutné
   vyhledat lékařskou pomoc.
 image: /uploads/img_4467.jpg
-author: MUDr. Jana Podmolik
+author: MUDr. Jana Šlechtová
 published: true
 ---
 ## Co je chřipka?

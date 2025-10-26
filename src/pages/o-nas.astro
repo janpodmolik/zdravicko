@@ -7,6 +7,7 @@ import PageHeader from '../components/PageHeader.astro';
 import CTAButtons from '../components/CTAButtons.astro';
 import { Icon } from 'astro-icon/components';
 import { colorClasses, type ColorName } from '../utils/colors';
+import { siteConfig } from '../data/siteConfig';
 
 interface TeamMember {
   name: string;
@@ -18,9 +19,9 @@ interface TeamMember {
 
 const teamMembers: TeamMember[] = [
   {
-    name: 'MUDr. Jana Podmolik',
-    role: 'Praktický lékař pro děti a dorost',
-    description: 'Specializace na preventivní péči a diagnostiku běžných dětských onemocnění. V oboru pracuje od roku 2015.',
+    name: siteConfig.doctor.name,
+    role: siteConfig.doctor.specialization,
+    description: `Specializace na preventivní péči a diagnostiku běžných dětských onemocnění. V oboru pracuje od roku ${siteConfig.doctor.yearEstablished}.`,
     icon: 'mdi:doctor',
     color: 'blue'
   },

@@ -30,7 +30,7 @@ const blogCollection = defineCollection({
     ]),
     excerpt: z.string(),
     image: z.string().optional(),
-    author: z.enum(['MUDr. Jana Podmolik', 'MUDr. Petra Nováková']).optional(),
+    author: z.enum(['MUDr. Jana Šlechtová', 'MUDr. Petra Nováková']).optional(),
     published: z.boolean().default(true),
   }),
 });
