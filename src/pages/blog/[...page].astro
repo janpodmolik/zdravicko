@@ -1,14 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import MobileMenu from '../../components/MobileMenu.astro';
-import PageHeader from '../../components/PageHeader.astro';
-import BlogCard from '../../components/BlogCard.astro';
-import Pagination from '../../components/Pagination.astro';
-import EmptyState from '../../components/EmptyState.astro';
-import Footer from '../../components/Footer.astro';
+import Header from '../../components/common/Header.astro';
+import MobileMenu from '../../components/common/MobileMenu.astro';
+import PageHeader from '../../components/common/PageHeader.astro';
+import BlogCard from '../../components/cards/BlogCard.astro';
+import Pagination from '../../components/common/Pagination.astro';
+import EmptyState from '../../components/common/EmptyState.astro';
+import Footer from '../../components/common/Footer.astro';
 import { Icon } from 'astro-icon/components';
-import type { BlogCardData } from '../../components/BlogCard.astro';
+import type { BlogCardData } from '../../components/cards/BlogCard.astro';
 import { getPublishedBlogPosts, blogEntryToCardData } from '../../utils/contentHelpers';
 import { contactInfo } from '../../data/contact';
 import type { Page, GetStaticPathsOptions } from 'astro';

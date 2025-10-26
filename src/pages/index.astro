@@ -1,18 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import MobileMenu from '../components/MobileMenu.astro';
-import Hero from '../components/sections/Hero.astro';
-import QuickInfo from '../components/sections/QuickInfo.astro';
-import SpecialNotice from '../components/sections/SpecialNotice.astro';
-import About from '../components/sections/About.astro';
-import HorizontalCarousel from '../components/HorizontalCarousel.astro';
-import ServiceCard from '../components/carousel/ServiceCard.astro';
-import BlogCard from '../components/carousel/BlogCard.astro';
-import NewsCard from '../components/carousel/NewsCard.astro';
-import OpeningHours from '../components/sections/OpeningHours.astro';
-import Contact from '../components/sections/Contact.astro';
-import Footer from '../components/Footer.astro';
+import Header from '../components/common/Header.astro';
+import MobileMenu from '../components/common/MobileMenu.astro';
+import Hero from '../components/home/Hero.astro';
+import QuickInfo from '../components/home/QuickInfo.astro';
+import SpecialNotice from '../components/home/SpecialNotice.astro';
+import About from '../components/home/About.astro';
+import HorizontalCarousel from '../components/common/HorizontalCarousel.astro';
+import ServiceCard from '../components/cards/ServiceCardCarousel.astro';
+import BlogCard from '../components/cards/BlogCardCarousel.astro';
+import NewsCard from '../components/cards/NewsCard.astro';
+import OpeningHours from '../components/home/OpeningHours.astro';
+import Contact from '../components/home/Contact.astro';
+import Footer from '../components/common/Footer.astro';
 
 import { getTodayOpeningHours } from '../utils/openingHours';
 import { getPublishedNews, getPublishedBlogPosts } from '../utils/contentHelpers';

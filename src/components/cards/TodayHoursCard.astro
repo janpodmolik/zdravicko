@@ -6,8 +6,8 @@
  * Barvy se mění podle typu oznámení (warning, urgent, info).
  */
 import { Icon } from 'astro-icon/components';
-import { getTodayOpeningHours } from '../utils/openingHours';
-import { getNoticeColors } from '../utils/noticeColors';
+import { getTodayOpeningHours } from '../../utils/openingHours';
+import { getNoticeColors } from '../../utils/noticeColors';
 
 const todayInfo = getTodayOpeningHours();
 const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
