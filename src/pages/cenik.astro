@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import MobileMenu from '../components/MobileMenu.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Footer from '../components/Footer.astro';
+import CTAButtons from '../components/CTAButtons.astro';
 import { Icon } from 'astro-icon/components';
 ---
 
@@ -132,15 +133,7 @@ import { Icon } from 'astro-icon/components';
         <div class="mt-12 text-center">
           <h3 class="text-2xl font-bold text-gray-900 mb-4">Máte dotazy k ceníku?</h3>
           <p class="text-gray-600 mb-6">Rádi vám poskytneme podrobnější informace</p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:+420731232333" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center justify-center gap-2">
-              <Icon name="mdi:phone" class="w-5 h-5" />
-              Zavolat
-            </a>
-            <a href="/#kontakt" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors border-2 border-blue-600">
-              Napsat email
-            </a>
-          </div>
+          <CTAButtons phoneLabel="Zavolat" emailLabel="Napsat email" />
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { contactInfo } from '../../data/contact';
 ---
 
 <section id="kontakt" class="py-20 relative overflow-hidden">
@@ -17,20 +18,20 @@ import { Icon } from 'astro-icon/components';
               <div class="flex items-start gap-3">
                 <Icon name="mdi:map-marker" class="w-6 h-6 shrink-0 mt-1" />
                 <div>
-                  <p>Svisle 2/785</p>
-                  <p>750 02 Přerov</p>
+                  <p>{contactInfo.address.street}</p>
+                  <p>{contactInfo.address.zip} {contactInfo.address.city}</p>
                 </div>
               </div>
               <div class="flex items-start gap-3">
                 <Icon name="mdi:phone" class="w-6 h-6 shrink-0 mt-1" />
                 <div>
-                  <p><a href="tel:+420731232333" class="hover:underline">+420 731 232 333</a> (Doktorka)</p>
-                  <p><a href="tel:+420603290939" class="hover:underline">+420 603 290 939</a> (Sestřička)</p>
+                  <p><a href={`tel:${contactInfo.phones.doctor.number}`} class="hover:underline">{contactInfo.phones.doctor.display}</a> ({contactInfo.phones.doctor.label})</p>
+                  <p><a href={`tel:${contactInfo.phones.nurse.number}`} class="hover:underline">{contactInfo.phones.nurse.display}</a> ({contactInfo.phones.nurse.label})</p>
                 </div>
               </div>
               <div class="flex items-center gap-3">
                 <Icon name="mdi:email" class="w-6 h-6 shrink-0" />
-                <a href="mailto:doktorka.jana@zdravicko.org" class="hover:underline">doktorka.jana@zdravicko.org</a>
+                <a href={`mailto:${contactInfo.email}`} class="hover:underline">{contactInfo.email}</a>
               </div>
             </div>
           </div>

@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import MobileMenu from '../../components/MobileMenu.astro';
 import Footer from '../../components/Footer.astro';
+import CTAButtons from '../../components/CTAButtons.astro';
 import { services } from '../../data/services';
 import { colorClasses } from '../../utils/colors';
 import { Icon } from 'astro-icon/components';
@@ -101,22 +102,7 @@ const colors = colorClasses[service.color];
             <p class="text-gray-600 mb-6">
               Zavolejte nám nebo napište a domluvíme si termín, který vám bude vyhovovat.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="tel:+420731232333"
-                class={`inline-flex items-center justify-center gap-2 px-6 py-3 ${colors.bg} text-white font-semibold rounded-lg hover:opacity-90 transition-opacity`}
-              >
-                <Icon name="mdi:phone" class="w-5 h-5" />
-                +420 731 232 333
-              </a>
-              <a 
-                href="/#kontakt"
-                class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors border-2 border-gray-200"
-              >
-                <Icon name="mdi:email" class="w-5 h-5" />
-                Kontaktní formulář
-              </a>
-            </div>
+            <CTAButtons variant="colored" color={colors.bg} emailLabel="Kontaktní formulář" />
           </div>
         </div>
       </div>

@@ -4,9 +4,9 @@ import Header from '../components/Header.astro';
 import MobileMenu from '../components/MobileMenu.astro';
 import Footer from '../components/Footer.astro';
 import PageHeader from '../components/PageHeader.astro';
+import CTAButtons from '../components/CTAButtons.astro';
 import { Icon } from 'astro-icon/components';
-
-type ColorName = 'blue' | 'cyan' | 'purple' | 'pink';
+import { colorClasses, type ColorName } from '../utils/colors';
 
 interface TeamMember {
   name: string;
@@ -46,29 +46,6 @@ const teamMembers: TeamMember[] = [
     color: 'pink'
   }
 ];
-
-const colorClasses: Record<ColorName, { bg: string; text: string; bgLight: string }> = {
-  blue: {
-    bg: 'bg-blue-600',
-    text: 'text-blue-600',
-    bgLight: 'bg-blue-50'
-  },
-  cyan: {
-    bg: 'bg-cyan-600',
-    text: 'text-cyan-600',
-    bgLight: 'bg-cyan-50'
-  },
-  purple: {
-    bg: 'bg-purple-600',
-    text: 'text-purple-600',
-    bgLight: 'bg-purple-50'
-  },
-  pink: {
-    bg: 'bg-pink-600',
-    text: 'text-pink-600',
-    bgLight: 'bg-pink-50'
-  }
-};
 ---
 
 <Layout title="O nás - Zdravíčko">
@@ -257,22 +234,7 @@ const colorClasses: Record<ColorName, { bg: string; text: string; bgLight: strin
           <p class="text-xl text-blue-100 mb-8">
             Registrujte své dítě k nám a získejte přístup ke kvalitní pediatrické péči
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="tel:+420731232333"
-              class="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition-colors shadow-lg"
-            >
-              <Icon name="mdi:phone" class="w-5 h-5" />
-              Zavolat nám
-            </a>
-            <a 
-              href="#kontakt"
-              class="inline-flex items-center gap-2 px-8 py-4 bg-blue-700 text-white rounded-full font-semibold hover:bg-blue-800 transition-colors border-2 border-white/20"
-            >
-              <Icon name="mdi:email" class="w-5 h-5" />
-              Napsat e-mail
-            </a>
-          </div>
+          <CTAButtons phoneLabel="Zavolat nám" emailLabel="Napsat e-mail" />
         </div>
       </div>
     </section>
