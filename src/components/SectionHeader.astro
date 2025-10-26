@@ -1,0 +1,19 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  icon: string;
+  title: string;
+  centered?: boolean;
+}
+
+const { icon, title, centered = false } = Astro.props;
+---
+
+<div class:list={[
+  'flex items-center gap-3 mb-12',
+  centered ? 'justify-center' : ''
+]}>
+  <Icon name={icon} class="w-8 h-8 text-blue-600" />
+  <h2 class="text-3xl font-bold text-gray-900">{title}</h2>
+</div>

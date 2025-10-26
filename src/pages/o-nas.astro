@@ -5,6 +5,9 @@ import MobileMenu from '../components/MobileMenu.astro';
 import Footer from '../components/Footer.astro';
 import PageHeader from '../components/PageHeader.astro';
 import CTAButtons from '../components/CTAButtons.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ValueCard from '../components/ValueCard.astro';
+import FeatureCard from '../components/FeatureCard.astro';
 import { Icon } from 'astro-icon/components';
 import { colorClasses, type ColorName } from '../utils/colors';
 import { siteConfig } from '../data/siteConfig';
@@ -47,6 +50,54 @@ const teamMembers: TeamMember[] = [
     color: 'pink'
   }
 ];
+
+const values = [
+  {
+    icon: 'mdi:heart-pulse',
+    title: 'Profesionalita',
+    description: 'Neustále se vzdělávame a sledujeme nejnovější trendy v pediatrii, abychom mohli poskytovat péči na nejvyšší úrovni.',
+    bgColor: 'bg-blue-600'
+  },
+  {
+    icon: 'mdi:heart',
+    title: 'Empatie',
+    description: 'Každé dítě je pro nás jedinečné. Přistupujeme k němu s porozuměním, trpělivostí a laskavostí.',
+    bgColor: 'bg-cyan-600'
+  },
+  {
+    icon: 'mdi:shield-check-outline',
+    title: 'Důvěryhodnost',
+    description: 'Stavíme na otevřené komunikaci s rodiči a transparentním přístupu ke zdravotní péči jejich dětí.',
+    bgColor: 'bg-purple-600'
+  }
+];
+
+const features = [
+  {
+    icon: 'mdi:clock-check-outline',
+    title: 'Flexibilní ordinační hodiny',
+    description: 'Ordinujeme každý pracovní den, vždy se snažíme vyjít vstříc potřebám pracujících rodičů.',
+    iconColor: 'text-blue-600'
+  },
+  {
+    icon: 'mdi:calendar-check-outline',
+    title: 'Online objednávání',
+    description: 'Možnost sjednat si termín online nebo telefonicky bez zbytečného čekání.',
+    iconColor: 'text-cyan-600'
+  },
+  {
+    icon: 'mdi:hospital-building',
+    title: 'Moderní ordinace',
+    description: 'Čisté a příjemné prostředí s čekárnou plnou hraček a knih pro děti.',
+    iconColor: 'text-purple-600'
+  },
+  {
+    icon: 'mdi:phone-in-talk',
+    title: 'Dostupnost',
+    description: 'V případě potřeby jsme vám k dispozici telefonicky i mimo ordinační hodiny.',
+    iconColor: 'text-pink-600'
+  }
+];
 ---
 
 <Layout title="O nás - Zdravíčko">
@@ -64,10 +115,7 @@ const teamMembers: TeamMember[] = [
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
-          <div class="flex items-center gap-3 mb-6">
-            <Icon name="mdi:book-open-page-variant" class="w-8 h-8 text-blue-600" />
-            <h2 class="text-3xl font-bold text-gray-900">Naše historie</h2>
-          </div>
+          <SectionHeader icon="mdi:book-open-page-variant" title="Naše historie" />
           
           <div class="prose prose-lg max-w-none text-gray-700 space-y-4">
             <p>
@@ -96,44 +144,12 @@ const teamMembers: TeamMember[] = [
     <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="max-w-5xl mx-auto">
-          <div class="flex items-center gap-3 mb-12 justify-center">
-            <Icon name="mdi:star" class="w-8 h-8 text-blue-600" />
-            <h2 class="text-3xl font-bold text-gray-900">Naše hodnoty</h2>
-          </div>
+          <SectionHeader icon="mdi:star" title="Naše hodnoty" centered />
           
           <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-              <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
-                <Icon name="mdi:heart-pulse" class="w-8 h-8 text-white" />
-              </div>
-              <h3 class="font-bold text-xl mb-3 text-gray-900">Profesionalita</h3>
-              <p class="text-gray-600">
-                Neustále se vzdělávame a sledujeme nejnovější trendy v pediatrii, 
-                abychom mohli poskytovat péči na nejvyšší úrovni.
-              </p>
-            </div>
-            
-            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-              <div class="w-16 h-16 bg-cyan-600 rounded-full flex items-center justify-center mb-4">
-                <Icon name="mdi:heart" class="w-8 h-8 text-white" />
-              </div>
-              <h3 class="font-bold text-xl mb-3 text-gray-900">Empatie</h3>
-              <p class="text-gray-600">
-                Každé dítě je pro nás jedinečné. Přistupujeme k němu s porozuměním, 
-                trpělivostí a laskavostí.
-              </p>
-            </div>
-            
-            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-              <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mb-4">
-                <Icon name="mdi:shield-check-outline" class="w-8 h-8 text-white" />
-              </div>
-              <h3 class="font-bold text-xl mb-3 text-gray-900">Důvěryhodnost</h3>
-              <p class="text-gray-600">
-                Stavíme na otevřené komunikaci s rodiči a transparentním přístupu 
-                ke zdravotní péči jejich dětí.
-              </p>
-            </div>
+            {values.map((value) => (
+              <ValueCard {...value} />
+            ))}
           </div>
         </div>
       </div>
@@ -143,10 +159,7 @@ const teamMembers: TeamMember[] = [
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
-          <div class="flex items-center gap-3 mb-12 justify-center">
-            <Icon name="mdi:account-group" class="w-8 h-8 text-blue-600" />
-            <h2 class="text-3xl font-bold text-gray-900">Náš tým</h2>
-          </div>
+          <SectionHeader icon="mdi:account-group" title="Náš tým" centered />
           
           <div class="grid md:grid-cols-2 gap-8">
             {teamMembers.map((member) => {
@@ -175,51 +188,12 @@ const teamMembers: TeamMember[] = [
     <section class="py-16 bg-linear-to-br from-blue-50 to-cyan-50">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
-          <div class="flex items-center gap-3 mb-12 justify-center">
-            <Icon name="mdi:thumb-up-outline" class="w-8 h-8 text-blue-600" />
-            <h2 class="text-3xl font-bold text-gray-900">Proč si vybrat nás?</h2>
-          </div>
+          <SectionHeader icon="mdi:thumb-up-outline" title="Proč si vybrat nás?" centered />
           
           <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white rounded-xl p-6 shadow-sm">
-              <div class="flex items-start gap-4">
-                <Icon name="mdi:clock-check-outline" class="w-6 h-6 text-blue-600 shrink-0 mt-1" />
-                <div>
-                  <h3 class="font-bold text-lg mb-2 text-gray-900">Flexibilní ordinační hodiny</h3>
-                  <p class="text-gray-600">Ordinujeme každý pracovní den, vždy se snažíme vyjít vstříc potřebám pracujících rodičů.</p>
-                </div>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-xl p-6 shadow-sm">
-              <div class="flex items-start gap-4">
-                <Icon name="mdi:calendar-check-outline" class="w-6 h-6 text-cyan-600 shrink-0 mt-1" />
-                <div>
-                  <h3 class="font-bold text-lg mb-2 text-gray-900">Online objednávání</h3>
-                  <p class="text-gray-600">Možnost sjednat si termín online nebo telefonicky bez zbytečného čekání.</p>
-                </div>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-xl p-6 shadow-sm">
-              <div class="flex items-start gap-4">
-                <Icon name="mdi:hospital-building" class="w-6 h-6 text-purple-600 shrink-0 mt-1" />
-                <div>
-                  <h3 class="font-bold text-lg mb-2 text-gray-900">Moderní ordinace</h3>
-                  <p class="text-gray-600">Čisté a příjemné prostředí s čekárnou plnou hraček a knih pro děti.</p>
-                </div>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-xl p-6 shadow-sm">
-              <div class="flex items-start gap-4">
-                <Icon name="mdi:phone-in-talk" class="w-6 h-6 text-pink-600 shrink-0 mt-1" />
-                <div>
-                  <h3 class="font-bold text-lg mb-2 text-gray-900">Dostupnost</h3>
-                  <p class="text-gray-600">V případě potřeby jsme vám k dispozici telefonicky i mimo ordinační hodiny.</p>
-                </div>
-              </div>
-            </div>
+            {features.map((feature) => (
+              <FeatureCard {...feature} />
+            ))}
           </div>
         </div>
       </div>

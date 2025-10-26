@@ -1,0 +1,34 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  icon: string;
+  title: string;
+  description: string;
+  iconBg?: string;
+  iconColor?: string;
+}
+
+const { 
+  icon, 
+  title, 
+  description,
+  iconBg = 'bg-blue-600',
+  iconColor = 'text-white'
+} = Astro.props;
+---
+
+<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+  <div class="flex items-start gap-4">
+    <div class:list={[
+      'w-6 h-6 shrink-0 mt-1',
+      iconColor
+    ]}>
+      <Icon name={icon} class="w-6 h-6" />
+    </div>
+    <div>
+      <h3 class="font-bold text-lg mb-2 text-gray-900">{title}</h3>
+      <p class="text-gray-600">{description}</p>
+    </div>
+  </div>
+</div>
