@@ -2,7 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/common/Header.astro';
 import MobileMenu from '../../components/common/MobileMenu.astro';
-import BlogGrid from '../../components/layouts/BlogGrid.astro';
+import HorizontalCarousel from '../../components/common/HorizontalCarousel.astro';
+import BlogCard from '../../components/cards/BlogCardCarousel.astro';
 import Footer from '../../components/common/Footer.astro';
 import { Icon } from 'astro-icon/components';
 import type { CollectionEntry } from 'astro:content';
@@ -32,8 +33,7 @@ const CALENDAR_ICON = 'mdi:calendar';
 const allPosts = await getPublishedBlogPosts();
 const relatedPosts = allPosts
   .filter((p: CollectionEntry<'blog'>) => p.slug !== post.slug)
-  .slice(0, RELATED_POSTS_COUNT)
-  .map((p, index) => blogEntryToCardData(p, index + 1));
+  .slice(0, RELATED_POSTS_COUNT);
 ---
 
 <Layout
@@ -111,12 +111,20 @@ const relatedPosts = allPosts
     </div>
   </article>
 
-  <BlogGrid
-    posts={relatedPosts}
-    title="Mohlo by vás zajímat"
-    maxPosts={RELATED_POSTS_COUNT}
-    viewAllText="Zpět na blog"
-  />
+  {relatedPosts.length > 0 && (
+    <HorizontalCarousel
+      id="related-posts"
+      title="Mohlo by vás zajímat"
+      description="Další užitečné články z našeho blogu"
+      ctaText="Zpět na blog"
+      ctaLink="/blog"
+      bgColor="gray"
+    >
+      {relatedPosts.map(post => (
+        <BlogCard post={post} />
+      ))}
+    </HorizontalCarousel>
+  )}
 
   <Footer />
 </Layout>
