@@ -1,0 +1,68 @@
+---
+import { Icon } from 'astro-icon/components';
+import BlogCard, { type BlogCardData } from '../BlogCard.astro';
+
+interface Props {
+  posts: BlogCardData[];
+  title?: string;
+  description?: string;
+  maxPosts?: number;
+  showViewAll?: boolean;
+  viewAllText?: string;
+  viewAllLink?: string;
+}
+
+const { 
+  posts, 
+  title = 'Z našeho blogu',
+  description = 'Odborné rady a informace pro rodiče',
+  maxPosts = 3,
+  showViewAll = true,
+  viewAllText = 'Všechny články',
+  viewAllLink = '/blog'
+} = Astro.props;
+
+const displayPosts = posts.slice(0, maxPosts);
+---
+
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="max-w-6xl mx-auto">
+      {title && (
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">{title}</h2>
+          {description && (
+            <p class="text-lg text-gray-600">{description}</p>
+          )}
+        </div>
+      )}
+      
+      {displayPosts.length > 0 ? (
+        <div>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {displayPosts.map((post) => (
+              <BlogCard {...post} />
+            ))}
+          </div>
+          
+          {showViewAll && (
+            <div class="text-center">
+              <a 
+                href={viewAllLink}
+                class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
+              >
+                {viewAllText}
+                <Icon name="mdi:arrow-right" class="w-5 h-5" />
+              </a>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div class="text-center py-12 bg-white rounded-xl">
+          <Icon name="mdi:post-outline" class="w-16 h-16 text-gray-400 mx-auto mb-4" />
+          <p class="text-gray-500">Zatím nejsou k dispozici žádné články</p>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

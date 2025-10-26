@@ -3,23 +3,23 @@ import { Icon } from 'astro-icon/components';
 import type { BlogPost } from '../data/blogPosts';
 import { formatDateShort } from '../utils/dateFormat';
 
-interface Props {
-  post: BlogPost;
-}
+export interface BlogCardData extends BlogPost {}
 
-const { post } = Astro.props;
+interface Props extends BlogCardData {}
+
+const { slug, title, category, date, excerpt, image, author } = Astro.props;
 ---
 
 <a 
-  href={`/blog/${post.slug}`}
+  href={`/blog/${slug}`}
   class="block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-gray-100 cursor-pointer"
 >
   <article>
     <div class="relative h-48 bg-linear-to-br from-blue-100 to-cyan-100 overflow-hidden">
-      {post.image ? (
+      {image ? (
         <img 
-          src={post.image} 
-          alt={post.title}
+          src={image} 
+          alt={title}
           class="w-full h-full object-cover"
         />
       ) : (
@@ -29,7 +29,7 @@ const { post } = Astro.props;
       )}
       <div class="absolute top-4 left-4">
         <span class="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-blue-600">
-          {post.category}
+          {category}
         </span>
       </div>
     </div>
@@ -38,18 +38,18 @@ const { post } = Astro.props;
       <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
         <div class="flex items-center gap-1">
           <Icon name="mdi:calendar" class="w-4 h-4" />
-          <time datetime={post.date}>
-            {formatDateShort(post.date)}
+          <time datetime={date}>
+            {formatDateShort(date)}
           </time>
         </div>
       </div>
       
       <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-        {post.title}
+        {title}
       </h3>
       
       <p class="text-gray-600 mb-4 line-clamp-2">
-        {post.excerpt}
+        {excerpt}
       </p>
       
       <div class="text-blue-600 font-semibold flex items-center gap-1 text-sm">

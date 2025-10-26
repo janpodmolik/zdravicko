@@ -29,7 +29,7 @@ const posts = allPosts.map((entry, index) => blogEntryToCardData(entry, index + 
     <div class="container mx-auto px-4">
       <div class="max-w-6xl mx-auto">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post: BlogPost) => <BlogCard post={post} />)}
+          {posts.map((post: BlogPost) => <BlogCard {...post} />)}
         </div>
       </div>
     </div>
