@@ -8,6 +8,7 @@ import Footer from '../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
 import type { BlogPost } from '../data/blogPosts';
 import { getPublishedBlogPosts, blogEntryToCardData } from '../utils/contentHelpers';
+import { contactInfo } from '../data/contact';
 
 // Získat všechny publikované příspěvky a transformovat pro BlogCard
 const allPosts = await getPublishedBlogPosts();
@@ -42,11 +43,11 @@ const posts = allPosts.map((entry, index) => blogEntryToCardData(entry, index + 
           Pokud máte konkrétní otázku ohledně zdraví vašeho dítěte, neváhejte nás kontaktovat.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="tel:+420731232333" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center justify-center gap-2">
+          <a href={`tel:${contactInfo.phones.doctor.number}`} class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center justify-center gap-2">
             <Icon name="mdi:phone" class="w-5 h-5" />
             Zavolat
           </a>
-          <a href="/#kontakt" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors border-2 border-blue-600">
+          <a href="/kontakt" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors border-2 border-blue-600">
             Napsat email
           </a>
         </div>
