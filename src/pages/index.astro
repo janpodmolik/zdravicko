@@ -15,10 +15,9 @@ import Contact from '../components/sections/Contact.astro';
 import Footer from '../components/Footer.astro';
 
 import { getTodayOpeningHours } from '../utils/openingHours';
-import { getActiveSpecialNotice, getPublishedNews, getPublishedBlogPosts } from '../utils/contentHelpers';
+import { getPublishedNews, getPublishedBlogPosts } from '../utils/contentHelpers';
 
 const todayInfo = getTodayOpeningHours();
-const specialNotice = await getActiveSpecialNotice();
 const latestNews = (await getPublishedNews()).slice(0, 3);
 const latestBlogPosts = (await getPublishedBlogPosts()).slice(0, 3);
 
@@ -55,7 +54,7 @@ const priorityServices = [
   <Hero />
   <QuickInfo todayInfo={todayInfo} />
   
-  {specialNotice && <SpecialNotice notice={specialNotice} />}
+  <SpecialNotice />
   
   <!-- Služby Carousel -->
   <HorizontalCarousel

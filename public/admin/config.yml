@@ -114,14 +114,22 @@ collections:
       - { label: "Obsah", name: "body", widget: "markdown" }
       - { label: "Publikováno", name: "published", widget: "boolean", default: true }
 
-  # Special Notice (Změny ordinačních hodin)
+  # Důležité oznámení - pouze jeden soubor
   - name: "special_notice"
-    label: "Důležitá oznámení"
-    folder: "src/content/special_notice"
-    create: true
-    slug: "{{slug}}"
+    label: "Důležité oznámení"
+    file: "src/data/special-notice.json"
     fields:
-      - { label: "Zpráva", name: "message", widget: "text" }
-      - { label: "Datum platnosti", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Upravené hodiny", name: "hours", widget: "string", required: false }
-      - { label: "Aktivní", name: "active", widget: "boolean", default: true }
+      - { label: "Zobrazit oznámení", name: "active", widget: "boolean", default: false, hint: "Zapněte pro zobrazení banneru na webu" }
+      - { label: "Zpráva", name: "message", widget: "text", hint: "Text oznámení (např. 'Ordinace bude 24.12. zavřená')" }
+      - { label: "Upravené hodiny", name: "hours", widget: "string", required: false, hint: "Volitelné - např. '8:00 - 12:00'" }
+      - label: "Typ oznámení"
+        name: "type"
+        widget: "select"
+        default: "warning"
+        hint: "Určuje barvu a ikonu banneru"
+        options:
+          - { label: "⚠️ Varování (žlutá)", value: "warning" }
+          - { label: "ℹ️ Informace (modrá)", value: "info" }
+          - { label: "🔴 Důležité (červená)", value: "urgent" }
+      - { label: "Platnost od", name: "validFrom", widget: "datetime", format: "YYYY-MM-DD", required: false, hint: "Volitelné - od kdy zobrazit" }
+      - { label: "Platnost do", name: "validTo", widget: "datetime", format: "YYYY-MM-DD", required: false, hint: "Volitelné - do kdy zobrazit" }

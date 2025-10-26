@@ -1,36 +1,71 @@
 ---
 import { Icon } from 'astro-icon/components';
-import type { CollectionEntry } from 'astro:content';
+import specialNotice from '../../data/special-notice.json';
 
-interface Props {
-  notice: CollectionEntry<'special_notice'>;
-}
+// Kontrola platnosti pokud jsou data nastavena
+const now = new Date();
+const isValid = 
+  (!specialNotice.validFrom || new Date(specialNotice.validFrom) <= now) &&
+  (!specialNotice.validTo || new Date(specialNotice.validTo) >= now);
 
-const { notice } = Astro.props;
+// Zobrazíme pouze pokud je aktivní a platné
+const shouldDisplay = specialNotice.active && isValid;
+
+// Konfigurace podle typu oznámení
+const typeConfig = {
+  warning: {
+    gradient: 'from-amber-50 to-orange-50',
+    border: 'border-amber-300',
+    iconBg: 'from-amber-500 to-orange-500',
+    icon: 'mdi:alert-circle',
+    badgeBg: 'bg-amber-50',
+    badgeText: 'text-amber-700'
+  },
+  info: {
+    gradient: 'from-blue-50 to-cyan-50',
+    border: 'border-blue-300',
+    iconBg: 'from-blue-500 to-cyan-500',
+    icon: 'mdi:information',
+    badgeBg: 'bg-blue-50',
+    badgeText: 'text-blue-700'
+  },
+  urgent: {
+    gradient: 'from-red-50 to-pink-50',
+    border: 'border-red-300',
+    iconBg: 'from-red-500 to-pink-500',
+    icon: 'mdi:alert-octagon',
+    badgeBg: 'bg-red-50',
+    badgeText: 'text-red-700'
+  }
+};
+
+const config = typeConfig[specialNotice.type as keyof typeof typeConfig] || typeConfig.warning;
 ---
 
-<section class="py-8 bg-gradient-to-r from-amber-50 to-orange-50">
-  <div class="container mx-auto px-4">
-    <div class="max-w-4xl mx-auto">
-      <div class="bg-white rounded-2xl shadow-lg border-2 border-amber-300 p-5 md:p-6 relative">
-        <div class="absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-lg flex items-center justify-center opacity-80">
-          <Icon name="mdi:alert-circle" class="w-6 h-6 md:w-7 md:h-7 text-white" />
-        </div>
-        <div class="pr-14 md:pr-16">
-          <h3 class="font-bold text-lg md:text-xl text-gray-900 mb-2">
-            Důležité oznámení
-          </h3>
-          <p class="text-gray-700 text-sm md:text-base leading-relaxed">
-            {notice.data.message}
-          </p>
-          {notice.data.hours && (
-            <div class="mt-3 inline-flex items-center gap-2 text-amber-700 bg-amber-50 px-3 py-1.5 rounded-lg text-sm">
-              <Icon name="mdi:clock-outline" class="w-4 h-4" />
-              <span class="font-semibold">{notice.data.hours}</span>
-            </div>
-          )}
+{shouldDisplay && (
+  <section class={`py-8 bg-gradient-to-r ${config.gradient}`}>
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class={`bg-white rounded-2xl shadow-lg border-2 ${config.border} p-5 md:p-6 relative`}>
+          <div class={`absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br ${config.iconBg} rounded-lg flex items-center justify-center opacity-80`}>
+            <Icon name={config.icon} class="w-6 h-6 md:w-7 md:h-7 text-white" />
+          </div>
+          <div class="pr-14 md:pr-16">
+            <h3 class="font-bold text-lg md:text-xl text-gray-900 mb-2">
+              Důležité oznámení
+            </h3>
+            <p class="text-gray-700 text-sm md:text-base leading-relaxed">
+              {specialNotice.message}
+            </p>
+            {specialNotice.hours && (
+              <div class={`mt-3 inline-flex items-center gap-2 ${config.badgeText} ${config.badgeBg} px-3 py-1.5 rounded-lg text-sm`}>
+                <Icon name="mdi:clock-outline" class="w-4 h-4" />
+                <span class="font-semibold">{specialNotice.hours}</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+)}

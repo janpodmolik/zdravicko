@@ -53,5 +53,356 @@
 <body>
   <!-- Decap CMS se načte zde -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
+  <!-- Custom preview templates -->
+  <script>
+    // Čekáme na načtení CMS
+    CMS.init();
+
+    // ============================================
+    // BLOG PREVIEW
+    // ============================================
+    const BlogPreview = createClass({
+      render() {
+        const entry = this.props.entry;
+        const title = entry.getIn(['data', 'title']);
+        const date = entry.getIn(['data', 'date']);
+        const category = entry.getIn(['data', 'category']);
+        const excerpt = entry.getIn(['data', 'excerpt']);
+        const body = entry.getIn(['data', 'body']);
+        const author = entry.getIn(['data', 'author']);
+        
+        // Formátování data
+        const dateObj = date ? new Date(date) : new Date();
+        const formattedDate = dateObj.toLocaleDateString('cs-CZ', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        
+        return h('div', { 
+          style: {
+            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+            maxWidth: '800px',
+            margin: '0 auto',
+            padding: '40px 20px',
+            backgroundColor: '#ffffff'
+          }
+        },
+          // Kategorie badge
+          h('div', {
+            style: {
+              display: 'inline-block',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              padding: '6px 16px',
+              borderRadius: '20px',
+              fontSize: '14px',
+              fontWeight: '600',
+              marginBottom: '20px'
+            }
+          }, category || 'Bez kategorie'),
+          
+          // Titulek
+          h('h1', {
+            style: {
+              fontSize: '42px',
+              fontWeight: '800',
+              color: '#1e293b',
+              lineHeight: '1.2',
+              marginBottom: '20px',
+              marginTop: '0'
+            }
+          }, title || 'Název článku'),
+          
+          // Metadata
+          h('div', {
+            style: {
+              display: 'flex',
+              gap: '20px',
+              color: '#64748b',
+              fontSize: '15px',
+              marginBottom: '30px',
+              paddingBottom: '20px',
+              borderBottom: '2px solid #e2e8f0'
+            }
+          },
+            h('span', {}, `📅 ${formattedDate}`),
+            author && h('span', {}, `✍️ ${author}`)
+          ),
+          
+          // Excerpt
+          excerpt && h('div', {
+            style: {
+              fontSize: '20px',
+              lineHeight: '1.7',
+              color: '#475569',
+              marginBottom: '30px',
+              fontWeight: '500',
+              fontStyle: 'italic',
+              padding: '20px',
+              backgroundColor: '#f1f5f9',
+              borderLeft: '4px solid #3b82f6',
+              borderRadius: '8px'
+            }
+          }, excerpt),
+          
+          // Obsah článku
+          h('div', {
+            style: {
+              fontSize: '18px',
+              lineHeight: '1.8',
+              color: '#334155'
+            },
+            dangerouslySetInnerHTML: {
+              __html: this.props.widgetFor('body')
+            }
+          })
+        );
+      }
+    });
+
+    // ============================================
+    // AKTUALITY PREVIEW
+    // ============================================
+    const NewsPreview = createClass({
+      render() {
+        const entry = this.props.entry;
+        const title = entry.getIn(['data', 'title']);
+        const color = entry.getIn(['data', 'color']) || 'blue';
+        const icon = entry.getIn(['data', 'icon']) || 'mdi:information';
+        const date = entry.getIn(['data', 'date']);
+        const body = entry.getIn(['data', 'body']);
+        
+        const dateObj = date ? new Date(date) : new Date();
+        const formattedDate = dateObj.toLocaleDateString('cs-CZ', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        
+        // Barevné schéma
+        const colorSchemes = {
+          blue: { bg: '#dbeafe', border: '#3b82f6', text: '#1e40af' },
+          orange: { bg: '#fed7aa', border: '#f97316', text: '#9a3412' },
+          green: { bg: '#dcfce7', border: '#22c55e', text: '#166534' },
+          red: { bg: '#fee2e2', border: '#ef4444', text: '#991b1b' },
+          yellow: { bg: '#fef3c7', border: '#eab308', text: '#854d0e' },
+          purple: { bg: '#f3e8ff', border: '#a855f7', text: '#6b21a8' }
+        };
+        
+        const scheme = colorSchemes[color] || colorSchemes.blue;
+        
+        return h('div', {
+          style: {
+            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+            maxWidth: '700px',
+            margin: '20px auto',
+            padding: '24px',
+            backgroundColor: scheme.bg,
+            border: `3px solid ${scheme.border}`,
+            borderRadius: '16px',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+          }
+        },
+          // Header s ikonou
+          h('div', {
+            style: {
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '16px',
+              marginBottom: '16px'
+            }
+          },
+            // Icon placeholder
+            h('div', {
+              style: {
+                width: '48px',
+                height: '48px',
+                borderRadius: '12px',
+                backgroundColor: scheme.border,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: '0',
+                fontSize: '24px'
+              }
+            }, '📢'),
+            
+            // Titulek
+            h('div', { style: { flex: '1' } },
+              h('h2', {
+                style: {
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  color: scheme.text,
+                  margin: '0 0 8px 0'
+                }
+              }, title || 'Název aktuality'),
+              
+              // Datum
+              h('div', {
+                style: {
+                  fontSize: '14px',
+                  color: scheme.text,
+                  opacity: '0.8'
+                }
+              }, formattedDate)
+            )
+          ),
+          
+          // Obsah
+          h('div', {
+            style: {
+              fontSize: '16px',
+              lineHeight: '1.6',
+              color: scheme.text
+            },
+            dangerouslySetInnerHTML: {
+              __html: this.props.widgetFor('body')
+            }
+          })
+        );
+      }
+    });
+
+    // ============================================
+    // SPECIAL NOTICE PREVIEW (NOVÉ)
+    // ============================================
+    const SpecialNoticePreview = createClass({
+      render() {
+        const entry = this.props.entry;
+        const active = entry.getIn(['data', 'active']);
+        const message = entry.getIn(['data', 'message']);
+        const hours = entry.getIn(['data', 'hours']);
+        const type = entry.getIn(['data', 'type']) || 'warning';
+        
+        // Pokud není aktivní, zobraz upozornění
+        if (!active) {
+          return h('div', {
+            style: {
+              fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+              maxWidth: '800px',
+              margin: '40px auto',
+              padding: '40px',
+              backgroundColor: '#f1f5f9',
+              border: '2px dashed #94a3b8',
+              borderRadius: '16px',
+              textAlign: 'center',
+              color: '#64748b'
+            }
+          },
+            h('div', { style: { fontSize: '48px', marginBottom: '16px' } }, '🔕'),
+            h('h3', { style: { fontSize: '24px', marginBottom: '8px', color: '#475569' } }, 'Oznámení není aktivní'),
+            h('p', { style: { fontSize: '16px' } }, 'Zapněte přepínač "Zobrazit oznámení" pro aktivaci banneru na webu.')
+          );
+        }
+        
+        // Konfigurace podle typu
+        const typeConfig = {
+          warning: {
+            gradient: 'linear-gradient(to right, #fef3c7, #fed7aa)',
+            border: '#f59e0b',
+            icon: '⚠️',
+            badgeBg: '#fef3c7',
+            badgeText: '#92400e'
+          },
+          info: {
+            gradient: 'linear-gradient(to right, #dbeafe, #bfdbfe)',
+            border: '#3b82f6',
+            icon: 'ℹ️',
+            badgeBg: '#dbeafe',
+            badgeText: '#1e40af'
+          },
+          urgent: {
+            gradient: 'linear-gradient(to right, #fee2e2, #fecaca)',
+            border: '#ef4444',
+            icon: '🚨',
+            badgeBg: '#fee2e2',
+            badgeText: '#991b1b'
+          }
+        };
+        
+        const config = typeConfig[type] || typeConfig.warning;
+        
+        return h('div', {
+          style: {
+            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+            padding: '40px 20px',
+            background: config.gradient
+          }
+        },
+          h('div', {
+            style: {
+              maxWidth: '800px',
+              margin: '0 auto',
+              backgroundColor: 'white',
+              borderRadius: '16px',
+              padding: '32px',
+              border: `3px solid ${config.border}`,
+              boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
+              position: 'relative'
+            }
+          },
+            // Ikona v pravém horním rohu
+            h('div', {
+              style: {
+                position: 'absolute',
+                top: '16px',
+                right: '16px',
+                fontSize: '40px',
+                opacity: '0.8'
+              }
+            }, config.icon),
+            
+            // Titulek
+            h('h3', {
+              style: {
+                fontSize: '24px',
+                fontWeight: '700',
+                color: '#1e293b',
+                marginBottom: '16px',
+                marginTop: '0',
+                paddingRight: '60px'
+              }
+            }, 'Důležité oznámení'),
+            
+            // Zpráva
+            h('p', {
+              style: {
+                fontSize: '18px',
+                lineHeight: '1.7',
+                color: '#475569',
+                marginBottom: hours ? '20px' : '0'
+              }
+            }, message || 'Zde bude text oznámení...'),
+            
+            // Upravené hodiny (pokud jsou vyplněny)
+            hours && h('div', {
+              style: {
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                backgroundColor: config.badgeBg,
+                color: config.badgeText,
+                padding: '10px 16px',
+                borderRadius: '8px',
+                fontSize: '16px',
+                fontWeight: '600'
+              }
+            },
+              h('span', {}, '🕐'),
+              h('span', {}, hours)
+            )
+          )
+        );
+      }
+    });
+
+    // Registrace preview templates
+    CMS.registerPreviewTemplate('blog', BlogPreview);
+    CMS.registerPreviewTemplate('news', NewsPreview);
+    CMS.registerPreviewTemplate('special_notice', SpecialNoticePreview);
+  </script>
 </body>
 </html>
