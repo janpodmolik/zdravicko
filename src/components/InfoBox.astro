@@ -1,0 +1,56 @@
+---
+/**
+ * InfoBox - Informační box s ikonou a seznamem
+ * 
+ * Použití: Důležité informace, tipy, návody
+ */
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  icon?: string;
+  title?: string;
+  items: string[];
+  variant?: 'blue' | 'amber' | 'green';
+}
+
+const { 
+  icon = 'mdi:information', 
+  title = 'Důležité informace:', 
+  items,
+  variant = 'blue'
+} = Astro.props;
+
+const variantClasses = {
+  blue: {
+    bg: 'bg-blue-50',
+    border: 'border-blue-100',
+    icon: 'text-blue-600'
+  },
+  amber: {
+    bg: 'bg-amber-50',
+    border: 'border-amber-100',
+    icon: 'text-amber-600'
+  },
+  green: {
+    bg: 'bg-green-50',
+    border: 'border-green-100',
+    icon: 'text-green-600'
+  }
+};
+
+const colors = variantClasses[variant];
+---
+
+<div class:list={['p-6 rounded-xl border-2', colors.bg, colors.border]}>
+  <div class="flex gap-3">
+    <Icon name={icon} class:list={['w-6 h-6 shrink-0 mt-0.5', colors.icon]} aria-hidden="true" />
+    <div>
+      <p class="font-semibold text-gray-900 mb-2">{title}</p>
+      <ul class="text-sm text-gray-700 space-y-1">
+        {items.map(item => (
+          <li>• {item}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>

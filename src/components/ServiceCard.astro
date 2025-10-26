@@ -1,4 +1,10 @@
 ---
+/**
+ * ServiceCard - Karta pro zobrazení služby
+ *
+ * Zobrazuje detail služby včetně ikony, názvu, popisu, trvání a ceny.
+ * Používá dynamické barvy podle typu služby.
+ */
 import { Icon } from 'astro-icon/components';
 import type { Service } from '../data/services';
 import { colorClasses } from '../utils/colors';
@@ -11,16 +17,23 @@ const { service } = Astro.props;
 const colors = colorClasses[service.color];
 ---
 
-<a 
+<a
   href={`/sluzby/${service.slug}`}
-  class={`block bg-white rounded-xl border-2 ${colors.border} ${colors.hoverBorder} hover:shadow-lg transition-all overflow-hidden cursor-pointer`}
+  class:list={[
+    'block bg-white rounded-xl border-2',
+    'hover:shadow-lg transition-all',
+    colors.border,
+    colors.hoverBorder
+  ]}
+  aria-label={`Zobrazit detail služby: ${service.title}`}
 >
   <article class="p-6">
+    <!-- Header s ikonou a základními informacemi -->
     <div class="flex items-start gap-4 mb-4">
-      <div class={`w-14 h-14 ${colors.bg} rounded-lg flex items-center justify-center shrink-0`}>
-        <Icon name={service.icon} class="w-7 h-7 text-white" />
+      <div class:list={['w-14 h-14 rounded-lg flex items-center justify-center shrink-0', colors.bg]}>
+        <Icon name={service.icon} class="w-7 h-7 text-white" aria-hidden="true" />
       </div>
-      <div class="flex-1">
+      <div class="flex-1 min-w-0">
         <h3 class="text-xl font-bold text-gray-900 mb-2">
           {service.title}
         </h3>
@@ -29,26 +42,30 @@ const colors = colorClasses[service.color];
         </p>
       </div>
     </div>
-    
-    <div class="space-y-2 mb-4">
-      {service.duration && (
-        <div class="flex items-center gap-2 text-sm text-gray-500">
-          <Icon name="mdi:clock-outline" class="w-4 h-4" />
-          <span>{service.duration}</span>
-        </div>
-      )}
-      
-      {service.price && (
-        <div class="flex items-center gap-2 text-sm text-gray-500">
-          <Icon name="mdi:currency-eur" class="w-4 h-4" />
-          <span>{service.price}</span>
-        </div>
-      )}
-    </div>
-    
-    <div class={`inline-flex items-center gap-2 ${colors.text} font-medium text-sm`}>
-      Více informací
-      <Icon name="mdi:arrow-right" class="w-4 h-4" />
+
+    <!-- Meta informace (trvání, cena) -->
+    {(service.duration || service.price) && (
+      <div class="space-y-2 mb-4">
+        {service.duration && (
+          <div class="flex items-center gap-2 text-sm text-gray-500">
+            <Icon name="mdi:clock-outline" class="w-4 h-4" aria-hidden="true" />
+            <span>{service.duration}</span>
+          </div>
+        )}
+
+        {service.price && (
+          <div class="flex items-center gap-2 text-sm text-gray-500">
+            <Icon name="mdi:currency-eur" class="w-4 h-4" aria-hidden="true" />
+            <span>{service.price}</span>
+          </div>
+        )}
+      </div>
+    )}
+
+    <!-- CTA odkaz -->
+    <div class:list={['inline-flex items-center gap-2 font-medium text-sm', colors.text]}>
+      <span>Více informací</span>
+      <Icon name="mdi:arrow-right" class="w-4 h-4" aria-hidden="true" />
     </div>
   </article>
 </a>

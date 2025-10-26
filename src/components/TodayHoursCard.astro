@@ -1,0 +1,67 @@
+---
+/**
+ * TodayHoursCard - Karta zobrazující dnešní ordinační hodiny
+ * 
+ * Zobrazuje aktuální den a otevírací hodiny s případným speciálním oznámením.
+ * Barvy se mění podle typu oznámení (warning, urgent, info).
+ */
+import { Icon } from 'astro-icon/components';
+import { getTodayOpeningHours } from '../utils/openingHours';
+import { getNoticeColors } from '../utils/noticeColors';
+
+const todayInfo = getTodayOpeningHours();
+const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
+---
+
+<div class:list={[
+  "rounded-2xl shadow-lg p-8 border-2",
+  todayInfo.isModified ? `${colors?.bg} ${colors?.border}` : "bg-white border-blue-100"
+]}>
+  <div class="flex items-center gap-4 mb-4">
+    <div class:list={[
+      "w-12 h-12 rounded-full flex items-center justify-center",
+      todayInfo.isModified ? colors?.icon : "bg-blue-600"
+    ]}>
+      <Icon 
+        name={todayInfo.isModified ? "mdi:alert-circle-outline" : "mdi:clock-outline"} 
+        class="w-6 h-6 text-white" 
+        aria-hidden="true"
+      />
+    </div>
+    <div>
+      <h2 class="text-2xl font-bold text-gray-900">
+        {todayInfo.title}
+      </h2>
+      <p class="text-gray-600">
+        {new Date().toLocaleDateString('cs-CZ', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+      </p>
+    </div>
+  </div>
+  
+  <!-- Hodiny (pokud existují) -->
+  {todayInfo.hours && (
+    <div class:list={[
+      "text-3xl font-bold mb-2",
+      todayInfo.isModified ? colors?.text : "text-blue-600"
+    ]}>
+      {todayInfo.hours}
+    </div>
+  )}
+  
+  <!-- Zpráva/oznámení (pokud existuje) -->
+  {todayInfo.isModified && todayInfo.notice && (
+    <div class:list={[
+      "mt-4 p-4 border-l-4 rounded",
+      colors?.infoBanner,
+      colors?.infoBannerBorder
+    ]}>
+      <p class:list={[
+        "text-sm font-medium",
+        colors?.description
+      ]}>
+        <Icon name="mdi:information" class="w-4 h-4 inline mr-1" aria-hidden="true" />
+        {todayInfo.notice}
+      </p>
+    </div>
+  )}
+</div>

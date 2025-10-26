@@ -2,7 +2,7 @@ import specialNoticeData from "../data/special-notice.json";
 
 export interface OpeningHoursInfo {
   title: string;
-  hours: string;
+  hours: string | null;
   isModified?: boolean; // Příznak, že jsou hodiny upravené speciálním oznámením
   notice?: string; // Text oznámení, pokud existuje
   noticeType?: "warning" | "info" | "urgent"; // Typ oznámení pro barvy
@@ -58,12 +58,14 @@ function isDateInRange(
   return true;
 }
 
+/**
+ * Vrátí aktivní special notice pokud existuje a je platné
+ */
 export function getActiveSpecialNotice(): SpecialNotice | null {
   const notice = specialNoticeData as SpecialNotice;
 
   if (!notice.active) return null;
 
-  // Kontrola platnosti podle rozsahu dat
   const today = getTodayDateString();
   if (!isDateInRange(today, notice.validFrom, notice.validTo)) {
     return null;
@@ -73,99 +75,64 @@ export function getActiveSpecialNotice(): SpecialNotice | null {
 }
 
 /**
- * Helper funkce pro získání hodin z special notice
- * Jeden zdroj pravdy pro logiku closed/hours
+ * Získá informace o dnešních ordinačních hodinách
+ * Logika (v pořadí priority):
+ * 1. Special notice (zavřeno/upravené hodiny/informace)
+ * 2. Standardní ordinační hodiny podle dne v týdnu
  */
-function getSpecialNoticeHours(notice: SpecialNotice): string | null {
-  // Pokud je zavřeno, vždy vrať "Zavřeno" (ignoruj pole hours)
-  if (notice.closed) {
-    return "Zavřeno";
-  }
-
-  // Pokud nejsou upravené hodiny, vrať null (použije se běžná doba)
-  if (!notice.hours) {
-    return null;
-  }
-
-  // Vrať upravené hodiny
-  return notice.hours;
-}
-
 export function getTodayOpeningHours(): OpeningHoursInfo {
   const today = new Date();
   const dayOfWeek = today.getDay();
-
-  // Check for special notice first (higher priority)
+  const regularHours = openingHoursByDay[dayOfWeek];
+  
+  // Kontrola special notice
   const notice = getActiveSpecialNotice();
+  
   if (notice) {
-    const specialHours = getSpecialNoticeHours(notice);
-
-    // Pokud máme special hours (včetně "Zavřeno")
-    if (specialHours !== null) {
-      const isClosed = specialHours === "Zavřeno";
+    // Případ 1: Zavřeno celý den
+    if (notice.closed) {
       return {
-        title: isClosed ? "Dnes zavřeno" : "Dnes otevřeno",
-        hours: specialHours,
+        title: "Dnes zavřeno",
+        hours: null,
         isModified: true,
         notice: notice.message,
         noticeType: notice.type,
       };
     }
-
-    // Special notice existuje, ale nemá ani closed ani hours
-    // Zobrazíme normální hodiny s upozorněním
-    const regularHours = openingHoursByDay[dayOfWeek];
-    if (regularHours) {
+    
+    // Případ 2: Upravené hodiny
+    if (notice.hours) {
       return {
         title: "Dnes otevřeno",
-        hours: regularHours,
-        isModified: true,
-        notice: notice.message,
-        noticeType: notice.type,
-      };
-    } else {
-      return {
-        title: "Dnes neordinujeme",
-        hours: "",
+        hours: notice.hours,
         isModified: true,
         notice: notice.message,
         noticeType: notice.type,
       };
     }
-  }
-
-  // Regular hours (žádné special notice)
-  const hours = openingHoursByDay[dayOfWeek];
-
-  if (hours) {
+    
+    // Případ 3: Jen informace (bez změny hodin)
     return {
-      title: "Dnes otevřeno",
-      hours: hours,
-      isModified: false,
-    };
-  } else {
-    return {
-      title: "Dnes neordinujeme",
-      hours: "",
-      isModified: false,
+      title: regularHours ? "Dnes otevřeno" : "Dnes neordinujeme",
+      hours: regularHours,
+      isModified: true,
+      notice: notice.message,
+      noticeType: notice.type,
     };
   }
+  
+  // Žádné special notice - standardní hodiny
+  return {
+    title: regularHours ? "Dnes otevřeno" : "Dnes neordinujeme",
+    hours: regularHours,
+    isModified: false,
+  };
 }
 
-// Vrátí ordinační hodiny pro konkrétní den v týdnu (0 = neděle, 1 = pondělí, ...)
+/**
+ * Vrátí ordinační hodiny pro konkrétní den v týdnu (0 = neděle, 6 = sobota)
+ * Používá se pro zobrazení týdenního rozvrhu
+ */
 export function getOpeningHoursForDay(dayOfWeek: number): string | null {
-  // Nejdříve zkontroluj special notice
-  const notice = getActiveSpecialNotice();
-  if (notice) {
-    // Pokud je dnes ten den, použij helper funkci
-    const today = new Date().getDay();
-    if (today === dayOfWeek) {
-      const specialHours = getSpecialNoticeHours(notice);
-      if (specialHours !== null) {
-        return specialHours;
-      }
-    }
-  }
-
   return openingHoursByDay[dayOfWeek];
 }
