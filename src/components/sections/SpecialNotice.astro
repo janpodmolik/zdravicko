@@ -1,15 +1,27 @@
 ---
 import { Icon } from 'astro-icon/components';
-import specialNotice from '../../data/special-notice.json';
+import { getActiveSpecialNotice } from '../../utils/openingHours';
 
-// Kontrola platnosti pokud jsou data nastavena
-const now = new Date();
-const isValid = 
-  (!specialNotice.validFrom || new Date(specialNotice.validFrom) <= now) &&
-  (!specialNotice.validTo || new Date(specialNotice.validTo) >= now);
+// Použijeme centralizovanou funkci pro kontrolu platnosti
+const specialNotice = getActiveSpecialNotice();
 
-// Zobrazíme pouze pokud je aktivní a platné
-const shouldDisplay = specialNotice.active && isValid;
+// Zobrazíme pouze pokud existuje aktivní oznámení
+const shouldDisplay = specialNotice !== null;
+
+// Helper pro získání hodin k zobrazení
+const getDisplayHours = () => {
+  if (!specialNotice) return null;
+  
+  // Pokud je zavřeno, zobraz "Zavřeno" (ignoruj hours)
+  if (specialNotice.closed) {
+    return "Zavřeno";
+  }
+  
+  // Jinak zobraz upravené hodiny, pokud existují
+  return specialNotice.hours || null;
+};
+
+const displayHours = getDisplayHours();
 
 // Konfigurace podle typu oznámení
 const typeConfig = {
@@ -39,10 +51,10 @@ const typeConfig = {
   }
 };
 
-const config = typeConfig[specialNotice.type as keyof typeof typeConfig] || typeConfig.warning;
+const config = specialNotice ? (typeConfig[specialNotice.type as keyof typeof typeConfig] || typeConfig.warning) : typeConfig.warning;
 ---
 
-{shouldDisplay && (
+{shouldDisplay && specialNotice && (
   <section class={`py-8 bg-gradient-to-r ${config.gradient}`}>
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
@@ -57,10 +69,10 @@ const config = typeConfig[specialNotice.type as keyof typeof typeConfig] || type
             <p class="text-gray-700 text-sm md:text-base leading-relaxed">
               {specialNotice.message}
             </p>
-            {specialNotice.hours && (
+            {displayHours && (
               <div class={`mt-3 inline-flex items-center gap-2 ${config.badgeText} ${config.badgeBg} px-3 py-1.5 rounded-lg text-sm`}>
                 <Icon name="mdi:clock-outline" class="w-4 h-4" />
-                <span class="font-semibold">{specialNotice.hours}</span>
+                <span class="font-semibold">{displayHours}</span>
               </div>
             )}
           </div>

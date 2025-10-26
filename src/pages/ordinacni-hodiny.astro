@@ -8,9 +8,12 @@ import CTAButtons from '../components/CTAButtons.astro';
 import { Icon } from 'astro-icon/components';
 import { contactInfo } from '../data/contact';
 import { getTodayOpeningHours, getOpeningHoursForDay } from '../utils/openingHours';
+import { getNoticeColors } from '../utils/noticeColors';
 
 const todayInfo = getTodayOpeningHours();
 const today = new Date().getDay();
+
+const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
 
 const weekSchedule = [
   { day: 'Pondělí', hours: getOpeningHoursForDay(1) || 'Zavřeno', isToday: today === 1 },
@@ -41,12 +44,12 @@ const weekSchedule = [
         <div class="max-w-3xl mx-auto">
           <div class:list={[
             "rounded-2xl shadow-lg p-8 border-2",
-            todayInfo.isModified ? "bg-amber-50 border-amber-300" : "bg-white border-blue-100"
+            todayInfo.isModified ? `${colors?.bg} ${colors?.border}` : "bg-white border-blue-100"
           ]}>
             <div class="flex items-center gap-4 mb-4">
               <div class:list={[
                 "w-12 h-12 rounded-full flex items-center justify-center",
-                todayInfo.isModified ? "bg-amber-600" : "bg-blue-600"
+                todayInfo.isModified ? colors?.icon : "bg-blue-600"
               ]}>
                 <Icon name={todayInfo.isModified ? "mdi:alert-circle-outline" : "mdi:clock-outline"} class="w-6 h-6 text-white" />
               </div>
@@ -63,13 +66,19 @@ const weekSchedule = [
               <div>
                 <div class:list={[
                   "text-3xl font-bold mb-2",
-                  todayInfo.isModified ? "text-amber-700" : "text-blue-600"
+                  todayInfo.isModified ? colors?.text : "text-blue-600"
                 ]}>
                   {todayInfo.hours}
                 </div>
                 {todayInfo.isModified && todayInfo.notice && (
-                  <div class="mt-4 p-4 bg-amber-100 border-l-4 border-amber-500 rounded">
-                    <p class="text-amber-900 text-sm font-medium">
+                  <div class:list={[
+                    "mt-4 p-4 border-l-4 rounded",
+                    todayInfo.isModified ? `${colors?.infoBanner} ${colors?.infoBannerBorder}` : "bg-blue-100 border-blue-500"
+                  ]}>
+                    <p class:list={[
+                      "text-sm font-medium",
+                      todayInfo.isModified ? colors?.description : "text-blue-900"
+                    ]}>
                       <Icon name="mdi:information" class="w-4 h-4 inline mr-1" />
                       {todayInfo.notice}
                     </p>

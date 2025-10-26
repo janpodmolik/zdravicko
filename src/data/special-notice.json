@@ -1,8 +1,9 @@
 {
-  "active": false,
-  "message": "Ordinace dnes otevrena jen do 12. Přejeme krásné svátky!",
+  "active": true,
+  "message": "Dnes zavreno, zdravicko ma dovolenou.",
+  "closed": true,
   "hours": "8:00 - 12:00",
-  "type": "warning",
-  "validFrom": "",
-  "validTo": ""
+  "type": "urgent",
+  "validFrom": "2025-10-26",
+  "validTo": "2025-10-27"
 }

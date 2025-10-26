@@ -2,12 +2,15 @@
 import { Icon } from 'astro-icon/components';
 import type { OpeningHoursInfo } from '../../utils/openingHours';
 import { contactInfo } from '../../data/contact';
+import { getNoticeColors } from '../../utils/noticeColors';
 
 interface Props {
   todayInfo: OpeningHoursInfo;
 }
 
 const { todayInfo } = Astro.props;
+
+const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
 ---
 
 <section class="py-6 md:py-8 bg-gradient-to-br from-gray-50 to-blue-50">
@@ -19,11 +22,11 @@ const { todayInfo } = Astro.props;
       >
         <div class:list={[
           "flex items-center gap-3 p-4 bg-white rounded-xl border-2 transition-all hover:shadow-lg h-full",
-          todayInfo.isModified ? "border-amber-300 bg-amber-50/50" : "border-blue-100 hover:border-blue-400"
+          todayInfo.isModified ? `${colors?.border} ${colors?.bg}` : "border-blue-100 hover:border-blue-400"
         ]}>
           <div class:list={[
             "w-10 h-10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform",
-            todayInfo.isModified ? "bg-gradient-to-br from-amber-500 to-orange-500" : "bg-gradient-to-br from-blue-500 to-blue-600"
+            todayInfo.isModified ? colors?.icon : "bg-gradient-to-br from-blue-500 to-blue-600"
           ]}>
             <Icon name={todayInfo.isModified ? "mdi:alert-circle-outline" : "mdi:clock-outline"} class="w-5 h-5 text-white" />
           </div>
@@ -34,7 +37,7 @@ const { todayInfo } = Astro.props;
             {todayInfo.hours && (
               <p class:list={[
                 "text-xs font-medium",
-                todayInfo.isModified ? "text-amber-700 font-bold" : "text-gray-600"
+                todayInfo.isModified ? `${colors?.text} font-bold` : "text-gray-600"
               ]}>{todayInfo.hours}</p>
             )}
           </div>

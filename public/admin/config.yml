@@ -124,15 +124,30 @@ collections:
         fields:
           - { label: "Zobrazit oznámení", name: "active", widget: "boolean", default: false, hint: "Zapněte pro zobrazení banneru na webu" }
           - { label: "Zpráva", name: "message", widget: "text", hint: "Text oznámení (např. 'Ordinace bude 24.12. zavřená')" }
-          - { label: "Upravené hodiny", name: "hours", widget: "string", required: false, hint: "Volitelné - např. '8:00 - 12:00'" }
           - label: "Typ oznámení"
             name: "type"
             widget: "select"
             default: "warning"
-            hint: "Určuje barvu a ikonu banneru"
+            hint: "Určuje barvu banneru a oznámení všude na webu"
             options:
               - { label: "⚠️ Varování (žlutá)", value: "warning" }
               - { label: "ℹ️ Informace (modrá)", value: "info" }
               - { label: "🔴 Důležité (červená)", value: "urgent" }
-          - { label: "Platnost od", name: "validFrom", widget: "datetime", format: "YYYY-MM-DD", required: false, hint: "Volitelné - od kdy zobrazit" }
-          - { label: "Platnost do", name: "validTo", widget: "datetime", format: "YYYY-MM-DD", required: false, hint: "Volitelné - do kdy zobrazit" }
+          - { label: "Ordinace zavřena", name: "closed", widget: "boolean", default: false, hint: "Zapni pokud je ordinace úplně zavřená. Pokud je zapnuto, pole 'Upravené hodiny' se ignoruje." }
+          - { label: "Upravené hodiny", name: "hours", widget: "string", required: false, hint: "Vyplň pouze pokud je ordinace otevřená se změněnou dobou (např. '8:00 - 12:00'). Nech prázdné pokud je zavřeno nebo má běžnou provozní dobu." }
+          - label: "Platnost od"
+            name: "validFrom"
+            widget: "datetime"
+            required: false
+            date_format: "DD.MM.YYYY"
+            time_format: false
+            format: "YYYY-MM-DD"
+            hint: "Volitelné - od kdy platí oznámení"
+          - label: "Platnost do"
+            name: "validTo"
+            widget: "datetime"
+            required: false
+            date_format: "DD.MM.YYYY"
+            time_format: false
+            format: "YYYY-MM-DD"
+            hint: "Volitelné - do kdy platí oznámení (pokud nevyplníš žádné datum, platí pořád)"

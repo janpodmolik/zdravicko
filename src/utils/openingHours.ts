@@ -5,11 +5,13 @@ export interface OpeningHoursInfo {
   hours: string;
   isModified?: boolean; // Příznak, že jsou hodiny upravené speciálním oznámením
   notice?: string; // Text oznámení, pokud existuje
+  noticeType?: 'warning' | 'info' | 'urgent'; // Typ oznámení pro barvy
 }
 
-export interface SpecialNotice {
+interface SpecialNotice {
   active: boolean;
   message: string;
+  closed?: boolean;
   hours?: string;
   type: 'warning' | 'info' | 'urgent';
   validFrom?: string;
@@ -34,20 +36,19 @@ function getTodayDateString(): string {
   return `${year}-${month}-${day}`;
 }
 
-function isDateInRange(validFrom?: string, validTo?: string): boolean {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+function isDateInRange(dateStr: string, fromStr?: string, toStr?: string): boolean {
+  if (!fromStr && !toStr) return true; // Žádné datum = platí vždy
   
-  if (validFrom) {
-    const fromDate = new Date(validFrom);
-    fromDate.setHours(0, 0, 0, 0);
-    if (today < fromDate) return false;
+  const date = new Date(dateStr);
+  
+  if (fromStr) {
+    const from = new Date(fromStr);
+    if (date < from) return false;
   }
   
-  if (validTo) {
-    const toDate = new Date(validTo);
-    toDate.setHours(23, 59, 59, 999);
-    if (today > toDate) return false;
+  if (toStr) {
+    const to = new Date(toStr);
+    if (date > to) return false;
   }
   
   return true;
@@ -57,9 +58,33 @@ export function getActiveSpecialNotice(): SpecialNotice | null {
   const notice = specialNoticeData as SpecialNotice;
   
   if (!notice.active) return null;
-  if (!isDateInRange(notice.validFrom, notice.validTo)) return null;
+  
+  // Kontrola platnosti podle rozsahu dat
+  const today = getTodayDateString();
+  if (!isDateInRange(today, notice.validFrom, notice.validTo)) {
+    return null;
+  }
   
   return notice;
+}
+
+/**
+ * Helper funkce pro získání hodin z special notice
+ * Jeden zdroj pravdy pro logiku closed/hours
+ */
+function getSpecialNoticeHours(notice: SpecialNotice): string | null {
+  // Pokud je zavřeno, vždy vrať "Zavřeno" (ignoruj pole hours)
+  if (notice.closed) {
+    return "Zavřeno";
+  }
+  
+  // Pokud nejsou upravené hodiny, vrať null (použije se běžná doba)
+  if (!notice.hours) {
+    return null;
+  }
+  
+  // Vrať upravené hodiny
+  return notice.hours;
 }
 
 export function getTodayOpeningHours(): OpeningHoursInfo {
@@ -68,16 +93,44 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
 
   // Check for special notice first (higher priority)
   const notice = getActiveSpecialNotice();
-  if (notice && notice.hours) {
-    return {
-      title: "Dnes otevřeno",
-      hours: notice.hours,
-      isModified: true,
-      notice: notice.message,
-    };
+  if (notice) {
+    const specialHours = getSpecialNoticeHours(notice);
+    
+    // Pokud máme special hours (včetně "Zavřeno")
+    if (specialHours !== null) {
+      const isClosed = specialHours === "Zavřeno";
+      return {
+        title: isClosed ? "Dnes zavřeno" : "Dnes otevřeno",
+        hours: specialHours,
+        isModified: true,
+        notice: notice.message,
+        noticeType: notice.type,
+      };
+    }
+    
+    // Special notice existuje, ale nemá ani closed ani hours
+    // Zobrazíme normální hodiny s upozorněním
+    const regularHours = openingHoursByDay[dayOfWeek];
+    if (regularHours) {
+      return {
+        title: "Dnes otevřeno",
+        hours: regularHours,
+        isModified: true,
+        notice: notice.message,
+        noticeType: notice.type,
+      };
+    } else {
+      return {
+        title: "Dnes neordinujeme",
+        hours: "",
+        isModified: true,
+        notice: notice.message,
+        noticeType: notice.type,
+      };
+    }
   }
 
-  // Regular hours
+  // Regular hours (žádné special notice)
   const hours = openingHoursByDay[dayOfWeek];
 
   if (hours) {
@@ -99,11 +152,14 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
 export function getOpeningHoursForDay(dayOfWeek: number): string | null {
   // Nejdříve zkontroluj special notice
   const notice = getActiveSpecialNotice();
-  if (notice && notice.hours) {
-    // Pokud je dnes ten den, vrať upravené hodiny
+  if (notice) {
+    // Pokud je dnes ten den, použij helper funkci
     const today = new Date().getDay();
     if (today === dayOfWeek) {
-      return notice.hours;
+      const specialHours = getSpecialNoticeHours(notice);
+      if (specialHours !== null) {
+        return specialHours;
+      }
     }
   }
   
