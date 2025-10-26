@@ -49,121 +49,19 @@
       background: #f8fafc !important;
     }
     
-    /* Custom Preview Styles - aby preview vypadalo jako skutečný článek */
-    .cms-preview-container {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      max-width: 56rem;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-      background: white;
-    }
-    
-    .cms-preview-header {
-      margin-bottom: 3rem;
-    }
-    
-    .cms-preview-category {
-      display: inline-block;
-      background: #dbeafe;
-      color: #2563eb;
-      padding: 0.5rem 1rem;
-      border-radius: 9999px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-    }
-    
-    .cms-preview-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #111827;
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-    }
-    
-    .cms-preview-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      color: #6b7280;
-      font-size: 0.875rem;
-      margin-bottom: 1rem;
-    }
-    
-    .cms-preview-excerpt {
-      font-size: 1.125rem;
-      color: #4b5563;
-      line-height: 1.75;
-      margin-bottom: 2rem;
-      padding: 1.5rem;
-      background: #f9fafb;
-      border-left: 4px solid #3b82f6;
-      border-radius: 0.5rem;
-    }
-    
-    .cms-preview-content {
-      font-size: 1.125rem;
-      line-height: 1.75;
-      color: #374151;
-    }
-    
-    .cms-preview-content h2 {
-      font-size: 1.875rem;
-      font-weight: 700;
-      color: #111827;
-      margin-top: 3rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .cms-preview-content h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #111827;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
-    
-    .cms-preview-content p {
-      margin-bottom: 1.5rem;
-      color: #374151;
-      line-height: 1.75;
-    }
-    
-    .cms-preview-content ul {
-      list-style-type: disc;
-      margin-left: 1.5rem;
-      margin-bottom: 1.5rem;
-      color: #374151;
-    }
-    
-    .cms-preview-content li {
-      margin-bottom: 0.5rem;
-      line-height: 1.75;
-    }
-    
-    .cms-preview-content strong {
-      color: #111827;
-      font-weight: 600;
-    }
-    
-    .cms-preview-content a {
-      color: #2563eb;
-      text-decoration: underline;
+    /* Skrytí preview tlačítka - "očičko" v pravém horním rohu */
+    [class*="ToolbarButton"][title*="preview" i],
+    [class*="ToolbarButton"][title*="náhled" i],
+    button[aria-label*="preview" i],
+    button[aria-label*="náhled" i],
+    [class*="PreviewButton"],
+    [class*="preview-toggle"] {
+      display: none !important;
     }
   </style>
-  
-  <!-- Inter font pro preview -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Decap CMS se načte zde -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
-  <!-- Custom Preview Styles -->
-  <script>
-    CMS.registerPreviewStyle("/admin/preview.css");
-  </script>
 </body>
 </html>

@@ -3,7 +3,6 @@ title: "Očkování dětí: Co potřebujete vědět"
 date: "2025-10-15"
 category: "Očkování"
 excerpt: "Kompletní průvodce očkováním dětí. Vysvětlujeme, proč je očkování důležité, jaké vakcíny jsou povinné a jak připravit dítě na očkování."
-readTime: "7 min"
 author: "MUDr. Jana Podmolik"
 published: true
 ---

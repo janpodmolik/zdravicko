@@ -3,7 +3,6 @@ title: "Zdravá výživa pro předškolní děti"
 date: "2025-10-10"
 category: "Výživa"
 excerpt: "Tipy a rady jak zajistit vyvážené stravování vašeho dítěte. Co by mělo být součástí jídelníčku a čemu se vyhnout."
-readTime: "6 min"
 author: "MUDr. Petra Nováková"
 published: true
 ---

@@ -13,6 +13,9 @@ local_backend: true
 # Publikování - články se ukládají přímo do Gitu
 publish_mode: editorial_workflow
 
+# Vypnutí preview - editor pracuje pouze s obsahem
+show_preview_links: false
+
 # Cesta k uploadovaným médiím
 media_folder: "public/uploads"
 public_folder: "/uploads"
@@ -28,13 +31,39 @@ collections:
     fields:
       - { label: "Titulek", name: "title", widget: "string" }
       - { label: "Datum publikování", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "Kategorie", name: "category", widget: "select", options: ["Zdraví", "Prevence", "Výživa", "Očkování", "Tipy pro rodiče"] }
+      - label: "Kategorie"
+        name: "category"
+        widget: "select"
+        options: 
+          - "Zdraví"
+          - "Prevence"
+          - "Výživa"
+          - "Očkování"
+          - "Tipy pro rodiče"
+          - "Kojení a výživa kojenců"
+          - "Dětské nemoci"
+          - "Kožní problémy"
+          - "Alergologie"
+          - "Psychologie dítěte"
+          - "Spánek dětí"
+          - "Bezpečnost"
+          - "První pomoc"
+          - "Léky a antibiotika"
+          - "Dentální hygiena"
+          - "Zrak a sluch"
+          - "Pohybový vývoj"
+          - "Řeč a komunikace"
+          - "Cestování s dětmi"
+          - "Ordinační hodiny"
       - { label: "Úvodní text", name: "excerpt", widget: "text" }
-      - { label: "Obrázek", name: "image", widget: "image", required: false }
-      - { label: "Čas čtení", name: "readTime", widget: "string", default: "5 min" }
-      - { label: "Obsah článku", name: "body", widget: "markdown" }
+      - { label: "Hlavní obrázek článku", name: "image", widget: "image", required: false, hint: "Volitelný - obrázek v záhlaví článku (doporučené 1200x630px)" }
       - { label: "Autor", name: "author", widget: "select", options: ["MUDr. Jana Podmolik", "MUDr. Petra Nováková"], required: false }
       - { label: "Publikováno", name: "published", widget: "boolean", default: true }
+      - label: "Obsah článku"
+        name: "body"
+        widget: "markdown"
+        buttons: ['bold', 'italic', 'link', 'heading-two', 'heading-three', 'quote', 'bulleted-list', 'numbered-list']
+        editor_components: []
 
   # Aktuality
   - name: "news"

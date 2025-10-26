@@ -7,7 +7,6 @@ export interface BlogPost {
   image: string;
   category: string;
   date: string;
-  readTime: string;
   author: string;
 }
 
@@ -69,7 +68,6 @@ export const blogPosts: BlogPost[] = [
     image: '/blog/chripka.jpg',
     category: 'Zdraví',
     date: '2025-10-20',
-    readTime: '5 min',
     author: 'MUDr. Jana Nováková'
   },
   {
@@ -128,7 +126,6 @@ export const blogPosts: BlogPost[] = [
     image: '/blog/ockovani.jpg',
     category: 'Prevence',
     date: '2025-10-15',
-    readTime: '7 min',
     author: 'MUDr. Jana Nováková'
   },
   {
@@ -202,7 +199,6 @@ export const blogPosts: BlogPost[] = [
     image: '/blog/vyziva.jpg',
     category: 'Výživa',
     date: '2025-10-10',
-    readTime: '6 min',
     author: 'MUDr. Jana Nováková'
   },
   {
@@ -214,7 +210,6 @@ export const blogPosts: BlogPost[] = [
     image: '/blog/alergie.jpg',
     category: 'Alergie',
     date: '2025-10-05',
-    readTime: '8 min',
     author: 'MUDr. Jana Nováková'
   },
   {
@@ -226,7 +221,6 @@ export const blogPosts: BlogPost[] = [
     image: '/blog/spanek.jpg',
     category: 'Vývoj',
     date: '2025-09-28',
-    readTime: '5 min',
     author: 'MUDr. Jana Nováková'
   },
   {
@@ -238,7 +232,6 @@ export const blogPosts: BlogPost[] = [
     image: '/blog/zima.jpg',
     category: 'Zdraví',
     date: '2025-09-20',
-    readTime: '6 min',
     author: 'MUDr. Jana Nováková'
   }
 ];

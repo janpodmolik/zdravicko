@@ -51,9 +51,8 @@ export function blogEntryToCardData(entry: CollectionEntry<'blog'>, id: number) 
     excerpt: entry.data.excerpt,
     category: entry.data.category,
     date: entry.data.date.toISOString(),
-    readTime: entry.data.readTime,
     author: entry.data.author || 'MUDr. Jana Podmolik',
-    image: entry.data.image || '/images/blog-placeholder.jpg',
+    image: entry.data.image || '',
     content: '',
   };
 }
