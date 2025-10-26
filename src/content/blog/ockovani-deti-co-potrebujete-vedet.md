@@ -48,8 +48,8 @@ Tyto reakce jsou normální a obvykle odezní do 2-3 dnů.
 
 ## Časté mýty o očkování
 
-**Mýtus:** Očkování oslabuje imunitu.  
+**Mýtus:** Očkování oslabuje imunitu.
 **Realita:** Očkování naopak trénuje imunitní systém.
 
-**Mýtus:** Očkování způsobuje autismus.  
+**Mýtus:** Očkování způsobuje autismus.
 **Realita:** Tento mýtus byl založen na podvodné studii. Žádný vědecký výzkum neprokázal souvislost mezi očkováním a autismem.

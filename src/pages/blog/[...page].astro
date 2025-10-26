@@ -4,17 +4,18 @@ import Header from '../../components/Header.astro';
 import MobileMenu from '../../components/MobileMenu.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import BlogCard from '../../components/BlogCard.astro';
+import Pagination from '../../components/Pagination.astro';
+import EmptyState from '../../components/EmptyState.astro';
 import Footer from '../../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
 import type { BlogCardData } from '../../components/BlogCard.astro';
 import { getPublishedBlogPosts, blogEntryToCardData } from '../../utils/contentHelpers';
 import { contactInfo } from '../../data/contact';
-import type { Page } from 'astro';
+import type { Page, GetStaticPathsOptions } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 
-export async function getStaticPaths({ paginate }: any) {
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const allPosts = await getPublishedBlogPosts();
-  // 9 příspěvků na stránku (3x3 grid)
   return paginate(allPosts, { pageSize: 9 });
 }
 
@@ -25,7 +26,7 @@ type Props = {
 const { page } = Astro.props;
 
 // Transformovat příspěvky pro BlogCard
-const posts = page.data.map((entry, index) => 
+const posts = page.data.map((entry, index) =>
   blogEntryToCardData(entry, (page.currentPage - 1) * page.size + index + 1)
 );
 ---
@@ -34,7 +35,7 @@ const posts = page.data.map((entry, index) =>
   <Header activePage="blog" />
   <MobileMenu activePage="blog" />
 
-  <PageHeader 
+  <PageHeader
     title="Blog"
     description="Odborné články a rady pro rodiče od našeho týmu"
   />
@@ -48,53 +49,13 @@ const posts = page.data.map((entry, index) =>
               {posts.map((post: BlogCardData) => <BlogCard {...post} />)}
             </div>
 
-            <!-- Pagination -->
-            {(page.lastPage > 1) && (
-              <nav class="mt-12 flex items-center justify-center gap-2" aria-label="Stránkování">
-                {page.url.prev && (
-                  <a 
-                    href={page.url.prev}
-                    class="px-4 py-2 bg-white border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium flex items-center gap-2"
-                  >
-                    <Icon name="mdi:chevron-left" class="w-5 h-5" />
-                    Předchozí
-                  </a>
-                )}
-                
-                <div class="flex items-center gap-2">
-                  {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((pageNum) => (
-                    <a
-                      href={pageNum === 1 ? '/blog' : `/blog/${pageNum}`}
-                      class:list={[
-                        'w-10 h-10 flex items-center justify-center rounded-lg font-medium transition-colors',
-                        pageNum === page.currentPage
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
-                      ]}
-                      aria-current={pageNum === page.currentPage ? 'page' : undefined}
-                    >
-                      {pageNum}
-                    </a>
-                  ))}
-                </div>
-
-                {page.url.next && (
-                  <a 
-                    href={page.url.next}
-                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center gap-2"
-                  >
-                    Další
-                    <Icon name="mdi:chevron-right" class="w-5 h-5" />
-                  </a>
-                )}
-              </nav>
-            )}
+            <Pagination page={page} baseUrl="/blog" />
           </>
         ) : (
-          <div class="text-center py-12 bg-gray-50 rounded-xl">
-            <Icon name="mdi:post-outline" class="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <p class="text-gray-500">Momentálně nejsou k dispozici žádné příspěvky</p>
-          </div>
+          <EmptyState
+            icon="mdi:post-outline"
+            message="Momentálně nejsou k dispozici žádné příspěvky"
+          />
         )}
       </div>
     </div>

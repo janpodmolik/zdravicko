@@ -1,14 +1,17 @@
-import { getCollection, type CollectionEntry } from 'astro:content';
-import { siteConfig } from '../data/siteConfig';
+import { getCollection, type CollectionEntry } from "astro:content";
+import { siteConfig } from "../data/siteConfig";
 
 /**
  * Načte všechny publikované blog příspěvky seřazené podle data (nejnovější první)
  */
 export async function getPublishedBlogPosts() {
-  const posts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => {
-    return data.published !== false;
-  });
-  
+  const posts = await getCollection(
+    "blog",
+    ({ data }: CollectionEntry<"blog">) => {
+      return data.published !== false;
+    }
+  );
+
   return posts.sort((a, b) => {
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
   });
@@ -18,10 +21,13 @@ export async function getPublishedBlogPosts() {
  * Načte všechny publikované aktuality seřazené podle data (nejnovější první)
  */
 export async function getPublishedNews() {
-  const news = await getCollection('news', ({ data }: CollectionEntry<'news'>) => {
-    return data.published !== false;
-  });
-  
+  const news = await getCollection(
+    "news",
+    ({ data }: CollectionEntry<"news">) => {
+      return data.published !== false;
+    }
+  );
+
   return news.sort((a, b) => {
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
   });
@@ -31,10 +37,13 @@ export async function getPublishedNews() {
  * Načte aktivní special notice
  */
 export async function getActiveSpecialNotice() {
-  const notices = await getCollection('special_notice', ({ data }: CollectionEntry<'special_notice'>) => {
-    return data.active === true;
-  });
-  
+  const notices = await getCollection(
+    "special_notice",
+    ({ data }: CollectionEntry<"special_notice">) => {
+      return data.active === true;
+    }
+  );
+
   // Vrátit nejnovější aktivní oznámení
   return notices.sort((a, b) => {
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
@@ -44,7 +53,10 @@ export async function getActiveSpecialNotice() {
 /**
  * Transformuje CollectionEntry<'blog'> na BlogPost formát pro BlogCard
  */
-export function blogEntryToCardData(entry: CollectionEntry<'blog'>, id: number) {
+export function blogEntryToCardData(
+  entry: CollectionEntry<"blog">,
+  id: number
+) {
   return {
     id,
     slug: entry.slug,
@@ -53,7 +65,7 @@ export function blogEntryToCardData(entry: CollectionEntry<'blog'>, id: number) 
     category: entry.data.category,
     date: entry.data.date.toISOString(),
     author: entry.data.author || siteConfig.doctor.name,
-    image: entry.data.image || '',
-    content: '',
+    image: entry.data.image || "",
+    content: "",
   };
 }

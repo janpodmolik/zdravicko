@@ -5,7 +5,7 @@
 backend:
   name: git-gateway
   branch: main
-  
+
 # Local backend: true = v lokálním vývoji použij proxy server
 # V produkci se automaticky ignoruje a použije se GitHub API
 local_backend: true
@@ -30,11 +30,16 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Titulek", name: "title", widget: "string" }
-      - { label: "Datum publikování", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - {
+          label: "Datum publikování",
+          name: "date",
+          widget: "datetime",
+          format: "YYYY-MM-DD",
+        }
       - label: "Kategorie"
         name: "category"
         widget: "select"
-        options: 
+        options:
           - "Zdraví"
           - "Prevence"
           - "Výživa"
@@ -56,13 +61,40 @@ collections:
           - "Cestování s dětmi"
           - "Ordinační hodiny"
       - { label: "Úvodní text", name: "excerpt", widget: "text" }
-      - { label: "Hlavní obrázek článku", name: "image", widget: "image", required: false, hint: "Volitelný - obrázek v záhlaví článku (doporučené 1200x630px)" }
-      - { label: "Autor", name: "author", widget: "select", options: ["MUDr. Jana Šlechtová", "MUDr. Petra Nováková"], required: false }
-      - { label: "Publikováno", name: "published", widget: "boolean", default: true }
+      - {
+          label: "Hlavní obrázek článku",
+          name: "image",
+          widget: "image",
+          required: false,
+          hint: "Volitelný - obrázek v záhlaví článku (doporučené 1200x630px)",
+        }
+      - {
+          label: "Autor",
+          name: "author",
+          widget: "select",
+          options: ["MUDr. Jana Šlechtová", "MUDr. Petra Nováková"],
+          required: false,
+        }
+      - {
+          label: "Publikováno",
+          name: "published",
+          widget: "boolean",
+          default: true,
+        }
       - label: "Obsah článku"
         name: "body"
         widget: "markdown"
-        buttons: ['bold', 'italic', 'link', 'heading-two', 'heading-three', 'quote', 'bulleted-list', 'numbered-list']
+        buttons:
+          [
+            "bold",
+            "italic",
+            "link",
+            "heading-two",
+            "heading-three",
+            "quote",
+            "bulleted-list",
+            "numbered-list",
+          ]
         editor_components: []
 
   # Aktuality
@@ -110,9 +142,19 @@ collections:
           - { label: "📝 Poznámka", value: "mdi:note-text" }
           - { label: "🎯 Cíl", value: "mdi:target" }
           - { label: "🏠 Domov", value: "mdi:home" }
-      - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - {
+          label: "Datum",
+          name: "date",
+          widget: "datetime",
+          format: "YYYY-MM-DD",
+        }
       - { label: "Obsah", name: "body", widget: "markdown" }
-      - { label: "Publikováno", name: "published", widget: "boolean", default: true }
+      - {
+          label: "Publikováno",
+          name: "published",
+          widget: "boolean",
+          default: true,
+        }
 
   # Důležité oznámení - pouze jeden soubor
   - name: "special_notice"
@@ -122,8 +164,19 @@ collections:
         label: "Oznámení"
         file: "src/data/special-notice.json"
         fields:
-          - { label: "Zobrazit oznámení", name: "active", widget: "boolean", default: false, hint: "Zapněte pro zobrazení banneru na webu" }
-          - { label: "Zpráva", name: "message", widget: "text", hint: "Text oznámení (např. 'Ordinace bude 24.12. zavřená')" }
+          - {
+              label: "Zobrazit oznámení",
+              name: "active",
+              widget: "boolean",
+              default: false,
+              hint: "Zapněte pro zobrazení banneru na webu",
+            }
+          - {
+              label: "Zpráva",
+              name: "message",
+              widget: "text",
+              hint: "Text oznámení (např. 'Ordinace bude 24.12. zavřená')",
+            }
           - label: "Typ oznámení"
             name: "type"
             widget: "select"
@@ -133,8 +186,20 @@ collections:
               - { label: "⚠️ Varování (žlutá)", value: "warning" }
               - { label: "ℹ️ Informace (modrá)", value: "info" }
               - { label: "🔴 Důležité (červená)", value: "urgent" }
-          - { label: "Ordinace zavřena", name: "closed", widget: "boolean", default: false, hint: "Zapni pokud je ordinace úplně zavřená. Pokud je zapnuto, pole 'Upravené hodiny' se ignoruje." }
-          - { label: "Upravené hodiny", name: "hours", widget: "string", required: false, hint: "Vyplň pouze pokud je ordinace otevřená se změněnou dobou (např. '8:00 - 12:00'). Nech prázdné pokud je zavřeno nebo má běžnou provozní dobu." }
+          - {
+              label: "Ordinace zavřena",
+              name: "closed",
+              widget: "boolean",
+              default: false,
+              hint: "Zapni pokud je ordinace úplně zavřená. Pokud je zapnuto, pole 'Upravené hodiny' se ignoruje.",
+            }
+          - {
+              label: "Upravené hodiny",
+              name: "hours",
+              widget: "string",
+              required: false,
+              hint: "Vyplň pouze pokud je ordinace otevřená se změněnou dobou (např. '8:00 - 12:00'). Nech prázdné pokud je zavřeno nebo má běžnou provozní dobu.",
+            }
           - label: "Platnost od"
             name: "validFrom"
             widget: "datetime"

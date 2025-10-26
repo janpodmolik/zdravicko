@@ -21,15 +21,15 @@ const dateFormatter = new Intl.DateTimeFormat('cs-CZ', {
 const formattedDate = dateFormatter.format(new Date(date));
 ---
 
-<a 
+<a
   href={`/blog/${post.slug}`}
   class="flex-none w-[280px] md:w-[340px] bg-white rounded-xl shadow-sm hover:shadow-xl transition-shadow overflow-hidden snap-start group"
 >
   <!-- Obrázek -->
   <div class="relative h-48 bg-linear-to-br from-blue-100 to-cyan-100 overflow-hidden">
     {image ? (
-      <img 
-        src={image} 
+      <img
+        src={image}
         alt={title}
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         transition:name="none"
@@ -50,11 +50,11 @@ const formattedDate = dateFormatter.format(new Date(date));
       <span>•</span>
       <span>{author}</span>
     </div>
-    
+
     <h3 class="font-bold text-lg mb-2 text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
       {title}
     </h3>
-    
+
     <p class="text-sm text-gray-600 line-clamp-3">
       {excerpt}
     </p>

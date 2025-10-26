@@ -6,7 +6,7 @@ interface Props {
   showLink?: boolean;
 }
 
-const { 
+const {
   showLink = false
 } = Astro.props;
 
@@ -26,7 +26,7 @@ const weekSchedule = [
   <div class="p-8">
     <div class="space-y-4">
       {weekSchedule.map(({ day, hours, isToday, isClosed }) => (
-        <div 
+        <div
           class:list={[
             'flex justify-between items-center py-4 px-4 rounded-lg transition-colors',
             isToday ? 'bg-blue-50 border-2 border-blue-200' : 'border-b border-gray-200'
@@ -45,7 +45,7 @@ const weekSchedule = [
           </span>
           <span class:list={[
             'font-medium',
-            isClosed ? 'text-red-600' : 
+            isClosed ? 'text-red-600' :
             isToday ? 'text-blue-700' : 'text-gray-600'
           ]}>
             {hours}
@@ -53,10 +53,10 @@ const weekSchedule = [
         </div>
       ))}
     </div>
-    
+
     {showLink && (
       <div class="mt-6 text-center">
-        <a 
+        <a
           href="/ordinacni-hodiny"
           class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
         >

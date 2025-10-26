@@ -103,10 +103,10 @@ const features = [
 <Layout title="O nás - Zdravíčko">
   <Header activePage="o-nas" />
   <MobileMenu activePage="o-nas" />
-  
+
   <main>
     <!-- Page Header -->
-    <PageHeader 
+    <PageHeader
       title="O naší ordinaci"
       description="Poznejte náš tým a historii ordinace, která se stará o zdraví vašich dětí s láskou a profesionalitou"
     />
@@ -116,23 +116,23 @@ const features = [
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <SectionHeader icon="mdi:book-open-page-variant" title="Naše historie" />
-          
+
           <div class="prose prose-lg max-w-none text-gray-700 space-y-4">
             <p>
-              Ordinace <strong>Zdravíčko</strong> byla založena v roce 2015 s vizí poskytovat kvalitní a moderní 
-              pediatrickou péči v Přerově a okolí. Od samého začátku jsme se zaměřili na individuální přístup 
+              Ordinace <strong>Zdravíčko</strong> byla založena v roce 2015 s vizí poskytovat kvalitní a moderní
+              pediatrickou péči v Přerově a okolí. Od samého začátku jsme se zaměřili na individuální přístup
               ke každému malému pacientovi a vytvoření příjemného prostředí, kde se děti cítí bezpečně.
             </p>
-            
+
             <p>
-              Za posledních 10 let jsme se stali důvěryhodným partnerem pro stovky rodin. Naše ordinace 
-              prošla modernizací, vybavili jsme ji nejnovější diagnostickou technikou a neustále rozšiřujeme 
+              Za posledních 10 let jsme se stali důvěryhodným partnerem pro stovky rodin. Naše ordinace
+              prošla modernizací, vybavili jsme ji nejnovější diagnostickou technikou a neustále rozšiřujeme
               spektrum poskytovaných služeb.
             </p>
-            
+
             <p>
-              Jsme hrdí na to, že můžeme být součástí růstu vašich dětí – od prvních dnů života 
-              přes předškolní a školní léta až po dospívání. Naší prioritou je nejen léčit, ale především 
+              Jsme hrdí na to, že můžeme být součástí růstu vašich dětí – od prvních dnů života
+              přes předškolní a školní léta až po dospívání. Naší prioritou je nejen léčit, ale především
               předcházet nemocem prostřednictvím pravidelné preventivní péče a osvěty.
             </p>
           </div>
@@ -145,7 +145,7 @@ const features = [
       <div class="container mx-auto px-4">
         <div class="max-w-5xl mx-auto">
           <SectionHeader icon="mdi:star" title="Naše hodnoty" centered />
-          
+
           <div class="grid md:grid-cols-3 gap-8">
             {values.map((value) => (
               <ValueCard {...value} />
@@ -160,7 +160,7 @@ const features = [
       <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
           <SectionHeader icon="mdi:account-group" title="Náš tým" centered />
-          
+
           <div class="grid md:grid-cols-2 gap-8">
             {teamMembers.map((member) => {
               const colors = colorClasses[member.color];
@@ -189,7 +189,7 @@ const features = [
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <SectionHeader icon="mdi:thumb-up-outline" title="Proč si vybrat nás?" centered />
-          
+
           <div class="grid md:grid-cols-2 gap-6">
             {features.map((feature) => (
               <FeatureCard {...feature} />
@@ -214,6 +214,6 @@ const features = [
       </div>
     </section>
   </main>
-  
+
   <Footer />
 </Layout>

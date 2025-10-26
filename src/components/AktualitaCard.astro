@@ -41,7 +41,7 @@ const iconStyle = iconBgStyles[news.data.color] || iconBgStyles.blue;
     <div class={`w-11 h-11 ${iconStyle} rounded-lg flex items-center justify-center shrink-0 shadow-sm`}>
       <Icon name={news.data.icon} class="w-6 h-6 text-white" />
     </div>
-    
+
     <!-- Obsah -->
     <div class="flex-1 min-w-0">
       <!-- Nadpis a datum -->
@@ -53,7 +53,7 @@ const iconStyle = iconBgStyles[news.data.color] || iconBgStyles.blue;
           {formatDateShort(news.data.date.toISOString())}
         </time>
       </div>
-      
+
       <!-- Markdown obsah -->
       <div class="prose prose-sm max-w-none text-gray-700 [&>p]:mb-2 [&>p:last-child]:mb-0 [&>ul]:mb-2 [&>strong]:text-gray-900 [&>strong]:font-semibold">
         <Content />

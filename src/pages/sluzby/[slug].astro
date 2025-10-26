@@ -19,26 +19,26 @@ const { service } = Astro.props;
 const colors = colorClasses[service.color];
 ---
 
-<Layout 
+<Layout
   title={`${service.title} - Zdravíčko`}
   description={service.excerpt}
 >
   <Header activePage="sluzby" />
   <MobileMenu activePage="sluzby" />
-  
+
   <main>
     <!-- Hero Section -->
     <section class={`pt-4 pb-8 md:pt-8 md:pb-14 bg-linear-to-br ${colors.gradient}`}>
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
-          <a 
+          <a
             href="/sluzby"
             class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8 md:mb-10 font-medium"
           >
             <Icon name="mdi:arrow-left" class="w-5 h-5" />
             Zpět na všechny služby
           </a>
-          
+
           <div class="flex items-start gap-3 md:gap-6 mb-5 md:mb-8">
             <div class={`w-14 h-14 md:w-20 md:h-20 ${colors.bg} rounded-2xl flex items-center justify-center shrink-0`}>
               <Icon name={service.icon} class="w-7 h-7 md:w-10 md:h-10 text-white" />
@@ -122,7 +122,7 @@ const colors = colorClasses[service.color];
               .map((otherService) => {
                 const otherColors = colorClasses[otherService.color];
                 return (
-                  <a 
+                  <a
                     href={`/sluzby/${otherService.slug}`}
                     class="bg-white p-6 rounded-xl border-2 border-gray-100 hover:border-gray-300 hover:shadow-md transition-all"
                   >
@@ -143,6 +143,6 @@ const colors = colorClasses[service.color];
       </div>
     </section>
   </main>
-  
+
   <Footer />
 </Layout>

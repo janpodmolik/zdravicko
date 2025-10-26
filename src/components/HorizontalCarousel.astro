@@ -18,10 +18,10 @@ interface Props {
   bgColor?: 'white' | 'gray' | 'blue';
 }
 
-const { 
-  title, 
-  description, 
-  ctaText, 
+const {
+  title,
+  description,
+  ctaText,
   ctaLink,
   id,
   bgColor = 'white'
@@ -52,7 +52,7 @@ const bgClasses = {
           )}
         </div>
         {ctaText && ctaLink && (
-          <a 
+          <a
             href={ctaLink}
             class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-sm md:text-base mt-4"
           >
@@ -65,10 +65,10 @@ const bgClasses = {
       </div>
     )}
   </div>
-  
+
   <!-- Horizontální scrollovací kontejner - celá šířka obrazovky -->
   <div class="w-full overflow-hidden">
-    <div 
+    <div
       class="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 pl-4 pr-4 scrollbar-hide justify-start md:justify-center"
       style="scroll-padding: 0 1rem;"
     >
@@ -83,11 +83,11 @@ const bgClasses = {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
-  
+
   /* Smooth scrolling */
   .overflow-x-auto {
     scroll-behavior: smooth;

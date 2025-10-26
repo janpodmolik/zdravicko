@@ -16,8 +16,8 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
 <section class="py-6 md:py-8 bg-gradient-to-br from-gray-50 to-blue-50">
   <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 max-w-5xl mx-auto">
-      <a 
-        href="/ordinacni-hodiny" 
+      <a
+        href="/ordinacni-hodiny"
         class="group"
       >
         <div class:list={[
@@ -44,7 +44,7 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
         </div>
       </a>
 
-      <a 
+      <a
         href={`tel:${contactInfo.phones.doctor.number}`}
         class="group"
       >
@@ -59,9 +59,9 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
         </div>
       </a>
 
-      <a 
+      <a
         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactInfo.address.full)}`}
-        target="_blank" 
+        target="_blank"
         rel="noopener noreferrer"
         class="group"
       >

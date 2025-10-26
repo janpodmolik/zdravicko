@@ -1,57 +1,69 @@
 <!DOCTYPE html>
 <html lang="cs">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zdravíčko - Administrace</title>
-  <meta name="robots" content="noindex, nofollow">
-  
-  <!-- Custom styling pro lepší vzhled -->
-  <style>
-    /* Vlastní branding pro CMS */
-    [data-slate-editor] {
-      -webkit-user-modify: read-write !important;
-    }
-    
-    /* Modré barevné schéma Zdravíčka */
-    .nc-app-header {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-    }
-    
-    /* Tlačítka */
-    button[class*="Button-module_button"] {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-      border: none !important;
-      border-radius: 8px !important;
-      padding: 10px 20px !important;
-      font-weight: 600 !important;
-      transition: all 0.2s !important;
-    }
-    
-    button[class*="Button-module_button"]:hover {
-      transform: translateY(-1px) !important;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
-    }
-    
-    /* Login obrazovka */
-    [class*="AuthenticationPage"] {
-      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%) !important;
-    }
-    
-    /* Cards a panels */
-    [class*="Card"] {
-      border-radius: 12px !important;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
-    }
-    
-    /* Editor */
-    .nc-entryEditor-controlPane {
-      background: #f8fafc !important;
-    }
-  </style>
-</head>
-<body>
-  <!-- Decap CMS se načte zde -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zdravíčko - Administrace</title>
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Custom styling pro lepší vzhled -->
+    <style>
+      /* Vlastní branding pro CMS */
+      [data-slate-editor] {
+        -webkit-user-modify: read-write !important;
+      }
+
+      /* Modré barevné schéma Zdravíčka */
+      .nc-app-header {
+        background: linear-gradient(
+          135deg,
+          #3b82f6 0%,
+          #2563eb 100%
+        ) !important;
+      }
+
+      /* Tlačítka */
+      button[class*="Button-module_button"] {
+        background: linear-gradient(
+          135deg,
+          #3b82f6 0%,
+          #2563eb 100%
+        ) !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 10px 20px !important;
+        font-weight: 600 !important;
+        transition: all 0.2s !important;
+      }
+
+      button[class*="Button-module_button"]:hover {
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+      }
+
+      /* Login obrazovka */
+      [class*="AuthenticationPage"] {
+        background: linear-gradient(
+          135deg,
+          #f0f9ff 0%,
+          #e0f2fe 100%
+        ) !important;
+      }
+
+      /* Cards a panels */
+      [class*="Card"] {
+        border-radius: 12px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+      }
+
+      /* Editor */
+      .nc-entryEditor-controlPane {
+        background: #f8fafc !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Decap CMS se načte zde -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </body>
 </html>

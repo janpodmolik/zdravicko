@@ -32,8 +32,8 @@ const relatedPosts = allPosts
   .map((p, index) => blogEntryToCardData(p, index + 1));
 ---
 
-<Layout 
-  title={`${post.data.title} - Blog | Zdravíčko`} 
+<Layout
+  title={`${post.data.title} - Blog | Zdravíčko`}
   description={post.data.excerpt}
 >
   <Header activePage="blog" />
@@ -62,11 +62,11 @@ const relatedPosts = allPosts
               {post.data.category}
             </span>
           </div>
-          
+
           <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             {post.data.title}
           </h1>
-          
+
           <div class="flex flex-wrap items-center gap-6 text-gray-600">
             <div class="flex items-center gap-2">
               <Icon name="mdi:account-circle" class="w-5 h-5" />
@@ -83,8 +83,8 @@ const relatedPosts = allPosts
 
         {post.data.image && (
           <div class="mb-12">
-            <img 
-              src={post.data.image} 
+            <img
+              src={post.data.image}
               alt={post.data.title}
               class="w-full h-96 object-cover rounded-2xl shadow-lg"
               transition:name="none"
@@ -125,7 +125,7 @@ const relatedPosts = allPosts
     </div>
   </article>
 
-  <BlogGrid 
+  <BlogGrid
     posts={relatedPosts}
     title="Mohlo by vás zajímat"
     description=""

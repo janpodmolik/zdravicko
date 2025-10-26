@@ -1,11 +1,11 @@
-import specialNoticeData from '../data/special-notice.json';
+import specialNoticeData from "../data/special-notice.json";
 
 export interface OpeningHoursInfo {
   title: string;
   hours: string;
   isModified?: boolean; // Příznak, že jsou hodiny upravené speciálním oznámením
   notice?: string; // Text oznámení, pokud existuje
-  noticeType?: 'warning' | 'info' | 'urgent'; // Typ oznámení pro barvy
+  noticeType?: "warning" | "info" | "urgent"; // Typ oznámení pro barvy
 }
 
 interface SpecialNotice {
@@ -13,7 +13,7 @@ interface SpecialNotice {
   message: string;
   closed?: boolean;
   hours?: string;
-  type: 'warning' | 'info' | 'urgent';
+  type: "warning" | "info" | "urgent";
   validFrom?: string;
   validTo?: string;
 }
@@ -36,35 +36,39 @@ function getTodayDateString(): string {
   return `${year}-${month}-${day}`;
 }
 
-function isDateInRange(dateStr: string, fromStr?: string, toStr?: string): boolean {
+function isDateInRange(
+  dateStr: string,
+  fromStr?: string,
+  toStr?: string
+): boolean {
   if (!fromStr && !toStr) return true; // Žádné datum = platí vždy
-  
+
   const date = new Date(dateStr);
-  
+
   if (fromStr) {
     const from = new Date(fromStr);
     if (date < from) return false;
   }
-  
+
   if (toStr) {
     const to = new Date(toStr);
     if (date > to) return false;
   }
-  
+
   return true;
 }
 
 export function getActiveSpecialNotice(): SpecialNotice | null {
   const notice = specialNoticeData as SpecialNotice;
-  
+
   if (!notice.active) return null;
-  
+
   // Kontrola platnosti podle rozsahu dat
   const today = getTodayDateString();
   if (!isDateInRange(today, notice.validFrom, notice.validTo)) {
     return null;
   }
-  
+
   return notice;
 }
 
@@ -77,12 +81,12 @@ function getSpecialNoticeHours(notice: SpecialNotice): string | null {
   if (notice.closed) {
     return "Zavřeno";
   }
-  
+
   // Pokud nejsou upravené hodiny, vrať null (použije se běžná doba)
   if (!notice.hours) {
     return null;
   }
-  
+
   // Vrať upravené hodiny
   return notice.hours;
 }
@@ -95,7 +99,7 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
   const notice = getActiveSpecialNotice();
   if (notice) {
     const specialHours = getSpecialNoticeHours(notice);
-    
+
     // Pokud máme special hours (včetně "Zavřeno")
     if (specialHours !== null) {
       const isClosed = specialHours === "Zavřeno";
@@ -107,7 +111,7 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
         noticeType: notice.type,
       };
     }
-    
+
     // Special notice existuje, ale nemá ani closed ani hours
     // Zobrazíme normální hodiny s upozorněním
     const regularHours = openingHoursByDay[dayOfWeek];
@@ -162,6 +166,6 @@ export function getOpeningHoursForDay(dayOfWeek: number): string | null {
       }
     }
   }
-  
+
   return openingHoursByDay[dayOfWeek];
 }

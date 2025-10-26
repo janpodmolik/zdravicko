@@ -12,8 +12,8 @@ interface Props {
   viewAllLink?: string;
 }
 
-const { 
-  posts, 
+const {
+  posts,
   title = 'Z našeho blogu',
   description = 'Odborné rady a informace pro rodiče',
   maxPosts = 3,
@@ -36,7 +36,7 @@ const displayPosts = posts.slice(0, maxPosts);
           )}
         </div>
       )}
-      
+
       {displayPosts.length > 0 ? (
         <div>
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
@@ -44,10 +44,10 @@ const displayPosts = posts.slice(0, maxPosts);
               <BlogCard {...post} />
             ))}
           </div>
-          
+
           {showViewAll && (
             <div class="text-center">
-              <a 
+              <a
                 href={viewAllLink}
                 class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
               >

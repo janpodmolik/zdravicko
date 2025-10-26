@@ -19,15 +19,15 @@ const { aktuality } = Astro.props;
           Aktuální informace z naší ordinace
         </p>
       </div>
-      
+
       {aktuality.length > 0 ? (
         <div class="space-y-4">
           {aktuality.map((news) => (
             <AktualitaCard news={news} />
           ))}
-          
+
           <div class="text-center mt-8">
-            <a 
+            <a
               href="/aktuality"
               class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
             >

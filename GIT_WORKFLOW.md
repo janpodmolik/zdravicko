@@ -5,6 +5,7 @@
 ### Krok za krokem:
 
 #### 1. Upravíte článek v admin rozhraní
+
 ```
 http://localhost:4321/admin
 → Vyberte článek
@@ -13,6 +14,7 @@ http://localhost:4321/admin
 ```
 
 #### 2. Co se stane po kliknutí "Save"
+
 ```bash
 Decap CMS
   ↓ HTTP POST request
@@ -26,6 +28,7 @@ Astro dev server detekuje změnu
 ```
 
 #### 3. Zkontrolujte změny v Git
+
 ```bash
 git status
 # Výstup:
@@ -36,6 +39,7 @@ git diff src/content/blog/jak-poznat-chripku-u-deti.md
 ```
 
 #### 4. Commitněte změny MANUÁLNĚ
+
 ```bash
 git add src/content/blog/jak-poznat-chripku-u-deti.md
 git commit -m "feat: Aktualizace článku o chřipce"
@@ -51,6 +55,7 @@ V produkci (s Netlify) je to **ZCELA JINÉ**:
 ### Editorial Workflow (publish_mode: editorial_workflow)
 
 #### 1. Lékař upraví článek v admin
+
 ```
 https://vasedomena.cz/admin
 → Upraví článek
@@ -58,6 +63,7 @@ https://vasedomena.cz/admin
 ```
 
 #### 2. Co se stane automaticky:
+
 ```
 Decap CMS
   ↓ GitHub API
@@ -71,6 +77,7 @@ Status: "Draft" - NENÍ ŽIVĚ NA WEBU!
 ```
 
 #### 3. Schválení a publikování:
+
 ```
 Admin vidí v CMS "Waiting for review"
   ↓ Klikne "Publish"
@@ -89,25 +96,28 @@ Build & Deploy (1-2 min)
 ## 🔄 Porovnání workflow
 
 ### Lokální vývoj (teď):
-| Akce | Výsledek | Git |
-|------|----------|-----|
-| Save v CMS | Soubor přepsán | ❌ Žádný commit |
-| Viditelné na webu | ✅ Okamžitě | - |
-| Git commit | 🔧 Manuální | `git commit` |
+
+| Akce              | Výsledek       | Git             |
+| ----------------- | -------------- | --------------- |
+| Save v CMS        | Soubor přepsán | ❌ Žádný commit |
+| Viditelné na webu | ✅ Okamžitě    | -               |
+| Git commit        | 🔧 Manuální    | `git commit`    |
 
 ### Produkce (Netlify):
-| Akce | Výsledek | Git |
-|------|----------|-----|
-| Save v CMS | Draft větev | ✅ Auto commit do větve |
-| Viditelné na webu | ❌ Ne (draft) | - |
-| Publish | Pull Request merge | ✅ Auto merge do main |
-| Deploy | Build 1-2 min | Webhook trigger |
+
+| Akce              | Výsledek           | Git                     |
+| ----------------- | ------------------ | ----------------------- |
+| Save v CMS        | Draft větev        | ✅ Auto commit do větve |
+| Viditelné na webu | ❌ Ne (draft)      | -                       |
+| Publish           | Pull Request merge | ✅ Auto merge do main   |
+| Deploy            | Build 1-2 min      | Webhook trigger         |
 
 ---
 
 ## ⚙️ Nastavení Editorial Workflow
 
 V `config.yml` máme:
+
 ```yaml
 publish_mode: editorial_workflow
 ```
@@ -146,6 +156,7 @@ publish_mode: editorial_workflow
 ## 🎯 Praktické tipy
 
 ### Lokální vývoj:
+
 ```bash
 # Po editaci v CMS:
 git status                    # Co se změnilo?
@@ -156,6 +167,7 @@ git push                     # Push do remote
 ```
 
 ### Workflow pro tým:
+
 ```bash
 # Vývojář:
 npm run dev          # Terminal 1
@@ -172,12 +184,14 @@ npm run dev         # Vidí aktuální obsah
 ## 🚨 Důležité poznámky
 
 ### V lokálním vývoji:
+
 - ⚠️ **Vždy commitujte změny** po editaci v CMS!
 - ⚠️ **Git nesleduje automaticky** - musíte commit sami
 - ✅ **Výhoda**: Rychlé iterace bez čekání na build
 - ✅ **Můžete rollback** kdykoliv (`git checkout`)
 
 ### V produkci:
+
 - ✅ **Vše automatické** - žádné manuální commity
 - ✅ **Pull Request workflow** - review před publikováním
 - ✅ **Historie změn** - kdo, kdy, co změnil
@@ -190,6 +204,7 @@ npm run dev         # Vidí aktuální obsah
 ### Scénář: Lékař chce aktualizovat článek
 
 **Lokálně (vývojář):**
+
 ```bash
 1. npm run cms:proxy
 2. Otevře /admin
@@ -201,6 +216,7 @@ npm run dev         # Vidí aktuální obsah
 ```
 
 **V produkci (lékař):**
+
 ```bash
 1. Otevře vasedomena.cz/admin
 2. Přihlásí se
@@ -215,14 +231,15 @@ npm run dev         # Vidí aktuální obsah
 
 ## 🎓 Shrnutí
 
-| Aspekt | Lokální | Produkce |
-|--------|---------|----------|
-| **Commit** | 🔧 Manuální (`git commit`) | ✅ Automatický (CMS) |
-| **Rychlost** | ⚡ Okamžitá | ⏱️ 1-2 minuty |
-| **Review** | ❌ Ne | ✅ Pull Request |
-| **Rollback** | `git checkout` | Merge dalšího PR |
-| **Víceuživatelské** | ❌ Konflikty | ✅ Separate branches |
+| Aspekt              | Lokální                    | Produkce             |
+| ------------------- | -------------------------- | -------------------- |
+| **Commit**          | 🔧 Manuální (`git commit`) | ✅ Automatický (CMS) |
+| **Rychlost**        | ⚡ Okamžitá                | ⏱️ 1-2 minuty        |
+| **Review**          | ❌ Ne                      | ✅ Pull Request      |
+| **Rollback**        | `git checkout`             | Merge dalšího PR     |
+| **Víceuživatelské** | ❌ Konflikty               | ✅ Separate branches |
 
 **Doporučení:**
+
 - Lokálně: Pro rychlý vývoj a testování
 - Produkce: Pro bezpečné publikování s review workflow

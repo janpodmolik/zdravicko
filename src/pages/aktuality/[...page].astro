@@ -4,15 +4,15 @@ import Header from '../../components/Header.astro';
 import MobileMenu from '../../components/MobileMenu.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import AktualitaCard from '../../components/AktualitaCard.astro';
+import Pagination from '../../components/Pagination.astro';
+import EmptyState from '../../components/EmptyState.astro';
 import Footer from '../../components/Footer.astro';
-import { Icon } from 'astro-icon/components';
 import { getPublishedNews } from '../../utils/contentHelpers';
-import type { Page } from 'astro';
+import type { Page, GetStaticPathsOptions } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 
-export async function getStaticPaths({ paginate }: any) {
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const allNews = await getPublishedNews();
-  // 10 aktualit na stránku
   return paginate(allNews, { pageSize: 10 });
 }
 
@@ -23,23 +23,22 @@ type Props = {
 const { page } = Astro.props;
 ---
 
-<Layout 
-  title="Aktuality - Zdravíčko" 
+<Layout
+  title="Aktuality - Zdravíčko"
   description="Aktuální informace z naší dětské ordinace - důležitá oznámení, změny ordinačních hodin a další novinky"
 >
   <Header activePage="aktuality" />
   <MobileMenu activePage="aktuality" />
-  
+
   <main>
-    <PageHeader 
-      title="Aktuality" 
+    <PageHeader
+      title="Aktuality"
       description="Aktuální informace z naší ordinace"
     />
-    
+
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
-          <!-- News list -->
           {page.data.length > 0 ? (
             <>
               <div class="space-y-4">
@@ -48,58 +47,18 @@ const { page } = Astro.props;
                 ))}
               </div>
 
-              <!-- Pagination -->
-              {(page.lastPage > 1) && (
-                <nav class="mt-12 flex items-center justify-center gap-2" aria-label="Stránkování">
-                  {page.url.prev && (
-                    <a 
-                      href={page.url.prev}
-                      class="px-4 py-2 bg-white border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium flex items-center gap-2"
-                    >
-                      <Icon name="mdi:chevron-left" class="w-5 h-5" />
-                      Předchozí
-                    </a>
-                  )}
-                  
-                  <div class="flex items-center gap-2">
-                    {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((pageNum) => (
-                      <a
-                        href={pageNum === 1 ? '/aktuality' : `/aktuality/${pageNum}`}
-                        class:list={[
-                          'w-10 h-10 flex items-center justify-center rounded-lg font-medium transition-colors',
-                          pageNum === page.currentPage
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
-                        ]}
-                        aria-current={pageNum === page.currentPage ? 'page' : undefined}
-                      >
-                        {pageNum}
-                      </a>
-                    ))}
-                  </div>
-
-                  {page.url.next && (
-                    <a 
-                      href={page.url.next}
-                      class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center gap-2"
-                    >
-                      Další
-                      <Icon name="mdi:chevron-right" class="w-5 h-5" />
-                    </a>
-                  )}
-                </nav>
-              )}
+              <Pagination page={page} baseUrl="/aktuality" />
             </>
           ) : (
-            <div class="text-center py-12 bg-gray-50 rounded-xl">
-              <Icon name="mdi:newspaper-variant-outline" class="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <p class="text-gray-500">Momentálně nejsou k dispozici žádné aktuality</p>
-            </div>
+            <EmptyState
+              icon="mdi:newspaper-variant-outline"
+              message="Momentálně nejsou k dispozici žádné aktuality"
+            />
           )}
         </div>
       </div>
     </section>
   </main>
-  
+
   <Footer />
 </Layout>

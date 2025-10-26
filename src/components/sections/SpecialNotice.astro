@@ -11,12 +11,12 @@ const shouldDisplay = specialNotice !== null;
 // Helper pro získání hodin k zobrazení
 const getDisplayHours = () => {
   if (!specialNotice) return null;
-  
+
   // Pokud je zavřeno, zobraz "Zavřeno" (ignoruj hours)
   if (specialNotice.closed) {
     return "Zavřeno";
   }
-  
+
   // Jinak zobraz upravené hodiny, pokud existují
   return specialNotice.hours || null;
 };

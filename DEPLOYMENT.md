@@ -3,6 +3,7 @@
 ## 🏠 Lokální vývoj (development)
 
 ### Co potřebujete spustit:
+
 ```bash
 # Terminál 1: Astro dev server
 npm run dev
@@ -12,6 +13,7 @@ npm run cms:proxy
 ```
 
 ### Jak to funguje:
+
 ```
 ┌─────────────────────────────────────────┐
 │ 1. Otevřete /admin v prohlížeči         │
@@ -27,12 +29,14 @@ npm run cms:proxy
 ```
 
 **Výhody:**
+
 - ✅ Žádná autentizace
 - ✅ Okamžité změny
 - ✅ Funguje offline
 - ✅ Žádný Git commit při každé úpravě
 
 **Nevýhody:**
+
 - ❌ Musíte spouštět 2 servery
 - ❌ Nefunguje na mobilních zařízeních
 - ❌ Pouze pro 1 vývojáře
@@ -48,6 +52,7 @@ npm run cms:proxy
 3. **Git Gateway** - pro přístup k repozitáři
 
 ### Jak to funguje:
+
 ```
 ┌─────────────────────────────────────────┐
 │ 1. Lékař otevře vasedomena.cz/admin     │
@@ -65,6 +70,7 @@ npm run cms:proxy
 ```
 
 **Výhody:**
+
 - ✅ **Žádný proxy server** - nic navíc nespouštíte
 - ✅ Funguje odkudkoliv (mobil, tablet)
 - ✅ Více uživatelů současně
@@ -72,6 +78,7 @@ npm run cms:proxy
 - ✅ Automatické backupy
 
 **"Nevýhody":**
+
 - ⏱️ Build trvá 1-2 minuty (změny nejsou okamžité)
 - 🔐 Potřebuje přihlášení
 
@@ -80,17 +87,20 @@ npm run cms:proxy
 ## 🔄 Proč proxy server v lokálním vývoji?
 
 **Problém:**
+
 ```javascript
 // Prohlížeč NEMŮŽE toto udělat (bezpečnostní omezení):
-fs.writeFile('src/content/blog/novy-clanek.md', content)
+fs.writeFile("src/content/blog/novy-clanek.md", content);
 ```
 
 **Řešení:**
+
 ```
 Prohlížeč → HTTP request → Proxy server → File system
 ```
 
 **V produkci:**
+
 ```
 Prohlížeč → GitHub API → Git commit (žádný proxy!)
 ```
@@ -100,11 +110,13 @@ Prohlížeč → GitHub API → Git commit (žádný proxy!)
 ## 📋 Kroky pro nasazení do produkce
 
 ### 1. Push do GitHub
+
 ```bash
 git push origin main
 ```
 
 ### 2. Připojit Netlify
+
 1. Přihlásit se na netlify.com
 2. "Add new site" → Import from Git
 3. Vybrat repozitář `janpodmolik/zdravicko`
@@ -113,15 +125,18 @@ git push origin main
    - Publish directory: `dist`
 
 ### 3. Povolit Netlify Identity
+
 1. V Netlify: Site settings → Identity → Enable Identity
 2. Registration: Invite only (bezpečnější)
 3. External providers: Volitelně (Google, GitHub login)
 
 ### 4. Povolit Git Gateway
+
 1. V Netlify: Site settings → Identity → Services
 2. Enable Git Gateway
 
 ### 5. Pozvat uživatele
+
 1. Identity → Invite users
 2. Email lékaře → obdrží pozvánku
 3. Nastaví si heslo
@@ -130,6 +145,7 @@ git push origin main
 ### 6. Hotovo! 🎉
 
 **Lékaři pak:**
+
 1. Otevřou `https://zdravicko.netlify.app/admin`
 2. Přihlásí se
 3. Editují obsah
@@ -142,14 +158,14 @@ git push origin main
 
 ## 🎯 Shrnutí
 
-| Aspekt | Lokální vývoj | Produkce |
-|--------|---------------|----------|
-| **Proxy server** | ✅ Potřeba (`npm run cms:proxy`) | ❌ Není potřeba |
-| **Autentizace** | ❌ Žádná | ✅ Netlify Identity |
-| **Rychlost změn** | ⚡ Okamžitá | ⏱️ 1-2 minuty (build) |
-| **Git commits** | 🔧 Manuální | ✅ Automatické |
-| **Víceuživatelské** | ❌ Ne | ✅ Ano |
-| **Funguje offline** | ✅ Ano | ❌ Ne |
-| **Přístup odkudkoliv** | ❌ Jen localhost | ✅ Ano |
+| Aspekt                 | Lokální vývoj                    | Produkce              |
+| ---------------------- | -------------------------------- | --------------------- |
+| **Proxy server**       | ✅ Potřeba (`npm run cms:proxy`) | ❌ Není potřeba       |
+| **Autentizace**        | ❌ Žádná                         | ✅ Netlify Identity   |
+| **Rychlost změn**      | ⚡ Okamžitá                      | ⏱️ 1-2 minuty (build) |
+| **Git commits**        | 🔧 Manuální                      | ✅ Automatické        |
+| **Víceuživatelské**    | ❌ Ne                            | ✅ Ano                |
+| **Funguje offline**    | ✅ Ano                           | ❌ Ne                 |
+| **Přístup odkudkoliv** | ❌ Jen localhost                 | ✅ Ano                |
 
 **Závěr:** Proxy server je **pouze pro vývoj**. V produkci je vše jednodušší - žádný proxy server, pouze GitHub API! 🚀

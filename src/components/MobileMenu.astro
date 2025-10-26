@@ -35,16 +35,16 @@ const navItems = [
         <Icon name="mdi:close" class="w-6 h-6" />
       </button>
     </div>
-    
+
     <nav class="flex-1 overflow-y-auto p-6">
       <div class="flex flex-col gap-2">
         {navItems.map(item => (
-          <a 
-            href={item.href} 
+          <a
+            href={item.href}
             class:list={[
               'transition-colors py-3 px-4 rounded-lg font-medium',
-              item.page === activePage 
-                ? 'text-blue-600 bg-blue-50 font-semibold' 
+              item.page === activePage
+                ? 'text-blue-600 bg-blue-50 font-semibold'
                 : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
             ]}
           >
@@ -53,7 +53,7 @@ const navItems = [
         ))}
       </div>
     </nav>
-    
+
     <div class="p-6 border-t border-gray-200">
       <a href={`tel:${contactInfo.phones.doctor.number}`} class="block bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 transition-colors text-center font-semibold">
         <Icon name="mdi:phone" class="w-5 h-5 inline-block mr-2" />
@@ -70,9 +70,9 @@ const navItems = [
       const menuClose = document.getElementById('mobile-menu-close');
       const menu = document.getElementById('mobile-menu');
       const overlay = document.getElementById('mobile-menu-overlay');
-      
+
       if (!menuButton || !menuClose || !menu || !overlay) return;
-      
+
       // Otevření menu s animací
       menuButton.onclick = function() {
         overlay.classList.remove('hidden');
@@ -82,7 +82,7 @@ const navItems = [
         }, 10);
         document.body.style.overflow = 'hidden';
       };
-      
+
       // Zavření s animací (close button a overlay)
       function closeMenuAnimated() {
         menu.classList.add('translate-x-full');
@@ -92,7 +92,7 @@ const navItems = [
           overlay.classList.add('hidden');
         }, 300);
       }
-      
+
       // OKAMŽITÉ zmizení bez animace (navigační linky)
       function hideMenuInstantly() {
         menu.style.transition = 'none';
@@ -107,20 +107,20 @@ const navItems = [
           overlay.style.transition = '';
         }, 50);
       }
-      
+
       menuClose.onclick = closeMenuAnimated;
       overlay.onclick = closeMenuAnimated;
-      
+
       // Všechny linky zavřou menu OKAMŽITĚ
       var links = menu.querySelectorAll('a');
       for (var i = 0; i < links.length; i++) {
         links[i].onclick = hideMenuInstantly;
       }
     }
-    
+
     // Inicializace při každém načtení stránky
     initMobileMenu();
-    
+
     // Re-inicializace po navigaci (pro případné SPA routing)
     document.addEventListener('astro:page-load', initMobileMenu);
     document.addEventListener('DOMContentLoaded', initMobileMenu);

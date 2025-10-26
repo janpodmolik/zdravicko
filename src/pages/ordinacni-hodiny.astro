@@ -16,19 +16,19 @@ const todayInfo = getTodayOpeningHours();
 const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
 ---
 
-<Layout 
-  title="Ordinační hodiny - Zdravíčko" 
+<Layout
+  title="Ordinační hodiny - Zdravíčko"
   description="Kompletní přehled ordinačních hodin naší dětské ordinace - otevírací doba, kontakty a možnosti objednání"
 >
   <Header activePage="ordinacni-hodiny" />
   <MobileMenu activePage="ordinacni-hodiny" />
-  
+
   <main>
-    <PageHeader 
-      title="Ordinační hodiny" 
+    <PageHeader
+      title="Ordinační hodiny"
       description="Provozní doba naší ordinace"
     />
-    
+
     <!-- Today's hours highlight -->
     <section class="py-8 bg-linear-to-br from-blue-50 to-cyan-50">
       <div class="container mx-auto px-4">
@@ -85,17 +85,17 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
         </div>
       </div>
     </section>
-    
+
     <!-- Weekly schedule -->
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto">
           <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Týdenní rozvrh</h2>
-          
-          <WeeklySchedule 
+
+          <WeeklySchedule
             showLink={false}
           />
-          
+
           <!-- Important info box - moved from component -->
           <div class="mt-8 p-6 bg-blue-50 rounded-xl border-2 border-blue-100">
             <div class="flex gap-3">
@@ -114,13 +114,13 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
       </div>
     </section>
     </section>
-    
+
     <!-- Emergency and contact -->
     <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto">
           <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Mimořádné situace</h2>
-          
+
           <div class="grid md:grid-cols-2 gap-6 mb-8">
             <!-- Emergency -->
             <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-red-500">
@@ -131,7 +131,7 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
               <p class="text-gray-600 mb-4">
                 Při akutních stavech volejte vždy předem, abychom vás mohli co nejdříve přijmout.
               </p>
-              <a 
+              <a
                 href={`tel:${contactInfo.phones.doctor.number}`}
                 class="inline-flex items-center gap-2 text-red-600 font-semibold hover:text-red-700"
               >
@@ -139,7 +139,7 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
                 {contactInfo.phones.doctor.display}
               </a>
             </div>
-            
+
             <!-- After hours -->
             <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-orange-500">
               <div class="flex items-center gap-3 mb-4">
@@ -150,7 +150,7 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
                 V době mimo ordinační hodiny kontaktujte lékařskou pohotovost nebo volejte 155.
               </p>
               <div class="space-y-2">
-                <a 
+                <a
                   href="tel:155"
                   class="inline-flex items-center gap-2 text-orange-600 font-semibold hover:text-orange-700"
                 >
@@ -160,7 +160,7 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
               </div>
             </div>
           </div>
-          
+
           <!-- CTA -->
           <div class="text-center bg-white rounded-xl shadow-md p-8">
             <h3 class="text-2xl font-bold text-gray-900 mb-4">Chcete se objednat?</h3>
@@ -173,6 +173,6 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
       </div>
     </section>
   </main>
-  
+
   <Footer />
 </Layout>
