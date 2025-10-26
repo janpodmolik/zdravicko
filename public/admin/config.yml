@@ -1,11 +1,13 @@
-# Backend - proxy server pro lokální vývoj
-# Pro lokální testování použij: npx decap-server
-# Pro produkci změň na: github backend s OAuth
+# BACKEND KONFIGURACE
+# =====================
+# LOKÁLNÍ VÝVOJ: Používá decap-server proxy (npm run cms:proxy)
+# PRODUKCE: Používá GitHub backend s Netlify Identity/Git Gateway
 backend:
   name: git-gateway
   branch: main
   
-# Pro lokální vývoj bez autentizace
+# Local backend: true = v lokálním vývoji použij proxy server
+# V produkci se automaticky ignoruje a použije se GitHub API
 local_backend: true
 
 # Publikování - články se ukládají přímo do Gitu
