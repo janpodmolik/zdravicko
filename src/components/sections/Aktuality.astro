@@ -1,10 +1,10 @@
 ---
 import { Icon } from 'astro-icon/components';
 import AktualitaCard from '../AktualitaCard.astro';
-import type { AktualitaItem } from '../../data/aktuality';
+import type { CollectionEntry } from 'astro:content';
 
 interface Props {
-  aktuality: AktualitaItem[];
+  aktuality: CollectionEntry<'news'>[];
 }
 
 const { aktuality } = Astro.props;
@@ -22,8 +22,8 @@ const { aktuality } = Astro.props;
       
       {aktuality.length > 0 ? (
         <div class="space-y-4">
-          {aktuality.map((aktualita) => (
-            <AktualitaCard aktualita={aktualita} />
+          {aktuality.map((news) => (
+            <AktualitaCard news={news} />
           ))}
         </div>
       ) : (

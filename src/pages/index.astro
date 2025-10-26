@@ -12,12 +12,12 @@ import OpeningHours from '../components/sections/OpeningHours.astro';
 import Contact from '../components/sections/Contact.astro';
 import Footer from '../components/Footer.astro';
 
-import { getTodayOpeningHours, getSpecialNotice } from '../utils/openingHours';
-import { getLatestAktuality } from '../data/aktuality';
+import { getTodayOpeningHours } from '../utils/openingHours';
+import { getActiveSpecialNotice, getPublishedNews } from '../utils/contentHelpers';
 
 const todayInfo = getTodayOpeningHours();
-const specialNotice = getSpecialNotice();
-const latestAktuality = getLatestAktuality(3);
+const specialNotice = await getActiveSpecialNotice();
+const latestAktuality = (await getPublishedNews()).slice(0, 3);
 ---
 
 <Layout title="Zdravíčko - Dětská ordinace | Kvalitní péče o vaše děti">
@@ -37,3 +37,36 @@ const latestAktuality = getLatestAktuality(3);
   
   <Footer />
 </Layout>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  
+  function openMenu() {
+    if (mobileMenu && mobileMenuOverlay) {
+      mobileMenuOverlay.classList.remove('hidden');
+      mobileMenuOverlay.offsetHeight; // Trigger reflow
+      mobileMenuOverlay.classList.add('opacity-100');
+      mobileMenu.classList.remove('translate-x-full');
+    }
+  }
+  
+  function closeMenu() {
+    if (mobileMenu && mobileMenuOverlay) {
+      mobileMenu.classList.add('translate-x-full');
+      mobileMenuOverlay.classList.remove('opacity-100');
+      setTimeout(() => mobileMenuOverlay.classList.add('hidden'), 300);
+    }
+  }
+  
+  mobileMenuButton?.addEventListener('click', openMenu);
+  mobileMenuClose?.addEventListener('click', closeMenu);
+  mobileMenuOverlay?.addEventListener('click', closeMenu);
+  
+  // Close menu when clicking a link
+  const menuLinks = document.querySelectorAll('#mobile-menu a');
+  menuLinks.forEach(link => link.addEventListener('click', closeMenu));
+</script>

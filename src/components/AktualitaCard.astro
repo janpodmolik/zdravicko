@@ -9,6 +9,9 @@ interface Props {
 
 const { news } = Astro.props;
 
+// Renderovat markdown obsah
+const { Content } = await news.render();
+
 // Mapování typů na konfiguraci
 type NewsType = 'info' | 'warning' | 'success';
 
@@ -50,9 +53,12 @@ const config = typeConfig[news.data.type];
           {formatDateShort(news.data.date.toISOString())}
         </span>
       </div>
-      <h3 class="font-bold text-lg text-gray-900">
+      <h3 class="font-bold text-lg text-gray-900 mb-3">
         {news.data.title}
       </h3>
+      <div class="prose prose-sm max-w-none text-gray-600">
+        <Content />
+      </div>
     </div>
   </div>
 </article>

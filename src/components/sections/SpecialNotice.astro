@@ -1,9 +1,9 @@
 ---
 import { Icon } from 'astro-icon/components';
-import type { SpecialNotice } from '../../utils/openingHours';
+import type { CollectionEntry } from 'astro:content';
 
 interface Props {
-  notice: SpecialNotice;
+  notice: CollectionEntry<'special_notice'>;
 }
 
 const { notice } = Astro.props;
@@ -19,16 +19,15 @@ const { notice } = Astro.props;
           </div>
           <div class="flex-1">
             <h3 class="font-bold text-xl text-gray-900 mb-2 flex items-center gap-2">
-              <span>Změna ordinační doby</span>
-              <span class="text-sm font-normal text-amber-600 bg-amber-100 px-3 py-1 rounded-full">Dnes</span>
+              <span>Důležité oznámení</span>
             </h3>
             <p class="text-gray-700 text-lg leading-relaxed">
-              {notice.message}
+              {notice.data.message}
             </p>
-            {notice.hours && (
+            {notice.data.hours && (
               <div class="mt-4 inline-flex items-center gap-2 text-amber-700 bg-amber-50 px-4 py-2 rounded-lg">
                 <Icon name="mdi:clock-outline" class="w-5 h-5" />
-                <span class="font-semibold">{notice.hours}</span>
+                <span class="font-semibold">{notice.data.hours}</span>
               </div>
             )}
           </div>
