@@ -1,6 +1,6 @@
 ---
 title: Preventivní prohlídky - důležité upozornění
-type: warning
+color: orange
 icon: mdi:clipboard-check
 date: 2025-10-10
 published: true

@@ -1,6 +1,6 @@
 ---
 title: Změna ordinačních hodin o svátcích
-type: info
+color: blue
 icon: mdi:calendar-alert
 date: 2025-10-20
 published: true

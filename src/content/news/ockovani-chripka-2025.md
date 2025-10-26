@@ -1,6 +1,6 @@
 ---
 title: Očkování proti chřipce pro děti
-type: success
+color: green
 icon: mdi:needle
 date: 2025-10-15
 published: true

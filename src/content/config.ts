@@ -40,7 +40,7 @@ const newsCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    type: z.enum(['info', 'warning', 'success']),
+    color: z.enum(['blue', 'orange', 'green', 'red', 'yellow', 'purple']),
     icon: z.string().default('mdi:information'),
     date: z.coerce.date(),
     published: z.boolean().default(true),

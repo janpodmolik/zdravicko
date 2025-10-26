@@ -73,8 +73,43 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Titulek", name: "title", widget: "string" }
-      - { label: "Typ", name: "type", widget: "select", options: ["info", "warning", "success"] }
-      - { label: "Ikona", name: "icon", widget: "string", default: "mdi:information" }
+      - label: "Barva"
+        name: "color"
+        widget: "select"
+        hint: "Určuje barvu pozadí aktuality"
+        options:
+          - { label: "🔵 Modrá (Informace)", value: "blue" }
+          - { label: "🟠 Oranžová (Upozornění)", value: "orange" }
+          - { label: "🟢 Zelená (Dobrá zpráva)", value: "green" }
+          - { label: "🔴 Červená (Důležité)", value: "red" }
+          - { label: "🟡 Žlutá (Varování)", value: "yellow" }
+          - { label: "🟣 Fialová (Speciální)", value: "purple" }
+      - label: "Ikona"
+        name: "icon"
+        widget: "select"
+        default: "mdi:information"
+        hint: "Vyberte ikonu, která se zobrazí u aktuality"
+        options:
+          - { label: "ℹ️ Informace", value: "mdi:information" }
+          - { label: "⚠️ Výstražný znak", value: "mdi:alert" }
+          - { label: "✓ Zaškrtnutí", value: "mdi:check-circle" }
+          - { label: "✕ Křížek", value: "mdi:close-circle" }
+          - { label: "📢 Megafon", value: "mdi:bullhorn" }
+          - { label: "📅 Kalendář", value: "mdi:calendar" }
+          - { label: "🕐 Hodiny", value: "mdi:clock" }
+          - { label: "🏥 Nemocnice", value: "mdi:hospital-building" }
+          - { label: "💊 Lék/Pilulka", value: "mdi:pill" }
+          - { label: "🩺 Stetoskop", value: "mdi:stethoscope" }
+          - { label: "💉 Injekce", value: "mdi:needle" }
+          - { label: "🌡️ Teploměr", value: "mdi:thermometer" }
+          - { label: "❤️ Srdce", value: "mdi:heart" }
+          - { label: "👶 Dítě", value: "mdi:baby-face" }
+          - { label: "👨‍⚕️ Doktor", value: "mdi:doctor" }
+          - { label: "🔔 Zvonek", value: "mdi:bell" }
+          - { label: "⭐ Hvězda", value: "mdi:star" }
+          - { label: "📝 Poznámka", value: "mdi:note-text" }
+          - { label: "🎯 Cíl", value: "mdi:target" }
+          - { label: "🏠 Domov", value: "mdi:home" }
       - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
       - { label: "Obsah", name: "body", widget: "markdown" }
       - { label: "Publikováno", name: "published", widget: "boolean", default: true }
