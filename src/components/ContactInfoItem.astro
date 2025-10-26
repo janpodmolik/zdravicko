@@ -1,0 +1,38 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  icon: string;
+  title: string;
+  bgColor?: string;
+  iconColor?: string;
+  href?: string;
+  isClickable?: boolean;
+  target?: string;
+  rel?: string;
+}
+
+const { icon, title, bgColor = 'bg-blue-100', iconColor = 'text-blue-600', href, isClickable = false, target, rel } = Astro.props;
+const Component = href ? 'a' : 'div';
+---
+
+<Component 
+  href={href}
+  target={target}
+  rel={rel}
+  class:list={[
+    'flex gap-4 p-4 rounded-xl border-2 border-gray-200 transition-colors',
+    isClickable || href ? 'hover:border-blue-300 hover:shadow-md cursor-pointer' : ''
+  ]}
+>
+  <div class:list={[
+    'w-12 h-12 rounded-lg flex items-center justify-center shrink-0 self-start',
+    bgColor
+  ]}>
+    <Icon name={icon} class:list={['w-6 h-6', iconColor]} />
+  </div>
+  <div class="flex-1 min-w-0">
+    <h3 class="font-semibold text-gray-900 mb-2">{title}</h3>
+    <slot />
+  </div>
+</Component>

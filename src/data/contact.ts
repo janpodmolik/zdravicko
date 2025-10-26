@@ -16,7 +16,7 @@ export const contactInfo = {
       label: 'Sestřička'
     }
   },
-  email: 'info@zdravicko.cz',
+  email: 'doktorka.jana@zdravicko.org',
   address: {
     street: 'Svisle 2/785',
     city: 'Přerov',

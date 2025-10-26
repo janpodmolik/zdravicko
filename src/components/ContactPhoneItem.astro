@@ -1,0 +1,42 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  icon: string;
+  title: string;
+  phones: Array<{
+    number: string;
+    display: string;
+    label: string;
+  }>;
+  bgColor?: string;
+  iconColor?: string;
+}
+
+const { icon, title, phones, bgColor = 'bg-blue-100', iconColor = 'text-blue-600' } = Astro.props;
+---
+
+<div class="flex gap-4 p-4 rounded-xl border-2 border-gray-200 hover:border-blue-300 transition-colors">
+  <div class:list={[
+    'w-12 h-12 rounded-lg flex items-center justify-center shrink-0 self-start',
+    bgColor
+  ]}>
+    <Icon name={icon} class:list={['w-6 h-6', iconColor]} />
+  </div>
+  <div class="flex-1 min-w-0">
+    <h3 class="font-semibold text-gray-900 mb-2">{title}</h3>
+    <div class="space-y-1">
+      {phones.map(phone => (
+        <p class="text-gray-600">
+          <a 
+            href={`tel:${phone.number}`} 
+            class="text-blue-600 hover:text-blue-700 font-medium hover:underline"
+          >
+            {phone.display}
+          </a>
+          <span class="text-gray-500 ml-2">({phone.label})</span>
+        </p>
+      ))}
+    </div>
+  </div>
+</div>

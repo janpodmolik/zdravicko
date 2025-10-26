@@ -4,8 +4,16 @@ import Header from '../components/Header.astro';
 import MobileMenu from '../components/MobileMenu.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Footer from '../components/Footer.astro';
+import ContactInfoItem from '../components/ContactInfoItem.astro';
+import ContactPhoneItem from '../components/ContactPhoneItem.astro';
 import { Icon } from 'astro-icon/components';
 import { contactInfo } from '../data/contact';
+import { getTodayOpeningHours } from '../utils/openingHours';
+
+const todayInfo = getTodayOpeningHours();
+
+// Google Maps URL pro adresu
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactInfo.address.full)}`;
 ---
 
 <Layout 
@@ -30,68 +38,56 @@ import { contactInfo } from '../data/contact';
             <div>
               <h2 class="text-3xl font-bold text-gray-900 mb-8">Kontaktní údaje</h2>
               
-              <div class="space-y-8">
-                <!-- Address -->
-                <div class="flex gap-4">
-                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                    <Icon name="mdi:map-marker" class="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">Adresa ordinace</h3>
-                    <p class="text-gray-600">{contactInfo.address.street}</p>
-                    <p class="text-gray-600">{contactInfo.address.zip} {contactInfo.address.city}</p>
-                  </div>
-                </div>
+              <div class="space-y-4">
+                <!-- Address - clickable, opens Google Maps -->
+                <ContactInfoItem 
+                  icon="mdi:map-marker" 
+                  title="Adresa ordinace"
+                  href={mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <p class="text-gray-600">{contactInfo.address.street}</p>
+                  <p class="text-gray-600">{contactInfo.address.zip} {contactInfo.address.city}</p>
+                </ContactInfoItem>
                 
-                <!-- Phone -->
-                <div class="flex gap-4">
-                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                    <Icon name="mdi:phone" class="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">Telefon</h3>
-                    <p class="text-gray-600">
-                      <a href={`tel:${contactInfo.phones.doctor.number}`} class="text-blue-600 hover:text-blue-700 font-medium">
-                        {contactInfo.phones.doctor.display}
-                      </a>
-                      <span class="text-gray-500 ml-2">({contactInfo.phones.doctor.label})</span>
+                <!-- Phone - special component with multiple clickable numbers -->
+                <ContactPhoneItem 
+                  icon="mdi:phone" 
+                  title="Telefon"
+                  phones={[contactInfo.phones.doctor, contactInfo.phones.nurse]}
+                />
+                
+                <!-- Email - clickable -->
+                <ContactInfoItem 
+                  icon="mdi:email" 
+                  title="Email"
+                  href={`mailto:${contactInfo.email}`}
+                >
+                  <p class="text-blue-600 hover:text-blue-700 font-medium">{contactInfo.email}</p>
+                </ContactInfoItem>
+                
+                <!-- Opening Hours Summary - clickable, goes to full schedule -->
+                <ContactInfoItem 
+                  icon="mdi:clock-outline" 
+                  title={todayInfo.title}
+                  href="/ordinacni-hodiny"
+                >
+                  {todayInfo.hours ? (
+                    <p class:list={[
+                      "font-medium",
+                      todayInfo.isModified ? "text-amber-700" : "text-gray-600"
+                    ]}>
+                      {todayInfo.hours}
                     </p>
-                    <p class="text-gray-600 mt-1">
-                      <a href={`tel:${contactInfo.phones.nurse.number}`} class="text-blue-600 hover:text-blue-700 font-medium">
-                        {contactInfo.phones.nurse.display}
-                      </a>
-                      <span class="text-gray-500 ml-2">({contactInfo.phones.nurse.label})</span>
-                    </p>
-                  </div>
-                </div>
-                
-                <!-- Email -->
-                <div class="flex gap-4">
-                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                    <Icon name="mdi:email" class="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">Email</h3>
-                    <a href={`mailto:${contactInfo.email}`} class="text-blue-600 hover:text-blue-700 font-medium">
-                      {contactInfo.email}
-                    </a>
-                  </div>
-                </div>
-                
-                <!-- Opening Hours Summary -->
-                <div class="flex gap-4">
-                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
-                    <Icon name="mdi:clock-outline" class="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">Ordinační hodiny</h3>
-                    <p class="text-gray-600">Po-Pá: 7:30 - 16:00</p>
-                    <a href="/ordinacni-hodiny" class="text-blue-600 hover:text-blue-700 text-sm font-medium inline-flex items-center gap-1 mt-2">
-                      Celý rozvrh
-                      <Icon name="mdi:arrow-right" class="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
+                  ) : (
+                    <p class="text-red-600 font-medium">Zavřeno</p>
+                  )}
+                  <p class="text-blue-600 text-sm font-medium inline-flex items-center gap-1 mt-2">
+                    Celý rozvrh
+                    <Icon name="mdi:arrow-right" class="w-4 h-4" />
+                  </p>
+                </ContactInfoItem>
               </div>
               
               <!-- Emergency Notice -->

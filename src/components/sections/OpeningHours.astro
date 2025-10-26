@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
+import WeeklySchedule from '../WeeklySchedule.astro';
 // Opening Hours section
 ---
 
@@ -7,51 +7,10 @@ import { Icon } from 'astro-icon/components';
   <div class="container mx-auto px-4">
     <div class="max-w-3xl mx-auto">
       <h2 class="text-2xl md:text-4xl font-bold mb-8 md:mb-12 text-center text-gray-900">Ordinační hodiny</h2>
-      <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-gray-100">
-        <div class="p-6 md:p-8">
-          <div class="space-y-3 md:space-y-4">
-            <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-200">
-              <span class="font-semibold text-gray-900 text-sm md:text-base">Pondělí</span>
-              <span class="text-gray-600 text-sm md:text-base">7:30 - 16:00</span>
-            </div>
-            <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-200">
-              <span class="font-semibold text-gray-900 text-sm md:text-base">Úterý</span>
-              <span class="text-gray-600 text-sm md:text-base">7:30 - 13:00</span>
-            </div>
-            <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-200">
-              <span class="font-semibold text-gray-900 text-sm md:text-base">Středa</span>
-              <span class="text-gray-600 text-sm md:text-base">7:30 - 13:00</span>
-            </div>
-            <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-200">
-              <span class="font-semibold text-gray-900 text-sm md:text-base">Čtvrtek</span>
-              <span class="text-gray-600 text-sm md:text-base">7:30 - 13:30</span>
-            </div>
-            <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-200">
-              <span class="font-semibold text-gray-900 text-sm md:text-base">Pátek</span>
-              <span class="text-gray-600">7:30 - 12:00</span>
-            </div>
-            <div class="flex justify-between items-center py-3">
-              <span class="font-semibold text-gray-900">Sobota - Neděle</span>
-              <span class="text-red-600 font-semibold">Zavřeno</span>
-            </div>
-          </div>
-          <div class="mt-8 p-4 bg-blue-50 rounded-lg border-2 border-blue-100">
-            <p class="text-sm text-gray-700">
-              <strong>Důležité:</strong> Na všechny vyšetření je nutné se objednat předem telefonicky nebo online.
-            </p>
-          </div>
-          
-          <div class="mt-6 text-center">
-            <a 
-              href="/ordinacni-hodiny"
-              class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Celý rozvrh a kontakty
-              <Icon name="mdi:arrow-right" class="w-5 h-5" />
-            </a>
-          </div>
-        </div>
-      </div>
+      <WeeklySchedule 
+        showInfoBox={true}
+        showLink={true}
+      />
     </div>
   </div>
 </section>
