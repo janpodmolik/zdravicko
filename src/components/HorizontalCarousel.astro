@@ -1,0 +1,96 @@
+---
+/**
+ * Univerzální horizontální carousel komponenta
+ * Podporuje touch scrolling a responsive design
+ */
+interface Props {
+  /** Nadpis sekce */
+  title?: string;
+  /** Popis sekce */
+  description?: string;
+  /** CTA tlačítko text */
+  ctaText?: string;
+  /** CTA tlačítko URL */
+  ctaLink?: string;
+  /** ID pro anchor odkazy */
+  id?: string;
+  /** Barva pozadí */
+  bgColor?: 'white' | 'gray' | 'blue';
+}
+
+const { 
+  title, 
+  description, 
+  ctaText, 
+  ctaLink,
+  id,
+  bgColor = 'white'
+} = Astro.props;
+
+const bgClasses = {
+  white: 'bg-white',
+  gray: 'bg-gray-50',
+  blue: 'bg-blue-50'
+};
+---
+
+<section id={id} class:list={['py-12 md:py-16', bgClasses[bgColor]]}>
+  <!-- Hlavička s max-width pro pěkné centrování -->
+  <div class="max-w-7xl mx-auto px-4">
+    {(title || description) && (
+      <div class="text-center mb-6 md:mb-8">
+        <div class="max-w-2xl mx-auto">
+          {title && (
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              {title}
+            </h2>
+          )}
+          {description && (
+            <p class="text-base md:text-lg text-gray-600">
+              {description}
+            </p>
+          )}
+        </div>
+        {ctaText && ctaLink && (
+          <a 
+            href={ctaLink}
+            class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-sm md:text-base mt-4"
+          >
+            {ctaText}
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        )}
+      </div>
+    )}
+  </div>
+  
+  <!-- Horizontální scrollovací kontejner - celá šířka obrazovky -->
+  <div class="w-full overflow-hidden">
+    <div 
+      class="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 pl-4 pr-4 scrollbar-hide justify-start md:justify-center"
+      style="scroll-padding: 0 1rem;"
+    >
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Skrytí scrollbaru, ale zachování funkcionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Smooth scrolling */
+  .overflow-x-auto {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+</style>

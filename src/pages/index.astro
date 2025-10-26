@@ -6,20 +6,46 @@ import Hero from '../components/sections/Hero.astro';
 import QuickInfo from '../components/sections/QuickInfo.astro';
 import SpecialNotice from '../components/sections/SpecialNotice.astro';
 import About from '../components/sections/About.astro';
-import Aktuality from '../components/sections/Aktuality.astro';
-import Services from '../components/sections/Services.astro';
-import BlogGrid from '../components/sections/BlogGrid.astro';
+import HorizontalCarousel from '../components/HorizontalCarousel.astro';
+import ServiceCard from '../components/carousel/ServiceCard.astro';
+import BlogCard from '../components/carousel/BlogCard.astro';
+import NewsCard from '../components/carousel/NewsCard.astro';
 import OpeningHours from '../components/sections/OpeningHours.astro';
 import Contact from '../components/sections/Contact.astro';
 import Footer from '../components/Footer.astro';
 
 import { getTodayOpeningHours } from '../utils/openingHours';
-import { getActiveSpecialNotice, getPublishedNews, getPublishedBlogPosts, blogEntryToCardData } from '../utils/contentHelpers';
+import { getActiveSpecialNotice, getPublishedNews, getPublishedBlogPosts } from '../utils/contentHelpers';
 
 const todayInfo = getTodayOpeningHours();
 const specialNotice = await getActiveSpecialNotice();
-const latestAktuality = (await getPublishedNews()).slice(0, 3);
-const latestBlogPosts = (await getPublishedBlogPosts()).slice(0, 3).map((entry, index) => blogEntryToCardData(entry, index + 1));
+const latestNews = (await getPublishedNews()).slice(0, 3);
+const latestBlogPosts = (await getPublishedBlogPosts()).slice(0, 3);
+
+// Prioritní služby (top 3)
+const priorityServices = [
+  {
+    icon: 'mdi:stethoscope',
+    title: 'Preventivní prohlídky',
+    description: 'Pravidelné kontroly růstu a vývoje dítěte',
+    href: '/sluzby/preventivni-prohlidky',
+    color: 'blue' as const
+  },
+  {
+    icon: 'mdi:needle',
+    title: 'Očkování',
+    description: 'Kompletní vakcinační program dle kalendáře',
+    href: '/sluzby/ockovani',
+    color: 'cyan' as const
+  },
+  {
+    icon: 'mdi:hospital-box',
+    title: 'Akutní péče',
+    description: 'Ošetření běžných dětských onemocnění',
+    href: '/sluzby/akutni-pece',
+    color: 'purple' as const
+  }
+];
 ---
 
 <Layout title="Zdravíčko - Dětská ordinace | Kvalitní péče o vaše děti">
@@ -31,45 +57,55 @@ const latestBlogPosts = (await getPublishedBlogPosts()).slice(0, 3).map((entry, 
   
   {specialNotice && <SpecialNotice notice={specialNotice} />}
   
-  <Services />
-  <Aktuality aktuality={latestAktuality} />
-  <BlogGrid posts={latestBlogPosts} />
+  <!-- Služby Carousel -->
+  <HorizontalCarousel
+    id="sluzby"
+    title="Naše služby"
+    description="Poskytujeme kompletní péči pro vaše děti"
+    ctaText="Všechny služby"
+    ctaLink="/sluzby"
+    bgColor="white"
+  >
+    {priorityServices.map(service => (
+      <ServiceCard {...service} />
+    ))}
+  </HorizontalCarousel>
+
+  <!-- Aktuality Carousel -->
+  {latestNews.length > 0 && (
+    <HorizontalCarousel
+      id="aktuality"
+      title="Aktuality"
+      description="Aktuální informace z naší ordinace"
+      ctaText="Všechny aktuality"
+      ctaLink="/aktuality"
+      bgColor="gray"
+    >
+      {latestNews.map(news => (
+        <NewsCard news={news} />
+      ))}
+    </HorizontalCarousel>
+  )}
+
+  <!-- Blog Carousel -->
+  {latestBlogPosts.length > 0 && (
+    <HorizontalCarousel
+      id="blog"
+      title="Z našeho blogu"
+      description="Užitečné rady a informace pro rodiče"
+      ctaText="Všechny články"
+      ctaLink="/blog"
+      bgColor="white"
+    >
+      {latestBlogPosts.map(post => (
+        <BlogCard post={post} />
+      ))}
+    </HorizontalCarousel>
+  )}
+  
   <About />
   <OpeningHours />
   <Contact />
   
   <Footer />
 </Layout>
-
-<script>
-  // Mobile menu toggle
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenuClose = document.getElementById('mobile-menu-close');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-  
-  function openMenu() {
-    if (mobileMenu && mobileMenuOverlay) {
-      mobileMenuOverlay.classList.remove('hidden');
-      mobileMenuOverlay.offsetHeight; // Trigger reflow
-      mobileMenuOverlay.classList.add('opacity-100');
-      mobileMenu.classList.remove('translate-x-full');
-    }
-  }
-  
-  function closeMenu() {
-    if (mobileMenu && mobileMenuOverlay) {
-      mobileMenu.classList.add('translate-x-full');
-      mobileMenuOverlay.classList.remove('opacity-100');
-      setTimeout(() => mobileMenuOverlay.classList.add('hidden'), 300);
-    }
-  }
-  
-  mobileMenuButton?.addEventListener('click', openMenu);
-  mobileMenuClose?.addEventListener('click', closeMenu);
-  mobileMenuOverlay?.addEventListener('click', closeMenu);
-  
-  // Close menu when clicking a link
-  const menuLinks = document.querySelectorAll('#mobile-menu a');
-  menuLinks.forEach(link => link.addEventListener('click', closeMenu));
-</script>

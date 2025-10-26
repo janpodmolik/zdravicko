@@ -10,36 +10,55 @@ interface Props {
 const { todayInfo } = Astro.props;
 ---
 
-<section class="py-12 bg-white">
+<section class="py-6 md:py-8 bg-gradient-to-br from-gray-50 to-blue-50">
   <div class="container mx-auto px-4">
-    <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-      <a href="#ordinacni-hodiny" class:list={['flex gap-4 p-6 rounded-xl transition-all hover:shadow-md cursor-pointer', todayInfo.hours ? 'items-start bg-blue-50 hover:bg-blue-100' : 'items-center bg-blue-50 hover:bg-blue-100']}>
-        <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
-          <Icon name="mdi:clock-outline" class="w-6 h-6 text-white" />
-        </div>
-        <div>
-          <h3 class:list={['font-semibold text-gray-900', todayInfo.hours && 'mb-1']}>{todayInfo.title}</h3>
-          {todayInfo.hours && (
-            <p class="text-gray-600 text-sm">{todayInfo.hours}</p>
-          )}
-        </div>
-      </a>
-      <a href={`tel:${contactInfo.phones.doctor.number}`} class="flex items-start gap-4 p-6 bg-cyan-50 rounded-xl transition-all hover:bg-cyan-100 hover:shadow-md cursor-pointer">
-        <div class="w-12 h-12 bg-cyan-600 rounded-lg flex items-center justify-center shrink-0">
-          <Icon name="mdi:phone" class="w-6 h-6 text-white" />
-        </div>
-        <div>
-          <h3 class="font-semibold text-gray-900 mb-1">Telefonní kontakt</h3>
-          <p class="text-gray-600 text-sm">{contactInfo.phones.doctor.display}</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 max-w-5xl mx-auto">
+      <a 
+        href="/ordinacni-hodiny" 
+        class="group"
+      >
+        <div class="flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-blue-100 transition-all hover:border-blue-400 hover:shadow-lg h-full">
+          <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+            <Icon name="mdi:clock-outline" class="w-5 h-5 text-white" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-bold text-sm text-gray-900 leading-tight mb-0.5">{todayInfo.title}</h3>
+            {todayInfo.hours && (
+              <p class="text-gray-600 text-xs font-medium">{todayInfo.hours}</p>
+            )}
+          </div>
         </div>
       </a>
-      <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactInfo.address.full)}`} target="_blank" rel="noopener noreferrer" class="flex items-start gap-4 p-6 bg-purple-50 rounded-xl transition-all hover:bg-purple-100 hover:shadow-md cursor-pointer">
-        <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center shrink-0">
-          <Icon name="mdi:map-marker" class="w-6 h-6 text-white" />
+
+      <a 
+        href={`tel:${contactInfo.phones.doctor.number}`}
+        class="group"
+      >
+        <div class="flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-cyan-100 transition-all hover:border-cyan-400 hover:shadow-lg h-full">
+          <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+            <Icon name="mdi:phone" class="w-5 h-5 text-white" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-bold text-sm text-gray-900 leading-tight mb-0.5">Telefonní kontakt</h3>
+            <p class="text-gray-600 text-xs font-medium">{contactInfo.phones.doctor.display}</p>
+          </div>
         </div>
-        <div>
-          <h3 class="font-semibold text-gray-900 mb-1">Naše adresa</h3>
-          <p class="text-gray-600 text-sm">{contactInfo.address.street}, {contactInfo.address.city}</p>
+      </a>
+
+      <a 
+        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactInfo.address.full)}`}
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="group"
+      >
+        <div class="flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-purple-100 transition-all hover:border-purple-400 hover:shadow-lg h-full">
+          <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+            <Icon name="mdi:map-marker" class="w-5 h-5 text-white" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-bold text-sm text-gray-900 leading-tight mb-0.5">Naše adresa</h3>
+            <p class="text-gray-600 text-xs font-medium">{contactInfo.address.street}, {contactInfo.address.city}</p>
+          </div>
         </div>
       </a>
     </div>
