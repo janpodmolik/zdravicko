@@ -72,7 +72,7 @@ collections:
           label: "Autor",
           name: "author",
           widget: "select",
-          options: ["MUDr. Jana Šlechtová", "MUDr. Petra Nováková"],
+          options: ["MUDr. Jana Šlechtová", "MUDr. Johanka Podmolíková"],
           required: false,
         }
       - {
@@ -110,12 +110,12 @@ collections:
         widget: "select"
         hint: "Určuje barvu pozadí aktuality"
         options:
-          - { label: "🔵 Modrá (Informace)", value: "blue" }
-          - { label: "🟠 Oranžová (Upozornění)", value: "orange" }
-          - { label: "🟢 Zelená (Dobrá zpráva)", value: "green" }
-          - { label: "🔴 Červená (Důležité)", value: "red" }
-          - { label: "🟡 Žlutá (Varování)", value: "yellow" }
-          - { label: "🟣 Fialová (Speciální)", value: "purple" }
+          - { label: "🔵 Informace", value: "blue" }
+          - { label: "🟠 Upozornění", value: "orange" }
+          - { label: "🟢 Zpráva", value: "green" }
+          - { label: "🔴 Důležité", value: "red" }
+          - { label: "🟡 Varování", value: "yellow" }
+          - { label: "🟣 Speciální", value: "purple" }
       - label: "Ikona"
         name: "icon"
         widget: "select"
@@ -157,7 +157,7 @@ collections:
         }
 
   # Důležité oznámení - pouze jeden soubor
-  - name: "special_notice"
+  - name: "special-notice"
     label: "Důležité oznámení"
     files:
       - name: "notice"
@@ -183,9 +183,9 @@ collections:
             default: "warning"
             hint: "Určuje barvu banneru a oznámení všude na webu"
             options:
-              - { label: "⚠️ Varování (žlutá)", value: "warning" }
-              - { label: "ℹ️ Informace (modrá)", value: "info" }
-              - { label: "🔴 Důležité (červená)", value: "urgent" }
+              - { label: "🟡 Varování", value: "warning" }
+              - { label: "🔵 Informace", value: "info" }
+              - { label: "🔴 Důležité", value: "urgent" }
           - {
               label: "Ordinace zavřena",
               name: "closed",

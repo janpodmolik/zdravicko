@@ -1,38 +1,36 @@
 import { defineCollection, z } from "astro:content";
 
+/**
+ * DŮLEŽITÉ: Flexibilní schéma pro Content Collections
+ * ===================================================
+ *
+ * Všechna pole používají základní typy (string, date, boolean) místo striktních enum.
+ *
+ * VÝHODY:
+ * ✅ Web funguje i když odeberete kategorii/autora/barvu z CMS
+ * ✅ Publikované články nepřestanou fungovat při změnách v týmu
+ * ✅ Můžete kdykoliv přidat nové kategorie bez úpravy tohoto souboru
+ *
+ * JAK TO FUNGUJE:
+ * - Tento soubor (config.ts): Validace jen základních typů - web je odolný
+ * - CMS config (public/admin/config.yml): Selecty s doporučenými hodnotami pro editory
+ *
+ * PŘÍKLAD:
+ * Když odeberete kategorii "Výživa" z CMS:
+ * - Nové články: Editor už neuvidí "Výživa" v selectu
+ * - Staré články s "Výživa": Budou fungovat normálně, web nespadne
+ */
+
 // Blog kolekce
 const blogCollection = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
-    category: z.enum([
-      "Zdraví",
-      "Prevence",
-      "Výživa",
-      "Očkování",
-      "Tipy pro rodiče",
-      "Kojení a výživa kojenců",
-      "Dětské nemoci",
-      "Kožní problémy",
-      "Alergologie",
-      "Psychologie dítěte",
-      "Spánek dětí",
-      "Bezpečnost",
-      "První pomoc",
-      "Léky a antibiotika",
-      "Dentální hygiena",
-      "Zrak a sluch",
-      "Pohybový vývoj",
-      "Řeč a komunikace",
-      "Cestování s dětmi",
-      "Ordinační hodiny",
-    ]),
+    category: z.string(), // Flexibilní string místo enum - web odolný vůči změnám kategorií
     excerpt: z.string(),
     image: z.string().optional(),
-    author: z
-      .enum(["MUDr. Jana Šlechtová", "MUDr. Johanka Podmolíková"])
-      .optional(),
+    author: z.string().optional(), // Flexibilní string - web odolný vůči změnám v týmu
     published: z.boolean().default(true),
   }),
 });
@@ -42,26 +40,15 @@ const newsCollection = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
-    color: z.enum(["blue", "orange", "green", "red", "yellow", "purple"]),
+    color: z.string(), // Flexibilní string - můžete přidat nové barvy bez úpravy schématu
     icon: z.string().default("mdi:information"),
     date: z.coerce.date(),
     published: z.boolean().default(true),
   }),
 });
 
-// Special Notice kolekce (důležitá oznámení)
-const specialNoticeCollection = defineCollection({
-  type: "content",
-  schema: z.object({
-    message: z.string(),
-    date: z.coerce.date(),
-    hours: z.string().optional(),
-    active: z.boolean().default(true),
-  }),
-});
-
 export const collections = {
   blog: blogCollection,
   news: newsCollection,
-  special_notice: specialNoticeCollection,
+  // Special notice používá JSON soubor v src/data/, ne content collection
 };

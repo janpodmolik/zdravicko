@@ -25,7 +25,13 @@ const dateFormatter = new Intl.DateTimeFormat('cs-CZ', {
 const formattedDate = dateFormatter.format(new Date(date));
 
 // Mapování barev
-const colorStyles = {
+const colorStyles: Record<string, {
+  bg: string;
+  border: string;
+  icon: string;
+  title: string;
+  text: string;
+}> = {
   blue: {
     bg: 'bg-blue-50',
     border: 'border-blue-200',
@@ -70,7 +76,7 @@ const colorStyles = {
   }
 };
 
-const styles = colorStyles[color];
+const styles = colorStyles[color] ?? colorStyles.blue;
 ---
 
 <a
