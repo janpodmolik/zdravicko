@@ -25,6 +25,16 @@ const { aktuality } = Astro.props;
           {aktuality.map((news) => (
             <AktualitaCard news={news} />
           ))}
+          
+          <div class="text-center mt-8">
+            <a 
+              href="/aktuality"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Všechny aktuality
+              <Icon name="mdi:arrow-right" class="w-5 h-5" />
+            </a>
+          </div>
         </div>
       ) : (
         <div class="text-center py-12 bg-gray-50 rounded-xl">

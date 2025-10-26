@@ -2,19 +2,20 @@
 import { Icon } from 'astro-icon/components';
 
 interface Props {
-  activePage?: 'home' | 'cenik' | 'blog' | 'sluzby' | 'o-nas';
+  activePage?: 'home' | 'cenik' | 'blog' | 'sluzby' | 'o-nas' | 'aktuality' | 'ordinacni-hodiny' | 'kontakt';
 }
 
 const { activePage = 'home' } = Astro.props;
 
 const navItems = [
+  { href: '/', label: 'Domů', page: 'home' },
   { href: '/o-nas', label: 'O nás', page: 'o-nas' },
-  { href: '/#aktuality', label: 'Aktuality', homeOnly: true },
+  { href: '/aktuality', label: 'Aktuality', page: 'aktuality' },
   { href: '/sluzby', label: 'Služby', page: 'sluzby' },
-  { href: '/#ordinacni-hodiny', label: 'Ordinační hodiny', homeOnly: true },
+  { href: '/ordinacni-hodiny', label: 'Ordinační hodiny', page: 'ordinacni-hodiny' },
   { href: '/cenik', label: 'Ceník', page: 'cenik' },
   { href: '/blog', label: 'Blog', page: 'blog' },
-  { href: activePage === 'home' ? '#kontakt' : '/#kontakt', label: 'Kontakt', homeOnly: false }
+  { href: '/kontakt', label: 'Kontakt', page: 'kontakt' }
 ];
 ---
 

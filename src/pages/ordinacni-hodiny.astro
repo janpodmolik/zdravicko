@@ -1,0 +1,180 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Footer from '../components/Footer.astro';
+import CTAButtons from '../components/CTAButtons.astro';
+import { Icon } from 'astro-icon/components';
+import { contactInfo } from '../data/contact';
+import { getTodayOpeningHours } from '../utils/openingHours';
+
+const todayInfo = getTodayOpeningHours();
+const today = new Date().getDay();
+
+const weekSchedule = [
+  { day: 'Pondělí', hours: '7:30 - 16:00', isToday: today === 1 },
+  { day: 'Úterý', hours: '7:30 - 13:00', isToday: today === 2 },
+  { day: 'Středa', hours: '7:30 - 13:00', isToday: today === 3 },
+  { day: 'Čtvrtek', hours: '7:30 - 13:30', isToday: today === 4 },
+  { day: 'Pátek', hours: '7:30 - 12:00', isToday: today === 5 },
+  { day: 'Sobota - Neděle', hours: 'Zavřeno', isToday: today === 0 || today === 6, isClosed: true },
+];
+---
+
+<Layout 
+  title="Ordinační hodiny - Zdravíčko" 
+  description="Kompletní přehled ordinačních hodin naší dětské ordinace - otevírací doba, kontakty a možnosti objednání"
+>
+  <Header activePage="ordinacni-hodiny" />
+  <MobileMenu activePage="ordinacni-hodiny" />
+  
+  <main>
+    <PageHeader 
+      title="Ordinační hodiny" 
+      description="Provozní doba naší ordinace"
+    />
+    
+    <!-- Today's hours highlight -->
+    <section class="py-8 bg-linear-to-br from-blue-50 to-cyan-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-blue-100">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                <Icon name="mdi:clock-outline" class="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900">{todayInfo.title}</h2>
+                <p class="text-gray-600">
+                  {new Date().toLocaleDateString('cs-CZ', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+              </div>
+            </div>
+            {todayInfo.hours ? (
+              <div class="text-3xl font-bold text-blue-600">
+                {todayInfo.hours}
+              </div>
+            ) : (
+              <div class="text-2xl font-bold text-red-600">
+                Zavřeno
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Weekly schedule -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Týdenní rozvrh</h2>
+          
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-gray-100">
+            <div class="p-8">
+              <div class="space-y-4">
+                {weekSchedule.map(({ day, hours, isToday, isClosed }) => (
+                  <div 
+                    class:list={[
+                      'flex justify-between items-center py-4 px-4 rounded-lg transition-colors',
+                      isToday ? 'bg-blue-50 border-2 border-blue-200' : 'border-b border-gray-200'
+                    ]}
+                  >
+                    <span class:list={[
+                      'font-semibold',
+                      isToday ? 'text-blue-900' : 'text-gray-900'
+                    ]}>
+                      {day}
+                      {isToday && <span class="ml-2 text-xs bg-blue-600 text-white px-2 py-1 rounded-full">Dnes</span>}
+                    </span>
+                    <span class:list={[
+                      'font-medium',
+                      isClosed ? 'text-red-600' : isToday ? 'text-blue-700' : 'text-gray-600'
+                    ]}>
+                      {hours}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              
+              <div class="mt-8 p-6 bg-blue-50 rounded-xl border-2 border-blue-100">
+                <div class="flex gap-3">
+                  <Icon name="mdi:information" class="w-6 h-6 text-blue-600 shrink-0 mt-0.5" />
+                  <div>
+                    <p class="font-semibold text-gray-900 mb-2">Důležité informace:</p>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                      <li>• Na všechny vyšetření je nutné se objednat předem</li>
+                      <li>• Objednání telefonicky nebo online přes náš systém</li>
+                      <li>• V případě akutních problémů volejte vždy předem</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Emergency and contact -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Mimořádné situace</h2>
+          
+          <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <!-- Emergency -->
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-red-500">
+              <div class="flex items-center gap-3 mb-4">
+                <Icon name="mdi:alert-circle" class="w-8 h-8 text-red-600" />
+                <h3 class="text-xl font-bold text-gray-900">Akutní stavy</h3>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Při akutních stavech volejte vždy předem, abychom vás mohli co nejdříve přijmout.
+              </p>
+              <a 
+                href={`tel:${contactInfo.phones.doctor.number}`}
+                class="inline-flex items-center gap-2 text-red-600 font-semibold hover:text-red-700"
+              >
+                <Icon name="mdi:phone" class="w-5 h-5" />
+                {contactInfo.phones.doctor.display}
+              </a>
+            </div>
+            
+            <!-- After hours -->
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-orange-500">
+              <div class="flex items-center gap-3 mb-4">
+                <Icon name="mdi:clock-alert-outline" class="w-8 h-8 text-orange-600" />
+                <h3 class="text-xl font-bold text-gray-900">Mimo ordinační hodiny</h3>
+              </div>
+              <p class="text-gray-600 mb-4">
+                V době mimo ordinační hodiny kontaktujte lékařskou pohotovost nebo volejte 155.
+              </p>
+              <div class="space-y-2">
+                <a 
+                  href="tel:155"
+                  class="inline-flex items-center gap-2 text-orange-600 font-semibold hover:text-orange-700"
+                >
+                  <Icon name="mdi:ambulance" class="w-5 h-5" />
+                  155 - Záchranná služba
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- CTA -->
+          <div class="text-center bg-white rounded-xl shadow-md p-8">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Chcete se objednat?</h3>
+            <p class="text-gray-600 mb-6">
+              Zavolejte nám nebo napište email a my vás co nejdříve objednáme
+            </p>
+            <CTAButtons phoneLabel="Objednat telefonicky" emailLabel="Napsat email" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>

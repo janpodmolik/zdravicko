@@ -1,0 +1,112 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AktualitaCard from '../components/AktualitaCard.astro';
+import Footer from '../components/Footer.astro';
+import { Icon } from 'astro-icon/components';
+import { getPublishedNews } from '../utils/contentHelpers';
+
+const allNews = await getPublishedNews();
+
+// Get unique colors for filtering
+const colors = [...new Set(allNews.map(news => news.data.color))];
+const colorLabels: Record<string, string> = {
+  blue: '🔵 Modrá',
+  orange: '🟠 Oranžová',
+  green: '🟢 Zelená',
+  red: '🔴 Červená',
+  yellow: '🟡 Žlutá',
+  purple: '🟣 Fialová'
+};
+---
+
+<Layout 
+  title="Aktuality - Zdravíčko" 
+  description="Aktuální informace z naší dětské ordinace - důležitá oznámení, změny ordinačních hodin a další novinky"
+>
+  <Header activePage="aktuality" />
+  <MobileMenu activePage="aktuality" />
+  
+  <main>
+    <PageHeader 
+      title="Aktuality" 
+      description="Aktuální informace z naší ordinace"
+    />
+    
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <!-- Filter buttons -->
+          <div class="mb-8 flex flex-wrap gap-3 justify-center">
+            <button 
+              data-filter="all"
+              class="filter-btn px-4 py-2 rounded-lg font-medium transition-colors bg-blue-600 text-white"
+            >
+              Vše ({allNews.length})
+            </button>
+            {colors.map(color => {
+              const count = allNews.filter(n => n.data.color === color).length;
+              return (
+                <button 
+                  data-filter={color}
+                  class="filter-btn px-4 py-2 rounded-lg font-medium transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
+                >
+                  {colorLabels[color]} ({count})
+                </button>
+              );
+            })}
+          </div>
+          
+          <!-- News list -->
+          {allNews.length > 0 ? (
+            <div class="space-y-4" id="news-container">
+              {allNews.map((news) => (
+                <div class="news-item" data-color={news.data.color}>
+                  <AktualitaCard news={news} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div class="text-center py-12 bg-gray-50 rounded-xl">
+              <Icon name="mdi:newspaper-variant-outline" class="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <p class="text-gray-500">Momentálně nejsou k dispozici žádné aktuality</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<script>
+  // Filter functionality
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const newsItems = document.querySelectorAll<HTMLElement>('.news-item');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.getAttribute('data-filter');
+      
+      // Update active button
+      filterButtons.forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white');
+        btn.classList.add('bg-gray-100', 'text-gray-700');
+      });
+      button.classList.remove('bg-gray-100', 'text-gray-700');
+      button.classList.add('bg-blue-600', 'text-white');
+      
+      // Filter news items
+      newsItems.forEach(item => {
+        if (filter === 'all' || item.getAttribute('data-color') === filter) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
