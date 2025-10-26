@@ -1,7 +1,7 @@
 ---
 /**
  * EmergencyCard - Karta pro zobrazení důležité kontaktní informace
- * 
+ *
  * Použití: Akutní stavy, mimořádné situace, důležité kontakty
  */
 import { Icon } from 'astro-icon/components';
@@ -16,14 +16,14 @@ interface Props {
   borderColor?: 'red' | 'orange' | 'blue';
 }
 
-const { 
-  icon, 
-  title, 
-  description, 
-  linkHref, 
-  linkText, 
+const {
+  icon,
+  title,
+  description,
+  linkHref,
+  linkText,
   linkIcon,
-  borderColor = 'red' 
+  borderColor = 'red'
 } = Astro.props;
 
 const borderClasses = {

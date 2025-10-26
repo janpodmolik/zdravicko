@@ -84,10 +84,10 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
   const today = new Date();
   const dayOfWeek = today.getDay();
   const regularHours = openingHoursByDay[dayOfWeek];
-  
+
   // Kontrola special notice
   const notice = getActiveSpecialNotice();
-  
+
   if (notice) {
     // Případ 1: Zavřeno celý den
     if (notice.closed) {
@@ -99,7 +99,7 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
         noticeType: notice.type,
       };
     }
-    
+
     // Případ 2: Upravené hodiny
     if (notice.hours) {
       return {
@@ -110,7 +110,7 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
         noticeType: notice.type,
       };
     }
-    
+
     // Případ 3: Jen informace (bez změny hodin)
     return {
       title: regularHours ? "Dnes otevřeno" : "Dnes neordinujeme",
@@ -120,7 +120,7 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
       noticeType: notice.type,
     };
   }
-  
+
   // Žádné special notice - standardní hodiny
   return {
     title: regularHours ? "Dnes otevřeno" : "Dnes neordinujeme",

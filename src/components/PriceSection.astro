@@ -1,0 +1,49 @@
+---
+/**
+ * PriceSection - Sekce ceníku (hrazené / nadstandardní služby)
+ *
+ * Zobrazuje skupinu služeb s jednotným stylingem
+ */
+import { Icon } from 'astro-icon/components';
+import PriceItem from './PriceItem.astro';
+import type { PriceSection as PriceSectionType } from '../data/pricing';
+
+interface Props {
+  section: PriceSectionType;
+}
+
+const { section } = Astro.props;
+---
+
+<div class="mb-12">
+  <!-- Header -->
+  <div class="flex items-center gap-3 mb-6">
+    <div class:list={['w-12 h-12 rounded-lg flex items-center justify-center', section.iconBg]}>
+      <Icon name={section.icon} class:list={['w-8 h-8', section.priceColor]} aria-hidden="true" />
+    </div>
+    <h2 class="text-3xl font-bold text-gray-900">{section.title}</h2>
+  </div>
+
+  <!-- Items -->
+  <div class:list={['rounded-2xl p-8', section.sectionBg]}>
+    <div class="space-y-4">
+      {section.items.map((item, index) => (
+        <div class:list={[
+          'flex justify-between items-center py-4',
+          index < section.items.length - 1 && `border-b ${section.borderColor}`
+        ]}>
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-1">{item.title}</h3>
+            <p class="text-sm text-gray-600">{item.description}</p>
+          </div>
+          <span class:list={[
+            'font-semibold text-lg whitespace-nowrap ml-4',
+            section.priceColor
+          ]}>
+            {item.price}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

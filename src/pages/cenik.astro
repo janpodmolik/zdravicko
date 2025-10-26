@@ -5,14 +5,16 @@ import MobileMenu from '../components/MobileMenu.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Footer from '../components/Footer.astro';
 import CTAButtons from '../components/CTAButtons.astro';
-import { Icon } from 'astro-icon/components';
+import PriceSection from '../components/PriceSection.astro';
+import InfoBox from '../components/InfoBox.astro';
+import { priceSections, priceInfoItems } from '../data/pricing';
 ---
 
 <Layout title="Ceník služeb - Zdravíčko" description="Přehled cen služeb dětské ordinace Zdravíčko. Základní péče je hrazena z veřejného zdravotního pojištění.">
   <Header activePage="cenik" />
   <MobileMenu activePage="cenik" />
 
-  <PageHeader 
+  <PageHeader
     title="Ceník služeb"
     description="Základní péče je hrazena z veřejného zdravotního pojištění"
   />
@@ -21,113 +23,17 @@ import { Icon } from 'astro-icon/components';
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
-        
-        <!-- Services Covered by Insurance -->
-        <div class="mb-12">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-              <Icon name="mdi:check-circle" class="w-8 h-8 text-green-600" />
-            </div>
-            <h2 class="text-3xl font-bold text-gray-900">Služby hrazené pojišťovnou</h2>
-          </div>
-          <div class="bg-green-50 rounded-2xl p-8">
-            <div class="space-y-4">
-              <div class="flex justify-between items-center py-4 border-b border-green-200">
-                <div>
-                  <h3 class="font-semibold text-gray-900 mb-1">Preventivní prohlídky</h3>
-                  <p class="text-sm text-gray-600">Pravidelné kontroly vývoje dítěte dle doporučeného rozpisu</p>
-                </div>
-                <span class="font-semibold text-green-600 text-lg">Hrazeno</span>
-              </div>
-              <div class="flex justify-between items-center py-4 border-b border-green-200">
-                <div>
-                  <h3 class="font-semibold text-gray-900 mb-1">Očkování (dle kalendáře)</h3>
-                  <p class="text-sm text-gray-600">Povinné i doporučené vakcíny podle očkovacího kalendáře</p>
-                </div>
-                <span class="font-semibold text-green-600 text-lg">Hrazeno</span>
-              </div>
-              <div class="flex justify-between items-center py-4 border-b border-green-200">
-                <div>
-                  <h3 class="font-semibold text-gray-900 mb-1">Akutní vyšetření</h3>
-                  <p class="text-sm text-gray-600">Ošetření běžných dětských onemocnění a úrazů</p>
-                </div>
-                <span class="font-semibold text-green-600 text-lg">Hrazeno</span>
-              </div>
-              <div class="flex justify-between items-center py-4">
-                <div>
-                  <h3 class="font-semibold text-gray-900 mb-1">Dispenzární péče</h3>
-                  <p class="text-sm text-gray-600">Dlouhodobá péče o děti s chronickými onemocněními</p>
-                </div>
-                <span class="font-semibold text-green-600 text-lg">Hrazeno</span>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Premium Services -->
-        <div class="mb-12">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <Icon name="mdi:star" class="w-8 h-8 text-blue-600" />
-            </div>
-            <h2 class="text-3xl font-bold text-gray-900">Nadstandardní služby</h2>
-          </div>
-          <div class="bg-gray-50 rounded-2xl p-8">
-            <div class="space-y-4">
-              <div class="flex justify-between items-center py-4 border-b border-gray-200">
-                <div>
-                  <h3 class="font-semibold text-gray-900 mb-1">Nadstandardní vyšetření</h3>
-                  <p class="text-sm text-gray-600">Speciální vyšetření mimo rámec pojištění</p>
-                </div>
-                <span class="font-semibold text-gray-900 text-lg">Od 500 Kč</span>
-              </div>
-              <div class="flex justify-between items-center py-4 border-b border-gray-200">
-                <div>
-                  <h3 class="font-semibold text-gray-900 mb-1">Cestovní očkování</h3>
-                  <p class="text-sm text-gray-600">Vakcíny pro cesty do exotických destinací</p>
-                </div>
-                <span class="font-semibold text-gray-900 text-lg">Dle typu vakcíny</span>
-              </div>
-              <div class="flex justify-between items-center py-4 border-b border-gray-200">
-                <div>
-                  <h3 class="font-semibold text-gray-900 mb-1">Lékařské potvrzení</h3>
-                  <p class="text-sm text-gray-600">Potvrzení pro školu, kroužky, tábory</p>
-                </div>
-                <span class="font-semibold text-gray-900 text-lg">200 Kč</span>
-              </div>
-              <div class="flex justify-between items-center py-4 border-b border-gray-200">
-                <div>
-                  <h3 class="font-semibold text-gray-900 mb-1">Konzultace mimo ordinační hodiny</h3>
-                  <p class="text-sm text-gray-600">Konzultace po domluvě mimo standardní hodiny</p>
-                </div>
-                <span class="font-semibold text-gray-900 text-lg">800 Kč</span>
-              </div>
-              <div class="flex justify-between items-center py-4">
-                <div>
-                  <h3 class="font-semibold text-gray-900 mb-1">Online konzultace</h3>
-                  <p class="text-sm text-gray-600">Telefonická nebo video konzultace (30 min)</p>
-                </div>
-                <span class="font-semibold text-gray-900 text-lg">400 Kč</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- Price Sections -->
+        {priceSections.map(section => (
+          <PriceSection section={section} />
+        ))}
 
         <!-- Important Information -->
-        <div class="bg-blue-50 rounded-xl p-6">
-          <div class="flex items-start gap-4">
-            <Icon name="mdi:information" class="w-6 h-6 text-blue-600 shrink-0 mt-1" />
-            <div>
-              <h3 class="font-semibold text-gray-900 mb-2">Důležité informace</h3>
-              <ul class="space-y-2 text-gray-700">
-                <li>• Všechny ceny zahrnují DPH</li>
-                <li>• Platba je možná v hotovosti nebo kartou</li>
-                <li>• Pro nadstandardní služby je nutná předchozí objednávka</li>
-                <li>• Některé služby mohou být částečně hrazeny z připojištění</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <InfoBox
+          title="Důležité informace"
+          items={priceInfoItems}
+        />
 
         <!-- CTA Section -->
         <div class="mt-12 text-center">

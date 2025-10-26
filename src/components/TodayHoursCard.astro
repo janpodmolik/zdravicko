@@ -1,7 +1,7 @@
 ---
 /**
  * TodayHoursCard - Karta zobrazující dnešní ordinační hodiny
- * 
+ *
  * Zobrazuje aktuální den a otevírací hodiny s případným speciálním oznámením.
  * Barvy se mění podle typu oznámení (warning, urgent, info).
  */
@@ -22,9 +22,9 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
       "w-12 h-12 rounded-full flex items-center justify-center",
       todayInfo.isModified ? colors?.icon : "bg-blue-600"
     ]}>
-      <Icon 
-        name={todayInfo.isModified ? "mdi:alert-circle-outline" : "mdi:clock-outline"} 
-        class="w-6 h-6 text-white" 
+      <Icon
+        name={todayInfo.isModified ? "mdi:alert-circle-outline" : "mdi:clock-outline"}
+        class="w-6 h-6 text-white"
         aria-hidden="true"
       />
     </div>
@@ -37,7 +37,7 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
       </p>
     </div>
   </div>
-  
+
   <!-- Hodiny (pokud existují) -->
   {todayInfo.hours && (
     <div class:list={[
@@ -47,7 +47,7 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
       {todayInfo.hours}
     </div>
   )}
-  
+
   <!-- Zpráva/oznámení (pokud existuje) -->
   {todayInfo.isModified && todayInfo.notice && (
     <div class:list={[

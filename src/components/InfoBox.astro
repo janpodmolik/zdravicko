@@ -1,7 +1,7 @@
 ---
 /**
  * InfoBox - Informační box s ikonou a seznamem
- * 
+ *
  * Použití: Důležité informace, tipy, návody
  */
 import { Icon } from 'astro-icon/components';
@@ -13,9 +13,9 @@ interface Props {
   variant?: 'blue' | 'amber' | 'green';
 }
 
-const { 
-  icon = 'mdi:information', 
-  title = 'Důležité informace:', 
+const {
+  icon = 'mdi:information',
+  title = 'Důležité informace:',
   items,
   variant = 'blue'
 } = Astro.props;
