@@ -18,7 +18,8 @@ export interface SpecialNotice {
   active: boolean;
   message: string;
   closed?: boolean;
-  hours?: string;
+  hoursFrom?: string; // Formát "HH:mm" např. "08:00"
+  hoursTo?: string; // Formát "HH:mm" např. "14:00"
   type: NoticeType;
   validFrom?: string;
   validTo?: string;
@@ -83,6 +84,48 @@ const openingHoursByDay: Record<number, string | null> = {
   5: "7:30 - 12:00", // Friday
   6: null, // Saturday - closed
 };
+
+// ============================================================================
+// POMOCNÉ FUNKCE
+// ============================================================================
+
+/**
+ * Zkombinuje hoursFrom a hoursTo do standardního formátu "HH:MM - HH:MM"
+ */
+function formatHoursRange(hoursFrom?: string, hoursTo?: string): string | null {
+  if (!hoursFrom || !hoursTo) return null;
+
+  // Normalizace formátu (7:30 → 7:30, 07:30 → 7:30)
+  const normalizeTime = (time: string): string => {
+    const [hours, minutes] = time.split(":");
+    return `${parseInt(hours, 10)}:${minutes.padStart(2, "0")}`;
+  };
+
+  return `${normalizeTime(hoursFrom)} - ${normalizeTime(hoursTo)}`;
+}
+
+/**
+ * Porovná dvě časová rozpětí a vrátí true, pokud jsou stejné
+ * Ignoruje rozdíly ve formátování (7:30 vs 07:30)
+ */
+function areHoursEqual(hours1: string | null, hours2: string | null): boolean {
+  if (hours1 === null && hours2 === null) return true;
+  if (hours1 === null || hours2 === null) return false;
+
+  // Normalizace obou hodnot
+  const normalize = (time: string): string => {
+    return time
+      .replace(/\s+/g, " ") // Normalizace mezer
+      .split(" - ")
+      .map((t) => {
+        const [h, m] = t.split(":");
+        return `${parseInt(h, 10)}:${m.padStart(2, "0")}`;
+      })
+      .join(" - ");
+  };
+
+  return normalize(hours1) === normalize(hours2);
+}
 
 function getTodayDateString(): string {
   const today = new Date();
@@ -157,13 +200,17 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
     }
 
     // Případ 2: Upravené hodiny
-    if (notice.hours) {
+    const modifiedHours = formatHoursRange(notice.hoursFrom, notice.hoursTo);
+    if (modifiedHours) {
+      // Smart detekce: Pokud jsou upravené hodiny stejné jako běžné, neoznačujeme jako změnu
+      const actuallyModified = !areHoursEqual(modifiedHours, regularHours);
+
       return {
         title: "Dnes otevřeno",
-        hours: notice.hours,
-        isModified: true,
-        notice: notice.message,
-        noticeType: notice.type,
+        hours: modifiedHours,
+        isModified: actuallyModified,
+        notice: actuallyModified ? notice.message : undefined,
+        noticeType: actuallyModified ? notice.type : undefined,
       };
     }
 
@@ -298,14 +345,24 @@ export function getWeekScheduleWithNotices(): WeekDaySchedule[] {
     notice = getSpecialNoticeForDate(dateStr);
 
     if (notice) {
-      isModified = true;
-
       if (notice.closed) {
         actualHours = null;
         isClosed = true;
-      } else if (notice.hours) {
-        actualHours = notice.hours;
-        isClosed = false;
+        isModified = true;
+      } else {
+        const modifiedHours = formatHoursRange(
+          notice.hoursFrom,
+          notice.hoursTo
+        );
+        if (modifiedHours) {
+          // Smart detekce: Pokud jsou upravené hodiny stejné jako běžné, neoznačujeme jako změnu
+          if (!areHoursEqual(modifiedHours, regularHours)) {
+            actualHours = modifiedHours;
+            isClosed = false;
+            isModified = true;
+          }
+          // Jinak necháme actualHours = regularHours a isModified = false
+        }
       }
     }
 
@@ -317,8 +374,8 @@ export function getWeekScheduleWithNotices(): WeekDaySchedule[] {
       isToday,
       isClosed,
       isModified,
-      notice: notice?.message,
-      noticeType: notice?.type,
+      notice: isModified ? notice?.message : undefined, // Zpráva jen pokud je změna
+      noticeType: isModified ? notice?.type : undefined, // Typ jen pokud je změna
     };
   });
 

@@ -1,44 +1,54 @@
+# ============================================================================
 # BACKEND KONFIGURACE
-# =====================
-# LOKÁLNÍ VÝVOJ: Používá decap-server proxy (npm run cms:proxy)
+# ============================================================================
+# LOKÁLNÍ VÝVOJ: Používá decap-server proxy (spusť pomocí: npm run cms:proxy)
 # PRODUKCE: Používá GitHub backend s Netlify Identity/Git Gateway
 backend:
   name: git-gateway
   branch: main
 
-# Local backend: true = v lokálním vývoji použij proxy server
-# V produkci se automaticky ignoruje a použije se GitHub API
+# Lokální vývoj - proxy server pro editaci bez GitHubu
 local_backend: true
 
-# Publikování - články se ukládají přímo do Gitu
+# Publikování - články procházejí schvalovacím procesem
 publish_mode: editorial_workflow
 
-# Vypnutí preview - editor pracuje pouze s obsahem
+# Vypnutí preview linků - editor pracuje pouze s obsahem
 show_preview_links: false
 
-# Cesta k uploadovaným médiím
+# Cesta k uploadovaným médiím (obrázky, soubory)
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
-# Kolekce obsahu
+# ============================================================================
+# KOLEKCE OBSAHU
+# ============================================================================
 collections:
-  # Blog články
+  # ============================================================================
+  # BLOG ČLÁNKY
+  # ============================================================================
+  # Odborné články o zdraví dětí, prevenci, výživě a dalších tématech
   - name: "blog"
-    label: "Blog články"
+    label: "📝 Blog články"
     folder: "src/content/blog"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Titulek", name: "title", widget: "string" }
-      - {
-          label: "Datum publikování",
-          name: "date",
-          widget: "datetime",
-          format: "YYYY-MM-DD",
-        }
-      - label: "Kategorie"
+      - label: "📌 Titulek článku"
+        name: "title"
+        widget: "string"
+        hint: "Hlavní nadpis článku (max 60 znaků pro SEO)"
+
+      - label: "📅 Datum publikování"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        hint: "Datum zobrazené u článku"
+
+      - label: "🏷️ Kategorie"
         name: "category"
         widget: "select"
+        hint: "Vyberte nejvhodnější kategorii pro tento článek"
         options:
           - "Zdraví"
           - "Prevence"
@@ -60,30 +70,35 @@ collections:
           - "Řeč a komunikace"
           - "Cestování s dětmi"
           - "Ordinační hodiny"
-      - { label: "Úvodní text", name: "excerpt", widget: "text" }
-      - {
-          label: "Hlavní obrázek článku",
-          name: "image",
-          widget: "image",
-          required: false,
-          hint: "Volitelný - obrázek v záhlaví článku (doporučené 1200x630px)",
-        }
-      - {
-          label: "Autor",
-          name: "author",
-          widget: "select",
-          options: ["MUDr. Jana Šlechtová", "MUDr. Johanka Podmolíková"],
-          required: false,
-        }
-      - {
-          label: "Publikováno",
-          name: "published",
-          widget: "boolean",
-          default: true,
-        }
-      - label: "Obsah článku"
+
+      - label: "✏️ Úvodní text (excerpt)"
+        name: "excerpt"
+        widget: "text"
+        hint: "Krátký popis článku (1-2 věty) - zobrazuje se v náhledech a pro SEO"
+
+      - label: "🖼️ Hlavní obrázek článku"
+        name: "image"
+        widget: "image"
+        required: false
+        hint: "Volitelný obrázek v záhlaví (doporučený formát: 1200x630px, JPG/PNG)"
+
+      - label: "👨‍⚕️ Autor"
+        name: "author"
+        widget: "select"
+        options: ["MUDr. Jana Šlechtová", "MUDr. Johanka Podmolíková"]
+        required: false
+        hint: "Vyberte autora článku"
+
+      - label: "✅ Publikováno"
+        name: "published"
+        widget: "boolean"
+        default: true
+        hint: "Vypni pro skrytí článku z webu (koncept)"
+
+      - label: "📄 Obsah článku"
         name: "body"
         widget: "markdown"
+        hint: "Plný text článku - použij formátování níže"
         buttons:
           [
             "bold",
@@ -97,122 +112,162 @@ collections:
           ]
         editor_components: []
 
-  # Aktuality
+  # ============================================================================
+  # AKTUALITY
+  # ============================================================================
+  # Krátké zprávy a oznámení zobrazované na webu (ne banner nahoře!)
   - name: "news"
-    label: "Aktuality"
+    label: "📢 Aktuality"
     folder: "src/content/news"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Titulek", name: "title", widget: "string" }
-      - label: "Barva"
+      - label: "📌 Nadpis aktuality"
+        name: "title"
+        widget: "string"
+        hint: "Krátký a výstižný nadpis"
+
+      - label: "🎨 Barva pozadí"
         name: "color"
         widget: "select"
-        hint: "Určuje barvu pozadí aktuality"
+        hint: "Barva ovlivňuje vzhled aktuality na webu"
         options:
-          - { label: "🔵 Informace", value: "blue" }
-          - { label: "🟠 Upozornění", value: "orange" }
-          - { label: "🟢 Zpráva", value: "green" }
-          - { label: "🔴 Důležité", value: "red" }
-          - { label: "🟡 Varování", value: "yellow" }
-          - { label: "🟣 Speciální", value: "purple" }
-      - label: "Ikona"
+          - { label: "Informace (modrá)", value: "blue" }
+          - { label: "Upozornění (oranžová)", value: "orange" }
+          - { label: "Zpráva (zelená)", value: "green" }
+          - { label: "Důležité (červená)", value: "red" }
+          - { label: "Varování (žlutá)", value: "yellow" }
+          - { label: "Speciální (fialová)", value: "purple" }
+
+      - label: "🗓️ Ikona"
         name: "icon"
         widget: "select"
         default: "mdi:information"
-        hint: "Vyberte ikonu, která se zobrazí u aktuality"
+        hint: "Ikona zobrazená vedle nadpisu aktuality"
         options:
-          - { label: "ℹ️ Informace", value: "mdi:information" }
-          - { label: "⚠️ Výstražný znak", value: "mdi:alert" }
-          - { label: "✓ Zaškrtnutí", value: "mdi:check-circle" }
-          - { label: "✕ Křížek", value: "mdi:close-circle" }
-          - { label: "📢 Megafon", value: "mdi:bullhorn" }
-          - { label: "📅 Kalendář", value: "mdi:calendar" }
-          - { label: "🕐 Hodiny", value: "mdi:clock" }
-          - { label: "🏥 Nemocnice", value: "mdi:hospital-building" }
-          - { label: "💊 Lék/Pilulka", value: "mdi:pill" }
-          - { label: "🩺 Stetoskop", value: "mdi:stethoscope" }
-          - { label: "💉 Injekce", value: "mdi:needle" }
-          - { label: "🌡️ Teploměr", value: "mdi:thermometer" }
-          - { label: "❤️ Srdce", value: "mdi:heart" }
-          - { label: "👶 Dítě", value: "mdi:baby-face" }
-          - { label: "👨‍⚕️ Doktor", value: "mdi:doctor" }
-          - { label: "🔔 Zvonek", value: "mdi:bell" }
-          - { label: "⭐ Hvězda", value: "mdi:star" }
-          - { label: "📝 Poznámka", value: "mdi:note-text" }
-          - { label: "🎯 Cíl", value: "mdi:target" }
-          - { label: "🏠 Domov", value: "mdi:home" }
-      - {
-          label: "Datum",
-          name: "date",
-          widget: "datetime",
-          format: "YYYY-MM-DD",
-        }
-      - { label: "Obsah", name: "body", widget: "markdown" }
-      - {
-          label: "Publikováno",
-          name: "published",
-          widget: "boolean",
-          default: true,
-        }
+          - { label: "Informace", value: "mdi:information" }
+          - { label: "Výstražný znak", value: "mdi:alert" }
+          - { label: "Zaškrtnutí", value: "mdi:check-circle" }
+          - { label: "Křížek", value: "mdi:close-circle" }
+          - { label: "Megafon", value: "mdi:bullhorn" }
+          - { label: "Kalendář", value: "mdi:calendar" }
+          - { label: "Hodiny", value: "mdi:clock" }
+          - { label: "Nemocnice", value: "mdi:hospital-building" }
+          - { label: "Lék/Pilulka", value: "mdi:pill" }
+          - { label: "Stetoskop", value: "mdi:stethoscope" }
+          - { label: "Injekce", value: "mdi:needle" }
+          - { label: "Teploměr", value: "mdi:thermometer" }
+          - { label: "Srdce", value: "mdi:heart" }
+          - { label: "Dítě", value: "mdi:baby-face" }
+          - { label: "Doktor", value: "mdi:doctor" }
+          - { label: "Zvonek", value: "mdi:bell" }
+          - { label: "Hvězda", value: "mdi:star" }
+          - { label: "Poznámka", value: "mdi:note-text" }
+          - { label: "Cíl", value: "mdi:target" }
+          - { label: "Domov", value: "mdi:home" }
 
-  # Důležité oznámení - pouze jeden soubor
+      - label: "📅 Datum aktuality"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        hint: "Datum zobrazené u aktuality"
+
+      - label: "📄 Text aktuality"
+        name: "body"
+        widget: "markdown"
+        hint: "Obsah aktuality - můžete použít formátování"
+
+      - label: "✅ Publikováno"
+        name: "published"
+        widget: "boolean"
+        default: true
+        hint: "Vypni pro skrytí aktuality z webu"
+
+  # ============================================================================
+  # DŮLEŽITÉ OZNÁMENÍ
+  # ============================================================================
+  # Slouží k zobrazení banneru na webu o změnách ordinačních hodin
+  # nebo důležitých informacích (dovolená, svátky, změna telefonního čísla)
   - name: "special-notice"
-    label: "Důležité oznámení"
+    label: "🚨 Důležité oznámení"
     files:
       - name: "notice"
-        label: "Oznámení"
+        label: "⚙️ Nastavení oznámení"
         file: "src/data/special-notice.json"
         fields:
-          - {
-              label: "Zobrazit oznámení",
-              name: "active",
-              widget: "boolean",
-              default: false,
-              hint: "Zapněte pro zobrazení banneru na webu",
-            }
-          - {
-              label: "Zpráva",
-              name: "message",
-              widget: "text",
-              hint: "Text oznámení (např. 'Ordinace bude 24.12. zavřená')",
-            }
-          - label: "Typ oznámení"
+          # ---------------------------------------------------------------
+          # ZÁKLADNÍ NASTAVENÍ
+          # ---------------------------------------------------------------
+          - label: "🔔 Zobrazit oznámení na webu"
+            name: "active"
+            widget: "boolean"
+            default: false
+            hint: "Zapněte pro okamžité zobrazení banneru nahoře na všech stránkách webu"
+
+          - label: "💬 Text zprávy"
+            name: "message"
+            widget: "text"
+            hint: "Např: 'Ordinace bude 24.12. zavřená' nebo 'Dnes máme zkrácenou dobu do 12:00'"
+
+          - label: "🎨 Typ oznámení"
             name: "type"
             widget: "select"
             default: "warning"
-            hint: "Určuje barvu banneru a oznámení všude na webu"
+            hint: "Určuje barvu banneru a všech souvisejících prvků na webu"
             options:
-              - { label: "🟡 Varování", value: "warning" }
-              - { label: "🔵 Informace", value: "info" }
-              - { label: "🔴 Důležité", value: "urgent" }
-          - {
-              label: "Ordinace zavřena",
-              name: "closed",
-              widget: "boolean",
-              default: false,
-              hint: "Zapni pokud je ordinace úplně zavřená. Pokud je zapnuto, pole 'Upravené hodiny' se ignoruje.",
-            }
-          - {
-              label: "Upravené hodiny",
-              name: "hours",
-              widget: "string",
-              required: false,
-              hint: "Vyplň pouze pokud je ordinace otevřená se změněnou dobou (např. '8:00 - 12:00'). Nech prázdné pokud je zavřeno nebo má běžnou provozní dobu.",
-            }
-          - label: "Platnost od"
+              - { label: "Varování (žlutá)", value: "warning" }
+              - { label: "Informace (modrá)", value: "info" }
+              - { label: "Důležité/Urgentní (červená)", value: "urgent" }
+
+          # ---------------------------------------------------------------
+          # STAV ORDINACE
+          # ---------------------------------------------------------------
+          - label: "🔒 Ordinace je zavřená"
+            name: "closed"
+            widget: "boolean"
+            default: false
+            hint: "Zapni pro celé zavření ordinace. Pokud je zapnuto, pole níže 'Upravené hodiny' se ignorují!"
+
+          # ---------------------------------------------------------------
+          # UPRAVENÉ ORDINAČNÍ HODINY
+          # Vyplň OBA pole (OD i DO) nebo ŽÁDNÉ
+          # ---------------------------------------------------------------
+          - label: "🕐 Upravená ordinační doba - OD (čas otevření)"
+            name: "hoursFrom"
+            widget: "datetime"
+            required: false
+            date_format: false
+            time_format: "HH:mm"
+            format: "HH:mm"
+            picker_utc: false
+
+          - label: "🕔 Upravená ordinační doba - DO (čas zavření)"
+            name: "hoursTo"
+            widget: "datetime"
+            required: false
+            date_format: false
+            time_format: "HH:mm"
+            format: "HH:mm"
+            picker_utc: false
+            hint: "Vyplň OBA časy (OD i DO) nebo ŽÁDNÝ! DO musí být později než čas OD. Systém automaticky porovná s běžnými hodinami."
+
+          # ---------------------------------------------------------------
+          # ČASOVÁ PLATNOST OZNÁMENÍ
+          # Vyplň OBA data (OD i DO) nebo ŽÁDNÉ pro trvalou platnost
+          # ---------------------------------------------------------------
+          - label: "📅 Platnost OD (datum)"
             name: "validFrom"
             widget: "datetime"
             required: false
             date_format: "DD.MM.YYYY"
             time_format: false
             format: "YYYY-MM-DD"
-            hint: "Volitelné - od kdy platí oznámení"
-          - label: "Platnost do"
+
+          - label: "📅 Platnost DO (datum)"
             name: "validTo"
             widget: "datetime"
             required: false
             date_format: "DD.MM.YYYY"
             time_format: false
             format: "YYYY-MM-DD"
-            hint: "Volitelné - do kdy platí oznámení (pokud nevyplníš žádné datum, platí pořád)"
+            hint: "Vyplň OBA datumy (OD i DO) nebo ŽÁDNÉ pro trvalou platnost."
