@@ -10,25 +10,27 @@ interface Props {
 
 const { todayInfo } = Astro.props;
 
+// Barvy aplikujeme jen pokud je skutečně modifikace pro dnešní den
 const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
 ---
 
 <section class="py-6 md:py-8 bg-linear-to-br from-gray-50 to-blue-50">
   <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 max-w-5xl mx-auto">
+      <!-- ORDINAČNÍ HODINY -->
       <a
         href="/ordinacni-hodiny"
         class="group"
       >
         <div class:list={[
           "flex items-center gap-3 p-4 bg-white rounded-xl border-2 transition-all hover:shadow-lg h-full",
-          todayInfo.isModified ? `${colors?.border} ${colors?.bg}` : "border-blue-100 hover:border-blue-400"
+          colors ? `${colors.border} ${colors.bg}` : "border-blue-100 hover:border-blue-400"
         ]}>
           <div class:list={[
             "w-10 h-10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform",
-            todayInfo.isModified ? colors?.icon : "bg-linear-to-br from-blue-500 to-blue-600"
+            colors ? colors.icon : "bg-linear-to-br from-blue-500 to-blue-600"
           ]}>
-            <Icon name={todayInfo.isModified ? "mdi:alert-circle-outline" : "mdi:clock-outline"} class="w-5 h-5 text-white" />
+            <Icon name={colors ? "mdi:alert-circle-outline" : "mdi:clock-outline"} class="w-5 h-5 text-white" />
           </div>
           <div class="flex-1 min-w-0">
             <h3 class="font-bold text-sm text-gray-900 leading-tight mb-0.5">
@@ -37,13 +39,14 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
             {todayInfo.hours && (
               <p class:list={[
                 "text-xs font-medium",
-                todayInfo.isModified ? `${colors?.text} font-bold` : "text-gray-600"
+                colors ? `${colors.text} font-bold` : "text-gray-600"
               ]}>{todayInfo.hours}</p>
             )}
           </div>
         </div>
       </a>
 
+      <!-- TELEFONNÍ KONTAKT -->
       <a
         href={`tel:${contactInfo.phones.doctor.number}`}
         class="group"
@@ -59,6 +62,7 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
         </div>
       </a>
 
+      <!-- ADRESA -->
       <a
         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactInfo.address.full)}`}
         target="_blank"

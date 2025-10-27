@@ -215,10 +215,12 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
     }
 
     // Případ 3: Jen informace (bez změny hodin)
+    // POZOR: isModified = false, protože hodiny se nemění!
+    // Toto je jen informační banner, ne změna otevírací doby
     return {
       title: regularHours ? "Dnes otevřeno" : "Dnes neordinujeme",
       hours: regularHours,
-      isModified: true,
+      isModified: false,
       notice: notice.message,
       noticeType: notice.type,
     };

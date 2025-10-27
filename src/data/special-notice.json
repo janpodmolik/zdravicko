@@ -2,8 +2,8 @@
   "active": true,
   "message": "Zdravíčko má zkrácenou ordinační dobu. 🌼",
   "closed": false,
-  "hoursFrom": "",
-  "hoursTo": "",
+  "hoursFrom": "10:00",
+  "hoursTo": "12:00",
   "type": "warning",
   "validFrom": "2025-10-27",
   "validTo": "2025-10-29"

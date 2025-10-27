@@ -1,4 +1,4 @@
-export type NoticeType = "warning" | "info" | "urgent";
+import type { NoticeType } from "./openingHours";
 
 export interface NoticeColorScheme {
   bg: string;
@@ -11,6 +11,10 @@ export interface NoticeColorScheme {
   infoBannerBorder: string;
 }
 
+/**
+ * Vrací kompletní barevné schéma pro daný typ oznámení
+ * Používá se hlavně pro QuickInfo komponentu a hero sekce
+ */
 export function getNoticeColors(type?: NoticeType): NoticeColorScheme {
   if (!type || type === "warning") {
     return {
