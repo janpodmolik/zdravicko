@@ -1,0 +1,211 @@
+---
+import { Icon } from 'astro-icon/components';
+import Lightbox from '../gallery/Lightbox.astro';
+import GalleryButton from '../gallery/GalleryButton.astro';
+import {
+  ordinaceNemocneGallery,
+  ordinaceZdraveGallery,
+  cekarnaNenocneGallery,
+  cekarnaZdraveGallery,
+  hernaGallery
+} from '../../data/galleries';
+import type { GalleryId } from '../../types/gallery';
+
+interface ColorScheme {
+  bg: string;
+  border: string;
+  text: string;
+  iconBg: string;
+}
+
+interface Facility {
+  title: string;
+  description: string;
+  icon: string;
+  imageAlt: string;
+  galleryId: GalleryId;
+  color: ColorScheme;
+}
+
+interface WaitingRoom {
+  title: string;
+  icon: string;
+  description: string;
+  galleryId: GalleryId;
+}
+
+const facilities: Facility[] = [
+  {
+    title: 'Ordinace pro nemocné děti',
+    description: 'Speciální ordinace určená pro vyšetření akutně nemocných dětí. Oddělené prostředí minimalizuje riziko přenosu infekce na ostatní pacienty.',
+    icon: 'mdi:hospital-box',
+    imageAlt: 'Ordinace pro nemocné děti',
+    galleryId: 'ordinace-nemocne',
+    color: {
+      bg: 'bg-red-50',
+      border: 'border-red-200',
+      text: 'text-red-600',
+      iconBg: 'bg-red-600'
+    }
+  },
+  {
+    title: 'Ordinace pro zdravé děti',
+    description: 'Ordinace určená pro preventivní prohlídky, očkování a kontroly zdravých dětí včetně miminek. Čisté a bezpečné prostředí bez kontaktu s nemocnými.',
+    icon: 'mdi:baby-face-outline',
+    imageAlt: 'Ordinace pro zdravá miminka',
+    galleryId: 'ordinace-zdrave',
+    color: {
+      bg: 'bg-green-50',
+      border: 'border-green-200',
+      text: 'text-green-600',
+      iconBg: 'bg-green-600'
+    }
+  }
+];
+
+const waitingRooms: WaitingRoom[] = [
+  {
+    title: 'Čekárna pro nemocné',
+    icon: 'mdi:seat',
+    description: 'Oddělená čekárna pro akutně nemocné děti',
+    galleryId: 'cekarna-nemocne'
+  },
+  {
+    title: 'Čekárna pro zdravé',
+    icon: 'mdi:seat-outline',
+    description: 'Čekárna pro preventivní kontroly a očkování',
+    galleryId: 'cekarna-zdrave'
+  },
+  {
+    title: 'Dětská herna',
+    icon: 'mdi:teddy-bear',
+    description: 'Prostor plný hraček a knih pro zábavu dětí během čekání',
+    galleryId: 'herna'
+  }
+];
+
+// Helper funkce pro získání galerie podle ID
+function getGallery(id: GalleryId) {
+  const galleries = {
+    'ordinace-nemocne': ordinaceNemocneGallery,
+    'ordinace-zdrave': ordinaceZdraveGallery,
+    'cekarna-nemocne': cekarnaNenocneGallery,
+    'cekarna-zdrave': cekarnaZdraveGallery,
+    'herna': hernaGallery
+  };
+  return galleries[id];
+}
+---
+
+<div class="space-y-12">
+  <!-- Intro -->
+  <div class="max-w-3xl mx-auto text-center">
+    <p class="text-lg text-gray-700 leading-relaxed">
+      Naše ordinace je vybavena <strong class="text-blue-600">dvěma samostatnými ordinačními místnostmi</strong>
+      a <strong class="text-blue-600">čekárnami</strong>, které zajišťují maximální
+      <strong class="text-blue-600">hygienu a bezpečnost</strong> všech malých pacientů.
+    </p>
+  </div>
+
+  <!-- Ordinace Cards -->
+  <div class="grid md:grid-cols-2 gap-8">
+    {facilities.map((facility) => {
+      const gallery = getGallery(facility.galleryId);
+      const hasImages = gallery.images.length > 0;
+
+      return (
+        <div class={`${facility.color.bg} border-2 ${facility.color.border} rounded-2xl overflow-hidden hover:shadow-lg transition-all group`}>
+          <!-- Image Placeholder -->
+          <div class="relative aspect-video bg-linear-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden cursor-pointer"
+               onclick={hasImages ? `openLightbox_${facility.galleryId}(0)` : null}>
+            <div class="absolute inset-0 bg-linear-to-br from-white/50 to-transparent"></div>
+            <div class="relative z-10 text-center">
+              <Icon name={facility.icon} class={`w-16 h-16 ${facility.color.text} mx-auto mb-2 opacity-30`} />
+              <p class="text-gray-500 text-sm font-medium">
+                {hasImages ? 'Klikněte pro zobrazení galerie' : 'Fotografie připravujeme'}
+              </p>
+            </div>
+
+            <!-- Gallery Button -->
+            <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+              <GalleryButton
+                galleryId={facility.galleryId}
+                variant="overlay"
+                imageCount={gallery.images.length}
+              />
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="p-6">
+            <div class="flex items-start gap-4 mb-4">
+              <div class={`${facility.color.iconBg} w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-lg`}>
+                <Icon name={facility.icon} class="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">{facility.title}</h3>
+                <p class="text-gray-700 leading-relaxed">{facility.description}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  <!-- Waiting Rooms & Playroom -->
+  <div class="bg-linear-to-br from-blue-50 to-purple-50 rounded-2xl p-8 border-2 border-blue-100">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="bg-blue-600 w-12 h-12 rounded-xl flex items-center justify-center shadow-lg">
+        <Icon name="mdi:door-open" class="w-6 h-6 text-white" />
+      </div>
+      <h3 class="text-2xl font-bold text-gray-900">Další prostory ordinace</h3>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      {waitingRooms.map((room) => {
+        const gallery = getGallery(room.galleryId);
+        const hasImages = gallery.images.length > 0;
+
+        return (
+          <div class="bg-white rounded-xl p-6 border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all">
+            <div class="bg-linear-to-br from-blue-100 to-purple-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 mx-auto">
+              <Icon name={room.icon} class="w-7 h-7 text-blue-600" />
+            </div>
+            <h4 class="text-lg font-bold text-gray-900 mb-2 text-center">{room.title}</h4>
+            <p class="text-gray-600 text-sm text-center leading-relaxed mb-4">{room.description}</p>
+
+            {/* Gallery Button */}
+            <div class="flex justify-center">
+              <GalleryButton
+                galleryId={room.galleryId}
+                variant="secondary"
+                label="Zobrazit fotky"
+                imageCount={gallery.images.length}
+              />
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Info Note -->
+  <div class="bg-blue-600 text-white rounded-xl p-6 flex items-start gap-4">
+    <Icon name="mdi:information-outline" class="w-6 h-6 shrink-0 mt-1" />
+    <div>
+      <p class="font-medium mb-1">Oddělené prostory pro maximální bezpečnost</p>
+      <p class="text-blue-100 text-sm">
+        Separace nemocných a zdravých dětí je klíčová pro prevenci šíření infekcí.
+        Při objednání na preventivní prohlídku či očkování se nemusíte obávat kontaktu s nemocnými pacienty.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox modals -->
+<Lightbox gallery={ordinaceNemocneGallery} />
+<Lightbox gallery={ordinaceZdraveGallery} />
+<Lightbox gallery={cekarnaNenocneGallery} />
+<Lightbox gallery={cekarnaZdraveGallery} />
+<Lightbox gallery={hernaGallery} />

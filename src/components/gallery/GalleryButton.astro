@@ -1,0 +1,48 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { GalleryId } from '../../types/gallery';
+
+type ButtonVariant = 'primary' | 'secondary' | 'overlay';
+
+interface Props {
+  galleryId: GalleryId;
+  label?: string;
+  variant?: ButtonVariant;
+  imageCount?: number;
+}
+
+const {
+  galleryId,
+  label = 'Zobrazit galerii',
+  variant = 'overlay',
+  imageCount = 0
+} = Astro.props;
+
+const hasImages = imageCount > 0;
+
+const variantClasses: Record<ButtonVariant, string> = {
+  primary: 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg',
+  secondary: 'bg-white hover:bg-gray-50 text-gray-700 border-2 border-gray-300 hover:border-blue-400',
+  overlay: 'bg-white/90 hover:bg-white backdrop-blur-sm text-gray-700 hover:text-blue-600 shadow-md'
+} as const;
+---
+
+<button
+  onclick={`openLightbox_${galleryId}(0)`}
+  class:list={[
+    'px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2',
+    variantClasses[variant],
+    !hasImages && 'opacity-50 cursor-not-allowed'
+  ]}
+  disabled={!hasImages}
+  aria-label={label}
+>
+  <Icon name="mdi:image-multiple" class="w-4 h-4" />
+  <span>{label}</span>
+  {hasImages && imageCount > 1 && (
+    <span class="text-xs opacity-75">({imageCount})</span>
+  )}
+  {!hasImages && (
+    <span class="text-xs opacity-75">(připravujeme)</span>
+  )}
+</button>

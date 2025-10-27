@@ -1,0 +1,200 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Gallery } from '../../types/gallery';
+
+interface Props {
+  gallery: Gallery;
+}
+
+const { gallery } = Astro.props;
+const hasImages = gallery.images.length > 0;
+---
+
+<!-- Lightbox Modal (initially hidden) -->
+<div
+  id={`lightbox-${gallery.id}`}
+  class="fixed inset-0 z-50 hidden items-center justify-center bg-black/95 backdrop-blur-sm"
+  role="dialog"
+  aria-modal="true"
+  aria-label={`Galerie: ${gallery.title}`}
+>
+  <!-- Close button -->
+  <button
+    class="absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition-colors p-2"
+    aria-label="Zavřít galerii"
+    data-lightbox-close={gallery.id}
+  >
+    <Icon name="mdi:close" class="w-8 h-8" />
+  </button>
+
+  <!-- Navigation buttons -->
+  {hasImages && gallery.images.length > 1 && (
+    <>
+      <button
+        class="absolute left-4 top-1/2 -translate-y-1/2 z-10 text-white hover:text-gray-300 transition-colors p-2 disabled:opacity-30 disabled:cursor-not-allowed"
+        aria-label="Předchozí obrázek"
+        data-lightbox-prev={gallery.id}
+      >
+        <Icon name="mdi:chevron-left" class="w-12 h-12" />
+      </button>
+
+      <button
+        class="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white hover:text-gray-300 transition-colors p-2 disabled:opacity-30 disabled:cursor-not-allowed"
+        aria-label="Další obrázek"
+        data-lightbox-next={gallery.id}
+      >
+        <Icon name="mdi:chevron-right" class="w-12 h-12" />
+      </button>
+    </>
+  )}
+
+  <!-- Image container -->
+  <div class="w-full h-full flex items-center justify-center p-4 md:p-8">
+    <div class="relative max-w-7xl max-h-full">
+      {hasImages ? (
+        <>
+          {gallery.images.map((image, index) => (
+            <div
+              class={`lightbox-image ${index === 0 ? '' : 'hidden'}`}
+              data-lightbox-image={gallery.id}
+              data-index={index}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                class="max-w-full max-h-[85vh] w-auto h-auto object-contain mx-auto rounded-lg shadow-2xl"
+                loading="lazy"
+              />
+
+              <!-- Caption -->
+              <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-4 rounded-b-lg">
+                <p class="text-center text-sm md:text-base">{image.alt}</p>
+                {gallery.images.length > 1 && (
+                  <p class="text-center text-xs md:text-sm text-gray-300 mt-1">
+                    {index + 1} / {gallery.images.length}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))}
+        </>
+      ) : (
+        <div class="text-white text-center">
+          <Icon name="mdi:image-off" class="w-16 h-16 mx-auto mb-4 opacity-50" />
+          <p class="text-lg">Fotografie připravujeme</p>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <!-- Info panel (optional) -->
+  {gallery.description && (
+    <div class="absolute top-4 left-4 bg-black/70 text-white p-4 rounded-lg max-w-md backdrop-blur-sm">
+      <h3 class="font-bold text-lg mb-1">{gallery.title}</h3>
+      <p class="text-sm text-gray-300">{gallery.description}</p>
+    </div>
+  )}
+</div>
+
+<script define:vars={{ galleryId: gallery.id, imageCount: gallery.images.length }}>
+  // Lightbox functionality
+  const lightbox = document.getElementById(`lightbox-${galleryId}`);
+  const closeBtn = document.querySelector(`[data-lightbox-close="${galleryId}"]`);
+  const prevBtn = document.querySelector(`[data-lightbox-prev="${galleryId}"]`);
+  const nextBtn = document.querySelector(`[data-lightbox-next="${galleryId}"]`);
+  const images = document.querySelectorAll(`[data-lightbox-image="${galleryId}"]`);
+
+  let currentIndex = 0;
+
+  // Function to open lightbox
+  window[`openLightbox_${galleryId}`] = function(index = 0) {
+    currentIndex = index;
+    showImage(currentIndex);
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  };
+
+  // Function to close lightbox
+  function closeLightbox() {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  // Function to show specific image
+  function showImage(index) {
+    images.forEach((img, i) => {
+      if (i === index) {
+        img.classList.remove('hidden');
+      } else {
+        img.classList.add('hidden');
+      }
+    });
+
+    // Update navigation buttons
+    if (prevBtn) {
+      prevBtn.disabled = index === 0;
+    }
+    if (nextBtn) {
+      nextBtn.disabled = index === imageCount - 1;
+    }
+  }
+
+  // Event listeners
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeLightbox);
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        showImage(currentIndex);
+      }
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < imageCount - 1) {
+        currentIndex++;
+        showImage(currentIndex);
+      }
+    });
+  }
+
+  // Close on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('flex')) {
+      closeLightbox();
+    }
+  });
+
+  // Close on background click
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('flex')) return;
+
+    if (e.key === 'ArrowLeft' && currentIndex > 0) {
+      currentIndex--;
+      showImage(currentIndex);
+    } else if (e.key === 'ArrowRight' && currentIndex < imageCount - 1) {
+      currentIndex++;
+      showImage(currentIndex);
+    }
+  });
+</script>
+
+<style>
+  /* Smooth transitions */
+  .lightbox-image {
+    transition: opacity 0.3s ease-in-out;
+  }
+</style>

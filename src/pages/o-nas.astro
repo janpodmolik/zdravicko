@@ -7,7 +7,7 @@ import PageHeader from '../components/common/PageHeader.astro';
 import CTAButtons from '../components/common/CTAButtons.astro';
 import SectionHeader from '../components/common/SectionHeader.astro';
 import ValueCard from '../components/cards/ValueCard.astro';
-import FeatureCard from '../components/cards/FeatureCard.astro';
+import OfficeFacilities from '../components/about/OfficeFacilities.astro';
 import { Icon } from 'astro-icon/components';
 import { colorClasses, type ColorName } from '../utils/colors';
 import { siteConfig } from '../data/siteConfig';
@@ -62,33 +62,6 @@ const values = [
     bgColor: 'bg-purple-600'
   }
 ];
-
-const features = [
-  {
-    icon: 'mdi:clock-check-outline',
-    title: 'Flexibilní ordinační hodiny',
-    description: 'Ordinujeme každý pracovní den, vždy se snažíme vyjít vstříc potřebám pracujících rodičů.',
-    iconColor: 'text-blue-600'
-  },
-  {
-    icon: 'mdi:calendar-check-outline',
-    title: 'Online objednávání',
-    description: 'Možnost sjednat si termín online nebo telefonicky bez zbytečného čekání.',
-    iconColor: 'text-cyan-600'
-  },
-  {
-    icon: 'mdi:hospital-building',
-    title: 'Moderní ordinace',
-    description: 'Čisté a příjemné prostředí s čekárnou plnou hraček a knih pro děti.',
-    iconColor: 'text-purple-600'
-  },
-  {
-    icon: 'mdi:phone-in-talk',
-    title: 'Dostupnost',
-    description: 'V případě potřeby jsme vám k dispozici telefonicky i mimo ordinační hodiny.',
-    iconColor: 'text-pink-600'
-  }
-];
 ---
 
 <Layout title="O nás - Zdravíčko">
@@ -131,23 +104,8 @@ const features = [
       </div>
     </section>
 
-    <!-- Values -->
-    <section class="py-16 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <div class="max-w-5xl mx-auto">
-          <SectionHeader icon="mdi:star" title="Naše hodnoty" centered />
-
-          <div class="grid md:grid-cols-3 gap-8">
-            {values.map((value) => (
-              <ValueCard {...value} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Team -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
           <SectionHeader icon="mdi:account-group" title="Náš tým" centered />
@@ -175,15 +133,25 @@ const features = [
       </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section class="py-16 bg-linear-to-br from-blue-50 to-cyan-50">
+    <!-- Office Facilities -->
+    <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-          <SectionHeader icon="mdi:thumb-up-outline" title="Proč si vybrat nás?" centered />
+        <div class="max-w-6xl mx-auto">
+          <SectionHeader icon="mdi:office-building-outline" title="Naše prostory" centered />
+          <OfficeFacilities />
+        </div>
+      </div>
+    </section>
 
-          <div class="grid md:grid-cols-2 gap-6">
-            {features.map((feature) => (
-              <FeatureCard {...feature} />
+    <!-- Values -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <SectionHeader icon="mdi:star" title="Naše hodnoty" centered />
+
+          <div class="grid md:grid-cols-3 gap-8">
+            {values.map((value) => (
+              <ValueCard {...value} />
             ))}
           </div>
         </div>

@@ -65,9 +65,10 @@ const ARROW_ICON = 'mdi:chevron-right';
   <div class="w-full overflow-visible">
     <div
       class:list={[
-        'flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory py-8 px-4 carousel-container',
-        'scrollbar-hide justify-start md:justify-center carousel-scroll-padding'
+        'flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory py-8 carousel-container',
+        'scrollbar-hide'
       ]}
+      style="padding-left: max(1rem, calc((100vw - 1280px) / 2)); padding-right: max(1rem, calc((100vw - 1280px) / 2));"
     >
       <slot />
     </div>
@@ -87,10 +88,6 @@ const ARROW_ICON = 'mdi:chevron-right';
   .overflow-x-auto {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-  }
-
-  .carousel-scroll-padding {
-    scroll-padding: 0 1rem;
   }
 
   /* Umožňuje overflow pouze horizontálně, vertikálně nechá shadow projít */

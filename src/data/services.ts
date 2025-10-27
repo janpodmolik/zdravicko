@@ -25,6 +25,27 @@ export function getHomepageServices(): Service[] {
 
 export const services: Service[] = [
   {
+    id: "ocr",
+    title: "Ošetřovné (OČR) na dítě",
+    slug: "osetrovne-ocr",
+    excerpt: "Potvrzení pro nárok na ošetřovné - nové elektronické změny 2025",
+    description:
+      "Od roku 2025 přináší ošetřovné (OČR) významné změny v administrativě. Celý proces je nyní plně digitalizován a zjednodušen pro rodiče i lékaře. Informace o potřebě péče o dítě posíláme elektronicky přímo České správě sociálního zabezpečení (ČSSZ), takže rodiče již nepotřebují žádné papírové formuláře.",
+    icon: "mdi:file-document-check",
+    color: "cyan",
+    showOnHomepage: true,
+    features: [
+      "Elektronické rozhodnutí o potřebě péče od 1. 1. 2025",
+      "Automatické odesílání na ČSSZ",
+      "Žádné papírové formuláře pro rodiče",
+      "Rychlejší zpracování žádosti",
+      "Online evidece přes portál ČSSZ",
+      "Rodiče si elektronicky podávají žádost zaměstnavateli",
+    ],
+    duration: "Vyřízení ihned během návštěvy",
+    price: "Hrazeno pojišťovnou",
+  },
+  {
     id: "1",
     title: "Preventivní prohlídky",
     slug: "preventivni-prohlidky",
