@@ -20,7 +20,7 @@ export type ServiceColor = "blue" | "cyan" | "purple" | "pink";
  * Vrátí služby zobrazené na homepage
  */
 export function getHomepageServices(): Service[] {
-  return services.filter(service => service.showOnHomepage === true);
+  return services.filter((service) => service.showOnHomepage === true);
 }
 
 export const services: Service[] = [

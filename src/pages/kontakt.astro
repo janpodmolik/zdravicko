@@ -51,8 +51,8 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <p class="text-gray-600">{contactInfo.address.street}</p>
-                  <p class="text-gray-600">{contactInfo.address.zip} {contactInfo.address.city}</p>
+                  <p class="text-gray-800 font-medium text-base">{contactInfo.address.street}</p>
+                  <p class="text-gray-700 text-base">{contactInfo.address.zip} {contactInfo.address.city}</p>
                 </ContactInfoItem>
 
                 <!-- Phone - special component with multiple clickable numbers -->
@@ -68,7 +68,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
                   title="Email"
                   href={`mailto:${contactInfo.email}`}
                 >
-                  <p class="text-blue-600 hover:text-blue-700 font-medium">{contactInfo.email}</p>
+                  <p class="text-blue-600 hover:text-blue-700 font-medium text-base">{contactInfo.email}</p>
                 </ContactInfoItem>
 
                 <!-- Opening Hours Summary - clickable, goes to full schedule -->
@@ -79,15 +79,15 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
                 >
                   {todayInfo.hours ? (
                     <p class:list={[
-                      "font-medium",
-                      todayInfo.isModified ? "text-amber-700" : "text-gray-600"
+                      "font-medium text-base",
+                      todayInfo.isModified ? "text-amber-700" : "text-gray-800"
                     ]}>
                       {todayInfo.hours}
                     </p>
                   ) : (
-                    <p class="text-red-600 font-medium">Zavřeno</p>
+                    <p class="text-red-600 font-medium text-base">Zavřeno</p>
                   )}
-                  <p class="text-blue-600 text-sm font-medium inline-flex items-center gap-1 mt-2">
+                  <p class="text-blue-600 text-sm font-medium inline-flex items-center gap-1 mt-2 hover:text-blue-700">
                     Celý rozvrh
                     <Icon name="mdi:arrow-right" class="w-4 h-4" />
                   </p>

@@ -28,11 +28,11 @@ const {
 ---
 
 <div class:list={[
-  'flex gap-4 p-4 rounded-xl border-2 transition-colors',
-  'border-gray-200 hover:border-blue-300'
+  'flex gap-4 p-5 rounded-xl bg-linear-to-br from-white to-gray-50 border-2 transition-all shadow-sm',
+  'border-blue-200 hover:border-blue-400 hover:shadow-md hover:from-blue-50 hover:to-white'
 ]}>
   <div class:list={[
-    'w-12 h-12 rounded-lg flex items-center justify-center shrink-0 self-start',
+    'w-12 h-12 rounded-lg flex items-center justify-center shrink-0 self-start shadow-sm',
     bgColor
   ]}>
     <Icon name={icon} class:list={['w-6 h-6', iconColor]} />
@@ -41,18 +41,18 @@ const {
   <div class="flex-1 min-w-0">
     <h3 class="font-semibold text-gray-900 mb-2">{title}</h3>
 
-    <div class="space-y-1">
+    <div class="space-y-2">
       {phones.map(phone => (
-        <p class="text-gray-600">
+        <p class="text-gray-700">
           <a
             href={`tel:${phone.number}`}
             class:list={[
-              'text-blue-600 hover:text-blue-700 font-medium hover:underline'
+              'text-blue-600 hover:text-blue-700 font-medium hover:underline text-base'
             ]}
           >
             {phone.display}
           </a>
-          <span class="text-gray-500 ml-2">({phone.label})</span>
+          <span class="text-gray-600 ml-2 text-sm">({phone.label})</span>
         </p>
       ))}
     </div>

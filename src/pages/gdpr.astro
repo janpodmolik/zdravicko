@@ -1,0 +1,225 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/common/Header.astro';
+import MobileMenu from '../components/common/MobileMenu.astro';
+import PageHeader from '../components/common/PageHeader.astro';
+import Footer from '../components/common/Footer.astro';
+import { Icon } from 'astro-icon/components';
+import { siteConfig } from '../data/siteConfig';
+import { contactInfo } from '../data/contact';
+---
+
+<Layout
+  title="Ochrana osobních údajů (GDPR) - Zdravíčko"
+  description="Informace o zpracování osobních údajů v souladu s nařízením GDPR"
+>
+  <Header />
+  <MobileMenu />
+
+  <main>
+    <PageHeader
+      title="Ochrana osobních údajů"
+      description="Informace o zpracování vašich osobních údajů v souladu s GDPR"
+    />
+
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <!-- Intro -->
+          <div class="mb-12 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl">
+            <div class="flex gap-4">
+              <Icon name="mdi:shield-check" class="w-8 h-8 text-blue-600 shrink-0" />
+              <div>
+                <h2 class="text-xl font-bold text-gray-900 mb-2">Vaše soukromí je pro nás prioritou</h2>
+                <p class="text-gray-700">
+                  Zpracováváme vaše osobní údaje v souladu s nařízením GDPR (General Data Protection Regulation) 
+                  a zákonem č. 110/2019 Sb., o zpracování osobních údajů.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="prose prose-lg max-w-none">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+              <Icon name="mdi:account-circle" class="w-7 h-7 text-blue-600" />
+              Správce osobních údajů
+            </h2>
+            <div class="bg-gray-50 p-6 rounded-xl mb-8">
+              <p class="mb-2"><strong>{siteConfig.primaryDoctor.name}</strong></p>
+              <p class="mb-2">{siteConfig.primaryDoctor.specialization}</p>
+              <p class="mb-2">{contactInfo.address.street}, {contactInfo.address.zip} {contactInfo.address.city}</p>
+              <p class="mb-2">Email: <a href={`mailto:${contactInfo.email}`} class="text-blue-600 hover:underline">{contactInfo.email}</a></p>
+              <p>Telefon: <a href={`tel:${contactInfo.phones.doctor.number}`} class="text-blue-600 hover:underline">{contactInfo.phones.doctor.display}</a></p>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+              <Icon name="mdi:file-document-outline" class="w-7 h-7 text-blue-600" />
+              Jaké údaje zpracováváme
+            </h2>
+            <p class="mb-6 text-gray-700">Zpracováváme následující kategorie osobních údajů:</p>
+            <ul class="mb-8 space-y-3">
+              <li class="flex gap-3">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-green-600 shrink-0 mt-1" />
+                <span><strong>Identifikační údaje:</strong> jméno, příjmení, rodné číslo</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-green-600 shrink-0 mt-1" />
+                <span><strong>Kontaktní údaje:</strong> adresa, telefon, email</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-green-600 shrink-0 mt-1" />
+                <span><strong>Zdravotní údaje:</strong> anamnéza, diagnózy, záznamy o léčbě, výsledky vyšetření</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-green-600 shrink-0 mt-1" />
+                <span><strong>Údaje pojištěnce:</strong> číslo pojištěnce, název pojišťovny</span>
+              </li>
+            </ul>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+              <Icon name="mdi:scale-balance" class="w-7 h-7 text-blue-600" />
+              Účel a právní základ zpracování
+            </h2>
+            <div class="space-y-4 mb-8">
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="font-semibold text-gray-900 mb-2">Poskytování zdravotní péče</h3>
+                <p class="text-gray-700 mb-2">Údaje zpracováváme pro účely poskytování zdravotních služeb, vedení zdravotnické dokumentace a plnění povinností vyplývajících ze zdravotnických předpisů.</p>
+                <p class="text-sm text-gray-600"><strong>Právní základ:</strong> Zákon č. 372/2011 Sb., o zdravotních službách</p>
+              </div>
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="font-semibold text-gray-900 mb-2">Komunikace s pacienty</h3>
+                <p class="text-gray-700 mb-2">Kontaktní údaje používáme pro komunikaci ohledně objednání, připomenutí návštěvy nebo důležitých zdravotních informací.</p>
+                <p class="text-sm text-gray-600"><strong>Právní základ:</strong> Oprávněný zájem správce, souhlas subjektu údajů</p>
+              </div>
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="font-semibold text-gray-900 mb-2">Vyúčtování s pojišťovnou</h3>
+                <p class="text-gray-700 mb-2">Údaje předáváme zdravotním pojišťovnám za účelem úhrady poskytnuté zdravotní péče.</p>
+                <p class="text-sm text-gray-600"><strong>Právní základ:</strong> Plnění právní povinnosti</p>
+              </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+              <Icon name="mdi:clock-outline" class="w-7 h-7 text-blue-600" />
+              Doba uchovávání údajů
+            </h2>
+            <p class="mb-4 text-gray-700">Osobní údaje uchováváme po dobu:</p>
+            <ul class="mb-8 space-y-2">
+              <li class="flex gap-3">
+                <Icon name="mdi:arrow-right" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <span><strong>Zdravotnická dokumentace dospělých:</strong> minimálně 10 let od posledního zápisu</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:arrow-right" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <span><strong>Zdravotnická dokumentace dětí:</strong> minimálně do dovršení 18 let věku + 10 let</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:arrow-right" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <span><strong>Účetní doklady:</strong> 10 let</span>
+              </li>
+            </ul>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+              <Icon name="mdi:account-key" class="w-7 h-7 text-blue-600" />
+              Vaše práva
+            </h2>
+            <p class="mb-4 text-gray-700">Jako subjekt údajů máte následující práva:</p>
+            <ul class="mb-8 space-y-3">
+              <li class="flex gap-3">
+                <Icon name="mdi:eye-outline" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <span><strong>Právo na přístup:</strong> Můžete si vyžádat informace o tom, jaké vaše osobní údaje zpracováváme</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:pencil-outline" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <span><strong>Právo na opravu:</strong> Můžete požádat o opravu nesprávných údajů</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:delete-outline" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <span><strong>Právo na výmaz:</strong> Za určitých podmínek můžete požádat o výmaz údajů</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:lock-outline" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <span><strong>Právo na omezení zpracování:</strong> Můžete požádat o omezení zpracování</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:alert-circle-outline" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <span><strong>Právo podat stížnost:</strong> Můžete podat stížnost u Úřadu pro ochranu osobních údajů</span>
+              </li>
+            </ul>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+              <Icon name="mdi:shield-lock" class="w-7 h-7 text-blue-600" />
+              Zabezpečení údajů
+            </h2>
+            <p class="mb-6 text-gray-700">Přijali jsme vhodná technická a organizační opatření k zabezpečení vašich osobních údajů:</p>
+            <ul class="mb-8 space-y-2">
+              <li class="flex gap-3">
+                <Icon name="mdi:check-bold" class="w-5 h-5 text-green-600 shrink-0 mt-1" />
+                <span>Fyzické zabezpečení ordinace a archivů</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:check-bold" class="w-5 h-5 text-green-600 shrink-0 mt-1" />
+                <span>Elektronická data jsou chráněna heslem a šifrováním</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:check-bold" class="w-5 h-5 text-green-600 shrink-0 mt-1" />
+                <span>Pravidelné školení zaměstnanců o ochraně osobních údajů</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:check-bold" class="w-5 h-5 text-green-600 shrink-0 mt-1" />
+                <span>Přístup k údajům mají pouze oprávněné osoby</span>
+              </li>
+            </ul>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+              <Icon name="mdi:share-variant" class="w-7 h-7 text-blue-600" />
+              Předávání údajů třetím stranám
+            </h2>
+            <p class="mb-4 text-gray-700">Vaše osobní údaje předáváme pouze:</p>
+            <ul class="mb-8 space-y-2">
+              <li class="flex gap-3">
+                <Icon name="mdi:hospital-building" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <span>Zdravotním pojišťovnám (za účelem vyúčtování péče)</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:hospital-box" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <span>Jiným zdravotnickým zařízením (s vaším souhlasem nebo při předání do péče)</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="mdi:gavel" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <span>Orgánům veřejné moci (pokud to vyžaduje zákon)</span>
+              </li>
+            </ul>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+              <Icon name="mdi:email-outline" class="w-7 h-7 text-blue-600" />
+              Kontakt
+            </h2>
+            <div class="bg-blue-50 p-6 rounded-xl mb-8">
+              <p class="text-gray-700 mb-4">
+                Pokud máte jakékoli dotazy ohledně zpracování vašich osobních údajů nebo chcete uplatnit svá práva, 
+                kontaktujte nás:
+              </p>
+              <p class="mb-2"><strong>Email:</strong> <a href={`mailto:${contactInfo.email}`} class="text-blue-600 hover:underline">{contactInfo.email}</a></p>
+              <p class="mb-2"><strong>Telefon:</strong> <a href={`tel:${contactInfo.phones.doctor.number}`} class="text-blue-600 hover:underline">{contactInfo.phones.doctor.display}</a></p>
+              <p><strong>Adresa:</strong> {contactInfo.address.full}</p>
+            </div>
+
+            <div class="bg-gray-100 p-6 rounded-xl text-sm text-gray-600">
+              <p class="mb-2"><strong>Úřad pro ochranu osobních údajů</strong></p>
+              <p class="mb-1">Pplk. Sochora 27, 170 00 Praha 7</p>
+              <p class="mb-1">Web: <a href="https://www.uoou.cz" target="_blank" rel="noopener" class="text-blue-600 hover:underline">www.uoou.cz</a></p>
+              <p>Tel.: +420 234 665 111</p>
+            </div>
+          </div>
+
+          <div class="mt-12 text-center text-sm text-gray-500">
+            <p>Poslední aktualizace: 27. října 2025</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
