@@ -16,7 +16,7 @@ export interface OpeningHoursInfo {
 
 export interface SpecialNotice {
   active: boolean;
-  message: string;
+  message?: string;
   closed?: boolean;
   hoursFrom?: string; // Formát "HH:mm" např. "08:00"
   hoursTo?: string; // Formát "HH:mm" např. "14:00"

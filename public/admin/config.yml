@@ -207,7 +207,8 @@ collections:
           - label: "💬 Text zprávy"
             name: "message"
             widget: "text"
-            hint: "Např: 'Ordinace bude 24.12. zavřená' nebo 'Dnes máme zkrácenou dobu do 12:00'"
+            required: false
+            hint: "Nepovinné - dodatečný text k oznámení. Např: 'Ordinace bude 24.12. zavřená'. Pokud nevyplníte, zobrazí se pouze informace o hodinách."
 
           - label: "🎨 Typ oznámení"
             name: "type"
