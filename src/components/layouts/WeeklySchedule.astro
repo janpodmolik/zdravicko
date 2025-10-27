@@ -1,55 +1,83 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { getOpeningHoursForDay } from '../../utils/openingHours';
+import {
+  getWeekScheduleWithNotices,
+  formatDateForDay,
+  NOTICE_TYPE_CLASSES,
+  type WeekDaySchedule,
+  type NoticeType
+} from '../../utils/openingHours';
 
 interface Props {
   showLink?: boolean;
 }
 
-const {
-  showLink = false
-} = Astro.props;
+const { showLink = false } = Astro.props;
 
-const today = new Date().getDay();
+const weekSchedule = getWeekScheduleWithNotices();
 
-const weekSchedule = [
-  { day: 'Pondělí', hours: getOpeningHoursForDay(1) || 'Zavřeno', isToday: today === 1 },
-  { day: 'Úterý', hours: getOpeningHoursForDay(2) || 'Zavřeno', isToday: today === 2 },
-  { day: 'Středa', hours: getOpeningHoursForDay(3) || 'Zavřeno', isToday: today === 3 },
-  { day: 'Čtvrtek', hours: getOpeningHoursForDay(4) || 'Zavřeno', isToday: today === 4 },
-  { day: 'Pátek', hours: getOpeningHoursForDay(5) || 'Zavřeno', isToday: today === 5 },
-  { day: 'Sobota - Neděle', hours: 'Zavřeno', isToday: today === 0 || today === 6, isClosed: true },
-];
+// ============================================================================
+// HELPER FUNKCE PRO STYLING
+// ============================================================================
+
+/**
+ * Vrátí CSS třídy pro zobrazení ordinačních hodin podle stavu dne
+ */
+function getHourClass(schedule: WeekDaySchedule): string {
+  if (schedule.isClosed) return 'text-red-600';
+  if (schedule.isToday) return 'text-blue-700';
+
+  if (schedule.isModified && schedule.noticeType) {
+    return `${NOTICE_TYPE_CLASSES[schedule.noticeType].text} font-semibold`;
+  }
+
+  return 'text-gray-600';
+}
+
+/**
+ * Vrátí CSS třídy pro badge se změnou
+ */
+function getChangeBadgeClass(noticeType?: NoticeType): string {
+  if (!noticeType) return 'text-amber-600';
+  return NOTICE_TYPE_CLASSES[noticeType].badge;
+}
 ---
 
 <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-gray-100">
   <div class="p-8">
     <div class="space-y-4">
-      {weekSchedule.map(({ day, hours, isToday, isClosed }) => (
+      {weekSchedule.map((schedule) => (
         <div
           class:list={[
             'flex justify-between items-center py-4 px-4 rounded-lg transition-colors',
-            isToday ? 'bg-blue-50 border-2 border-blue-200' : 'border-b border-gray-200'
+            schedule.isToday ? 'bg-blue-50 border-2 border-blue-200' : 'border-b-2 border-gray-100 last:border-b-0'
           ]}
         >
-          <span class:list={[
-            'font-semibold',
-            isToday ? 'text-blue-900' : 'text-gray-900'
-          ]}>
-            {day}
-            {isToday && (
-              <span class="ml-2 text-xs bg-blue-600 text-white px-2 py-1 rounded-full">
-                Dnes
+          <div>
+            <span class:list={['font-semibold', schedule.isToday ? 'text-blue-900' : 'text-gray-900']}>
+              {schedule.dayName}
+              {schedule.isToday && (
+                <span class="ml-2 text-xs bg-blue-600 text-white px-2 py-1 rounded-full">Dnes</span>
+              )}
+              {schedule.isModified && !schedule.isToday && schedule.dayOfWeek > 0 && (
+                <span class:list={['ml-2 text-xs', getChangeBadgeClass(schedule.noticeType)]}>
+                  {formatDateForDay(schedule.dayOfWeek)} - Změna
+                </span>
+              )}
+            </span>
+          </div>
+
+          <div class="text-right">
+            <span class:list={['font-medium', getHourClass(schedule)]}>
+              {schedule.actualHours || 'Zavřeno'}
+            </span>
+
+            {schedule.isModified && schedule.regularHours && schedule.regularHours !== schedule.actualHours && (
+              <span class="text-sm ml-2 text-gray-600 line-through">
+                {schedule.regularHours}
               </span>
             )}
-          </span>
-          <span class:list={[
-            'font-medium',
-            isClosed ? 'text-red-600' :
-            isToday ? 'text-blue-700' : 'text-gray-600'
-          ]}>
-            {hours}
-          </span>
+          </div>
         </div>
       ))}
     </div>

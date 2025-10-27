@@ -1,22 +1,78 @@
 import specialNoticeData from "../data/special-notice.json";
 
+// ============================================================================
+// TYPY A KONSTANTY
+// ============================================================================
+
+export type NoticeType = "warning" | "info" | "urgent";
+
 export interface OpeningHoursInfo {
   title: string;
   hours: string | null;
-  isModified?: boolean; // Příznak, že jsou hodiny upravené speciálním oznámením
-  notice?: string; // Text oznámení, pokud existuje
-  noticeType?: "warning" | "info" | "urgent"; // Typ oznámení pro barvy
+  isModified?: boolean;
+  notice?: string;
+  noticeType?: NoticeType;
 }
 
-interface SpecialNotice {
+export interface SpecialNotice {
   active: boolean;
   message: string;
   closed?: boolean;
   hours?: string;
-  type: "warning" | "info" | "urgent";
+  type: NoticeType;
   validFrom?: string;
   validTo?: string;
 }
+
+export interface WeekDaySchedule {
+  dayName: string;
+  dayOfWeek: number;
+  regularHours: string | null;
+  actualHours: string | null;
+  isToday: boolean;
+  isClosed: boolean;
+  isModified: boolean;
+  notice?: string;
+  noticeType?: NoticeType;
+}
+
+/** Dny v týdnu - ISO standard (1 = pondělí, 7 = neděle) */
+export const DayOfWeek = {
+  MONDAY: 1,
+  TUESDAY: 2,
+  WEDNESDAY: 3,
+  THURSDAY: 4,
+  FRIDAY: 5,
+  SATURDAY: 6,
+  SUNDAY: 0,
+} as const;
+
+/** Názvy dnů v češtině */
+export const DAY_NAMES: Record<number, string> = {
+  [DayOfWeek.MONDAY]: "Pondělí",
+  [DayOfWeek.TUESDAY]: "Úterý",
+  [DayOfWeek.WEDNESDAY]: "Středa",
+  [DayOfWeek.THURSDAY]: "Čtvrtek",
+  [DayOfWeek.FRIDAY]: "Pátek",
+  [DayOfWeek.SATURDAY]: "Sobota",
+  [DayOfWeek.SUNDAY]: "Neděle",
+} as const;
+
+/** CSS třídy pro typy oznámení */
+export const NOTICE_TYPE_CLASSES = {
+  urgent: {
+    text: "text-red-700",
+    badge: "text-red-600",
+  },
+  warning: {
+    text: "text-amber-700",
+    badge: "text-amber-600",
+  },
+  info: {
+    text: "text-blue-700",
+    badge: "text-blue-600",
+  },
+} as const;
 
 const openingHoursByDay: Record<number, string | null> = {
   0: null, // Sunday - closed
@@ -135,4 +191,148 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
  */
 export function getOpeningHoursForDay(dayOfWeek: number): string | null {
   return openingHoursByDay[dayOfWeek];
+}
+
+/**
+ * Vrátí datum ve formátu YYYY-MM-DD pro daný den v týdnu
+ */
+function getDateForDayInWeek(
+  dayOfWeek: number,
+  weekOffset: number = 0
+): string {
+  const today = new Date();
+  const currentDay = today.getDay();
+
+  // Vypočítáme rozdíl mezi aktuálním dnem a cílovým dnem
+  let daysToAdd = dayOfWeek - currentDay;
+
+  // Pokud je cílový den v minulosti tento týden, přidáme týden
+  if (daysToAdd < 0) {
+    daysToAdd += 7;
+  }
+
+  // Přidáme offset týdnů
+  daysToAdd += weekOffset * 7;
+
+  const targetDate = new Date(today);
+  targetDate.setDate(today.getDate() + daysToAdd);
+
+  const year = targetDate.getFullYear();
+  const month = String(targetDate.getMonth() + 1).padStart(2, "0");
+  const day = String(targetDate.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Zkontroluje, zda pro daný den existuje aktivní special notice
+ */
+function getSpecialNoticeForDate(dateStr: string): SpecialNotice | null {
+  const notice = specialNoticeData as SpecialNotice;
+
+  if (!notice.active) return null;
+
+  if (!isDateInRange(dateStr, notice.validFrom, notice.validTo)) {
+    return null;
+  }
+
+  return notice;
+}
+
+// ============================================================================
+// UTILITY FUNKCE PRO DATUM
+// ============================================================================
+
+/**
+ * Vrátí datum ve formátu DD.MM. pro daný den v týdnu
+ * @param dayOfWeek Den v týdnu (0 = neděle, 1 = pondělí, atd.)
+ * @returns Formátované datum např. "28.10."
+ */
+export function formatDateForDay(dayOfWeek: number): string {
+  const today = new Date();
+  const currentDay = today.getDay();
+  let daysToAdd = dayOfWeek - currentDay;
+
+  if (daysToAdd < 0) daysToAdd += 7;
+
+  const targetDate = new Date(today);
+  targetDate.setDate(today.getDate() + daysToAdd);
+
+  const day = targetDate.getDate();
+  const month = targetDate.getMonth() + 1;
+
+  return `${day}.${month}.`;
+}
+
+// ============================================================================
+// HLAVNÍ API FUNKCE
+// ============================================================================
+
+/**
+ * Vrátí kompletní týdenní rozvrh s respektováním special notices
+ * Zahrnuje jak běžné hodiny, tak případné výjimky
+ */
+export function getWeekScheduleWithNotices(): WeekDaySchedule[] {
+  const today = new Date();
+  const currentDay = today.getDay();
+
+  const schedule: WeekDaySchedule[] = [
+    { dayOfWeek: DayOfWeek.MONDAY, dayName: DAY_NAMES[DayOfWeek.MONDAY] },
+    { dayOfWeek: DayOfWeek.TUESDAY, dayName: DAY_NAMES[DayOfWeek.TUESDAY] },
+    { dayOfWeek: DayOfWeek.WEDNESDAY, dayName: DAY_NAMES[DayOfWeek.WEDNESDAY] },
+    { dayOfWeek: DayOfWeek.THURSDAY, dayName: DAY_NAMES[DayOfWeek.THURSDAY] },
+    { dayOfWeek: DayOfWeek.FRIDAY, dayName: DAY_NAMES[DayOfWeek.FRIDAY] },
+  ].map(({ dayOfWeek, dayName }) => {
+    const dateStr = getDateForDayInWeek(dayOfWeek);
+    const regularHours = openingHoursByDay[dayOfWeek];
+    const isToday = currentDay === dayOfWeek;
+
+    // Výchozí hodnoty
+    let actualHours = regularHours;
+    let isClosed = !regularHours;
+    let isModified = false;
+    let notice = null;
+
+    // Aplikace special notice
+    // Pro pracovní dny (Po-Pá) kontrolujeme special notices
+    notice = getSpecialNoticeForDate(dateStr);
+
+    if (notice) {
+      isModified = true;
+
+      if (notice.closed) {
+        actualHours = null;
+        isClosed = true;
+      } else if (notice.hours) {
+        actualHours = notice.hours;
+        isClosed = false;
+      }
+    }
+
+    return {
+      dayOfWeek,
+      dayName,
+      regularHours,
+      actualHours,
+      isToday,
+      isClosed,
+      isModified,
+      notice: notice?.message,
+      noticeType: notice?.type,
+    };
+  });
+
+  // Přidáme víkend (kombinovaný řádek)
+  schedule.push({
+    dayOfWeek: -1, // Speciální hodnota pro víkend
+    dayName: "Sobota - Neděle",
+    regularHours: null,
+    actualHours: null,
+    isToday:
+      currentDay === DayOfWeek.SUNDAY || currentDay === DayOfWeek.SATURDAY,
+    isClosed: true,
+    isModified: false,
+  });
+
+  return schedule;
 }
