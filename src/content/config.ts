@@ -47,8 +47,26 @@ const newsCollection = defineCollection({
   }),
 });
 
+// Služby kolekce
+const servicesCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    excerpt: z.string(),
+    icon: z.string(),
+    color: z.string(), // blue, cyan, purple, pink, green, orange, red, yellow, indigo, teal
+    features: z.array(z.string()),
+    duration: z.string().optional(),
+    price: z.string().optional(),
+    showOnHomepage: z.boolean().default(false),
+    order: z.number().default(999), // Pro řazení služeb
+    published: z.boolean().default(true),
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
   news: newsCollection,
+  services: servicesCollection,
   // Special notice používá JSON soubor v src/data/, ne content collection
 };

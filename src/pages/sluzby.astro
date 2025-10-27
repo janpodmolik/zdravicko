@@ -6,7 +6,27 @@ import PageHeader from '../components/common/PageHeader.astro';
 import Footer from '../components/common/Footer.astro';
 import ServiceCard from '../components/cards/ServiceCard.astro';
 import CTAButtons from '../components/common/CTAButtons.astro';
-import { services } from '../data/services';
+import { getCollection } from 'astro:content';
+import type { ServiceColor } from '../data/services';
+
+// Načíst publikované služby a seřadit podle order
+const allServices = await getCollection('services', ({ data }) => {
+  return data.published !== false;
+});
+
+const services = allServices
+  .sort((a, b) => (a.data.order || 999) - (b.data.order || 999))
+  .map(service => ({
+    id: service.id,
+    title: service.data.title,
+    slug: service.slug,
+    excerpt: service.data.excerpt,
+    description: service.data.excerpt, // Pro kompatibilitu
+    icon: service.data.icon,
+    color: service.data.color as ServiceColor,
+    features: service.data.features,
+    showOnHomepage: service.data.showOnHomepage,
+  }));
 ---
 
 <Layout

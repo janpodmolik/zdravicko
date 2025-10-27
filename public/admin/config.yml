@@ -113,6 +113,127 @@ collections:
         editor_components: []
 
   # ============================================================================
+  # SLUŽBY
+  # ============================================================================
+  # Lékařské služby a péče nabízená ordinací
+  - name: "services"
+    label: "🏥 Služby"
+    folder: "src/content/services"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["order", "title"]
+    fields:
+      - label: "📌 Název služby"
+        name: "title"
+        widget: "string"
+        hint: "Např. 'Preventivní prohlídky', 'Očkování', 'Akutní péče'"
+
+      - label: "✏️ Krátký popis"
+        name: "excerpt"
+        widget: "text"
+        hint: "Stručný popis služby (1-2 věty) zobrazený v kartě"
+
+      - label: "🗓️ Ikona služby"
+        name: "icon"
+        widget: "select"
+        hint: "Ikona zobrazená u služby - vyberte nejvhodnější symbol"
+        options:
+          - { label: "📋 Dokumenty", value: "mdi:file-document-check" }
+          - { label: "🩺 Stetoskop", value: "mdi:stethoscope" }
+          - { label: "💉 Injekce/Očkování", value: "mdi:needle" }
+          - { label: "🏥 Nemocnice/Urgentní", value: "mdi:hospital-box" }
+          - { label: "❓ Konzultace", value: "mdi:clipboard-text" }
+          - { label: "📝 Posudek/Zpráva", value: "mdi:file-document-edit" }
+          - { label: "🌸 Alergie/Pyl", value: "mdi:flower-pollen" }
+          - { label: "🤱 Kojení/Mateřství", value: "mdi:mother-nurse" }
+          - { label: "👶 Dítě/Vývoj", value: "mdi:baby-face-outline" }
+          - { label: "🏃 Sport/Běh", value: "mdi:run" }
+          - { label: "🍎 Výživa/Jídlo", value: "mdi:food-apple" }
+          - { label: "✈️ Cestování", value: "mdi:airplane" }
+          - { label: "🤲 Kůže/Péče", value: "mdi:hand-heart" }
+          - { label: "💓 Srdce/EKG", value: "mdi:heart-pulse" }
+          - { label: "🦠 Vakcína/Bakterie", value: "mdi:bacteria" }
+          - { label: "💊 Lék/Tableta", value: "mdi:pill" }
+          - { label: "🏪 Lékárna", value: "mdi:pharmacy" }
+          - { label: "🌡️ Teploměr", value: "mdi:thermometer" }
+          - { label: "👨‍⚕️ Lékař", value: "mdi:doctor" }
+          - { label: "🏨 Nemocnice/Budova", value: "mdi:hospital-building" }
+          - { label: "🚑 První pomoc", value: "mdi:medical-bag" }
+          - { label: "✅ Kontrola/Zkouška", value: "mdi:shield-check" }
+
+      - label: "🎨 Barva služby"
+        name: "color"
+        widget: "select"
+        hint: "Barva použitá v designu služby - vyberte podle tématu"
+        options:
+          - { label: "🔵 Modrá - Klasické služby", value: "blue" }
+          - { label: "🔷 Azurová - Očkování, prevence", value: "cyan" }
+          - { label: "🟣 Fialová - Akutní péče, výživa", value: "purple" }
+          - { label: "🩷 Růžová - Poradenství, kojení", value: "pink" }
+          - { label: "🟢 Zelená - Zdraví, wellness", value: "green" }
+          - { label: "🟠 Oranžová - Aktivní péče", value: "orange" }
+          - { label: "🔴 Červená - Urgentní péče", value: "red" }
+          - { label: "🟡 Žlutá - Prevence, informace", value: "yellow" }
+          - { label: "🟣 Indigo - Speciální péče", value: "indigo" }
+          - { label: "🔵 Tyrkysová - Diagnostika", value: "teal" }
+
+      - label: "✨ Co služba zahrnuje"
+        name: "features"
+        widget: "list"
+        hint: "Vypište jednotlivé body, co služba obsahuje (např. 'Měření výšky a váhy')"
+        field:
+          label: "Položka"
+          name: "feature"
+          widget: "string"
+
+      - label: "⏱️ Doba trvání"
+        name: "duration"
+        widget: "string"
+        required: false
+        hint: "Např. '30 minut', '1 hodina'. Nepovinné."
+
+      - label: "💰 Cena"
+        name: "price"
+        widget: "string"
+        required: false
+        hint: "Např. 'Hrazeno pojišťovnou', '500 Kč'. Nepovinné."
+
+      - label: "🏠 Zobrazit na hlavní stránce"
+        name: "showOnHomepage"
+        widget: "boolean"
+        default: false
+        hint: "Zapni pro zobrazení služby mezi doporučenými na homepage"
+
+      - label: "🔢 Pořadí"
+        name: "order"
+        widget: "number"
+        default: 999
+        hint: "Číslo určující pořadí služeb (menší číslo = výše)"
+
+      - label: "✅ Publikováno"
+        name: "published"
+        widget: "boolean"
+        default: true
+        hint: "Vypni pro skrytí služby z webu"
+
+      - label: "📄 Popis služby"
+        name: "body"
+        widget: "markdown"
+        hint: "Podrobný popis služby - použij formátování níže"
+        buttons:
+          [
+            "bold",
+            "italic",
+            "link",
+            "heading-two",
+            "heading-three",
+            "quote",
+            "bulleted-list",
+            "numbered-list",
+          ]
+        editor_components: []
+
+  # ============================================================================
   # AKTUALITY
   # ============================================================================
   # Krátké zprávy a oznámení zobrazované na webu (ne banner nahoře!)

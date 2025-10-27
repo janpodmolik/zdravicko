@@ -16,12 +16,30 @@ import Footer from '../components/common/Footer.astro';
 
 import { getTodayOpeningHours } from '../utils/openingHours';
 import { getPublishedNews, getPublishedBlogPosts } from '../utils/contentHelpers';
-import { getHomepageServices } from '../data/services';
+import { getCollection } from 'astro:content';
+import type { ServiceColor } from '../data/services';
 
 const todayInfo = getTodayOpeningHours();
 const latestNews = (await getPublishedNews()).slice(0, 3);
 const latestBlogPosts = (await getPublishedBlogPosts()).slice(0, 3);
-const homepageServices = getHomepageServices();
+
+// Načíst služby pro homepage
+const allServices = await getCollection('services', ({ data }) => {
+  return data.published !== false && data.showOnHomepage === true;
+});
+const homepageServices = allServices
+  .sort((a, b) => (a.data.order || 999) - (b.data.order || 999))
+  .map(service => ({
+    id: service.id,
+    title: service.data.title,
+    slug: service.slug,
+    excerpt: service.data.excerpt,
+    description: service.data.excerpt,
+    icon: service.data.icon,
+    color: service.data.color as ServiceColor,
+    features: service.data.features,
+    showOnHomepage: service.data.showOnHomepage,
+  }));
 ---
 
 <Layout title="Zdravíčko - Dětská ordinace | Kvalitní péče o vaše děti">
@@ -63,7 +81,7 @@ const homepageServices = getHomepageServices();
         icon={service.icon}
         title={service.title}
         description={service.excerpt}
-        href={service.isExternal ? service.externalUrl! : `/sluzby/${service.slug}`}
+        href={`/sluzby/${service.slug}`}
         color={service.color}
       />
     ))}

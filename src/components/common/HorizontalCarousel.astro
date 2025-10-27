@@ -61,14 +61,14 @@ const ARROW_ICON = 'mdi:chevron-right';
     )}
   </div>
 
-  <!-- Horizontální scrollovací kontejner - celá šířka obrazovky -->
-  <div class="w-full overflow-visible">
+  <!-- Wrapper s paddingem -->
+  <div class="pl-4 md:pl-8 pr-4 md:pr-8">
+    <!-- Scrollovací kontejner -->
     <div
       class:list={[
-        'flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory py-8 carousel-container',
-        'scrollbar-hide'
+        'flex gap-4 md:gap-6 overflow-x-auto py-8',
+        'scrollbar-hide -mx-4 md:-mx-8 px-4 md:px-8'
       ]}
-      style="padding-left: max(1rem, calc((100vw - 1280px) / 2)); padding-right: max(1rem, calc((100vw - 1280px) / 2));"
     >
       <slot />
     </div>
@@ -83,15 +83,5 @@ const ARROW_ICON = 'mdi:chevron-right';
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
-  }
-
-  .overflow-x-auto {
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Umožňuje overflow pouze horizontálně, vertikálně nechá shadow projít */
-  .carousel-container {
-    overflow-y: visible !important;
   }
 </style>

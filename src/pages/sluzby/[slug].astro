@@ -4,11 +4,16 @@ import Header from '../../components/common/Header.astro';
 import MobileMenu from '../../components/common/MobileMenu.astro';
 import Footer from '../../components/common/Footer.astro';
 import CTAButtons from '../../components/common/CTAButtons.astro';
-import { services } from '../../data/services';
 import { colorClasses } from '../../utils/colors';
 import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+import type { ServiceColor } from '../../data/services';
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const services = await getCollection('services', ({ data }) => {
+    return data.published !== false;
+  });
+
   return services.map((service) => ({
     params: { slug: service.slug },
     props: { service },
@@ -16,12 +21,22 @@ export function getStaticPaths() {
 }
 
 const { service } = Astro.props;
-const colors = colorClasses[service.color];
+const { Content } = await service.render();
+const colors = colorClasses[service.data.color as ServiceColor];
+
+// Načíst ostatní služby pro doporučené služby
+const allServices = await getCollection('services', ({ data }) => {
+  return data.published !== false && data.order !== undefined;
+});
+const otherServices = allServices
+  .filter(s => s.id !== service.id)
+  .sort((a, b) => (a.data.order || 999) - (b.data.order || 999))
+  .slice(0, 3);
 ---
 
 <Layout
-  title={`${service.title} - Zdravíčko`}
-  description={service.excerpt}
+  title={`${service.data.title} - Zdravíčko`}
+  description={service.data.excerpt}
 >
   <Header activePage="sluzby" />
   <MobileMenu activePage="sluzby" />
@@ -41,29 +56,29 @@ const colors = colorClasses[service.color];
 
           <div class="flex items-start gap-3 md:gap-6 mb-5 md:mb-8">
             <div class={`w-14 h-14 md:w-20 md:h-20 ${colors.bg} rounded-2xl flex items-center justify-center shrink-0`}>
-              <Icon name={service.icon} class="w-7 h-7 md:w-10 md:h-10 text-white" />
+              <Icon name={service.data.icon} class="w-7 h-7 md:w-10 md:h-10 text-white" />
             </div>
             <div class="flex-1">
               <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 md:mb-4">
-                {service.title}
+                {service.data.title}
               </h1>
               <p class="text-sm md:text-xl text-gray-600">
-                {service.excerpt}
+                {service.data.excerpt}
               </p>
             </div>
           </div>
 
           <div class="flex flex-wrap gap-2 md:gap-4">
-            {service.duration && (
+            {service.data.duration && (
               <div class={`flex items-center gap-2 ${colors.bgLight} px-3 py-1.5 md:px-4 md:py-2 rounded-lg`}>
                 <Icon name="mdi:clock-outline" class={`w-4 h-4 md:w-5 md:h-5 ${colors.text}`} />
-                <span class="text-sm md:text-base text-gray-700 font-medium">{service.duration}</span>
+                <span class="text-sm md:text-base text-gray-700 font-medium">{service.data.duration}</span>
               </div>
             )}
-            {service.price && (
+            {service.data.price && (
               <div class={`flex items-center gap-2 ${colors.bgLight} px-3 py-1.5 md:px-4 md:py-2 rounded-lg`}>
                 <Icon name="mdi:currency-eur" class={`w-4 h-4 md:w-5 md:h-5 ${colors.text}`} />
-                <span class="text-sm md:text-base text-gray-700 font-medium">{service.price}</span>
+                <span class="text-sm md:text-base text-gray-700 font-medium">{service.data.price}</span>
               </div>
             )}
           </div>
@@ -76,16 +91,14 @@ const colors = colorClasses[service.color];
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <div class="prose prose-lg max-w-none mb-8 md:mb-12">
-            <p class="text-gray-700 leading-relaxed text-base md:text-lg">
-              {service.description}
-            </p>
+            <Content />
           </div>
 
           <!-- Features -->
           <div class="bg-gray-50 rounded-2xl p-8 mb-12">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Co zahrnuje služba</h2>
             <div class="grid md:grid-cols-2 gap-4">
-              {service.features.map((feature) => (
+              {service.data.features.map((feature: string) => (
                 <div class="flex items-start gap-3">
                   <Icon name="mdi:check-circle" class={`w-6 h-6 ${colors.text} shrink-0 mt-0.5`} />
                   <span class="text-gray-700">{feature}</span>
@@ -116,24 +129,21 @@ const colors = colorClasses[service.color];
             Další naše služby
           </h2>
           <div class="grid md:grid-cols-3 gap-4">
-            {services
-              .filter((s) => s.id !== service.id)
-              .slice(0, 3)
-              .map((otherService) => {
-                const otherColors = colorClasses[otherService.color];
+            {otherServices.map((otherService) => {
+                const otherColors = colorClasses[otherService.data.color as ServiceColor];
                 return (
                   <a
                     href={`/sluzby/${otherService.slug}`}
                     class="bg-white p-6 rounded-xl border-2 border-gray-100 hover:border-gray-300 hover:shadow-md transition-all"
                   >
                     <div class={`w-12 h-12 ${otherColors.bg} rounded-lg flex items-center justify-center mb-4`}>
-                      <Icon name={otherService.icon} class="w-6 h-6 text-white" />
+                      <Icon name={otherService.data.icon} class="w-6 h-6 text-white" />
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2">
-                      {otherService.title}
+                      {otherService.data.title}
                     </h3>
                     <p class="text-sm text-gray-600">
-                      {otherService.excerpt}
+                      {otherService.data.excerpt}
                     </p>
                   </a>
                 );
