@@ -34,23 +34,6 @@ export async function getPublishedNews() {
 }
 
 /**
- * Načte aktivní special notice
- */
-export async function getActiveSpecialNotice() {
-  const notices = await getCollection(
-    "special_notice",
-    ({ data }: CollectionEntry<"special_notice">) => {
-      return data.active === true;
-    }
-  );
-
-  // Vrátit nejnovější aktivní oznámení
-  return notices.sort((a, b) => {
-    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-  })[0];
-}
-
-/**
  * Transformuje CollectionEntry<'blog'> na BlogPost formát pro BlogCard
  */
 export function blogEntryToCardData(
