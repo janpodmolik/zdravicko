@@ -7,8 +7,8 @@ backend:
   name: git-gateway
   branch: main
 
-# Lokální vývoj - proxy server pro editaci bez GitHubu (vypnuto pro produkci)
-# local_backend: true
+# Lokální vývoj - proxy server pro editaci bez GitHubu
+local_backend: true
 
 # Publikování - články procházejí schvalovacím procesem
 publish_mode: editorial_workflow
