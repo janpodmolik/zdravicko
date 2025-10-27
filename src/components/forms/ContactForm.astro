@@ -1,0 +1,98 @@
+---
+import { Icon } from 'astro-icon/components';
+
+// Společné CSS třídy pro input fieldy
+const inputClasses = "w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent";
+const labelClasses = "block text-sm font-semibold text-gray-700 mb-2";
+---
+
+<div class="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200">
+  <h2 class="text-3xl font-bold text-gray-900 mb-2">Napište nám</h2>
+  <p class="text-gray-600 mb-6">Zanechte nám zprávu a my se vám ozveme co nejdříve</p>
+
+  <form class="space-y-5">
+    <div>
+      <label for="name" class={labelClasses}>
+        Jméno a příjmení *
+      </label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        class={inputClasses}
+        placeholder="Jan Novák"
+      />
+    </div>
+
+    <div>
+      <label for="email" class={labelClasses}>
+        Email *
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        class={inputClasses}
+        placeholder="jan.novak@email.cz"
+      />
+    </div>
+
+    <div>
+      <label for="phone" class={labelClasses}>
+        Telefon
+      </label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        class={inputClasses}
+        placeholder="+420 123 456 789"
+      />
+    </div>
+
+    <div>
+      <label for="subject" class={labelClasses}>
+        Předmět
+      </label>
+      <select
+        id="subject"
+        name="subject"
+        class={inputClasses}
+      >
+        <option value="general">Obecný dotaz</option>
+        <option value="appointment">Objednání na vyšetření</option>
+        <option value="vaccination">Očkování</option>
+        <option value="results">Výsledky vyšetření</option>
+        <option value="other">Jiné</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="message" class={labelClasses}>
+        Zpráva *
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        required
+        rows="5"
+        class={inputClasses}
+        placeholder="Napište nám vaši zprávu..."
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="w-full bg-blue-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+    >
+      <Icon name="mdi:send" class="w-5 h-5" />
+      Odeslat zprávu
+    </button>
+
+    <p class="text-xs text-gray-500 text-center">
+      * Povinná pole. Vaše data budou zpracována v souladu s GDPR.
+    </p>
+  </form>
+</div>

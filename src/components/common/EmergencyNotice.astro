@@ -1,0 +1,19 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div class="mt-8 p-6 bg-red-50 border-2 border-red-200 rounded-xl">
+  <div class="flex gap-3">
+    <Icon name="mdi:alert-circle" class="w-6 h-6 text-red-600 shrink-0" />
+    <div>
+      <h3 class="font-semibold text-red-900 mb-2">Akutní stavy</h3>
+      <p class="text-sm text-red-800 mb-3">
+        V případě akutních stavů vždy volejte předem. Mimo ordinační hodiny kontaktujte záchrannou službu.
+      </p>
+      <a href="tel:155" class="inline-flex items-center gap-2 text-red-600 font-semibold hover:text-red-700">
+        <Icon name="mdi:ambulance" class="w-5 h-5" />
+        155 - Záchranná služba
+      </a>
+    </div>
+  </div>
+</div>
