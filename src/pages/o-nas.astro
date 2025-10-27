@@ -20,35 +20,26 @@ interface TeamMember {
   color: ColorName;
 }
 
+const doctorColors: ColorName[] = ['blue', 'cyan'];
+const nurseColors: ColorName[] = ['purple', 'pink'];
+
 const teamMembers: TeamMember[] = [
-  {
-    name: siteConfig.doctor.name,
-    role: siteConfig.doctor.specialization,
-    description: `Specializace na preventivní péči a diagnostiku běžných dětských onemocnění. V oboru pracuje od roku ${siteConfig.doctor.yearEstablished}.`,
+  // Doctors from config
+  ...siteConfig.doctors.map((doctor, index) => ({
+    name: doctor.name,
+    role: doctor.specialization,
+    description: doctor.description,
     icon: 'mdi:doctor',
-    color: 'blue'
-  },
-  {
-    name: 'MUDr. Petra Nováková',
-    role: 'Praktický lékař pro děti a dorost',
-    description: 'Zaměřuje se na alergologii a imunologii u dětí. Přináší dlouholeté zkušenosti z nemocniční praxe.',
-    icon: 'mdi:doctor',
-    color: 'cyan'
-  },
-  {
-    name: 'Jana Svobodová',
+    color: doctorColors[index % doctorColors.length]
+  })),
+  // Nurses from config
+  ...siteConfig.nurses.map((nurse, index) => ({
+    name: nurse.name,
     role: 'Zdravotní sestra',
-    description: 'Stará se o organizaci ordinace a přípravu pacientů na vyšetření. Má zkušenosti s ošetřovatelskou péčí.',
+    description: nurse.description,
     icon: 'mdi:account-heart',
-    color: 'purple'
-  },
-  {
-    name: 'Markéta Dvořáková',
-    role: 'Zdravotní sestra',
-    description: 'Specializuje se na preventivní prohlídky a očkování. Vytváří příjemné prostředí pro malé pacienty.',
-    icon: 'mdi:account-heart',
-    color: 'pink'
-  }
+    color: nurseColors[index % nurseColors.length]
+  }))
 ];
 
 const values = [

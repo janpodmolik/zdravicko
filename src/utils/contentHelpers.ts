@@ -64,7 +64,7 @@ export function blogEntryToCardData(
     excerpt: entry.data.excerpt,
     category: entry.data.category,
     date: entry.data.date.toISOString(),
-    author: entry.data.author || siteConfig.doctor.name,
+    author: entry.data.author || siteConfig.primaryDoctor.name,
     image: entry.data.image || "",
     content: "",
   };
