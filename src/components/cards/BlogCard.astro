@@ -1,6 +1,6 @@
 ---
 /**
- * BlogCard - Komponenta pro zobrazení náhledu článku
+ * BlogCard - Univerzální komponenta pro zobrazení náhledu článku
  *
  * Zobrazuje kartu blogu s obrázkem, kategorií, datem, nadpisem a perexem.
  * Slouží jako odkaz na detail článku.
@@ -9,50 +9,45 @@
  */
 import { Icon } from 'astro-icon/components';
 import { formatDateShort } from '../../utils/dateFormat';
+import type { CollectionEntry } from 'astro:content';
 
-/**
- * Data pro blogovou kartu
- */
-export interface BlogCardData {
-  id: number;
-  slug: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  image: string;
-  category: string;
-  date: string;
-  author: string;
+interface Props {
+  post: CollectionEntry<'blog'>;
+  variant?: 'default' | 'carousel';
 }
 
-interface Props extends BlogCardData {}
-
-const { slug, title, category, date, excerpt, image, author } = Astro.props;
+const { post, variant = 'default' } = Astro.props;
+const { title, excerpt, image, author, date, category } = post.data;
 
 // Konstanty
 const DEFAULT_ICON = 'mdi:file-document-outline';
 const ARROW_ICON = 'mdi:arrow-right';
 const CALENDAR_ICON = 'mdi:calendar';
+
+const isCarousel = variant === 'carousel';
 ---
 
 <a
-  href={`/blog/${slug}`}
+  href={`/blog/${post.slug}`}
   class:list={[
-    'block bg-white rounded-2xl overflow-hidden border border-gray-100 cursor-pointer',
-    'shadow-md hover:shadow-xl transition-shadow'
+    'block bg-white rounded-xl shadow-sm hover:shadow-xl transition-shadow group',
+    isCarousel ? 'flex-none w-[280px] md:w-[340px] snap-start' : 'border border-gray-100'
   ]}
 >
   <article>
     <!-- Obrázek článku nebo placeholder -->
     <div class:list={[
-      'relative h-48 overflow-hidden',
-      'bg-linear-to-br from-blue-100 to-cyan-100'
+      'relative h-48 overflow-hidden bg-linear-to-br from-blue-100 to-cyan-100',
+      isCarousel ? 'rounded-t-xl' : ''
     ]}>
       {image ? (
         <img
           src={image}
           alt={title}
-          class="w-full h-full object-cover"
+          class:list={[
+            'w-full h-full object-cover',
+            isCarousel && 'group-hover:scale-105 transition-transform duration-300'
+          ]}
           transition:name="none"
         />
       ) : (
@@ -60,44 +55,65 @@ const CALENDAR_ICON = 'mdi:calendar';
           <Icon name={DEFAULT_ICON} class="w-20 h-20 text-blue-300" />
         </div>
       )}
-      <!-- Kategorie badge -->
-      <div class="absolute top-4 left-4">
-        <span class:list={[
-          'bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold',
-          'text-blue-600'
-        ]}>
-          {category}
-        </span>
-      </div>
+      <!-- Kategorie badge - jen pro default variant -->
+      {!isCarousel && category && (
+        <div class="absolute top-4 left-4">
+          <span class:list={[
+            'bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold',
+            'text-blue-600'
+          ]}>
+            {category}
+          </span>
+        </div>
+      )}
     </div>
 
     <!-- Obsah karty -->
-    <div class="p-6">
+    <div class:list={[isCarousel ? 'p-5' : 'p-6']}>
       <!-- Metadata -->
-      <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
-        <div class="flex items-center gap-1">
-          <Icon name={CALENDAR_ICON} class="w-4 h-4" />
-          <time datetime={date}>
-            {formatDateShort(date)}
-          </time>
-        </div>
+      <div class:list={[
+        'flex items-center gap-2 mb-3',
+        isCarousel ? 'text-xs text-gray-500' : 'gap-4 text-sm text-gray-500'
+      ]}>
+        {isCarousel ? (
+          <>
+            <time datetime={date.toISOString()}>{formatDateShort(date.toISOString())}</time>
+            <span>•</span>
+            <span>{author}</span>
+          </>
+        ) : (
+          <div class="flex items-center gap-1">
+            <Icon name={CALENDAR_ICON} class="w-4 h-4" />
+            <time datetime={date.toISOString()}>
+              {formatDateShort(date.toISOString())}
+            </time>
+          </div>
+        )}
       </div>
 
       <!-- Nadpis -->
-      <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+      <h3 class:list={[
+        'font-bold text-gray-900 mb-2 line-clamp-2',
+        isCarousel ? 'text-lg group-hover:text-blue-600 transition-colors' : 'text-xl mb-3'
+      ]}>
         {title}
       </h3>
 
       <!-- Perex -->
-      <p class="text-gray-600 mb-4 line-clamp-2">
+      <p class:list={[
+        'text-gray-600',
+        isCarousel ? 'text-sm line-clamp-3' : 'mb-4 line-clamp-2'
+      ]}>
         {excerpt}
       </p>
 
-      <!-- Call to action -->
-      <div class="text-blue-600 font-semibold flex items-center gap-1 text-sm">
-        Číst více
-        <Icon name={ARROW_ICON} class="w-4 h-4" />
-      </div>
+      <!-- Call to action - jen pro default variant -->
+      {!isCarousel && (
+        <div class="text-blue-600 font-semibold flex items-center gap-1 text-sm">
+          Číst více
+          <Icon name={ARROW_ICON} class="w-4 h-4" />
+        </div>
+      )}
     </div>
   </article>
 </a>

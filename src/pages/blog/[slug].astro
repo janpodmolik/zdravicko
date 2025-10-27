@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/common/Header.astro';
 import MobileMenu from '../../components/common/MobileMenu.astro';
 import HorizontalCarousel from '../../components/common/HorizontalCarousel.astro';
-import BlogCard from '../../components/cards/BlogCardCarousel.astro';
+import BlogCard from '../../components/cards/BlogCard.astro';
 import Footer from '../../components/common/Footer.astro';
 import { Icon } from 'astro-icon/components';
 import type { CollectionEntry } from 'astro:content';
@@ -121,7 +121,7 @@ const relatedPosts = allPosts
       bgColor="gray"
     >
       {relatedPosts.map(post => (
-        <BlogCard post={post} />
+        <BlogCard post={post} variant="carousel" />
       ))}
     </HorizontalCarousel>
   )}

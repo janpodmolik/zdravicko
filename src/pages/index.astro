@@ -8,7 +8,7 @@ import SpecialNotice from '../components/home/SpecialNotice.astro';
 import About from '../components/home/About.astro';
 import HorizontalCarousel from '../components/common/HorizontalCarousel.astro';
 import ServiceCard from '../components/cards/ServiceCardCarousel.astro';
-import BlogCard from '../components/cards/BlogCardCarousel.astro';
+import BlogCard from '../components/cards/BlogCard.astro';
 import NewsCard from '../components/cards/NewsCard.astro';
 import OpeningHours from '../components/home/OpeningHours.astro';
 import Contact from '../components/home/Contact.astro';
@@ -63,20 +63,6 @@ const priorityServices = [
 
   <SpecialNotice />
 
-  <!-- Služby Carousel -->
-  <HorizontalCarousel
-    id="sluzby"
-    title="Naše služby"
-    description="Poskytujeme kompletní péči pro vaše děti"
-    ctaText="Všechny služby"
-    ctaLink="/sluzby"
-    bgColor="white"
-  >
-    {priorityServices.map(service => (
-      <ServiceCard {...service} />
-    ))}
-  </HorizontalCarousel>
-
   <!-- Aktuality Carousel -->
   {latestNews.length > 0 && (
     <HorizontalCarousel
@@ -93,6 +79,20 @@ const priorityServices = [
     </HorizontalCarousel>
   )}
 
+  <!-- Služby Carousel -->
+  <HorizontalCarousel
+    id="sluzby"
+    title="Naše služby"
+    description="Poskytujeme kompletní péči pro vaše děti"
+    ctaText="Všechny služby"
+    ctaLink="/sluzby"
+    bgColor="white"
+  >
+    {priorityServices.map(service => (
+      <ServiceCard {...service} />
+    ))}
+  </HorizontalCarousel>
+
   <!-- Blog Carousel -->
   {latestBlogPosts.length > 0 && (
     <HorizontalCarousel
@@ -101,10 +101,10 @@ const priorityServices = [
       description="Užitečné rady a informace pro rodiče"
       ctaText="Všechny články"
       ctaLink="/blog"
-      bgColor="white"
+      bgColor="gray"
     >
       {latestBlogPosts.map(post => (
-        <BlogCard post={post} />
+        <BlogCard post={post} variant="carousel" />
       ))}
     </HorizontalCarousel>
   )}

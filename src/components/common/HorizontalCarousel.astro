@@ -28,7 +28,7 @@ const bgClasses: Record<string, string> = {
 const ARROW_ICON = 'mdi:chevron-right';
 ---
 
-<section id={id} class:list={['py-12 md:py-16', bgClasses[bgColor]]}>
+<section id={id} class:list={['py-12 md:py-16 overflow-visible', bgClasses[bgColor]]}>
   <!-- Hlavička s max-width pro pěkné centrování -->
   <div class="max-w-7xl mx-auto px-4">
     {(title || description) && (
@@ -62,10 +62,10 @@ const ARROW_ICON = 'mdi:chevron-right';
   </div>
 
   <!-- Horizontální scrollovací kontejner - celá šířka obrazovky -->
-  <div class="w-full overflow-hidden">
+  <div class="w-full overflow-visible">
     <div
       class:list={[
-        'flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 pl-4 pr-4',
+        'flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory py-8 px-4 carousel-container',
         'scrollbar-hide justify-start md:justify-center carousel-scroll-padding'
       ]}
     >
@@ -91,5 +91,10 @@ const ARROW_ICON = 'mdi:chevron-right';
 
   .carousel-scroll-padding {
     scroll-padding: 0 1rem;
+  }
+
+  /* Umožňuje overflow pouze horizontálně, vertikálně nechá shadow projít */
+  .carousel-container {
+    overflow-y: visible !important;
   }
 </style>

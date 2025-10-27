@@ -8,8 +8,7 @@ import Pagination from '../../components/common/Pagination.astro';
 import EmptyState from '../../components/common/EmptyState.astro';
 import Footer from '../../components/common/Footer.astro';
 import { Icon } from 'astro-icon/components';
-import type { BlogCardData } from '../../components/cards/BlogCard.astro';
-import { getPublishedBlogPosts, blogEntryToCardData } from '../../utils/contentHelpers';
+import { getPublishedBlogPosts } from '../../utils/contentHelpers';
 import { contactInfo } from '../../data/contact';
 import type { Page, GetStaticPathsOptions } from 'astro';
 import type { CollectionEntry } from 'astro:content';
@@ -24,11 +23,6 @@ type Props = {
 };
 
 const { page } = Astro.props;
-
-// Transformovat příspěvky pro BlogCard
-const posts = page.data.map((entry, index) =>
-  blogEntryToCardData(entry, (page.currentPage - 1) * page.size + index + 1)
-);
 ---
 
 <Layout title="Blog - Zdravíčko" description="Odborné články a rady pro rodiče od našeho týmu. Zdraví dětí, prevence, výživa a mnoho dalšího.">
@@ -46,7 +40,7 @@ const posts = page.data.map((entry, index) =>
         {page.data.length > 0 ? (
           <>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post: BlogCardData) => <BlogCard {...post} />)}
+              {page.data.map((post) => <BlogCard post={post} />)}
             </div>
 
             <Pagination page={page} baseUrl="/blog" />

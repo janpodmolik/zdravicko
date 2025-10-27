@@ -1,10 +1,11 @@
 ---
 import { Icon } from 'astro-icon/components';
-import BlogCard, { type BlogCardData } from '../cards/BlogCard.astro';
+import BlogCard from '../cards/BlogCard.astro';
 import EmptyState from '../common/EmptyState.astro';
+import type { CollectionEntry } from 'astro:content';
 
 interface Props {
-  posts: BlogCardData[];
+  posts: CollectionEntry<'blog'>[];
   title?: string;
   description?: string;
   maxPosts?: number;
@@ -42,7 +43,7 @@ const displayPosts = posts.slice(0, maxPosts);
         <div>
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {displayPosts.map((post) => (
-              <BlogCard {...post} />
+              <BlogCard post={post} />
             ))}
           </div>
 
