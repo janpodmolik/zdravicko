@@ -16,42 +16,11 @@ import Footer from '../components/common/Footer.astro';
 
 import { getTodayOpeningHours } from '../utils/openingHours';
 import { getPublishedNews, getPublishedBlogPosts } from '../utils/contentHelpers';
+import { priorityServices } from '../data/services';
 
 const todayInfo = getTodayOpeningHours();
 const latestNews = (await getPublishedNews()).slice(0, 3);
 const latestBlogPosts = (await getPublishedBlogPosts()).slice(0, 3);
-
-// Prioritní služby (top 4)
-const priorityServices = [
-  {
-    icon: 'mdi:mother-nurse',
-    title: 'Laktační poradenství',
-    description: 'Profesionální podpora a pomoc při kojení',
-    href: '/kojeni',
-    color: 'pink' as const
-  },
-  {
-    icon: 'mdi:stethoscope',
-    title: 'Preventivní prohlídky',
-    description: 'Pravidelné kontroly růstu a vývoje dítěte',
-    href: '/sluzby/preventivni-prohlidky',
-    color: 'blue' as const
-  },
-  {
-    icon: 'mdi:needle',
-    title: 'Očkování',
-    description: 'Kompletní vakcinační program dle kalendáře',
-    href: '/sluzby/ockovani',
-    color: 'cyan' as const
-  },
-  {
-    icon: 'mdi:hospital-box',
-    title: 'Akutní péče',
-    description: 'Ošetření běžných dětských onemocnění',
-    href: '/sluzby/akutni-pece',
-    color: 'purple' as const
-  }
-];
 ---
 
 <Layout title="Zdravíčko - Dětská ordinace | Kvalitní péče o vaše děti">
