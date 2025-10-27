@@ -1,10 +1,10 @@
 {
   "active": true,
-  "message": "Zdravíčko má zkrácenou ordinační dobu. 🌼",
-  "closed": false,
-  "hoursFrom": "10:00",
-  "hoursTo": "12:00",
-  "type": "warning",
+  "message": "Zdravíčko má dnes dovolenou. 🌼",
+  "closed": true,
+  "hoursFrom": "",
+  "hoursTo": "",
+  "type": "urgent",
   "validFrom": "2025-10-27",
-  "validTo": "2025-10-29"
+  "validTo": "2025-10-27"
 }

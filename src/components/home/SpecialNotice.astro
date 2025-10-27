@@ -8,17 +8,33 @@ const specialNotice = getActiveSpecialNotice();
 // Zobrazíme pouze pokud existuje aktivní oznámení
 const shouldDisplay = specialNotice !== null;
 
+/**
+ * Helper pro formátování časového rozsahu
+ * Zkombinuje hoursFrom a hoursTo do standardního formátu "HH:MM - HH:MM"
+ */
+const formatHoursRange = (hoursFrom?: string, hoursTo?: string): string | null => {
+  if (!hoursFrom || !hoursTo) return null;
+
+  // Normalizace formátu (7:30 → 7:30, 07:30 → 7:30)
+  const normalizeTime = (time: string): string => {
+    const [hours, minutes] = time.split(":");
+    return `${parseInt(hours, 10)}:${minutes.padStart(2, "0")}`;
+  };
+
+  return `${normalizeTime(hoursFrom)} - ${normalizeTime(hoursTo)}`;
+};
+
 // Helper pro získání hodin k zobrazení
 const getDisplayHours = () => {
   if (!specialNotice) return null;
 
-  // Pokud je zavřeno, zobraz "Zavřeno" (ignoruj hours)
+  // Pokud je zavřeno, zobraz "Zavřeno"
   if (specialNotice.closed) {
     return "Zavřeno";
   }
 
   // Jinak zobraz upravené hodiny, pokud existují
-  return specialNotice.hours || null;
+  return formatHoursRange(specialNotice.hoursFrom, specialNotice.hoursTo);
 };
 
 const displayHours = getDisplayHours();
