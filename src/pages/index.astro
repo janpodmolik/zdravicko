@@ -16,11 +16,12 @@ import Footer from '../components/common/Footer.astro';
 
 import { getTodayOpeningHours } from '../utils/openingHours';
 import { getPublishedNews, getPublishedBlogPosts } from '../utils/contentHelpers';
-import { priorityServices } from '../data/services';
+import { getHomepageServices } from '../data/services';
 
 const todayInfo = getTodayOpeningHours();
 const latestNews = (await getPublishedNews()).slice(0, 3);
 const latestBlogPosts = (await getPublishedBlogPosts()).slice(0, 3);
+const homepageServices = getHomepageServices();
 ---
 
 <Layout title="Zdravíčko - Dětská ordinace | Kvalitní péče o vaše děti">
@@ -57,8 +58,14 @@ const latestBlogPosts = (await getPublishedBlogPosts()).slice(0, 3);
     ctaLink="/sluzby"
     bgColor="white"
   >
-    {priorityServices.map(service => (
-      <ServiceCard {...service} />
+    {homepageServices.map(service => (
+      <ServiceCard
+        icon={service.icon}
+        title={service.title}
+        description={service.excerpt}
+        href={service.isExternal ? service.externalUrl! : `/sluzby/${service.slug}`}
+        color={service.color}
+      />
     ))}
   </HorizontalCarousel>
 
