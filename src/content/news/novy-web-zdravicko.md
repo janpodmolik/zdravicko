@@ -1,7 +1,8 @@
 ---
 title: "Nový web Zdravíčka je tady! 🎉"
+color: "blue"
+icon: "mdi:web"
 date: 2025-10-28
-excerpt: "Představujeme vám nový web naší ordinace s moderním designem a jednodušší navigací."
 published: true
 ---
 

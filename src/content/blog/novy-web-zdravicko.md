@@ -1,6 +1,7 @@
 ---
 title: "Proč máme nový web?"
 date: 2025-10-28
+category: "Aktuality"
 excerpt: "Krátké vysvětlení, co se stalo s původním webem a proč jsme vytvořili nový."
 author: "MUDr. Jana Šlechtová"
 published: true
