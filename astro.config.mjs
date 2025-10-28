@@ -7,9 +7,10 @@ import mdx from '@astrojs/mdx';
 
 /// https://astro.build/config
 export default defineConfig({
-  // GitHub Pages configuration
-  site: 'https://janpodmolik.github.io',
-  base: '/zdravicko',
+  // Custom domain configuration
+  site: 'https://zdravicko.org',
+  // No base path needed for custom domain
+  // base: '/zdravicko',
   
   integrations: [
     icon(),
