@@ -7,6 +7,10 @@ import mdx from '@astrojs/mdx';
 
 /// https://astro.build/config
 export default defineConfig({
+  // GitHub Pages configuration
+  site: 'https://janpodmolik.github.io',
+  base: '/zdravicko',
+  
   integrations: [
     icon(),
     mdx()

@@ -1,10 +1,11 @@
 # ============================================================================
 # BACKEND KONFIGURACE
 # ============================================================================
-# LOKÁLNÍ VÝVOJ: Používá decap-server proxy (spusť pomocí: npm run cms:proxy)
-# PRODUKCE: Používá GitHub backend s Netlify Identity/Git Gateway
+# LOKÁLNÍ VÝVOJ: Používá local_backend (npm run dev - edit bez autentizace)
+# PRODUKCE: GitHub backend s OAuth (zdravicko.org)
 backend:
-  name: git-gateway
+  name: github
+  repo: janpodmolik/zdravicko
   branch: main
 
 # Lokální vývoj - proxy server pro editaci bez GitHubu
