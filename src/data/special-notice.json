@@ -1,10 +1,10 @@
 {
-  "active": true,
+  "active": false,
   "message": "Vanoce dovolena",
+  "type": "urgent",
   "closed": true,
   "hoursFrom": "08:00",
   "hoursTo": "12:00",
-  "type": "urgent",
   "validFrom": "2025-10-27",
   "validTo": "2025-11-06"
 }
