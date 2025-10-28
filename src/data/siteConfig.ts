@@ -36,7 +36,7 @@ export const siteConfig = {
       name: "MUDr. Jana Šlechtová",
       specialization: "Praktický lékař pro děti a dorost",
       description:
-        "Specializace na preventivní péči a diagnostiku běžných dětských onemocnění. V oboru pracuje od roku 2015 a věnuje se komplexní péči o děti od narození až po dospělost.",
+        "Vedoucí Mraveniště. Ferda Mravenec i Brouk Pytlík v jednom. Léčebná i preventivní péče. Laktační poradenství do detailu s letitými praktickými zkušenostmi a úspěchy. Organizační chod ordinace. Koordinace. Stovky neviditelných hodin mimo ty ordinační, aby vše běželo hladce, dle Vašich představ. Empatie. Vzpomínky na budoucnost. Snaha vychovat následníka.",
       yearEstablished: 2015,
       isPrimary: true,
     },

@@ -1,0 +1,91 @@
+---
+/**
+ * RoomInfoModal - Generická modalová komponenta pro detailní popis místností
+ * Zobrazuje se jako transparent overlay s možností vidět stránku za ním
+ * Reusable pro všechny waiting rooms, playroom, ordinace atd.
+ */
+interface Props {
+  roomId: string;
+  title: string;
+  icon: string;
+  shortDescription: string;
+  detailedContent: string; // HTML obsah
+}
+
+const { roomId, title, icon, shortDescription, detailedContent } = Astro.props;
+---
+
+<div
+  id={`modal-${roomId}`}
+  class="fixed inset-0 bg-opacity-50 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+  style="display: none; background-color: rgba(0, 0, 0, 0.5);"
+>
+  <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl modal-content">
+    <!-- Header -->
+    <div class="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-start justify-between">
+      <div class="flex items-start gap-4">
+        <div class="text-4xl">{icon}</div>
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900">{title}</h2>
+          <p class="text-gray-600 text-sm mt-1">{shortDescription}</p>
+        </div>
+      </div>
+      <button
+        class="text-gray-400 hover:text-gray-600 rounded-full p-2 transition-colors hover:bg-gray-100 modal-close-btn"
+        data-modal-id={roomId}
+        aria-label="Zavřít"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="p-8 text-gray-700 space-y-4">
+      <div set:html={detailedContent} />
+    </div>
+
+    <!-- Footer -->
+    <div class="bg-gray-50 px-8 py-4 flex justify-end border-t">
+      <button
+        class="px-6 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium transition-colors modal-close-btn"
+        data-modal-id={roomId}
+      >
+        Zavřít
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Modal animations */
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes modalSlideUp {
+    from {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Apply animations when modal is visible */
+  [id^="modal-"][style*="display: flex"] {
+    animation: modalFadeIn 0.2s ease-out;
+  }
+
+  [id^="modal-"][style*="display: flex"] .modal-content {
+    animation: modalSlideUp 0.3s ease-out;
+  }
+</style>

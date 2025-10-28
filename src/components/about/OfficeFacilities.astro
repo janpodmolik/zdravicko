@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import Lightbox from '../gallery/Lightbox.astro';
 import GalleryButton from '../gallery/GalleryButton.astro';
+import RoomInfoModal from '../modals/RoomInfoModal.astro';
 import {
   ordinaceNemocneGallery,
   ordinaceZdraveGallery,
@@ -28,9 +29,12 @@ interface Facility {
 }
 
 interface WaitingRoom {
+  id: string;
   title: string;
   icon: string;
+  emojiIcon: string;
   description: string;
+  detailedContent: string;
   galleryId: GalleryId;
 }
 
@@ -65,21 +69,60 @@ const facilities: Facility[] = [
 
 const waitingRooms: WaitingRoom[] = [
   {
+    id: 'room-sick',
     title: 'Čekárna pro nemocné',
     icon: 'mdi:seat',
+    emojiIcon: '😷',
     description: 'Oddělená čekárna pro akutně nemocné děti',
+    detailedContent: `
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Bezpečný prostor pro nemocné děti</h3>
+      <p class="mb-4">Čekárna pro nemocné je oddělena od zbytku ordinace, aby se minimalizovalo riziko přenosu infekce na ostatní pacienty. Prostor je pravidelně dezinfikován a větraný.</p>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>Oddělený vstup a čekací prostor</li>
+        <li>Zvýšená hygiena a dezinfekce</li>
+        <li>Příslušné vybavení pro akutní ošetření</li>
+        <li>Teplá a pohodlná atmosféra</li>
+      </ul>
+      <p class="text-sm text-gray-600"><strong>Tip:</strong> Objeďte se prosím předem, aby jsme mohli správně naplánovat vaši návštěvu a minimalizovat čekání.</p>
+    `,
     galleryId: 'cekarna-nemocne'
   },
   {
+    id: 'room-healthy',
     title: 'Čekárna pro zdravé',
     icon: 'mdi:seat-outline',
+    emojiIcon: '✨',
     description: 'Čekárna pro preventivní kontroly a očkování',
+    detailedContent: `
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Čistý prostor pro zdravé děti</h3>
+      <p class="mb-4">Čekárna pro zdravé děti je určena pro preventivní prohlídky, očkování a kontroly zdravých dětí. Prostor je pečlivě udržován v hygienických standardech.</p>
+      <ul class="list-disc list-inside space-y-2 mb-4">
+        <li>Oddělený prostor bez kontaktu s nemocnými</li>
+        <li>Bezpečné a čisté prostředí</li>
+        <li>Hračky a knihy pro děti</li>
+        <li>Příjemná a relaxační atmosféra</li>
+      </ul>
+      <p class="text-sm text-gray-600"><strong>Tip:</strong> Objednávka online zrychluje proces a minimalizuje čekání.</p>
+    `,
     galleryId: 'cekarna-zdrave'
   },
   {
+    id: 'room-playroom',
     title: 'Dětská herna',
     icon: 'mdi:teddy-bear',
+    emojiIcon: '🧸',
     description: 'Prostor plný hraček a knih pro zábavu dětí během čekání',
+    detailedContent: `
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Kdo si hraje – nezlobí</h3>
+      <p class="mb-4">Hračky obnovujeme a snažíme se bezpečně děti zaujmout a zkrátit vždy nepříjemné čekání. Děti ke hře ale potřebují i Vás.</p>
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded mb-4">
+        <p class="text-gray-800"><strong>Objevujte jejich úhel pohledu, hrejte si, půjčte si u nás knížku a čtěte si.</strong> Mobily si rády v kabelce odpočinou, odpovědi na sms a maily počkají.</p>
+      </div>
+      <p class="mb-4 text-gray-700"><strong>I pošťák zvoní dvakrát.</strong> A ne – wi-fi nemáme.</p>
+      <h4 class="font-bold text-gray-900 mb-2">Vaše pomoc je cenná</h4>
+      <p class="mb-2">Sestřičkám pomůže, když hračky zlehka nasměrujete na původní místa. Děkujeme!</p>
+      <p class="text-gray-700 font-medium">Naučit děti uklízet a spontánně pomáhat je prima.</p>
+    `,
     galleryId: 'herna'
   }
 ];
@@ -96,7 +139,6 @@ function getGallery(id: GalleryId) {
   return galleries[id];
 }
 ---
-
 <div class="space-y-12">
   <!-- Intro -->
   <div class="max-w-3xl mx-auto text-center">
@@ -154,7 +196,7 @@ function getGallery(id: GalleryId) {
   </div>
 
   <!-- Waiting Rooms & Playroom -->
-  <div class="bg-linear-to-br from-blue-50 to-purple-50 rounded-2xl p-8 border-2 border-blue-100">
+  <div class="bg-linear-to-br from-blue-50 to-purple-50 rounded-2xl p-8 border-2 border-blue-100 mt-16">
     <div class="flex items-center gap-3 mb-6">
       <div class="bg-blue-600 w-12 h-12 rounded-xl flex items-center justify-center shadow-lg">
         <Icon name="mdi:door-open" class="w-6 h-6 text-white" />
@@ -168,40 +210,61 @@ function getGallery(id: GalleryId) {
         const hasImages = gallery.images.length > 0;
 
         return (
-          <div class="bg-white rounded-xl p-6 border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all">
+          <div
+            class="bg-white rounded-xl p-6 border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all cursor-pointer room-card"
+            data-modal-id={room.id}
+          >
             <div class="bg-linear-to-br from-blue-100 to-purple-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4 mx-auto">
-              <Icon name={room.icon} class="w-7 h-7 text-blue-600" />
+              <span class="text-3xl">{room.emojiIcon}</span>
             </div>
             <h4 class="text-lg font-bold text-gray-900 mb-2 text-center">{room.title}</h4>
             <p class="text-gray-600 text-sm text-center leading-relaxed mb-4">{room.description}</p>
 
-            {/* Gallery Button */}
-            <div class="flex justify-center">
-              <GalleryButton
-                galleryId={room.galleryId}
-                variant="secondary"
-                label="Zobrazit fotky"
-                imageCount={gallery.images.length}
-              />
+            {/* Bottom section with buttons */}
+            <div class="flex justify-center gap-2 flex-wrap">
+              <button
+                class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg text-sm modal-trigger"
+                data-modal-id={room.id}
+              >
+                Více info
+              </button>
+              {hasImages && (
+                <GalleryButton
+                  galleryId={room.galleryId}
+                  variant="secondary"
+                  label="Fotky"
+                  imageCount={gallery.images.length}
+                />
+              )}
             </div>
           </div>
         );
       })}
     </div>
+    </div>
   </div>
 
+  <!-- Modals for waiting rooms -->
+  {waitingRooms.map((room) => (
+    <RoomInfoModal
+      roomId={room.id}
+      title={room.title}
+      icon={room.emojiIcon}
+      shortDescription={room.description}
+      detailedContent={room.detailedContent}
+    />
+  ))}
+
   <!-- Info Note -->
-  <div class="bg-blue-600 text-white rounded-xl p-6 flex items-start gap-4">
+  <div class="bg-blue-600 text-white rounded-xl p-6 flex items-start gap-4 mt-8">
     <Icon name="mdi:information-outline" class="w-6 h-6 shrink-0 mt-1" />
     <div>
-      <p class="font-medium mb-1">Oddělené prostory pro maximální bezpečnost</p>
-      <p class="text-blue-100 text-sm">
-        Separace nemocných a zdravých dětí je klíčová pro prevenci šíření infekcí.
-        Při objednání na preventivní prohlídku či očkování se nemusíte obávat kontaktu s nemocnými pacienty.
+      <p class="font-medium mb-3">Oddělené prostory pro maximální bezpečnost</p>
+      <p class="text-blue-100 text-sm leading-relaxed">
+        Rozdělení nemocných a zdravých dětí je klíčové pro prevenci šíření infekcí. Snažíme se o dodržení tohoto principu již při samotném objednávání dětí. Lépe se pochopitelně daří dodržovat v teplých měsících roku, hůře při epidemiích respiračních nákaz. Stálá prosba – objednávejte se, prosím, vždy! Pomáháte tím nám, ale hlavně sobě. Dvě oddělené ordinace i čekárny jsou každopádně dalším velkým pomocníkem v separaci zdravých a nemocných dětí.
       </p>
     </div>
   </div>
-</div>
 
 <!-- Lightbox modals -->
 <Lightbox gallery={ordinaceNemocneGallery} />
@@ -209,3 +272,105 @@ function getGallery(id: GalleryId) {
 <Lightbox gallery={cekarnaNenocneGallery} />
 <Lightbox gallery={cekarnaZdraveGallery} />
 <Lightbox gallery={hernaGallery} />
+
+<!-- Global modal handlers -->
+<script is:inline>
+  // Use astro:page-load instead of DOMContentLoaded for View Transitions compatibility
+  function initializeRoomModals() {
+    console.log('Room modals: Initializing...');
+
+    // Generic function to open any modal by ID
+    function openModal(modalId) {
+      const modal = document.getElementById('modal-' + modalId);
+      if (modal) {
+        console.log('Opening modal:', modalId);
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      } else {
+        console.error('Modal not found:', 'modal-' + modalId);
+      }
+    }
+
+    // Generic function to close any modal by ID
+    function closeModal(modalId) {
+      const modal = document.getElementById('modal-' + modalId);
+      if (modal) {
+        console.log('Closing modal:', modalId);
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Handle clicks on room cards (whole card is clickable)
+    const roomCards = document.querySelectorAll('.room-card');
+    console.log('Found room cards:', roomCards.length);
+    roomCards.forEach(function(card) {
+      card.addEventListener('click', function(e) {
+        // Don't open modal if clicking on a button or link inside
+        if (e.target.closest('.modal-trigger') || e.target.closest('button') || e.target.closest('a')) {
+          return;
+        }
+        const modalId = card.getAttribute('data-modal-id');
+        if (modalId) {
+          openModal(modalId);
+        }
+      });
+    });
+
+    // Handle clicks on "Více info" buttons
+    const modalTriggers = document.querySelectorAll('.modal-trigger');
+    console.log('Found modal triggers:', modalTriggers.length);
+    modalTriggers.forEach(function(trigger) {
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent card click
+        const modalId = trigger.getAttribute('data-modal-id');
+        if (modalId) {
+          openModal(modalId);
+        }
+      });
+    });
+
+    // Handle clicks on close buttons inside modals
+    const closeButtons = document.querySelectorAll('.modal-close-btn');
+    console.log('Found close buttons:', closeButtons.length);
+    closeButtons.forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const modalId = btn.getAttribute('data-modal-id');
+        if (modalId) {
+          closeModal(modalId);
+        }
+      });
+    });
+
+    // Handle clicks on modal overlays (click outside to close)
+    const modals = document.querySelectorAll('[id^="modal-room-"]');
+    console.log('Found modals:', modals.length);
+    modals.forEach(function(modal) {
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          const modalId = modal.id.replace('modal-', '');
+          closeModal(modalId);
+        }
+      });
+    });
+
+    // Handle Escape key to close modals
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        modals.forEach(function(modal) {
+          if (modal.style.display !== 'none') {
+            const modalId = modal.id.replace('modal-', '');
+            closeModal(modalId);
+          }
+        });
+      }
+    });
+  }
+
+  // Initialize on first load
+  document.addEventListener('DOMContentLoaded', initializeRoomModals);
+
+  // Re-initialize after View Transitions navigation
+  document.addEventListener('astro:page-load', initializeRoomModals);
+</script>
