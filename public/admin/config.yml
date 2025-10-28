@@ -22,6 +22,21 @@ media_folder: "public/uploads"
 public_folder: "/uploads"
 
 # ============================================================================
+# SVELTIA CMS VYLEPŠENÍ
+# ============================================================================
+# Lepší media library s možností organizace a vyhledávání
+media_library:
+  name: native
+  config:
+    max_file_size: 5242880  # 5MB limit pro obrázky
+
+# Automatické ukládání konceptů
+save_strategy: drafts
+
+# Zobrazení cesty k souboru v editoru
+show_file_path: true
+
+# ============================================================================
 # KOLEKCE OBSAHU
 # ============================================================================
 collections:
@@ -363,6 +378,7 @@ collections:
             time_format: "HH:mm"
             format: "HH:mm"
             picker_utc: false
+            default: ""
 
           - label: "🕔 Upravená ordinační doba - DO (čas zavření)"
             name: "hoursTo"
@@ -372,6 +388,7 @@ collections:
             time_format: "HH:mm"
             format: "HH:mm"
             picker_utc: false
+            default: ""
             hint: "Vyplň OBA časy (OD i DO) nebo ŽÁDNÝ! DO musí být později než čas OD. Systém automaticky porovná s běžnými hodinami."
 
           # ---------------------------------------------------------------
