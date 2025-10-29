@@ -47,7 +47,7 @@ const newsCollection = defineCollection({
   }),
 });
 
-// Služby kolekce
+// Služby kolekce - s modulárními bloky obsahu
 const servicesCollection = defineCollection({
   type: "content",
   schema: z.object({
@@ -55,12 +55,71 @@ const servicesCollection = defineCollection({
     excerpt: z.string(),
     icon: z.string(),
     color: z.string(), // blue, cyan, purple, pink, green, orange, red, yellow, indigo, teal
-    features: z.array(z.string()),
     duration: z.string().optional(),
     price: z.string().optional(),
     showOnHomepage: z.boolean().default(false),
     order: z.number().default(999), // Pro řazení služeb
     published: z.boolean().default(true),
+    // Modulární bloky obsahu - doktor může skládat stránku z různých komponent
+    content_blocks: z
+      .array(
+        z.discriminatedUnion("type", [
+          // Textový blok - standardní markdown text
+          z.object({
+            type: z.literal("text"),
+            content: z.string(),
+          }),
+          // Seznam s ikonami - stejné jako původní features
+          z.object({
+            type: z.literal("features_list"),
+            heading: z.string(),
+            items: z.array(z.string()),
+          }),
+          // Tip box - zvýrazněný box s radou
+          z.object({
+            type: z.literal("tip_box"),
+            heading: z.string().optional(),
+            content: z.string(),
+            icon: z.string().optional(),
+          }),
+          // Varování box - výstražný box
+          z.object({
+            type: z.literal("warning_box"),
+            content: z.string(),
+          }),
+          // FAQ sekce - otázky a odpovědi
+          z.object({
+            type: z.literal("faq"),
+            heading: z.string().optional(),
+            items: z.array(
+              z.object({
+                question: z.string(),
+                answer: z.string(),
+              })
+            ),
+          }),
+          // Kroky/návod - numerovaný seznam kroků
+          z.object({
+            type: z.literal("steps"),
+            heading: z.string(),
+            steps: z.array(
+              z.object({
+                title: z.string(),
+                description: z.string(),
+              })
+            ),
+          }),
+          // Call to action box
+          z.object({
+            type: z.literal("cta_box"),
+            heading: z.string(),
+            description: z.string(),
+            buttonText: z.string().optional(),
+            buttonLink: z.string().optional(),
+          }),
+        ])
+      )
+      .optional(),
   }),
 });
 

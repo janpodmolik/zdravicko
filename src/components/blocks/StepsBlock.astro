@@ -1,0 +1,30 @@
+---
+interface Props {
+  heading: string;
+  steps: Array<{
+    title: string;
+    description: string;
+  }>;
+}
+
+const { heading, steps } = Astro.props;
+---
+
+<div class="mb-12">
+  <h3 class="text-2xl font-bold text-gray-900 mb-8">{heading}</h3>
+  <div class="space-y-6">
+    {steps.map((step, index) => (
+      <div class="flex gap-6">
+        <div class="shrink-0">
+          <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+            {index + 1}
+          </div>
+        </div>
+        <div class="flex-1">
+          <h4 class="text-xl font-bold text-gray-900 mb-2">{step.title}</h4>
+          <p class="text-gray-700 leading-relaxed">{step.description}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

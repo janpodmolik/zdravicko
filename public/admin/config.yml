@@ -28,7 +28,7 @@ public_folder: "/uploads"
 media_library:
   name: native
   config:
-    max_file_size: 5242880  # 5MB limit pro obrázky
+    max_file_size: 5242880 # 5MB limit pro obrázky
 
 # Automatické ukládání konceptů
 save_strategy: drafts
@@ -176,6 +176,7 @@ collections:
           - { label: "🏨 Nemocnice/Budova", value: "mdi:hospital-building" }
           - { label: "🚑 První pomoc", value: "mdi:medical-bag" }
           - { label: "✅ Kontrola/Zkouška", value: "mdi:shield-check" }
+          - { label: "⭐ Hvězda/Speciální", value: "mdi:star" }
 
       - label: "🎨 Barva služby"
         name: "color"
@@ -192,15 +193,6 @@ collections:
           - { label: "🟡 Žlutá - Prevence, informace", value: "yellow" }
           - { label: "🟣 Indigo - Speciální péče", value: "indigo" }
           - { label: "🔵 Tyrkysová - Diagnostika", value: "teal" }
-
-      - label: "✨ Co služba zahrnuje"
-        name: "features"
-        widget: "list"
-        hint: "Vypište jednotlivé body, co služba obsahuje (např. 'Měření výšky a váhy')"
-        field:
-          label: "Položka"
-          name: "feature"
-          widget: "string"
 
       - label: "⏱️ Doba trvání"
         name: "duration"
@@ -232,22 +224,142 @@ collections:
         default: true
         hint: "Vypni pro skrytí služby z webu"
 
-      - label: "📄 Popis služby"
-        name: "body"
-        widget: "markdown"
-        hint: "Podrobný popis služby - použij formátování níže"
-        buttons:
-          [
-            "bold",
-            "italic",
-            "link",
-            "heading-two",
-            "heading-three",
-            "quote",
-            "bulleted-list",
-            "numbered-list",
-          ]
-        editor_components: []
+      # NOVÉ: Modulární bloky obsahu
+      - label: "� Obsah služby (bloky)"
+        name: "content_blocks"
+        widget: "list"
+        required: false
+        hint: "Skládejte stránku z různých bloků - text, seznamy, tipy, FAQ atd. Přidávejte, odebírejte a přesouvejte bloky podle potřeby."
+        types:
+          # Textový blok
+          - label: "📝 Textový blok"
+            name: "text"
+            widget: "object"
+            summary: "📝 {{fields.content}}"
+            fields:
+              - label: "Text (HTML/Markdown)"
+                name: "content"
+                widget: "markdown"
+                hint: "Klasický text s formátováním - nadpisy, odstavce, seznamy, tučné písmo atd."
+
+          # Features list
+          - label: "✅ Seznam výhod"
+            name: "features_list"
+            widget: "object"
+            summary: "✅ {{fields.heading}}"
+            fields:
+              - label: "Nadpis"
+                name: "heading"
+                widget: "string"
+                hint: "Např. 'Co služba zahrnuje', 'Výhody', 'Co nabízíme'"
+              - label: "Položky"
+                name: "items"
+                widget: "list"
+                field:
+                  label: "Položka"
+                  name: "item"
+                  widget: "string"
+
+          # Tip box
+          - label: "💡 Tip / Rada"
+            name: "tip_box"
+            widget: "object"
+            summary: "💡 {{fields.heading}}"
+            fields:
+              - label: "Nadpis (nepovinný)"
+                name: "heading"
+                widget: "string"
+                required: false
+                hint: "Např. '💡 Tip pro rodiče'"
+              - label: "Text"
+                name: "content"
+                widget: "markdown"
+              - label: "Ikona"
+                name: "icon"
+                widget: "select"
+                required: false
+                default: "mdi:lightbulb-on"
+                options:
+                  - { label: "💡 Žárovka", value: "mdi:lightbulb-on" }
+                  - { label: "ℹ️ Info", value: "mdi:information" }
+                  - { label: "⭐ Hvězda", value: "mdi:star" }
+                  - { label: "🎯 Terč", value: "mdi:target" }
+
+          # Warning box
+          - label: "⚠️ Varování"
+            name: "warning_box"
+            widget: "object"
+            summary: "⚠️ Varování"
+            fields:
+              - label: "Text"
+                name: "content"
+                widget: "markdown"
+                hint: "Důležité upozornění nebo varování pro pacienty"
+
+          # FAQ
+          - label: "❓ FAQ sekce"
+            name: "faq"
+            widget: "object"
+            summary: "❓ {{fields.heading}}"
+            fields:
+              - label: "Nadpis (nepovinný)"
+                name: "heading"
+                widget: "string"
+                required: false
+                default: "Často kladené otázky"
+              - label: "Otázky a odpovědi"
+                name: "items"
+                widget: "list"
+                fields:
+                  - label: "Otázka"
+                    name: "question"
+                    widget: "string"
+                  - label: "Odpověď"
+                    name: "answer"
+                    widget: "markdown"
+
+          # Kroky
+          - label: "🔢 Kroky / Návod"
+            name: "steps"
+            widget: "object"
+            summary: "🔢 {{fields.heading}}"
+            fields:
+              - label: "Nadpis"
+                name: "heading"
+                widget: "string"
+                hint: "Např. 'Jak probíhá vyšetření', 'Postup krok za krokem'"
+              - label: "Kroky"
+                name: "steps"
+                widget: "list"
+                fields:
+                  - label: "Název kroku"
+                    name: "title"
+                    widget: "string"
+                  - label: "Popis"
+                    name: "description"
+                    widget: "text"
+
+          # CTA Box
+          - label: "📢 Výzva k akci (CTA)"
+            name: "cta_box"
+            widget: "object"
+            summary: "📢 {{fields.heading}}"
+            fields:
+              - label: "Nadpis"
+                name: "heading"
+                widget: "string"
+              - label: "Popis"
+                name: "description"
+                widget: "text"
+              - label: "Text tlačítka (nepovinné)"
+                name: "buttonText"
+                widget: "string"
+                required: false
+              - label: "Odkaz tlačítka (nepovinné)"
+                name: "buttonLink"
+                widget: "string"
+                required: false
+                hint: "Např. '/kontakt' nebo '/ordinacni-hodiny'"
 
   # ============================================================================
   # AKTUALITY

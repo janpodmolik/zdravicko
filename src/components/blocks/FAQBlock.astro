@@ -1,0 +1,40 @@
+---
+import { marked } from 'marked';
+
+interface Props {
+  heading?: string;
+  items: Array<{
+    question: string;
+    answer: string;
+  }>;
+}
+
+const { heading, items } = Astro.props;
+---
+
+<div class="mb-12">
+  {heading && (
+    <h3 class="text-2xl font-bold text-gray-900 mb-6">{heading}</h3>
+  )}
+  <div class="space-y-4">
+    {items.map((item) => {
+      // Parse markdown v odpovědi
+      const isHtml = item.answer.includes('<p>') || item.answer.includes('<h2>');
+      const htmlAnswer = isHtml ? item.answer : marked.parse(item.answer);
+      
+      return (
+        <details class="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-gray-300 transition-colors group">
+          <summary class="font-bold text-gray-900 cursor-pointer list-none flex items-center justify-between">
+            <span class="text-lg">{item.question}</span>
+            <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <div class="mt-4 prose prose-gray max-w-none text-gray-700">
+            <Fragment set:html={htmlAnswer} />
+          </div>
+        </details>
+      );
+    })}
+  </div>
+</div>

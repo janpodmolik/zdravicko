@@ -1,0 +1,38 @@
+---
+interface Props {
+  heading: string;
+  description: string;
+  buttonText?: string;
+  buttonLink?: string;
+  color?: string;
+}
+
+const { heading, description, buttonText, buttonLink, color = 'blue' } = Astro.props;
+
+const colorClasses: Record<string, { gradient: string; button: string }> = {
+  blue: { gradient: 'from-blue-50 via-blue-50 to-blue-100', button: 'bg-blue-600 hover:bg-blue-700' },
+  purple: { gradient: 'from-purple-50 via-pink-50 to-purple-100', button: 'bg-purple-600 hover:bg-purple-700' },
+  pink: { gradient: 'from-pink-50 via-pink-50 to-pink-100', button: 'bg-pink-600 hover:bg-pink-700' },
+  green: { gradient: 'from-green-50 via-emerald-50 to-green-100', button: 'bg-green-600 hover:bg-green-700' },
+  cyan: { gradient: 'from-cyan-50 via-cyan-50 to-cyan-100', button: 'bg-cyan-600 hover:bg-cyan-700' },
+  orange: { gradient: 'from-orange-50 via-amber-50 to-orange-100', button: 'bg-orange-600 hover:bg-orange-700' },
+};
+
+const colors = colorClasses[color] || colorClasses.blue;
+---
+
+<div class={`bg-linear-to-br ${colors.gradient} rounded-2xl p-8 text-center mb-8`}>
+  <h3 class="text-2xl font-bold text-gray-900 mb-4">{heading}</h3>
+  <p class="text-gray-700 mb-6 text-lg">{description}</p>
+  {buttonText && buttonLink && (
+    <a
+      href={buttonLink}
+      class={`inline-flex items-center gap-2 ${colors.button} text-white px-6 py-3 rounded-lg font-semibold transition-colors`}
+    >
+      {buttonText}
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </a>
+  )}
+</div>

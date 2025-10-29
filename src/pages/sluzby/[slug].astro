@@ -9,6 +9,15 @@ import { Icon } from 'astro-icon/components';
 import { getCollection } from 'astro:content';
 import type { ServiceColor } from '../../data/services';
 
+// Import bloků
+import TextBlock from '../../components/blocks/TextBlock.astro';
+import FeaturesListBlock from '../../components/blocks/FeaturesListBlock.astro';
+import TipBoxBlock from '../../components/blocks/TipBoxBlock.astro';
+import WarningBoxBlock from '../../components/blocks/WarningBoxBlock.astro';
+import FAQBlock from '../../components/blocks/FAQBlock.astro';
+import StepsBlock from '../../components/blocks/StepsBlock.astro';
+import CTABoxBlock from '../../components/blocks/CTABoxBlock.astro';
+
 export async function getStaticPaths() {
   const services = await getCollection('services', ({ data }) => {
     return data.published !== false;
@@ -21,7 +30,6 @@ export async function getStaticPaths() {
 }
 
 const { service } = Astro.props;
-const { Content } = await service.render();
 const colors = colorClasses[service.data.color as ServiceColor];
 
 // Načíst ostatní služby pro doporučené služby
@@ -90,24 +98,57 @@ const otherServices = allServices
     <section class="py-10 md:py-16 bg-white">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
-          <div class="prose prose-lg max-w-none mb-8 md:mb-12">
-            <Content />
-          </div>
 
-          <!-- Features -->
-          <div class="bg-gray-50 rounded-2xl p-8 mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Co zahrnuje služba</h2>
-            <div class="grid md:grid-cols-2 gap-4">
-              {service.data.features.map((feature: string) => (
-                <div class="flex items-start gap-3">
-                  <Icon name="mdi:check-circle" class={`w-6 h-6 ${colors.text} shrink-0 mt-0.5`} />
-                  <span class="text-gray-700">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <!-- Modulární bloky obsahu -->
+          {service.data.content_blocks && service.data.content_blocks.map((block: any) => {
+            switch (block.type) {
+              case 'text':
+                return <TextBlock content={block.content} />;
 
-          <!-- CTA -->
+              case 'features_list':
+                return <FeaturesListBlock
+                  heading={block.heading}
+                  items={block.items}
+                  color={service.data.color}
+                />;
+
+              case 'tip_box':
+                return <TipBoxBlock
+                  heading={block.heading}
+                  content={block.content}
+                  icon={block.icon}
+                />;
+
+              case 'warning_box':
+                return <WarningBoxBlock content={block.content} />;
+
+              case 'faq':
+                return <FAQBlock
+                  heading={block.heading}
+                  items={block.items}
+                />;
+
+              case 'steps':
+                return <StepsBlock
+                  heading={block.heading}
+                  steps={block.steps}
+                />;
+
+              case 'cta_box':
+                return <CTABoxBlock
+                  heading={block.heading}
+                  description={block.description}
+                  buttonText={block.buttonText}
+                  buttonLink={block.buttonLink}
+                  color={service.data.color}
+                />;
+
+              default:
+                return null;
+            }
+          })}
+
+          <!-- Default CTA na konci -->
           <div class={`bg-linear-to-br ${colors.gradient} rounded-2xl p-8 text-center`}>
             <h2 class="text-2xl font-bold text-gray-900 mb-4">
               Chcete se objednat?

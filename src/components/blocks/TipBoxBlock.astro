@@ -1,0 +1,32 @@
+---
+import { Icon } from 'astro-icon/components';
+import { marked } from 'marked';
+
+interface Props {
+  heading?: string;
+  content: string;
+  icon?: string;
+}
+
+const { heading, content, icon = 'mdi:lightbulb' } = Astro.props;
+
+// Parse markdown pokud není HTML
+const isHtml = content.includes('<p>') || content.includes('<h2>');
+const htmlContent = isHtml ? content : marked.parse(content);
+---
+
+<div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-6 mb-8">
+  <div class="flex items-start gap-4">
+    <div class="shrink-0">
+      <Icon name={icon} class="w-6 h-6 text-blue-600" />
+    </div>
+    <div class="flex-1">
+      {heading && (
+        <h4 class="text-lg font-bold text-blue-900 mb-2">{heading}</h4>
+      )}
+      <div class="prose prose-blue max-w-none text-blue-800">
+        <Fragment set:html={htmlContent} />
+      </div>
+    </div>
+  </div>
+</div>

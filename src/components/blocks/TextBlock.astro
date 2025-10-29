@@ -1,0 +1,18 @@
+---
+import { marked } from 'marked';
+
+interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+
+// Pokud obsah vypadá jako HTML (obsahuje <p>, <h2> atd.), použij ho přímo
+// Jinak ho zpracuj jako markdown
+const isHtml = content.includes('<p>') || content.includes('<h2>') || content.includes('<div>');
+const htmlContent = isHtml ? content : marked.parse(content);
+---
+
+<div class="prose prose-lg max-w-none mb-8">
+  <Fragment set:html={htmlContent} />
+</div>
