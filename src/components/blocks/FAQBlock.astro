@@ -21,7 +21,7 @@ const { heading, items } = Astro.props;
       // Parse markdown v odpovědi
       const isHtml = item.answer.includes('<p>') || item.answer.includes('<h2>');
       const htmlAnswer = isHtml ? item.answer : marked.parse(item.answer);
-      
+
       return (
         <details class="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-gray-300 transition-colors group">
           <summary class="font-bold text-gray-900 cursor-pointer list-none flex items-center justify-between">

@@ -21,11 +21,10 @@ const services = allServices
     title: service.data.title,
     slug: service.slug,
     excerpt: service.data.excerpt,
-    description: service.data.excerpt, // Pro kompatibilitu
     icon: service.data.icon,
     color: service.data.color as ServiceColor,
-    features: service.data.features,
-    showOnHomepage: service.data.showOnHomepage,
+    duration: service.data.duration,
+    price: service.data.price,
   }));
 ---
 

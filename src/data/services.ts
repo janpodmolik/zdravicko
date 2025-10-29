@@ -26,10 +26,8 @@ export interface Service {
   title: string;
   slug: string;
   excerpt: string;
-  description: string;
   icon: string;
   color: ServiceColor;
-  features: string[];
   duration?: string;
   price?: string;
   showOnHomepage?: boolean;

@@ -3,8 +3,8 @@ title: Ukázková služba - Showcase
 excerpt: Kompletní ukázka všech dostupných bloků a komponent pro editaci služeb
 icon: mdi:star
 color: purple
-duration: ''
-price: ''
+duration: ""
+price: ""
 showOnHomepage: false
 order: 999
 published: true
@@ -24,7 +24,7 @@ content_blocks:
       - Doporučení pro domácí péči
       - Návazná kontrola po měsíci
   - type: text
-    content: '## **Jak probíhá vyšetření**'
+    content: "## **Jak probíhá vyšetření**"
   - type: text
     content: Každé vyšetření začíná podrobnou anamnézou a rozhovorem s rodiči. Následuje fyzické vyšetření dítěte a případná diagnostika.
   - type: steps
@@ -89,4 +89,3 @@ content_blocks:
       - Spolupráce s předními specialisty
       - Pravidelné vzdělávání v nových metodách
 ---
-
