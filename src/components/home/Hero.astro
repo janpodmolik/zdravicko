@@ -2,23 +2,96 @@
 // Hero section component
 ---
 
-<section class="bg-linear-to-br from-blue-50 via-cyan-50 to-blue-100 py-12 md:py-20">
-  <div class="container mx-auto px-4">
+<section class="relative overflow-hidden py-12 md:py-20 hero-with-hearts">
+  <div class="container mx-auto px-4 relative z-10">
     <div class="max-w-4xl mx-auto text-center">
-      <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6">
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 text-shadow-lg" style="opacity: 0.95;">
         Péče o vaše děti s láskou a profesionalitou
       </h1>
-      <p class="text-base md:text-xl text-gray-600 mb-6 md:mb-8">
-        Moderní dětská ordinace v ❤️ města. Poskytujeme komplexní zdravotní péči pro děti od narození.
+      <p class="text-base md:text-xl text-white/85 mb-6 md:mb-8 text-shadow">
+        Moderní dětská ordinace v 🩵 města. Poskytujeme komplexní zdravotní péči pro děti od narození.
       </p>
       <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-        <a href="/o-nas" class="bg-white text-blue-600 px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-base md:text-lg border-2 border-blue-600">
+        <a href="/o-nas" class="bg-white/90 backdrop-blur-sm text-[#5085c6] px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-white transition-colors text-base md:text-lg border-2 border-white/80">
           Více o nás
         </a>
-        <a href="/kontakt" class="bg-blue-600 text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-base md:text-lg">
+        <a href="/kontakt" class="bg-white/20 backdrop-blur-sm text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-white/30 transition-colors text-base md:text-lg border-2 border-white/50">
           Kontakt
         </a>
       </div>
     </div>
   </div>
+
+  <!-- Floating hearts background -->
+  <div class="hearts-container">
+    <div class="heart heart-1">♡</div>
+    <div class="heart heart-2">♡</div>
+    <div class="heart heart-3">♡</div>
+    <div class="heart heart-4">♡</div>
+    <div class="heart heart-5">♡</div>
+    <div class="heart heart-6">♡</div>
+    <div class="heart heart-7">♡</div>
+    <div class="heart heart-8">♡</div>
+    <div class="heart heart-9">♡</div>
+    <div class="heart heart-10">♡</div>
+  </div>
 </section>
+
+<style>
+  .hero-with-hearts {
+    background: linear-gradient(135deg, #3a6fa8 0%, #5085c6 25%, #6ba3e0 50%, #5085c6 75%, #4070b0 100%);
+    position: relative;
+  }
+
+  .hearts-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.5);
+    animation: float 15s infinite ease-in-out;
+    pointer-events: none;
+  }
+
+  .heart-1 { left: 10%; top: 20%; animation-delay: -2s; font-size: 3rem; }
+  .heart-2 { left: 85%; top: 15%; animation-delay: -5s; font-size: 2.5rem; }
+  .heart-3 { left: 25%; top: 70%; animation-delay: -8s; font-size: 2rem; }
+  .heart-4 { left: 70%; top: 60%; animation-delay: -11s; font-size: 3.5rem; }
+  .heart-5 { left: 50%; top: 30%; animation-delay: -14s; font-size: 2rem; }
+  .heart-6 { left: 15%; top: 45%; animation-delay: -3s; font-size: 2.5rem; }
+  .heart-7 { left: 90%; top: 75%; animation-delay: -7s; font-size: 2rem; }
+  .heart-8 { left: 40%; top: 80%; animation-delay: -10s; font-size: 3rem; }
+  .heart-9 { left: 60%; top: 10%; animation-delay: -13s; font-size: 2.5rem; }
+  .heart-10 { left: 30%; top: 50%; animation-delay: -6s; font-size: 2rem; }
+
+  @keyframes float {
+    0% {
+      transform: translate(0, 0);
+      opacity: 0.5;
+    }
+    25% {
+      transform: translate(20px, -30px);
+      opacity: 0.65;
+    }
+    50% {
+      transform: translate(-15px, -50px);
+      opacity: 0.8;
+    }
+    75% {
+      transform: translate(25px, -35px);
+      opacity: 0.65;
+    }
+    100% {
+      transform: translate(0, 0);
+      opacity: 0.5;
+    }
+  }
+</style>
