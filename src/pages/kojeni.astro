@@ -7,6 +7,7 @@ import CTAButtons from '../components/common/CTAButtons.astro';
 import ValueCard from '../components/cards/ValueCard.astro';
 import FeatureCard from '../components/cards/FeatureCard.astro';
 import InfoBox from '../components/common/InfoBox.astro';
+import PageHeader from '../components/common/PageHeader.astro';
 import { Icon } from 'astro-icon/components';
 
 // TypeScript interfaces pro čistotu kódu
@@ -174,37 +175,17 @@ const SEO = {
     </div>
   </section>
 
-  <!-- Hero sekce s důležitými informacemi -->
-  <section class="py-16 md:py-24 bg-linear-to-br from-pink-50 via-rose-50 to-pink-100">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="inline-flex items-center gap-2 bg-pink-100 text-pink-800 px-6 py-3 rounded-full mb-8 font-semibold">
-          <Icon name="mdi:star" class="w-5 h-5" />
-          Certifikovaní laktační poradci
-        </div>
-
-        <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
-          Kojení není jen výživa.<br class="hidden md:inline" />
-          Je to láska, která se dá změřit.
-        </h2>
-
-        <p class="text-xl text-gray-700 mb-8 leading-relaxed">
-          V dnešní uspěchané době se na kojení často zapomíná nebo je považováno za něco "zastaralého".
-          Přitom je to <strong class="text-pink-700">nejcennější dar</strong>, který můžete svému dítěti dát.
-          Naši lékaři jsou všichni <strong class="text-pink-700">proškolení laktační poradci</strong> a
-          pomohou vám s kojením od prvního přiložení až po přirozené ukončení.
-        </p>
-
-        <a
-          href="/kontakt"
-          class="inline-flex items-center gap-2 bg-linear-to-r from-pink-600 to-rose-600 text-white px-8 py-4 rounded-xl hover:from-pink-700 hover:to-rose-700 transition-all shadow-lg hover:shadow-xl font-semibold text-lg"
-        >
-          <Icon name="mdi:calendar-check" class="w-6 h-6" />
-          Objednat konzultaci
-        </a>
-      </div>
-    </div>
-  </section>
+  <!-- Hero sekce s animovaným pozadím -->
+  <PageHeader
+    title="Kojení není jen výživa. Je to láska, která se dá změřit."
+    description="V dnešní uspěchané době se na kojení často zapomíná nebo je považováno za něco zastaralého. Přitom je to nejcennější dar, který můžete svému dítěti dát. Naši lékaři jsou všichni proškolení laktační poradci a pomohou vám s kojením od prvního přiložení až po přirozené ukončení."
+    variant="pink"
+    animated={true}
+    badge={{
+      icon: 'mdi:star',
+      text: 'Certifikovaní laktační poradci'
+    }}
+  />
 
   <!-- Proč je kojení důležité -->
   <section class="py-16 md:py-20 bg-white">

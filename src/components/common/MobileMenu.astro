@@ -10,9 +10,9 @@ interface Props {
 const { activePage = 'home' } = Astro.props;
 
 const colorStyles = {
-  blue: {
-    active: 'text-blue-600 bg-blue-50 font-semibold',
-    inactive: 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+  orange: {
+    active: 'text-orange-600 bg-orange-50 font-semibold',
+    inactive: 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'
   },
   pink: {
     active: 'text-pink-600 bg-pink-50 font-semibold',
@@ -27,12 +27,9 @@ const colorStyles = {
   <div class="flex flex-col h-full">
     <div class="flex items-center justify-between p-6 border-b border-gray-200">
       <div class="flex items-center gap-2">
-        <div class="w-8 h-8 bg-linear-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
-          <span class="text-white text-lg font-bold">Z</span>
-        </div>
-        <span class="text-xl font-bold text-gray-900">Zdravíčko</span>
+        <img src="/logo.png" alt="Zdravíčko" class="h-8" />
       </div>
-      <button id="mobile-menu-close" class="text-gray-600 hover:text-blue-600 p-2" aria-label="Zavřít menu">
+      <button id="mobile-menu-close" class="text-gray-600 hover:text-orange-600 p-2" aria-label="Zavřít menu">
         <Icon name="mdi:close" class="w-6 h-6" />
       </button>
     </div>
@@ -40,7 +37,7 @@ const colorStyles = {
     <nav class="flex-1 overflow-y-auto p-6">
       <div class="flex flex-col gap-2">
         {navItems.map(item => {
-          const color = item.color || 'blue';
+          const color = item.color || 'orange';
           const isActive = item.page === activePage;
           const styles = colorStyles[color];
 
@@ -60,7 +57,7 @@ const colorStyles = {
     </nav>
 
     <div class="p-6 border-t border-gray-200">
-      <a href={`tel:${contactInfo.phones.doctor.number}`} class="block bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 transition-colors text-center font-semibold">
+      <a href={`tel:${contactInfo.phones.doctor.number}`} class="block bg-orange-600 text-white px-6 py-4 rounded-lg hover:bg-orange-700 transition-colors text-center font-semibold">
         <Icon name="mdi:phone" class="w-5 h-5 inline-block mr-2" />
         Zavolat
       </a>
