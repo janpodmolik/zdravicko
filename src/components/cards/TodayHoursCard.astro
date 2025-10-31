@@ -11,6 +11,12 @@ import { getNoticeColors } from '../../utils/noticeColors';
 
 const todayInfo = getTodayOpeningHours();
 const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
+const displayHours = todayInfo.hours ?? "Zavřeno";
+const hoursClass = todayInfo.isModified
+  ? colors?.text ?? "text-blue-600"
+  : todayInfo.isClosed
+    ? "text-gray-600"
+    : "text-blue-600";
 ---
 
 <div class:list={[
@@ -39,12 +45,12 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
   </div>
 
   <!-- Hodiny (pokud existují) -->
-  {todayInfo.hours && (
+  {(todayInfo.hours || todayInfo.isClosed) && (
     <div class:list={[
       "text-3xl font-bold mb-2",
-      todayInfo.isModified ? colors?.text : "text-blue-600"
+      hoursClass
     ]}>
-      {todayInfo.hours}
+      {displayHours}
     </div>
   )}
 

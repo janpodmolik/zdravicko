@@ -2,7 +2,6 @@
 import { Icon } from 'astro-icon/components';
 import {
   getWeekScheduleWithNotices,
-  formatDateForDay,
   NOTICE_TYPE_CLASSES,
   type WeekDaySchedule,
   type NoticeType
@@ -24,6 +23,7 @@ const weekSchedule = getWeekScheduleWithNotices();
  * Vrátí CSS třídy pro zobrazení ordinačních hodin podle stavu dne
  */
 function getHourClass(schedule: WeekDaySchedule): string {
+  if (schedule.isWeekend && schedule.isClosed) return 'text-gray-500';
   if (schedule.isClosed) return 'text-red-600';
   if (schedule.isToday) return 'text-blue-700';
 
@@ -59,9 +59,9 @@ function getChangeBadgeClass(noticeType?: NoticeType): string {
               {schedule.isToday && (
                 <span class="ml-2 text-xs bg-blue-600 text-white px-2 py-1 rounded-full">Dnes</span>
               )}
-              {schedule.isModified && !schedule.isToday && schedule.dayOfWeek > 0 && (
-                <span class:list={['ml-2 text-xs', getChangeBadgeClass(schedule.noticeType)]}>
-                  {formatDateForDay(schedule.dayOfWeek)} - Změna
+              {schedule.noticeBadgeLabel && schedule.noticeType && (
+                <span class:list={['ml-2 text-xs text-white px-2 py-1 rounded-full', NOTICE_TYPE_CLASSES[schedule.noticeType].background]}>
+                  {schedule.noticeBadgeLabel}
                 </span>
               )}
             </span>
@@ -72,7 +72,7 @@ function getChangeBadgeClass(noticeType?: NoticeType): string {
               {schedule.actualHours || 'Zavřeno'}
             </span>
 
-            {schedule.isModified && schedule.regularHours && schedule.regularHours !== schedule.actualHours && (
+            {schedule.changedFromRegular && schedule.regularHours && (
               <span class="text-sm ml-2 text-gray-600 line-through">
                 {schedule.regularHours}
               </span>

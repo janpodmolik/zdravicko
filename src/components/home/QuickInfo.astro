@@ -36,11 +36,13 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
             <h3 class="font-bold text-sm text-gray-900 leading-tight mb-0.5">
               {todayInfo.title}
             </h3>
-            {todayInfo.hours && (
+            {(todayInfo.hours || todayInfo.isClosed) && (
               <p class:list={[
                 "text-xs font-medium",
                 colors ? `${colors.text} font-bold` : "text-gray-600"
-              ]}>{todayInfo.hours}</p>
+              ]}>
+                {todayInfo.hours ?? 'Zavřeno'}
+              </p>
             )}
           </div>
         </div>
