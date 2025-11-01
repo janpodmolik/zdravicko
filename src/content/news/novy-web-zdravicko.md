@@ -5,9 +5,9 @@ icon: mdi:web
 date: 2025-10-28
 published: true
 ---
-To, že nám stránky "sežral" virus, jste si asi všimli již všichni.. Mrzí nás, že provizorium trvalo déle, nicméně máme velkou radost, že Vám konečně můžeme představit nový web naší ordinace❤️ 
+To, že nám stránky "sežral" virus, jste si asi všimli všichni.. Mrzí nás, že provizorium trvalo déle, nicméně máme velkou radost, že Vám konečně můžeme představit nový web naší ordinace❤️ 
 
-Web je vytvořený s láskou, nese rukopis Zdravíčka a moc doufáme, že bude pro Vás jednoduchý a přehledný. Najdete zde vše důležité informace i zajímavosti. Vždy zde bude aktuální pracovní doba ordinace. A těšit se můžete například na blogové články psané naší paní doktorkou Janou🥰
+Web je vytvořený s láskou, nese rukopis Zdravíčka a moc doufáme, že bude pro Vás jednoduchý a přehledný. Najdete zde všechny důležité informace i zajímavosti. Vždy zde bude aktuální pracovní doba ordinace. A těšit se můžete například na blogové články psané naší paní doktorkou Janou🥰
 
 Budeme rádi za vaši zpětnou vazbu – pokud něco chybí nebo máte náměty na vylepšení, dejte nám vědět!
 
