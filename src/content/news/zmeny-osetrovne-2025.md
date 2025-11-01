@@ -5,7 +5,6 @@ icon: mdi:file-document-check
 date: 2025-10-27
 published: true
 ---
-
 **Od 1. ledna 2025 došlo k důležitým změnám v systému ošetřovného na dítě. Celý proces je nyní plně digitalizován a jednodušší pro všechny zúčastněné.**
 
 ## Co se změnilo?
@@ -24,19 +23,10 @@ Jako lékařská ordinace nyní posíláme **rozhodnutí o potřebě péče elek
 
 ### 3. Co musí udělat rodiče?
 
-1. **Návštěva ordinace** - Přijďte s nemocným dítětem na vyšetření
-2. **Elektronické rozhodnutí** - My jako ordinace pošleme rozhodnutí o potřebě péče elektronicky na ČSSZ
-3. **Podání žádosti** - Vy si pak elektronicky podáte žádost svému zaměstnavateli (přes portál ČSSZ nebo přímo zaměstnavateli)
+Stačí zavolat našim sestřičkám na telefonní číslo +420 603 290 939 a domluvíme další postup. Ošetřovné lze začínat i ukončovat pouze pracovním dnem ordinace (PO-PÁ), nelze víkendem. Pokud si jako rodič přejete i započítat víkend, ozvěte se v pondělí a OČR se ukončí pondělkem (nevadí, že jdete již v dané pondělí do práce).
 
-### 4. Výhody nového systému
-
-- ⚡ **Rychlejší zpracování** - Vše probíhá online
-- 📱 **Pohodlné** - Žádné papírování, vše z domova
-- ✅ **Jednodušší** - Méně administrativy pro rodiče
-- 🔒 **Bezpečné** - Elektronická komunikace je šifrovaná
+Do SMS nebo e-mailu (dle Vašeho přání) Vám přijde identifikátor OČR, tento identifikátor následně přepošlete svému zaměstnavateli.
 
 ## Máte otázky?
 
-Pokud máte jakékoliv dotazy týkající se nového systému ošetřovného, neváhejte se na nás obrátit během návštěvy ordinace nebo telefonicky. Rádi vám celý proces vysvětlíme.
-
-**Důležité:** Nezapomeňte si po naší elektronické zprávě sami podat žádost svému zaměstnavateli nebo přes portál ČSSZ!
+Pokud máte jakékoliv dotazy týkající se nového systému ošetřovného, neváhejte se na nás obrátit během návštěvy ordinace nebo telefonicky. Rádi Vám celý proces vysvětlíme.
