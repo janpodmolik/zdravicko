@@ -1,4 +1,5 @@
 ---
+import logoSrc from '../../assets/logo.png';
 // No props needed - footer is the same everywhere
 ---
 
@@ -6,7 +7,7 @@
   <div class="container mx-auto px-4">
     <div class="max-w-4xl mx-auto text-center">
       <div class="flex items-center justify-center gap-2 mb-4">
-        <img src="/logo.png" alt="Zdravíčko" class="h-8" />
+        <img src={logoSrc.src} alt="Zdravíčko" class="h-8" />
       </div>
       <p class="mb-6">Dětská ordinace s láskou a profesionalitou</p>
       <div class="border-t border-gray-800 pt-6">

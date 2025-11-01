@@ -17,7 +17,7 @@ export interface NavItem {
   href: string;
   label: string;
   page: PageId;
-  color?: "orange" | "pink"; // Default orange if not specified
+  color?: "blue" | "pink"; // Default blue if not specified
 }
 
 export const navItems: NavItem[] = [

@@ -119,11 +119,15 @@ function normalizeTimeValue(time: string): string {
   const parsedHours = Number.parseInt(normalizedHours, 10);
   const minutePart = normalizedMinutes.padStart(2, "0");
 
-  return `${Number.isNaN(parsedHours) ? normalizedHours : parsedHours}:${minutePart}`;
+  return `${
+    Number.isNaN(parsedHours) ? normalizedHours : parsedHours
+  }:${minutePart}`;
 }
 
 function buildHoursRange(hoursFrom: string, hoursTo: string): string {
-  return `${normalizeTimeValue(hoursFrom)} ${HOURS_SEPARATOR} ${normalizeTimeValue(hoursTo)}`;
+  return `${normalizeTimeValue(
+    hoursFrom
+  )} ${HOURS_SEPARATOR} ${normalizeTimeValue(hoursTo)}`;
 }
 
 /**
@@ -141,7 +145,9 @@ function formatHoursRange(hoursFrom?: string, hoursTo?: string): string | null {
 function normalizeHoursRangeValue(range: string | null): string | null {
   if (!range) return null;
 
-  const [fromRaw, toRaw] = range.split(HOURS_SEPARATOR).map((part) => part.trim());
+  const [fromRaw, toRaw] = range
+    .split(HOURS_SEPARATOR)
+    .map((part) => part.trim());
   if (!fromRaw || !toRaw) {
     return range.trim();
   }
@@ -153,11 +159,7 @@ function areHoursEqual(hours1: string | null, hours2: string | null): boolean {
   return normalizeHoursRangeValue(hours1) === normalizeHoursRangeValue(hours2);
 }
 
-function isDateInRange(
-  date: Date,
-  fromStr?: string,
-  toStr?: string
-): boolean {
+function isDateInRange(date: Date, fromStr?: string, toStr?: string): boolean {
   if (!fromStr && !toStr) return true; // Žádné datum = platí vždy
 
   if (fromStr) {
@@ -215,7 +217,9 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
  * Vrátí ordinační hodiny pro konkrétní den v týdnu (0 = neděle, 6 = sobota)
  * Používá se pro zobrazení týdenního rozvrhu
  */
-export function getOpeningHoursForDay(dayOfWeek: DayOfWeekValue): string | null {
+export function getOpeningHoursForDay(
+  dayOfWeek: DayOfWeekValue
+): string | null {
   return openingHoursByDay[dayOfWeek];
 }
 
@@ -366,7 +370,9 @@ export function getWeekScheduleWithNotices(): WeekDaySchedule[] {
       : resolution.finalHours;
     const changedFromRegular = !resolution.matchesRegularHours;
     const noticeBadgeLabel =
-      resolution.isModified && !isToday ? formatShortDate(targetDate) : undefined;
+      resolution.isModified && !isToday
+        ? formatShortDate(targetDate)
+        : undefined;
 
     return {
       dayOfWeek,

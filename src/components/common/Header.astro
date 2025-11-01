@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import { contactInfo } from '../../data/contact';
 import { navItems, type PageId } from '../../data/navigation';
+import logoSrc from '../../assets/logo.png';
 
 interface Props {
   activePage?: PageId;
@@ -10,9 +11,9 @@ interface Props {
 const { activePage = 'home' } = Astro.props;
 
 const colorStyles = {
-  orange: {
-    active: 'text-orange-600 font-semibold',
-    inactive: 'text-gray-600 hover:text-orange-600'
+  blue: {
+    active: 'text-red-600 font-semibold',
+    inactive: 'text-gray-700 hover:text-blue-600'
   },
   pink: {
     active: 'text-pink-600 font-semibold',
@@ -25,12 +26,12 @@ const colorStyles = {
   <nav class="container mx-auto px-4 py-4">
     <div class="flex items-center justify-between">
       <a href="/" class="flex items-center gap-2">
-        <img src="/logo.png" alt="Zdravíčko" class="h-10 md:h-12" />
+        <img src={logoSrc.src} alt="Zdravíčko" class="h-10 md:h-12" />
       </a>
 
       <div class="hidden lg:flex gap-6">
         {navItems.map(item => {
-          const color = item.color || 'orange';
+          const color = item.color || 'blue';
           const isActive = item.page === activePage;
           const styles = colorStyles[color];
 
@@ -48,11 +49,11 @@ const colorStyles = {
         })}
       </div>
 
-      <a href={`tel:${contactInfo.phones.doctor.number}`} class="hidden lg:block bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition-colors">
+      <a href={`tel:${contactInfo.phones.doctor.number}`} class="hidden lg:block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
         Zavolat
       </a>
 
-      <button id="mobile-menu-button" class="lg:hidden text-gray-600 hover:text-orange-600 p-3 -mr-3" aria-label="Otevřít menu">
+      <button id="mobile-menu-button" class="lg:hidden text-gray-600 hover:text-blue-600 p-3 -mr-3" aria-label="Otevřít menu">
         <Icon name="mdi:menu" class="w-7 h-7" />
       </button>
     </div>
