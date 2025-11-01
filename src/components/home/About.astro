@@ -61,14 +61,15 @@ const ARROW_ICON = 'mdi:arrow-right';
         <a
           href="/o-nas"
           class:list={[
-            'inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold',
-            'bg-blue-600 text-white hover:bg-blue-700 transition-colors',
+            'inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold',
+            'text-white transition-colors',
             'shadow-lg hover:shadow-xl text-sm md:text-base'
           ]}
+          style="background-color: #4678b8;"
+          onmouseover="this.style.backgroundColor='#3a66a0'"
+          onmouseout="this.style.backgroundColor='#4678b8'"
         >
-          <Icon name={INFO_ICON} class="w-4 h-4 md:w-5 md:h-5" />
           Více o nás
-          <Icon name={ARROW_ICON} class="w-4 h-4 md:w-5 md:h-5" />
         </a>
         <p class="text-xs md:text-sm text-gray-500 mt-3 md:mt-4">
           Poznejte náš tým, historii ordinace a naše hodnoty

@@ -86,10 +86,12 @@ function getChangeBadgeClass(noticeType?: NoticeType): string {
       <div class="mt-6 text-center">
         <a
           href="/ordinacni-hodiny"
-          class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+          class="inline-flex items-center justify-center px-6 py-3 text-white font-semibold rounded-lg transition-colors"
+          style="background-color: #4678b8;"
+          onmouseover="this.style.backgroundColor='#3a66a0'"
+          onmouseout="this.style.backgroundColor='#4678b8'"
         >
           Celý rozvrh a kontakty
-          <Icon name="mdi:arrow-right" class="w-5 h-5" />
         </a>
       </div>
     )}

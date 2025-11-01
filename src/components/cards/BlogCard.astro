@@ -30,8 +30,10 @@ const isCarousel = variant === 'carousel';
 <a
   href={`/blog/${post.slug}`}
   class:list={[
-    'block bg-white rounded-xl shadow-sm hover:shadow-xl transition-shadow group',
-    isCarousel ? 'flex-none w-[280px] md:w-[340px] snap-start' : 'border border-gray-100'
+    'block rounded-xl shadow-sm hover:shadow-xl transition-shadow group',
+    isCarousel
+      ? 'flex-none w-[280px] md:w-[340px] snap-start bg-white/60 backdrop-blur-sm'
+      : 'bg-white border border-gray-100'
   ]}
 >
   <article>

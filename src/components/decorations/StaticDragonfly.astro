@@ -48,24 +48,22 @@ const positionStyle = [
   top !== undefined ? `top: ${top}%;` : '',
   bottom !== undefined ? `bottom: ${bottom}%;` : '',
 ].filter(Boolean).join(' ');
-
-// Transform s flipem pokud je vpravo
-const transformStyle = `transform: rotate(${rotation}deg)${isOnRight ? ' scaleX(-1)' : ''};`;
 ---
 
 <img
   src={dragonflyImage.src}
   alt=""
-  class="dragonfly-decoration absolute pointer-events-none"
+  class="dragonfly-decoration absolute pointer-events-none animate-float"
   style={`
     ${positionStyle}
     width: ${sizeMobile};
     height: ${sizeMobile};
     opacity: ${opacity};
-    ${transformStyle}
     z-index: ${zIndex};
     aspect-ratio: 1;
     object-fit: contain;
+    --rotation: ${rotation}deg;
+    --flip: ${isOnRight ? '-1' : '1'};
   `}
 />
 
@@ -76,11 +74,35 @@ const transformStyle = `transform: rotate(${rotation}deg)${isOnRight ? ' scaleX(
       height: var(--size-desktop, 128px) !important;
     }
   }
+
+  .animate-float {
+    animation: floatDragonfly 20s infinite ease-in-out;
+    animation-delay: calc(var(--float-delay, 0) * 1s);
+  }
+
+  @keyframes floatDragonfly {
+    0% {
+      transform: translate(0, 0) rotate(var(--rotation, 0deg)) scaleX(var(--flip, 1));
+    }
+    25% {
+      transform: translate(15px, -10px) rotate(calc(var(--rotation, 0deg) + 3deg)) scaleX(var(--flip, 1));
+    }
+    50% {
+      transform: translate(-10px, -20px) rotate(calc(var(--rotation, 0deg) - 3deg)) scaleX(var(--flip, 1));
+    }
+    75% {
+      transform: translate(20px, -15px) rotate(calc(var(--rotation, 0deg) + 2deg)) scaleX(var(--flip, 1));
+    }
+    100% {
+      transform: translate(0, 0) rotate(var(--rotation, 0deg)) scaleX(var(--flip, 1));
+    }
+  }
 </style>
 
 <script define:vars={{ size }}>
   // Nastavit CSS proměnnou pro desktop velikost
-  document.querySelectorAll('.dragonfly-decoration').forEach(el => {
+  document.querySelectorAll('.dragonfly-decoration').forEach((el, index) => {
     el.style.setProperty('--size-desktop', size);
+    el.style.setProperty('--float-delay', (index * -3).toString());
   });
 </script>

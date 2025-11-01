@@ -1,0 +1,48 @@
+---
+/**
+ * Dekorace stojící ovečky s jemným stínem pod sebou.
+ * Pozice a velikost lze upravit pomocí Tailwind tříd předaných přes props.
+ */
+import standingSheepImage from '../../assets/standing-sheep.png';
+
+interface Props {
+  /** Tailwind třídy pro absolutní pozicování (např. 'right-0 bottom-0') */
+  positionClass?: string;
+  /** Tailwind třída s šířkou pro mobilní breakpoint */
+  widthClass?: string;
+  /** Tailwind třída s šířkou pro MD breakpoint */
+  widthMdClass?: string;
+  /** Tailwind třídy pro okraj/margin */
+  marginClass?: string;
+  /** Volitelná hodnota z-indexu (default 20) */
+  zIndex?: number;
+}
+
+const {
+  positionClass = 'right-0 bottom-0',
+  widthClass = 'w-[120px]',
+  widthMdClass = 'md:w-[180px]',
+  marginClass = 'mr-4 md:mr-8',
+  zIndex = 20,
+}: Props = Astro.props;
+
+const containerClasses = [
+  'absolute',
+  positionClass,
+  widthClass,
+  widthMdClass,
+  marginClass,
+].join(' ');
+---
+
+<div class={containerClasses} aria-hidden="true" style={`z-index: ${zIndex};`}>
+  <div class="relative w-full pointer-events-none select-none">
+    <img
+      src={standingSheepImage.src}
+      alt=""
+      class="block w-full h-auto"
+      style="object-fit: contain;"
+      loading="lazy"
+    />
+  </div>
+</div>

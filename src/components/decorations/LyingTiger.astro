@@ -1,0 +1,34 @@
+---
+/**
+ * Dekorace ležícího tygra umístěná pod sekcí s aktualitami.
+ * Základní rozložení lze přizpůsobit pomocí Tailwind tříd předaných přes props.
+ */
+import lyingTigerImage from '../../assets/lying-tiger.png';
+
+interface Props {
+  /** Tailwind třídy pro vnější kontejner */
+  containerClass?: string;
+  /** Tailwind třídy pro wrapper obrázku */
+  imageWrapperClass?: string;
+  /** Z-index (default 5) */
+  zIndex?: number;
+}
+
+const {
+  containerClass = 'w-full flex justify-center -mt-16 md:-mt-20 pb-6 md:pb-8 px-4 relative',
+  imageWrapperClass = 'w-full md:w-1/2',
+  zIndex = 5,
+}: Props = Astro.props;
+---
+
+<div class={containerClass} style={`z-index: ${zIndex};`} aria-hidden="true">
+  <div class={imageWrapperClass}>
+    <img
+      src={lyingTigerImage.src}
+      alt="Ležící tygr"
+      class="w-full h-auto"
+      style="object-fit: contain;"
+      loading="lazy"
+    />
+  </div>
+</div>
