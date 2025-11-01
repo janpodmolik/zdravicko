@@ -14,6 +14,8 @@ import OpeningHours from '../components/home/OpeningHours.astro';
 import Contact from '../components/home/Contact.astro';
 import Footer from '../components/common/Footer.astro';
 import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
+import LyingTiger from '../components/decorations/LyingTiger.astro';
+import StandingSheep from '../components/decorations/StandingSheep.astro';
 
 import { getTodayOpeningHours } from '../utils/openingHours';
 import { getPublishedNews, getPublishedBlogPosts } from '../utils/contentHelpers';
@@ -52,33 +54,41 @@ const homepageServices = allServices
   <SpecialNotice />
 
   <!-- Aktuality Carousel s vážkami -->
-  <div class="relative">
-    <StaticDragonfly left={5} top={8} size="112px" sizeMobile="80px" opacity={0.15} rotation={-5} />
-    <StaticDragonfly right={10} top={20} size="96px" sizeMobile="64px" opacity={0.12} rotation={8} />
+  <div class="relative bg-gray-50">
     {latestNews.length > 0 && (
-      <HorizontalCarousel
-        id="aktuality"
-        title="Aktuality"
-        description="Aktuální informace z naší ordinace"
-        ctaText="Všechny aktuality"
-        ctaLink="/aktuality"
-        bgColor="gray"
-      >
-        {latestNews.map(news => (
-          <NewsCard news={news} />
-        ))}
-      </HorizontalCarousel>
+      <div>
+        <HorizontalCarousel
+          id="aktuality"
+          title="Aktuality"
+          ctaText="Všechny aktuality"
+          ctaLink="/aktuality"
+          bgColor="gray"
+        >
+          <StaticDragonfly slot="background" left={5} top={8} size="112px" sizeMobile="80px" opacity={1} rotation={-5} zIndex={5} />
+          <StaticDragonfly slot="background" right={10} top={20} size="96px" sizeMobile="64px" opacity={1} rotation={8} zIndex={5} />
+          {latestNews.map(news => (
+            <NewsCard news={news} />
+          ))}
+        </HorizontalCarousel>
+        <LyingTiger />
+      </div>
     )}
   </div>
 
-  <!-- Služby Carousel s vážkami -->
-  <div class="relative">
-    <StaticDragonfly left={8} bottom={12} size="104px" sizeMobile="72px" opacity={0.18} rotation={-10} />
-    <StaticDragonfly right={5} bottom={10} size="128px" sizeMobile="88px" opacity={0.2} rotation={-15} />
+  <!-- Služby Carousel s ovečkou -->
+  <div class="relative pb-12 md:pb-16">
+    <StaticDragonfly left={8} bottom={12} size="104px" sizeMobile="72px" opacity={1} rotation={-10} zIndex={5} />
+    <!-- Standing sheep on the right -->
+    <StandingSheep
+      positionClass="right-3 sm:right-6 md:right-8 bottom-0"
+      widthClass="w-[110px] sm:w-[140px]"
+      widthMdClass="md:w-[220px]"
+      marginClass="mr-1 sm:mr-4 md:mr-6"
+      zIndex={30}
+    />
     <HorizontalCarousel
       id="sluzby"
       title="Naše služby"
-      description="Poskytujeme kompletní péči pro vaše děti"
       ctaText="Všechny služby"
       ctaLink="/sluzby"
       bgColor="white"
@@ -97,13 +107,12 @@ const homepageServices = allServices
 
   <!-- Blog Carousel s vážkami -->
   <div class="relative">
-    <StaticDragonfly left={6} top={16} size="88px" sizeMobile="64px" opacity={0.13} rotation={-8} />
-    <StaticDragonfly right={8} top={12} size="96px" sizeMobile="72px" opacity={0.15} rotation={10} />
+    <StaticDragonfly left={6} top={16} size="88px" sizeMobile="64px" opacity={1} rotation={-8} zIndex={5} />
+    <StaticDragonfly right={8} top={12} size="96px" sizeMobile="72px" opacity={1} rotation={10} zIndex={5} />
     {latestBlogPosts.length > 0 && (
       <HorizontalCarousel
         id="blog"
         title="Z našeho blogu"
-        description="Užitečné rady a informace pro rodiče"
         ctaText="Všechny články"
         ctaLink="/blog"
         bgColor="gray"
@@ -117,22 +126,22 @@ const homepageServices = allServices
 
   <!-- About sekce s vážkami -->
   <div class="relative">
-    <StaticDragonfly left={4} bottom={8} size="120px" sizeMobile="80px" opacity={0.2} rotation={-15} />
-    <StaticDragonfly right={12} top={16} size="104px" sizeMobile="72px" opacity={0.16} rotation={12} />
+    <StaticDragonfly left={4} bottom={8} size="120px" sizeMobile="80px" opacity={1} rotation={-15} zIndex={5} />
+    <StaticDragonfly right={12} top={16} size="104px" sizeMobile="72px" opacity={1} rotation={12} zIndex={5} />
     <About />
   </div>
 
   <!-- Ordinační hodiny s vážkami -->
   <div class="relative">
-    <StaticDragonfly left={10} top={18} size="92px" sizeMobile="68px" opacity={0.14} rotation={-12} />
-    <StaticDragonfly right={6} top={12} size="112px" sizeMobile="80px" opacity={0.15} rotation={20} />
+    <StaticDragonfly left={10} top={18} size="92px" sizeMobile="68px" opacity={1} rotation={-12} zIndex={5} />
+    <StaticDragonfly right={6} top={12} size="112px" sizeMobile="80px" opacity={1} rotation={20} zIndex={5} />
     <OpeningHours />
   </div>
 
   <!-- Kontakt s vážkami -->
   <div class="relative">
-    <StaticDragonfly left={8} bottom={16} size="96px" sizeMobile="72px" opacity={0.2} rotation={-10} />
-    <StaticDragonfly right={15} bottom={20} size="108px" sizeMobile="76px" opacity={0.18} rotation={15} />
+    <StaticDragonfly left={8} bottom={16} size="96px" sizeMobile="72px" opacity={1} rotation={-10} zIndex={5} />
+    <StaticDragonfly right={15} bottom={20} size="108px" sizeMobile="76px" opacity={1} rotation={15} zIndex={5} />
     <Contact />
   </div>
 
