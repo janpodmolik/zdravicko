@@ -6,11 +6,19 @@
  * Barvy se mění podle typu oznámení (warning, urgent, info).
  */
 import { Icon } from 'astro-icon/components';
-import { getTodayOpeningHours } from '../../utils/openingHours';
+import ClosureNoticeCard from '../common/ClosureNoticeCard.astro';
+import { getTodayOpeningHours, getSpecialNoticeDisplay } from '../../utils/openingHours';
 import { getNoticeColors } from '../../utils/noticeColors';
 
 const todayInfo = getTodayOpeningHours();
+const specialNoticeDisplay = getSpecialNoticeDisplay();
+const closureInfo = specialNoticeDisplay.isClosed ? specialNoticeDisplay.closureInfo : null;
 const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
+const closureAccent = {
+  border: colors?.border ?? "border-blue-100",
+  icon: colors?.icon ?? "bg-linear-to-br from-blue-500 to-blue-600",
+  text: colors?.text ?? "text-blue-700",
+};
 const displayHours = todayInfo.hours ?? "Zavřeno";
 const hoursClass = todayInfo.isModified
   ? colors?.text ?? "text-blue-600"
@@ -70,4 +78,14 @@ const hoursClass = todayInfo.isModified
       </p>
     </div>
   )}
+
 </div>
+
+{closureInfo && (
+  <div class:list={[
+    "mt-4 p-5 rounded-xl border bg-white shadow-sm",
+    colors ? `${colors.border} ${colors.bg}` : "border-blue-100"
+  ]}>
+    <ClosureNoticeCard info={closureInfo} accent={closureAccent} />
+  </div>
+)}

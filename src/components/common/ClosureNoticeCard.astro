@@ -1,0 +1,92 @@
+---
+import type { SpecialNoticeClosureInfo } from '../../utils/openingHours';
+import { Icon } from 'astro-icon/components';
+
+interface AccentClasses {
+  border?: string;
+  icon?: string;
+  text?: string;
+}
+
+interface Props {
+  info: SpecialNoticeClosureInfo;
+  accent?: AccentClasses;
+}
+
+const {
+  info,
+  accent = {},
+} = Astro.props;
+
+const borderClass = accent.border ?? "border-blue-100";
+const iconClass =
+  accent.icon ?? "bg-linear-to-br from-blue-500 to-blue-600";
+const textClass = accent.text ?? "text-blue-700";
+---
+
+<p class="text-sm md:text-base text-gray-700 leading-relaxed mb-3">
+  {info.introText}{' '}
+  <strong class="text-gray-900">{info.doctorName}</strong>.
+</p>
+
+<div class="space-y-2">
+  <a
+    href={info.mapUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class:list={[
+      "group flex items-center gap-3 p-3 bg-white rounded-lg border transition-all hover:shadow-md",
+      borderClass,
+    ]}
+  >
+    <div class:list={[
+      "w-10 h-10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform",
+      iconClass,
+    ]}>
+      <Icon name="mdi:map-marker" class="w-5 h-5 text-white" aria-hidden="true" />
+    </div>
+
+    <div class="min-w-0">
+      <p class:list={[
+        "font-semibold text-sm md:text-base",
+        textClass,
+      ]}>
+        {info.addressLabel}
+      </p>
+      <p class="text-xs md:text-sm text-gray-600">
+        Otevřít mapu
+      </p>
+    </div>
+
+    <Icon name="mdi:arrow-top-right" class="w-4 h-4 text-gray-400 ml-auto" aria-hidden="true" />
+  </a>
+
+  <a
+    href={info.phoneHref}
+    class:list={[
+      "group flex items-center gap-3 p-3 bg-white rounded-lg border transition-all hover:shadow-md",
+      borderClass,
+    ]}
+  >
+    <div class:list={[
+      "w-10 h-10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform",
+      iconClass,
+    ]}>
+      <Icon name="mdi:phone" class="w-5 h-5 text-white" aria-hidden="true" />
+    </div>
+
+    <div class="min-w-0">
+      <p class:list={[
+        "font-semibold text-sm md:text-base",
+        textClass,
+      ]}>
+        {info.phoneDisplay}
+      </p>
+      <p class="text-xs md:text-sm text-gray-600">
+        {info.phoneNote}
+      </p>
+    </div>
+
+    <Icon name="mdi:arrow-right" class="w-4 h-4 text-gray-400 ml-auto" aria-hidden="true" />
+  </a>
+</div>

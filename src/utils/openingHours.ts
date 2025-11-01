@@ -1,4 +1,5 @@
 import specialNoticeData from "../data/special-notice.json";
+import specialNoticeClosure from "../data/closureNotice";
 
 // ============================================================================
 // TYPY A KONSTANTY
@@ -189,6 +190,17 @@ export interface SpecialNoticeDisplay {
   shouldDisplay: boolean;
   displayHours: string | null;
   isClosed: boolean;
+  closureInfo?: SpecialNoticeClosureInfo;
+}
+
+export interface SpecialNoticeClosureInfo {
+  doctorName: string;
+  addressLabel: string;
+  mapUrl: string;
+  phoneDisplay: string;
+  phoneHref: string;
+  introText: string;
+  phoneNote: string;
 }
 
 /**
@@ -204,6 +216,7 @@ export function getSpecialNoticeDisplay(): SpecialNoticeDisplay {
       shouldDisplay: false,
       displayHours: null,
       isClosed: false,
+      closureInfo: undefined,
     };
   }
 
@@ -213,6 +226,7 @@ export function getSpecialNoticeDisplay(): SpecialNoticeDisplay {
       shouldDisplay: true,
       displayHours: "Zavřeno",
       isClosed: true,
+      closureInfo: specialNoticeClosure,
     };
   }
 
@@ -221,6 +235,7 @@ export function getSpecialNoticeDisplay(): SpecialNoticeDisplay {
     shouldDisplay: true,
     displayHours: formatHoursRange(notice.hoursFrom, notice.hoursTo),
     isClosed: false,
+    closureInfo: undefined,
   };
 }
 

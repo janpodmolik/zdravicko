@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import ClosureNoticeCard from '../common/ClosureNoticeCard.astro';
 import { getSpecialNoticeDisplay } from '../../utils/openingHours';
 import { getSpecialNoticeVisualConfig } from '../../utils/noticeColors';
 
@@ -7,9 +8,16 @@ const {
   notice: specialNotice,
   shouldDisplay,
   displayHours,
+  isClosed,
+  closureInfo,
 } = getSpecialNoticeDisplay();
 
 const config = getSpecialNoticeVisualConfig(specialNotice?.type);
+const closureAccent = {
+  border: config.border,
+  icon: `bg-linear-to-br ${config.iconGradient}`,
+  text: config.badgeText,
+};
 ---
 
 {shouldDisplay && specialNotice && (
@@ -33,6 +41,11 @@ const config = getSpecialNoticeVisualConfig(specialNotice?.type);
               <div class={`inline-flex items-center gap-2 ${config.badgeText} ${config.badgeBg} px-3 py-1.5 rounded-lg text-sm ${specialNotice.message ? 'mt-3' : ''}`}>
                 <Icon name="mdi:clock-outline" class="w-4 h-4" />
                 <span class="font-semibold">{displayHours}</span>
+              </div>
+            )}
+            {isClosed && closureInfo && (
+              <div class={`mt-4 md:mt-5 p-4 rounded-xl border ${config.border} bg-white/80`}>
+                <ClosureNoticeCard info={closureInfo} accent={closureAccent} />
               </div>
             )}
           </div>
