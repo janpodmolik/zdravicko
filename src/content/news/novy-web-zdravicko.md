@@ -1,15 +1,14 @@
 ---
-title: "Nový web Zdravíčka je tady! 🎉"
-color: "blue"
-icon: "mdi:web"
+title: Nový web Zdravíčka je tady! 🎉
+color: blue
+icon: mdi:web
 date: 2025-10-28
 published: true
 ---
+To, že nám stránky "sežral" virus, jste si asi všimli již všichni.. Mrzí nás, že provizorium trvalo déle, nicméně máme velkou radost, že Vám konečně můžeme představit nový web naší ordinace❤️ 
 
-Máme radost, že vám můžeme představit **nový web naší ordinace**! 
+Web je vytvořený s láskou, nese rukopis Zdravíčka a moc doufáme, že bude pro Vás jednoduchý a přehledný. Najdete zde vše důležité informace i zajímavosti. Vždy zde bude aktuální pracovní doba ordinace. A těšit se můžete například na blogové články psané naší paní doktorkou Janou🥰
 
-Po nedávném bezpečnostním incidentu na našem předchozím serveru jsme se rozhodli vytvořit zcela nový web, který vám bude lépe sloužit. Najdete zde všechny důležité informace o naší ordinaci, službách, ordinačních hodinách i možnost objednání.
+Budeme rádi za vaši zpětnou vazbu – pokud něco chybí nebo máte náměty na vylepšení, dejte nám vědět!
 
-Budeme rádi za **vaši zpětnou vazbu** – pokud něco chybí nebo máte náměty na vylepšení, dejte nám vědět!
-
-Děkujeme za vaši přízeň a těšíme se na viděnou v ordinaci! 💙
+Děkujeme za Vaši přízeň a těšíme se na viděnou v ordinaci!
