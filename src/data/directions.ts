@@ -21,8 +21,9 @@ export const directions: Direction[] = [
     description: "Zastávka nejbližší MHD je 3 minuty chůze od ordinace.",
   },
   {
-    icon: "mdi:wheelchair-accessibility",
-    title: "Bezbariérový přístup",
-    description: "Ordinace je plně přístupná pro handicapované osoby.",
+    icon: "mdi:home-heart",
+    title: "Přátelské prostředí",
+    description:
+      "Klidná, barevná ordinace speciálně upravená pro děti a jejich rodiče.",
   },
 ];
