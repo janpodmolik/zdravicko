@@ -13,8 +13,16 @@ import { Icon } from 'astro-icon/components';
 import { contactInfo } from '../data/contact';
 import { directions } from '../data/directions';
 import { getTodayOpeningHours } from '../utils/openingHours';
+import { getNoticeColors } from '../utils/noticeColors';
 
 const todayInfo = getTodayOpeningHours();
+const noticeColors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
+const displayHours = todayInfo.hours ?? "Zavřeno";
+const hoursClass = todayInfo.isModified
+  ? noticeColors?.text ?? "text-gray-800"
+  : todayInfo.isClosed
+    ? "text-red-600"
+    : "text-gray-800";
 
 // Google Maps URL pro adresu
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactInfo.address.full)}`;
@@ -78,16 +86,12 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
                   title={todayInfo.title}
                   href="/ordinacni-hodiny"
                 >
-                  {todayInfo.hours ? (
-                    <p class:list={[
-                      "font-medium text-base",
-                      todayInfo.isModified ? "text-amber-700" : "text-gray-800"
-                    ]}>
-                      {todayInfo.hours}
-                    </p>
-                  ) : (
-                    <p class="text-red-600 font-medium text-base">Zavřeno</p>
-                  )}
+                  <p class:list={[
+                    "font-medium text-base",
+                    hoursClass
+                  ]}>
+                    {displayHours}
+                  </p>
                   <p class="text-blue-600 text-sm font-medium inline-flex items-center gap-1 mt-2 hover:text-blue-700">
                     Celý rozvrh
                     <Icon name="mdi:arrow-right" class="w-4 h-4" />

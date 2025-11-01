@@ -11,6 +11,15 @@ export interface NoticeColorScheme {
   infoBannerBorder: string;
 }
 
+export interface SpecialNoticeVisualConfig {
+  gradient: string;
+  border: string;
+  iconGradient: string;
+  iconName: string;
+  badgeBg: string;
+  badgeText: string;
+}
+
 /**
  * Vrací kompletní barevné schéma pro daný typ oznámení
  * Používá se hlavně pro QuickInfo komponentu a hero sekce
@@ -51,4 +60,39 @@ export function getNoticeColors(type?: NoticeType): NoticeColorScheme {
       infoBannerBorder: "border-blue-500",
     };
   }
+}
+
+export function getSpecialNoticeVisualConfig(
+  type?: NoticeType
+): SpecialNoticeVisualConfig {
+  if (!type || type === "warning") {
+    return {
+      gradient: "from-amber-50 to-orange-50",
+      border: "border-amber-300",
+      iconGradient: "from-amber-500 to-orange-500",
+      iconName: "mdi:alert-circle",
+      badgeBg: "bg-amber-50",
+      badgeText: "text-amber-700",
+    };
+  }
+
+  if (type === "urgent") {
+    return {
+      gradient: "from-red-50 to-pink-50",
+      border: "border-red-300",
+      iconGradient: "from-red-500 to-pink-500",
+      iconName: "mdi:alert-octagon",
+      badgeBg: "bg-red-50",
+      badgeText: "text-red-700",
+    };
+  }
+
+  return {
+    gradient: "from-blue-50 to-cyan-50",
+    border: "border-blue-300",
+    iconGradient: "from-blue-500 to-cyan-500",
+    iconName: "mdi:information",
+    badgeBg: "bg-blue-50",
+    badgeText: "text-blue-700",
+  };
 }

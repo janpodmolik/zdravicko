@@ -1,73 +1,15 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { getActiveSpecialNotice } from '../../utils/openingHours';
+import { getSpecialNoticeDisplay } from '../../utils/openingHours';
+import { getSpecialNoticeVisualConfig } from '../../utils/noticeColors';
 
-// Použijeme centralizovanou funkci pro kontrolu platnosti
-const specialNotice = getActiveSpecialNotice();
+const {
+  notice: specialNotice,
+  shouldDisplay,
+  displayHours,
+} = getSpecialNoticeDisplay();
 
-// Zobrazíme pouze pokud existuje aktivní oznámení
-const shouldDisplay = specialNotice !== null;
-
-/**
- * Helper pro formátování časového rozsahu
- * Zkombinuje hoursFrom a hoursTo do standardního formátu "HH:MM - HH:MM"
- */
-const formatHoursRange = (hoursFrom?: string, hoursTo?: string): string | null => {
-  if (!hoursFrom || !hoursTo) return null;
-
-  // Normalizace formátu (7:30 → 7:30, 07:30 → 7:30)
-  const normalizeTime = (time: string): string => {
-    const [hours, minutes] = time.split(":");
-    return `${parseInt(hours, 10)}:${minutes.padStart(2, "0")}`;
-  };
-
-  return `${normalizeTime(hoursFrom)} - ${normalizeTime(hoursTo)}`;
-};
-
-// Helper pro získání hodin k zobrazení
-const getDisplayHours = () => {
-  if (!specialNotice) return null;
-
-  // Pokud je zavřeno, zobraz "Zavřeno"
-  if (specialNotice.closed) {
-    return "Zavřeno";
-  }
-
-  // Jinak zobraz upravené hodiny, pokud existují
-  return formatHoursRange(specialNotice.hoursFrom, specialNotice.hoursTo);
-};
-
-const displayHours = getDisplayHours();
-
-// Konfigurace podle typu oznámení
-const typeConfig = {
-  warning: {
-    gradient: 'from-amber-50 to-orange-50',
-    border: 'border-amber-300',
-    iconBg: 'from-amber-500 to-orange-500',
-    icon: 'mdi:alert-circle',
-    badgeBg: 'bg-amber-50',
-    badgeText: 'text-amber-700'
-  },
-  info: {
-    gradient: 'from-blue-50 to-cyan-50',
-    border: 'border-blue-300',
-    iconBg: 'from-blue-500 to-cyan-500',
-    icon: 'mdi:information',
-    badgeBg: 'bg-blue-50',
-    badgeText: 'text-blue-700'
-  },
-  urgent: {
-    gradient: 'from-red-50 to-pink-50',
-    border: 'border-red-300',
-    iconBg: 'from-red-500 to-pink-500',
-    icon: 'mdi:alert-octagon',
-    badgeBg: 'bg-red-50',
-    badgeText: 'text-red-700'
-  }
-};
-
-const config = specialNotice ? (typeConfig[specialNotice.type as keyof typeof typeConfig] || typeConfig.warning) : typeConfig.warning;
+const config = getSpecialNoticeVisualConfig(specialNotice?.type);
 ---
 
 {shouldDisplay && specialNotice && (
@@ -75,8 +17,8 @@ const config = specialNotice ? (typeConfig[specialNotice.type as keyof typeof ty
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
         <div class={`bg-white rounded-2xl shadow-lg border-2 ${config.border} p-5 md:p-6 relative`}>
-          <div class={`absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-linear-to-br ${config.iconBg} rounded-lg flex items-center justify-center opacity-80`}>
-            <Icon name={config.icon} class="w-6 h-6 md:w-7 md:h-7 text-white" />
+          <div class={`absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-linear-to-br ${config.iconGradient} rounded-lg flex items-center justify-center opacity-80`}>
+            <Icon name={config.iconName} class="w-6 h-6 md:w-7 md:h-7 text-white" />
           </div>
           <div class="pr-14 md:pr-16">
             <h3 class="font-bold text-lg md:text-xl text-gray-900 mb-2">

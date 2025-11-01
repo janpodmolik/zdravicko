@@ -184,6 +184,46 @@ export function getActiveSpecialNotice(): SpecialNotice | null {
   return getSpecialNoticeForDate(new Date());
 }
 
+export interface SpecialNoticeDisplay {
+  notice: SpecialNotice | null;
+  shouldDisplay: boolean;
+  displayHours: string | null;
+  isClosed: boolean;
+}
+
+/**
+ * Vrátí předzpracovaná data pro komponenty zobrazující speciální oznámení.
+ * Konsoliduje logiku kolem zavřených dnů a formátu času.
+ */
+export function getSpecialNoticeDisplay(): SpecialNoticeDisplay {
+  const notice = getActiveSpecialNotice();
+
+  if (!notice) {
+    return {
+      notice: null,
+      shouldDisplay: false,
+      displayHours: null,
+      isClosed: false,
+    };
+  }
+
+  if (notice.closed) {
+    return {
+      notice,
+      shouldDisplay: true,
+      displayHours: "Zavřeno",
+      isClosed: true,
+    };
+  }
+
+  return {
+    notice,
+    shouldDisplay: true,
+    displayHours: formatHoursRange(notice.hoursFrom, notice.hoursTo),
+    isClosed: false,
+  };
+}
+
 /**
  * Získá informace o dnešních ordinačních hodinách
  * Logika (v pořadí priority):
