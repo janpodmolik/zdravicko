@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/common/Header.astro';
 import MobileMenu from '../components/common/MobileMenu.astro';
-import Hero from '../components/home/Hero.astro';
+import HeroWithDragonflies from '../components/home/HeroWithDragonflies.astro';
 import QuickInfo from '../components/home/QuickInfo.astro';
 import SpecialNotice from '../components/home/SpecialNotice.astro';
 import About from '../components/home/About.astro';
@@ -13,6 +13,7 @@ import NewsCard from '../components/cards/NewsCard.astro';
 import OpeningHours from '../components/home/OpeningHours.astro';
 import Contact from '../components/home/Contact.astro';
 import Footer from '../components/common/Footer.astro';
+import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
 
 import { getTodayOpeningHours } from '../utils/openingHours';
 import { getPublishedNews, getPublishedBlogPosts } from '../utils/contentHelpers';
@@ -45,66 +46,95 @@ const homepageServices = allServices
   <Header activePage="home" />
   <MobileMenu activePage="home" />
 
-  <Hero />
+  <HeroWithDragonflies />
   <QuickInfo todayInfo={todayInfo} />
 
   <SpecialNotice />
 
-  <!-- Aktuality Carousel -->
-  {latestNews.length > 0 && (
+  <!-- Aktuality Carousel s vážkami -->
+  <div class="relative">
+    <StaticDragonfly left={5} top={8} size="112px" sizeMobile="80px" opacity={0.15} rotation={-5} />
+    <StaticDragonfly right={10} top={20} size="96px" sizeMobile="64px" opacity={0.12} rotation={8} />
+    {latestNews.length > 0 && (
+      <HorizontalCarousel
+        id="aktuality"
+        title="Aktuality"
+        description="Aktuální informace z naší ordinace"
+        ctaText="Všechny aktuality"
+        ctaLink="/aktuality"
+        bgColor="gray"
+      >
+        {latestNews.map(news => (
+          <NewsCard news={news} />
+        ))}
+      </HorizontalCarousel>
+    )}
+  </div>
+
+  <!-- Služby Carousel s vážkami -->
+  <div class="relative">
+    <StaticDragonfly left={8} bottom={12} size="104px" sizeMobile="72px" opacity={0.18} rotation={-10} />
+    <StaticDragonfly right={5} bottom={10} size="128px" sizeMobile="88px" opacity={0.2} rotation={-15} />
     <HorizontalCarousel
-      id="aktuality"
-      title="Aktuality"
-      description="Aktuální informace z naší ordinace"
-      ctaText="Všechny aktuality"
-      ctaLink="/aktuality"
-      bgColor="gray"
+      id="sluzby"
+      title="Naše služby"
+      description="Poskytujeme kompletní péči pro vaše děti"
+      ctaText="Všechny služby"
+      ctaLink="/sluzby"
+      bgColor="white"
     >
-      {latestNews.map(news => (
-        <NewsCard news={news} />
+      {homepageServices.map(service => (
+        <ServiceCard
+          icon={service.icon}
+          title={service.title}
+          description={service.excerpt}
+          href={`/sluzby/${service.slug}`}
+          color={service.color}
+        />
       ))}
     </HorizontalCarousel>
-  )}
+  </div>
 
-  <!-- Služby Carousel -->
-  <HorizontalCarousel
-    id="sluzby"
-    title="Naše služby"
-    description="Poskytujeme kompletní péči pro vaše děti"
-    ctaText="Všechny služby"
-    ctaLink="/sluzby"
-    bgColor="white"
-  >
-    {homepageServices.map(service => (
-      <ServiceCard
-        icon={service.icon}
-        title={service.title}
-        description={service.excerpt}
-        href={`/sluzby/${service.slug}`}
-        color={service.color}
-      />
-    ))}
-  </HorizontalCarousel>
+  <!-- Blog Carousel s vážkami -->
+  <div class="relative">
+    <StaticDragonfly left={6} top={16} size="88px" sizeMobile="64px" opacity={0.13} rotation={-8} />
+    <StaticDragonfly right={8} top={12} size="96px" sizeMobile="72px" opacity={0.15} rotation={10} />
+    {latestBlogPosts.length > 0 && (
+      <HorizontalCarousel
+        id="blog"
+        title="Z našeho blogu"
+        description="Užitečné rady a informace pro rodiče"
+        ctaText="Všechny články"
+        ctaLink="/blog"
+        bgColor="gray"
+      >
+        {latestBlogPosts.map(post => (
+          <BlogCard post={post} variant="carousel" />
+        ))}
+      </HorizontalCarousel>
+    )}
+  </div>
 
-  <!-- Blog Carousel -->
-  {latestBlogPosts.length > 0 && (
-    <HorizontalCarousel
-      id="blog"
-      title="Z našeho blogu"
-      description="Užitečné rady a informace pro rodiče"
-      ctaText="Všechny články"
-      ctaLink="/blog"
-      bgColor="gray"
-    >
-      {latestBlogPosts.map(post => (
-        <BlogCard post={post} variant="carousel" />
-      ))}
-    </HorizontalCarousel>
-  )}
+  <!-- About sekce s vážkami -->
+  <div class="relative">
+    <StaticDragonfly left={4} bottom={8} size="120px" sizeMobile="80px" opacity={0.2} rotation={-15} />
+    <StaticDragonfly right={12} top={16} size="104px" sizeMobile="72px" opacity={0.16} rotation={12} />
+    <About />
+  </div>
 
-  <About />
-  <OpeningHours />
-  <Contact />
+  <!-- Ordinační hodiny s vážkami -->
+  <div class="relative">
+    <StaticDragonfly left={10} top={18} size="92px" sizeMobile="68px" opacity={0.14} rotation={-12} />
+    <StaticDragonfly right={6} top={12} size="112px" sizeMobile="80px" opacity={0.15} rotation={20} />
+    <OpeningHours />
+  </div>
+
+  <!-- Kontakt s vážkami -->
+  <div class="relative">
+    <StaticDragonfly left={8} bottom={16} size="96px" sizeMobile="72px" opacity={0.2} rotation={-10} />
+    <StaticDragonfly right={15} bottom={20} size="108px" sizeMobile="76px" opacity={0.18} rotation={15} />
+    <Contact />
+  </div>
 
   <Footer />
 </Layout>

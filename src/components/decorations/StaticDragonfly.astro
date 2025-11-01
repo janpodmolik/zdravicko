@@ -1,0 +1,86 @@
+---
+/**
+ * Statická dekorativní vážka
+ * Automaticky se flipne horizontálně, pokud je umístěna na pravé straně (>50%)
+ */
+import dragonflyImage from '../../assets/dragonfly.png';
+
+export interface Props {
+  /** Pozice zleva v % (0-100) */
+  left?: number;
+  /** Pozice zprava v % (0-100) - alternativa k left */
+  right?: number;
+  /** Pozice shora v % (0-100) */
+  top?: number;
+  /** Pozice zdola v % (0-100) - alternativa k top */
+  bottom?: number;
+  /** Velikost v px nebo vw/vh jednotkách */
+  size?: string;
+  /** Responsive velikost pro mobile */
+  sizeMobile?: string;
+  /** Opacity (0-1) */
+  opacity?: number;
+  /** Rotace v stupních */
+  rotation?: number;
+  /** Z-index */
+  zIndex?: number;
+}
+
+const {
+  left,
+  right,
+  top,
+  bottom,
+  size = '128px',
+  sizeMobile = '80px',
+  opacity = 0.2,
+  rotation = 0,
+  zIndex = 10,
+} = Astro.props;
+
+// Automaticky flipnout, pokud je vpravo (right definováno NEBO left > 50)
+const isOnRight = right !== undefined || (left !== undefined && left > 50);
+
+// Sestavit position styling
+const positionStyle = [
+  left !== undefined ? `left: ${left}%;` : '',
+  right !== undefined ? `right: ${right}%;` : '',
+  top !== undefined ? `top: ${top}%;` : '',
+  bottom !== undefined ? `bottom: ${bottom}%;` : '',
+].filter(Boolean).join(' ');
+
+// Transform s flipem pokud je vpravo
+const transformStyle = `transform: rotate(${rotation}deg)${isOnRight ? ' scaleX(-1)' : ''};`;
+---
+
+<img
+  src={dragonflyImage.src}
+  alt=""
+  class="dragonfly-decoration absolute pointer-events-none"
+  style={`
+    ${positionStyle}
+    width: ${sizeMobile};
+    height: ${sizeMobile};
+    opacity: ${opacity};
+    ${transformStyle}
+    z-index: ${zIndex};
+    aspect-ratio: 1;
+    object-fit: contain;
+  `}
+/>
+
+<style>
+  @media (min-width: 768px) {
+    .dragonfly-decoration {
+      width: var(--size-desktop, 128px) !important;
+      height: var(--size-desktop, 128px) !important;
+    }
+  }
+</style>
+
+<script define:vars={{ size }}>
+  // Nastavit CSS proměnnou pro desktop velikost
+  document.querySelectorAll('.dragonfly-decoration').forEach(el => {
+    el.style.setProperty('--size-desktop', size);
+  });
+</script>

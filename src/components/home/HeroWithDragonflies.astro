@@ -1,0 +1,153 @@
+---
+/**
+ * Hero sekce s animovanými vážkami na pozadí
+ */
+import dragonflyImage from '../../assets/dragonfly.png';
+
+// Konkrétní pozice pro vážky: 2 vlevo, 3 vpravo
+const dragonflies = [
+  // Levá strana (směřují doprava)
+  {
+    id: 1,
+    left: 8,
+    top: 15,
+    size: 1.4,
+    delay: -3,
+    flipX: false,
+  },
+  {
+    id: 2,
+    left: 15,
+    top: 65,
+    size: 1.6,
+    delay: -8,
+    flipX: false,
+  },
+  // Pravá strana (flipnuté, směřují doleva)
+  {
+    id: 3,
+    left: 75,
+    top: 25,
+    size: 1.3,
+    delay: -12,
+    flipX: true,
+  },
+  {
+    id: 4,
+    left: 85,
+    top: 55,
+    size: 1.5,
+    delay: -6,
+    flipX: true,
+  },
+  {
+    id: 5,
+    left: 82,
+    top: 75,
+    size: 1.2,
+    delay: -14,
+    flipX: true,
+  },
+];
+---
+
+<section class="relative py-12 md:py-20 overflow-hidden" style="background: linear-gradient(135deg, #3a6fa8 0%, #5085c6 25%, #6ba3e0 50%, #5085c6 75%, #4070b0 100%);">
+  <!-- Animated dragonflies -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+    {dragonflies.map(dragonfly => (
+      <img
+        src={dragonflyImage.src}
+        alt=""
+        class="dragonfly absolute"
+        style={`
+          left: ${dragonfly.left}%;
+          top: ${dragonfly.top}%;
+          animation-delay: ${dragonfly.delay}s;
+          ${dragonfly.flipX ? 'transform: scaleX(-1);' : ''}
+          width: clamp(80px, ${dragonfly.size * 8}vw, ${dragonfly.size * 160}px);
+          height: clamp(80px, ${dragonfly.size * 8}vw, ${dragonfly.size * 160}px);
+        `}
+      />
+    ))}
+  </div>
+
+  <!-- Content -->
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 text-shadow-lg" style="opacity: 0.95;">
+        Péče o vaše děti s láskou a profesionalitou
+      </h1>
+      <p class="text-base md:text-xl text-white/85 mb-6 md:mb-8 text-shadow">
+        Moderní dětská ordinace v 🩵 města. Poskytujeme komplexní zdravotní péči pro děti od narození.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
+        <a href="/o-nas" class="bg-white/90 backdrop-blur-sm text-[#5085c6] px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-white transition-colors text-base md:text-lg border-2 border-white/80">
+          Více o nás
+        </a>
+        <a href="/kontakt" class="bg-white/20 backdrop-blur-sm text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-white/30 transition-colors text-base md:text-lg border-2 border-white/50">
+          Kontakt
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .dragonfly {
+    aspect-ratio: 1;
+    object-fit: contain;
+    animation: floatDragonfly 20s infinite ease-in-out;
+    opacity: 0.75;
+  }
+
+  @keyframes floatDragonfly {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 0.65;
+    }
+    25% {
+      transform: translate(30px, -20px) rotate(5deg);
+      opacity: 0.75;
+    }
+    50% {
+      transform: translate(-20px, -40px) rotate(-5deg);
+      opacity: 0.85;
+    }
+    75% {
+      transform: translate(35px, -25px) rotate(3deg);
+      opacity: 0.75;
+    }
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 0.65;
+    }
+  }
+
+  /* Zachování rotace pro flipnuté vážky */
+  .dragonfly[style*="scaleX(-1)"] {
+    animation: floatDragonflyFlipped 20s infinite ease-in-out;
+  }
+
+  @keyframes floatDragonflyFlipped {
+    0% {
+      transform: scaleX(-1) translate(0, 0) rotate(0deg);
+      opacity: 1;
+    }
+    25% {
+      transform: scaleX(-1) translate(30px, -20px) rotate(5deg);
+      opacity: 1;
+    }
+    50% {
+      transform: scaleX(-1) translate(-20px, -40px) rotate(-5deg);
+      opacity: 1;
+    }
+    75% {
+      transform: scaleX(-1) translate(35px, -25px) rotate(3deg);
+      opacity: 1;
+    }
+    100% {
+      transform: scaleX(-1) translate(0, 0) rotate(0deg);
+      opacity: 1;
+    }
+  }
+</style>
