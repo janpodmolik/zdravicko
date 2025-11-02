@@ -1,2 +1,66 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+:root {
+  --color-primary-50: #e9f0f9;
+  --color-primary-100: #d6e3f4;
+  --color-primary-200: #b0c8e8;
+  --color-primary-300: #88aee0;
+  --color-primary-400: #6794d1;
+  --color-primary-500: #4678b8;
+  --color-primary-600: #3c6ca9;
+  --color-primary-700: #30588b;
+  --color-primary-800: #25446c;
+  --color-primary-900: #1b3050;
+}
+
+.bg-primary-50 {
+  background-color: var(--color-primary-50);
+}
+
+.bg-primary-500,
+.bg-primary {
+  background-color: var(--color-primary-500);
+}
+
+.bg-primary-600 {
+  background-color: var(--color-primary-600);
+}
+
+.text-primary-500,
+.text-primary {
+  color: var(--color-primary-500);
+}
+
+.text-primary-600 {
+  color: var(--color-primary-600);
+}
+
+.border-primary {
+  border-color: var(--color-primary-500);
+}
+
+.shadow-primary-soft {
+  box-shadow: 0 10px 15px -3px rgba(70, 120, 184, 0.18),
+    0 4px 6px -4px rgba(70, 120, 184, 0.15);
+}
+
+.btn-primary {
+  background-color: var(--color-primary-500);
+  color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(70, 120, 184, 0.2),
+    0 4px 6px -4px rgba(70, 120, 184, 0.1);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: var(--color-primary-600);
+  box-shadow: 0 18px 32px -16px rgba(70, 120, 184, 0.4);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid rgba(70, 120, 184, 0.35);
+  outline-offset: 2px;
+}

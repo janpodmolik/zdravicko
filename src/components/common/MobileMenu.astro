@@ -13,11 +13,11 @@ const { activePage = 'home' } = Astro.props;
 const colorStyles = {
   blue: {
     active: 'text-red-600 bg-red-50 font-semibold',
-    inactive: 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+    inactive: 'text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all duration-200'
   },
   pink: {
     active: 'text-pink-600 bg-pink-50 font-semibold',
-    inactive: 'text-pink-600 hover:text-pink-700 hover:bg-pink-50'
+    inactive: 'text-pink-600 hover:text-pink-700 hover:bg-pink-50 transition-all duration-200'
   }
 } as const;
 ---
@@ -30,7 +30,7 @@ const colorStyles = {
       <div class="flex items-center gap-2">
         <img src={logoSrc.src} alt="Zdravíčko" class="h-8" />
       </div>
-      <button id="mobile-menu-close" class="text-gray-600 hover:text-blue-600 p-2" aria-label="Zavřít menu">
+      <button id="mobile-menu-close" class="text-gray-600 hover:text-red-600 transition-colors p-2" aria-label="Zavřít menu">
         <Icon name="mdi:close" class="w-6 h-6" />
       </button>
     </div>
@@ -46,7 +46,7 @@ const colorStyles = {
             <a
               href={item.href}
               class:list={[
-                'transition-colors py-3 px-4 rounded-lg font-medium',
+                'py-3 px-4 rounded-lg font-medium',
                 isActive ? styles.active : styles.inactive
               ]}
             >
@@ -58,7 +58,7 @@ const colorStyles = {
     </nav>
 
     <div class="p-6 border-t border-gray-200">
-      <a href={`tel:${contactInfo.phones.doctor.number}`} class="block bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 transition-colors text-center font-semibold">
+      <a href={`tel:${contactInfo.phones.doctor.number}`} class="block bg-primary text-white px-6 py-4 rounded-lg hover:bg-primary-600 transition-colors text-center font-semibold">
         <Icon name="mdi:phone" class="w-5 h-5 inline-block mr-2" />
         Zavolat
       </a>

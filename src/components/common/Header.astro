@@ -13,7 +13,7 @@ const { activePage = 'home' } = Astro.props;
 const colorStyles = {
   blue: {
     active: 'text-red-600 font-semibold',
-    inactive: 'text-gray-700 hover:text-blue-600'
+    inactive: 'text-gray-700 hover:text-red-600 transition-colors'
   },
   pink: {
     active: 'text-pink-600 font-semibold',
@@ -49,11 +49,11 @@ const colorStyles = {
         })}
       </div>
 
-      <a href={`tel:${contactInfo.phones.doctor.number}`} class="hidden lg:block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+      <a href={`tel:${contactInfo.phones.doctor.number}`} class="hidden lg:block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-600 transition-colors">
         Zavolat
       </a>
 
-      <button id="mobile-menu-button" class="lg:hidden text-gray-600 hover:text-blue-600 p-3 -mr-3" aria-label="Otevřít menu">
+      <button id="mobile-menu-button" class="lg:hidden text-gray-600 hover:text-red-600 transition-colors p-3 -mr-3" aria-label="Otevřít menu">
         <Icon name="mdi:menu" class="w-7 h-7" />
       </button>
     </div>

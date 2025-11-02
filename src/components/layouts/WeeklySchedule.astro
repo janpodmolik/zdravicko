@@ -25,7 +25,7 @@ const weekSchedule = getWeekScheduleWithNotices();
 function getHourClass(schedule: WeekDaySchedule): string {
   if (schedule.isWeekend && schedule.isClosed) return 'text-gray-500';
   if (schedule.isClosed) return 'text-red-600';
-  if (schedule.isToday) return 'text-blue-700';
+  if (schedule.isToday) return 'text-primary-600';
 
   if (schedule.isModified && schedule.noticeType) {
     return `${NOTICE_TYPE_CLASSES[schedule.noticeType].text} font-semibold`;
@@ -50,14 +50,14 @@ function getChangeBadgeClass(noticeType?: NoticeType): string {
         <div
           class:list={[
             'flex justify-between items-center py-4 px-4 rounded-lg transition-colors',
-            schedule.isToday ? 'bg-blue-50 border-2 border-blue-200' : 'border-b-2 border-gray-100 last:border-b-0'
+            schedule.isToday ? 'bg-primary-50 border-2 border-primary' : 'border-b-2 border-gray-100 last:border-b-0'
           ]}
         >
           <div>
-            <span class:list={['font-semibold', schedule.isToday ? 'text-blue-900' : 'text-gray-900']}>
+            <span class:list={['font-semibold', schedule.isToday ? 'text-primary-700' : 'text-gray-900']}>
               {schedule.dayName}
               {schedule.isToday && (
-                <span class="ml-2 text-xs bg-blue-600 text-white px-2 py-1 rounded-full">Dnes</span>
+                <span class="ml-2 text-xs bg-primary text-white px-2 py-1 rounded-full">Dnes</span>
               )}
               {schedule.noticeBadgeLabel && schedule.noticeType && (
                 <span class:list={['ml-2 text-xs text-white px-2 py-1 rounded-full', NOTICE_TYPE_CLASSES[schedule.noticeType].background]}>
@@ -86,10 +86,11 @@ function getChangeBadgeClass(noticeType?: NoticeType): string {
       <div class="mt-6 text-center">
         <a
           href="/ordinacni-hodiny"
-          class="inline-flex items-center justify-center px-6 py-3 text-white font-semibold rounded-lg transition-colors"
-          style="background-color: #4678b8;"
-          onmouseover="this.style.backgroundColor='#3a66a0'"
-          onmouseout="this.style.backgroundColor='#4678b8'"
+          class:list={[
+            'btn-primary',
+            'inline-flex items-center justify-center px-6 py-3 font-semibold',
+            'text-sm md:text-base rounded-xl transition duration-200'
+          ]}
         >
           Celý rozvrh a kontakty
         </a>

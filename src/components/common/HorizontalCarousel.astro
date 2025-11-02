@@ -75,15 +75,11 @@ const bgClasses: Record<string, string> = {
         <a
           href={ctaLink}
           class:list={[
+            'btn-primary',
             'inline-flex items-center justify-center font-semibold',
-            'px-6 md:px-8 py-3 md:py-4 rounded-lg text-sm md:text-base',
-            'text-white shadow-lg',
-            'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
+            'px-6 md:px-8 py-3 md:py-4 rounded-xl text-sm md:text-base',
             'transition duration-200'
           ]}
-          style="background-color: #4678b8; box-shadow: 0 10px 15px -3px rgba(70, 120, 184, 0.2), 0 4px 6px -4px rgba(70, 120, 184, 0.1);"
-          onmouseover="this.style.backgroundColor='#3a66a0'"
-          onmouseout="this.style.backgroundColor='#4678b8'"
         >
           {ctaText}
         </a>
