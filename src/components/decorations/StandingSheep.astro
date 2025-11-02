@@ -1,20 +1,16 @@
 ---
 /**
- * Dekorace stojící ovečky s jemným stínem pod sebou.
- * Pozice a velikost lze upravit pomocí Tailwind tříd předaných přes props.
+ * Jednoduchá dekorace stojící ovečky.
+ * Umožňuje nastavit pozici/šířku přes Tailwind třídy, jinak se stará sama o z-index
+ * a drobné zesvětlení spodního okraje, aby nezůstal vidět pás z původní grafiky.
  */
 import standingSheepImage from '../../assets/standing-sheep.png';
 
 interface Props {
-  /** Tailwind třídy pro absolutní pozicování (např. 'right-0 bottom-0') */
   positionClass?: string;
-  /** Tailwind třída s šířkou pro mobilní breakpoint */
   widthClass?: string;
-  /** Tailwind třída s šířkou pro MD breakpoint */
   widthMdClass?: string;
-  /** Tailwind třídy pro okraj/margin */
   marginClass?: string;
-  /** Volitelná hodnota z-indexu (default 20) */
   zIndex?: number;
 }
 
@@ -27,6 +23,7 @@ const {
 }: Props = Astro.props;
 
 const containerClasses = [
+  'standing-sheep',
   'absolute',
   positionClass,
   widthClass,
@@ -36,13 +33,35 @@ const containerClasses = [
 ---
 
 <div class={containerClasses} aria-hidden="true" style={`z-index: ${zIndex};`}>
-  <div class="relative w-full pointer-events-none select-none">
-    <img
-      src={standingSheepImage.src}
-      alt=""
-      class="block w-full h-auto"
-      style="object-fit: contain;"
-      loading="lazy"
-    />
-  </div>
+  <img
+    src={standingSheepImage.src}
+    alt=""
+    class="sheep-image"
+    loading="lazy"
+  />
 </div>
+
+<style>
+  .standing-sheep {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .standing-sheep .sheep-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .standing-sheep::after {
+    content: '';
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    bottom: 0;
+    height: 14px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+  }
+</style>
