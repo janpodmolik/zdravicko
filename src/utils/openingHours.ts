@@ -11,8 +11,8 @@ import specialNoticeClosure from "../data/closureNotice";
  */
 function getLocalDate(): Date {
   // Vytvoříme datum v lokální časové zóně (Czech Republic)
-  const localTimeString = new Date().toLocaleString('en-US', { 
-    timeZone: 'Europe/Prague' 
+  const localTimeString = new Date().toLocaleString("en-US", {
+    timeZone: "Europe/Prague",
   });
   return new Date(localTimeString);
 }
