@@ -76,14 +76,15 @@ const waitingRooms: WaitingRoom[] = [
     description: 'Oddělená čekárna pro akutně nemocné děti',
     detailedContent: `
       <h3 class="text-lg font-bold text-gray-900 mb-3">Bezpečný prostor pro nemocné děti</h3>
-      <p class="mb-4">Čekárna pro nemocné je oddělena od zbytku ordinace, aby se minimalizovalo riziko přenosu infekce na ostatní pacienty. Prostor je pravidelně dezinfikován a větraný.</p>
+      <p class="mb-4">Snažíme se minimalizovat další možný přenos infekcí. Prostor je pravidelně dezinfikován a větraný.</p>
       <ul class="list-disc list-inside space-y-2 mb-4">
-        <li>Oddělený vstup a čekací prostor</li>
         <li>Zvýšená hygiena a dezinfekce</li>
         <li>Příslušné vybavení pro akutní ošetření</li>
-        <li>Teplá a pohodlná atmosféra</li>
+        <li>Hračky, knížky, dětské písničky</li>
       </ul>
-      <p class="text-sm text-gray-600"><strong>Tip:</strong> Objeďte se prosím předem, aby jsme mohli správně naplánovat vaši návštěvu a minimalizovat čekání.</p>
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded mt-4">
+        <p class="text-sm text-gray-800"><strong>Tip:</strong> Objednávejte se prosím vždy předem, při neohlášeném příchodu se ve frekventovaných obdobích naruší časový harmonogram. Přednostně vždy ošetříme ohlášené. „Frontu" nemáme rádi stejně jako Vy, snažíme se o maximum.</p>
+      </div>
     `,
     galleryId: 'cekarna-nemocne'
   },
@@ -92,17 +93,16 @@ const waitingRooms: WaitingRoom[] = [
     title: 'Čekárna pro zdravé',
     icon: 'mdi:seat-outline',
     emojiIcon: '✨',
-    description: 'Čekárna pro preventivní kontroly a očkování',
+    description: 'Čekárna pro děti před preventivní prohlídkou, očkováním.',
     detailedContent: `
       <h3 class="text-lg font-bold text-gray-900 mb-3">Čistý prostor pro zdravé děti</h3>
-      <p class="mb-4">Čekárna pro zdravé děti je určena pro preventivní prohlídky, očkování a kontroly zdravých dětí. Prostor je pečlivě udržován v hygienických standardech.</p>
+      <p class="mb-4">Čekárna pro zdravé děti je, pokud správně plánujeme a Vy se vzorně objednáváte, prázdná 😊.</p>
       <ul class="list-disc list-inside space-y-2 mb-4">
         <li>Oddělený prostor bez kontaktu s nemocnými</li>
         <li>Bezpečné a čisté prostředí</li>
         <li>Hračky a knihy pro děti</li>
-        <li>Příjemná a relaxační atmosféra</li>
+        <li>Příjemná atmosféra</li>
       </ul>
-      <p class="text-sm text-gray-600"><strong>Tip:</strong> Objednávka online zrychluje proces a minimalizuje čekání.</p>
     `,
     galleryId: 'cekarna-zdrave'
   },

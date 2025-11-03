@@ -53,12 +53,12 @@ export const siteConfig = {
     {
       name: "Jana Horáková",
       description:
-        "Stará se o organizaci ordinace a přípravu pacientů na vyšetření. Má bohaté zkušenosti s ošetřovatelskou péčí a vytváří přátelskou atmosféru v ordinaci.",
+        "Usměvavá, léčivá svou vnitřní rovnováhou a klidem. Blondýnka. Maminka čtyř dětí. Má bohaté zkušenosti z domácí praxe 😊. Miluje přírodu a žije s ní v souladu, čerpá z ní moudrost i sílu. Na lidské tělo umí pohlédnout i očima zkušeného maséra. V ordinaci jen pro Vás!",
     },
     {
       name: "Andrea Štukavcová",
       description:
-        "Specializuje se na preventivní prohlídky a očkování. Vyniká v práci s dětmi a vytváří příjemné prostředí, kde se malí pacienti cítí v bezpečí.",
+        "Temperamentní brunetka v neustálé akci. Jak by ne – sestřička z anesteziologicko – resuscitační minulostí. Akutní stavy, akutní situace jako z telenovely. Velká dávka empatie, snahy pomoci komukoli v tíživé situaci. Maminka tří dětí. V ordinaci jen pro Vás!",
     },
   ] as Nurse[],
 
