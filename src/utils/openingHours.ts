@@ -5,6 +5,18 @@ import specialNoticeClosure from "../data/closureNotice";
 // TYPY A KONSTANTY
 // ============================================================================
 
+/**
+ * Vrací aktuální datum a čas v lokální časové zóně (Europe/Prague)
+ * Používá se pro zajištění správného dne v týdnu bez ohledu na časovou zónu serveru
+ */
+function getLocalDate(): Date {
+  // Vytvoříme datum v lokální časové zóně (Czech Republic)
+  const localTimeString = new Date().toLocaleString('en-US', { 
+    timeZone: 'Europe/Prague' 
+  });
+  return new Date(localTimeString);
+}
+
 export type NoticeType = "warning" | "info" | "urgent";
 
 export interface OpeningHoursInfo {
@@ -182,7 +194,7 @@ function isDateInRange(date: Date, fromStr?: string, toStr?: string): boolean {
  * Vrátí aktivní special notice pokud existuje a je platné
  */
 export function getActiveSpecialNotice(): SpecialNotice | null {
-  return getSpecialNoticeForDate(new Date());
+  return getSpecialNoticeForDate(getLocalDate());
 }
 
 export interface SpecialNoticeDisplay {
@@ -246,7 +258,7 @@ export function getSpecialNoticeDisplay(): SpecialNoticeDisplay {
  * 2. Standardní ordinační hodiny podle dne v týdnu
  */
 export function getTodayOpeningHours(): OpeningHoursInfo {
-  const today = new Date();
+  const today = getLocalDate();
   const dayOfWeek = today.getDay() as DayOfWeekValue;
   const regularHours = openingHoursByDay[dayOfWeek];
 
@@ -284,7 +296,7 @@ export function getOpeningHoursForDay(
 function getDateForDayInWeek(
   dayOfWeek: DayOfWeekValue,
   weekOffset: number = 0,
-  referenceDate: Date = new Date()
+  referenceDate: Date = getLocalDate()
 ): Date {
   const currentDay = referenceDate.getDay() as DayOfWeekValue;
 
@@ -411,7 +423,7 @@ export function formatDateForDay(dayOfWeek: DayOfWeekValue): string {
  * Zahrnuje jak běžné hodiny, tak případné výjimky
  */
 export function getWeekScheduleWithNotices(): WeekDaySchedule[] {
-  const today = new Date();
+  const today = getLocalDate();
   const currentDay = today.getDay() as DayOfWeekValue;
 
   const schedule: WeekDaySchedule[] = WORKING_DAYS.map((dayOfWeek) => {
