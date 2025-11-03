@@ -55,8 +55,6 @@ const servicesCollection = defineCollection({
     excerpt: z.string(),
     icon: z.string(),
     color: z.string(), // blue, cyan, purple, pink, green, orange, red, yellow, indigo, teal
-    duration: z.string().optional(),
-    price: z.string().optional(),
     showOnHomepage: z.boolean().default(false),
     order: z.number().default(999), // Pro řazení služeb
     published: z.boolean().default(true),
@@ -116,6 +114,13 @@ const servicesCollection = defineCollection({
             description: z.string(),
             buttonText: z.string().optional(),
             buttonLink: z.string().optional(),
+          }),
+          // Obrázek s popiskem
+          z.object({
+            type: z.literal("image"),
+            src: z.string(),
+            alt: z.string(),
+            caption: z.string().optional(),
           }),
         ])
       )

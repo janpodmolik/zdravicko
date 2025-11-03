@@ -1,0 +1,424 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/common/Header.astro';
+import MobileMenu from '../components/common/MobileMenu.astro';
+import Footer from '../components/common/Footer.astro';
+import { Icon } from 'astro-icon/components';
+
+// Import všech bloků
+import TextBlock from '../components/blocks/TextBlock.astro';
+import FeaturesListBlock from '../components/blocks/FeaturesListBlock.astro';
+import TipBoxBlock from '../components/blocks/TipBoxBlock.astro';
+import WarningBoxBlock from '../components/blocks/WarningBoxBlock.astro';
+import FAQBlock from '../components/blocks/FAQBlock.astro';
+import StepsBlock from '../components/blocks/StepsBlock.astro';
+import CTABoxBlock from '../components/blocks/CTABoxBlock.astro';
+import ImageBlock from '../components/blocks/ImageBlock.astro';
+
+// Dostupné barvy
+const colors = [
+  { id: 'blue', name: 'Modrá', hex: '#2563eb' },
+  { id: 'cyan', name: 'Tyrkysová', hex: '#06b6d4' },
+  { id: 'purple', name: 'Fialová', hex: '#9333ea' },
+  { id: 'pink', name: 'Růžová', hex: '#ec4899' },
+  { id: 'green', name: 'Zelená', hex: '#16a34a' },
+  { id: 'orange', name: 'Oranžová', hex: '#ea580c' },
+  { id: 'red', name: 'Červená', hex: '#dc2626' },
+  { id: 'yellow', name: 'Žlutá', hex: '#ca8a04' },
+  { id: 'indigo', name: 'Indigo', hex: '#4f46e5' },
+  { id: 'teal', name: 'Teal', hex: '#0d9488' },
+];
+---
+
+<Layout
+  title="Showcase komponent služeb - Zdravíčko"
+  description="Testovací stránka pro všechny komponenty služeb s přepínačem barev"
+>
+  <Header />
+  <MobileMenu />
+
+  <main class="bg-gray-50">
+    <!-- Hero Section -->
+    <section class="pt-8 pb-12 bg-linear-to-br from-purple-50 via-pink-50 to-purple-100">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <Icon name="mdi:palette" class="w-5 h-5" />
+            Testovací prostředí pro doktory
+          </div>
+
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            🎨 Showcase všech komponent
+          </h1>
+          <p class="text-xl text-gray-600 mb-8">
+            Vyzkoušejte si všechny dostupné bloky pro vytváření služeb a přepínejte mezi barvami
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Color Switcher -->
+    <section class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+      <div class="container mx-auto px-4 py-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="flex items-center gap-4 flex-wrap">
+            <span class="text-sm font-medium text-gray-700">
+              <Icon name="mdi:palette" class="w-5 h-5 inline-block mr-2" />
+              Vyberte barvu:
+            </span>
+            <div class="flex gap-2 flex-wrap" id="color-switcher">
+              {colors.map((color) => (
+                <button
+                  data-color={color.id}
+                  class="color-btn px-4 py-2 rounded-lg font-medium transition-all border-2 border-transparent hover:border-gray-300"
+                  style={`background-color: ${color.hex}; color: white;`}
+                >
+                  {color.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Components Showcase -->
+    <section class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto" id="showcase-container">
+
+          <!-- Current Color Info -->
+          <div class="bg-white rounded-2xl p-6 mb-8 shadow-sm border-2 border-gray-200" id="current-color-info">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div
+                  id="color-preview"
+                  class="w-12 h-12 rounded-lg shadow-md"
+                  style="background-color: #2563eb;"
+                ></div>
+                <div>
+                  <p class="text-sm text-gray-500">Aktuální barva</p>
+                  <p id="color-name" class="text-lg font-bold text-gray-900">Modrá</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="text-sm text-gray-500">Color ID</p>
+                <code id="color-id" class="text-sm font-mono bg-gray-100 px-3 py-1 rounded">blue</code>
+              </div>
+            </div>
+          </div>
+
+          <!-- Block 1: Text Block -->
+          <div class="bg-white rounded-2xl p-8 mb-8 shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">📝</span>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900">Text Block</h2>
+                <p class="text-sm text-gray-500">Běžný text s markdown formátováním</p>
+              </div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-6">
+              <TextBlock content={`
+Toto je **textový blok** s podporou Markdown formátování. Můžete použít:
+
+- **Tučné písmo**
+- *Kurzívu*
+- [Odkazy](https://zdravicko.org)
+- Seznamy a odrážky
+
+## Nadpisy různých úrovní
+
+Text může obsahovat jakýkoliv obsah, který doktor potřebuje.
+              `} />
+            </div>
+          </div>
+
+          <!-- Block 2: Features List Block -->
+          {colors.map((color) => (
+            <div class={`color-variant color-variant-${color.id} bg-white rounded-2xl p-8 mb-8 shadow-sm`} style="display: none;">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                  <span class="text-2xl">✓</span>
+                </div>
+                <div>
+                  <h2 class="text-2xl font-bold text-gray-900">Features List Block</h2>
+                  <p class="text-sm text-gray-500">Seznam s ikonami zaškrtávátka - <strong>respektuje barvu!</strong></p>
+                </div>
+              </div>
+              <div class="bg-gray-50 rounded-xl p-6">
+                <FeaturesListBlock
+                  heading="Co vše služba zahrnuje"
+                  items={[
+                    "Kompletní vyšetření a konzultaci",
+                    "Individuální plán péče",
+                    "Sledování vývoje a pokroku",
+                    "Telefonické konzultace zdarma",
+                    "Doporučení pro domácí péči",
+                    "Návazná kontrola po měsíci"
+                  ]}
+                  color={color.id}
+                />
+              </div>
+            </div>
+          ))}
+
+          <!-- Block 3: Steps Block -->
+          {colors.map((color) => (
+            <div class={`color-variant color-variant-${color.id} bg-white rounded-2xl p-8 mb-8 shadow-sm`} style="display: none;">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <span class="text-2xl">🔢</span>
+                </div>
+                <div>
+                  <h2 class="text-2xl font-bold text-gray-900">Steps Block</h2>
+                  <p class="text-sm text-gray-500">Číslované kroky - <strong>respektuje barvu!</strong></p>
+                </div>
+              </div>
+              <div class="bg-gray-50 rounded-xl p-6">
+                <StepsBlock
+                  heading="Jak probíhá vyšetření"
+                  steps={[
+                    {
+                      title: "Úvodní konzultace",
+                      description: "Podrobný rozhovor s rodiči o zdravotním stavu dítěte, současných potížích a rodinné anamnéze."
+                    },
+                    {
+                      title: "Fyzické vyšetření",
+                      description: "Komplexní fyzické vyšetření zahrnující měření základních parametrů a vyšetření jednotlivých systémů."
+                    },
+                    {
+                      title: "Diagnostika",
+                      description: "Podle potřeby provádíme doplňující vyšetření - odběr krve, moči, alergické testy."
+                    },
+                    {
+                      title: "Vyhodnocení a plán",
+                      description: "Zhodnocení všech výsledků, stanovení diagnózy a vytvoření individuálního plánu léčby."
+                    }
+                  ]}
+                  color={color.id}
+                />
+              </div>
+            </div>
+          ))}
+
+          <!-- Block 4: Tip Box Block -->
+          {colors.map((color) => (
+            <div class={`color-variant color-variant-${color.id} bg-white rounded-2xl p-8 mb-8 shadow-sm`} style="display: none;">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                  <span class="text-2xl">💡</span>
+                </div>
+                <div>
+                  <h2 class="text-2xl font-bold text-gray-900">Tip Box Block</h2>
+                  <p class="text-sm text-gray-500">Zvýrazněný tip - <strong>respektuje barvu!</strong></p>
+                </div>
+              </div>
+              <div class="bg-gray-50 rounded-xl p-6">
+                <TipBoxBlock
+                  heading="💡 Tip pro rodiče"
+                  content={`
+Před návštěvou si připravte seznam otázek, které vás zajímají. Vezměte si s sebou **průkaz pojištěnce** a **očkovací průkaz dítěte**.
+
+Pokud má dítě horečku nebo akutní potíže, zavolejte nám předem.
+                  `}
+                  icon="mdi:lightbulb-on"
+                  color={color.id}
+                />
+              </div>
+            </div>
+          ))}
+
+          <!-- Block 5: Warning Box Block (nemění barvu) -->
+          <div class="bg-white rounded-2xl p-8 mb-8 shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">⚠️</span>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900">Warning Box Block</h2>
+                <p class="text-sm text-gray-500">Důležité upozornění (vždy červené)</p>
+              </div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-6">
+              <WarningBoxBlock content="<p><strong>Důležité upozornění:</strong> V případě vážných akutních stavů (vysoká horečka, dušnost, křeče) volejte okamžitě pohotovost 155.</p>" />
+            </div>
+          </div>
+
+          <!-- Block 6: FAQ Block (nemění barvu) -->
+          <div class="bg-white rounded-2xl p-8 mb-8 shadow-sm">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">❓</span>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900">FAQ Block</h2>
+                <p class="text-sm text-gray-500">Často kladené otázky s odpověďmi</p>
+              </div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-6">
+              <FAQBlock
+                heading="Často kladené otázky"
+                items={[
+                  {
+                    question: "Jak dlouho trvá vyšetření?",
+                    answer: "<p>Standardní vyšetření trvá 30-45 minut. První návštěva může být delší kvůli podrobné anamnéze.</p>"
+                  },
+                  {
+                    question: "Musím se objednávat předem?",
+                    answer: "<p>Ano, ordinujeme pouze na objednané pacienty. Můžete se objednat telefonicky nebo e-mailem.</p>"
+                  },
+                  {
+                    question: "Je vyšetření hrazeno pojišťovnou?",
+                    answer: "<p>Preventivní prohlídky a většina běžných vyšetření jsou plně hrazeny zdravotní pojišťovnou.</p>"
+                  }
+                ]}
+              />
+            </div>
+          </div>
+
+          <!-- Block 7: CTA Box Block -->
+          {colors.map((color) => (
+            <div class={`color-variant color-variant-${color.id} bg-white rounded-2xl p-8 mb-8 shadow-sm`} style="display: none;">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                  <span class="text-2xl">📞</span>
+                </div>
+                <div>
+                  <h2 class="text-2xl font-bold text-gray-900">CTA Box Block</h2>
+                  <p class="text-sm text-gray-500">Výzva k akci s tlačítkem - <strong>respektuje barvu!</strong></p>
+                </div>
+              </div>
+              <div class="bg-gray-50 rounded-xl p-6">
+                <CTABoxBlock
+                  heading="Máte dotazy?"
+                  description="Neváhejte nás kontaktovat. Rádi vám poradíme a zodpovíme všechny vaše otázky."
+                  buttonText="Kontaktujte nás"
+                  buttonLink="/kontakt"
+                  color={color.id}
+                />
+              </div>
+            </div>
+          ))}
+
+          <!-- 5. Image Block (nemění barvu) -->
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">🖼️</span>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900">Image Block</h2>
+                <p class="text-sm text-gray-500">Obrázek s rámečkem a popiskem</p>
+              </div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-6">
+              <ImageBlock
+                src="https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=800&q=80"
+                alt="Moderní dětská ordinace"
+                caption="Příklad obrázku s popiskem v naší ordinaci"
+              />
+            </div>
+          </div>
+
+          <!-- Info Box -->
+          <div class="bg-linear-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border-2 border-purple-200">
+            <div class="flex items-start gap-4">
+              <Icon name="mdi:information" class="w-8 h-8 text-purple-600 shrink-0" />
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Jak používat komponenty</h3>
+                <p class="text-gray-700 mb-4">
+                  Každá služba může kombinovat tyto bloky v libovolném pořadí. Bloky označené jako <strong>"respektuje barvu"</strong> se automaticky přizpůsobí barvě služby.
+                </p>
+                <p class="text-sm text-gray-600">
+                  📖 Více informací najdete v souboru <code class="bg-white px-2 py-1 rounded text-purple-600">PROMPT-PRO-DOKTORY.md</code>
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  // Color data (matches server-side data)
+  const colors = [
+    { id: 'blue', name: 'Modrá', hex: '#2563eb' },
+    { id: 'cyan', name: 'Tyrkysová', hex: '#06b6d4' },
+    { id: 'purple', name: 'Fialová', hex: '#9333ea' },
+    { id: 'pink', name: 'Růžová', hex: '#ec4899' },
+    { id: 'green', name: 'Zelená', hex: '#16a34a' },
+    { id: 'orange', name: 'Oranžová', hex: '#ea580c' },
+    { id: 'red', name: 'Červená', hex: '#dc2626' },
+    { id: 'yellow', name: 'Žlutá', hex: '#ca8a04' },
+    { id: 'indigo', name: 'Indigo', hex: '#4f46e5' },
+    { id: 'teal', name: 'Teal', hex: '#0d9488' },
+  ];
+
+  let currentColor = 'blue';
+
+  function switchColor(colorId: string) {
+    // Hide all color variants
+    document.querySelectorAll('.color-variant').forEach((el) => {
+      (el as HTMLElement).style.display = 'none';
+    });
+
+    // Show variants for selected color
+    document.querySelectorAll(`.color-variant-${colorId}`).forEach((el) => {
+      (el as HTMLElement).style.display = 'block';
+    });
+
+    // Update active button
+    document.querySelectorAll('.color-btn').forEach(btn => {
+      btn.classList.remove('border-gray-900', 'shadow-md');
+      btn.classList.add('border-transparent');
+    });
+    const activeBtn = document.querySelector(`[data-color="${colorId}"]`);
+    if (activeBtn) {
+      activeBtn.classList.remove('border-transparent');
+      activeBtn.classList.add('border-gray-900', 'shadow-md');
+    }
+
+    // Update color info panel
+    const colorData = colors.find(c => c.id === colorId);
+    if (colorData) {
+      const preview = document.getElementById('color-preview');
+      const name = document.getElementById('color-name');
+      const id = document.getElementById('color-id');
+
+      if (preview) preview.style.backgroundColor = colorData.hex;
+      if (name) name.textContent = colorData.name;
+      if (id) id.textContent = colorData.id;
+    }
+
+    currentColor = colorId;
+  }
+
+  function initializeShowcase() {
+    // Set up button click handlers
+    document.querySelectorAll('.color-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const colorId = btn.getAttribute('data-color');
+        if (colorId) {
+          switchColor(colorId);
+        }
+      });
+    });
+
+    // Initialize with blue color
+    switchColor('blue');
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', initializeShowcase);
+
+  // Re-initialize after View Transitions
+  document.addEventListener('astro:page-load', initializeShowcase);
+</script>

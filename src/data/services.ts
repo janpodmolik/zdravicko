@@ -28,7 +28,5 @@ export interface Service {
   excerpt: string;
   icon: string;
   color: ServiceColor;
-  duration?: string;
-  price?: string;
   showOnHomepage?: boolean;
 }

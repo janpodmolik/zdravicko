@@ -17,6 +17,7 @@ import WarningBoxBlock from '../../components/blocks/WarningBoxBlock.astro';
 import FAQBlock from '../../components/blocks/FAQBlock.astro';
 import StepsBlock from '../../components/blocks/StepsBlock.astro';
 import CTABoxBlock from '../../components/blocks/CTABoxBlock.astro';
+import ImageBlock from '../../components/blocks/ImageBlock.astro';
 
 export async function getStaticPaths() {
   const services = await getCollection('services', ({ data }) => {
@@ -75,21 +76,6 @@ const otherServices = allServices
               </p>
             </div>
           </div>
-
-          <div class="flex flex-wrap gap-2 md:gap-4">
-            {service.data.duration && (
-              <div class={`flex items-center gap-2 ${colors.bgLight} px-3 py-1.5 md:px-4 md:py-2 rounded-lg`}>
-                <Icon name="mdi:clock-outline" class={`w-4 h-4 md:w-5 md:h-5 ${colors.text}`} />
-                <span class="text-sm md:text-base text-gray-700 font-medium">{service.data.duration}</span>
-              </div>
-            )}
-            {service.data.price && (
-              <div class={`flex items-center gap-2 ${colors.bgLight} px-3 py-1.5 md:px-4 md:py-2 rounded-lg`}>
-                <Icon name="mdi:currency-eur" class={`w-4 h-4 md:w-5 md:h-5 ${colors.text}`} />
-                <span class="text-sm md:text-base text-gray-700 font-medium">{service.data.price}</span>
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </section>
@@ -117,6 +103,7 @@ const otherServices = allServices
                   heading={block.heading}
                   content={block.content}
                   icon={block.icon}
+                  color={service.data.color}
                 />;
 
               case 'warning_box':
@@ -132,6 +119,7 @@ const otherServices = allServices
                 return <StepsBlock
                   heading={block.heading}
                   steps={block.steps}
+                  color={service.data.color}
                 />;
 
               case 'cta_box':
@@ -143,21 +131,17 @@ const otherServices = allServices
                   color={service.data.color}
                 />;
 
+              case 'image':
+                return <ImageBlock
+                  src={block.src}
+                  alt={block.alt}
+                  caption={block.caption}
+                />;
+
               default:
                 return null;
             }
           })}
-
-          <!-- Default CTA na konci -->
-          <div class={`bg-linear-to-br ${colors.gradient} rounded-2xl p-8 text-center`}>
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">
-              Chcete se objednat?
-            </h2>
-            <p class="text-gray-600 mb-6">
-              Zavolejte nám nebo napište a domluvíme si termín, který vám bude vyhovovat.
-            </p>
-            <CTAButtons variant="colored" color={colors.bg} emailLabel="Kontaktní formulář" />
-          </div>
         </div>
       </div>
     </section>

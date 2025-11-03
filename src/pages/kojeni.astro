@@ -34,15 +34,15 @@ interface PageSection {
 const PAGE_SECTIONS: Record<string, PageSection> = {
   benefits: {
     title: 'Proč je kojení tak důležité?',
-    description: 'Mateřské mléko je přesně to, co příroda navrhla jako ideální výživu pro lidské miminko'
+    description: 'Mateřské mléko je přesně ta tekutina, kterou příroda navrhla jako ideální výživu pro lidské mládě. Nikdo a nic ji doposud nepřekonalo.'
   },
   advisors: {
     title: 'Naši laktační poradci',
-    description: 'Všichni naši lékaři prošli specializovaným školením v laktačním poradenství'
+    description: 'Všichni naši lékaři prošli specializovaným školením v laktačním poradenství.'
   },
   help: {
     title: 'S čím vám pomůžeme?',
-    description: 'Řešíme jakékoliv potíže s kojením - od technických problémů až po emoční podporu'
+    description: 'Řešíme jakékoliv potíže s kojením - od technických problémů až po emoční podporu.'
   }
 } as const;
 
@@ -51,37 +51,37 @@ const benefits: Benefit[] = [
   {
     icon: 'mdi:food-apple',
     title: 'Ideální výživa',
-    description: 'Mateřské mléko obsahuje přesně to, co vaše dítě v daném věku potřebuje. Jeho složení se mění podle potřeb rostoucího miminka.',
+    description: 'Mateřské mléko obsahuje přesně to, co dítě v daném okamžiku potřebuje. Jeho složení se mění každý den, každou hodinu přesně podle potřeb rostoucího miminka.',
     bgColor: 'bg-pink-600'
   },
   {
     icon: 'mdi:shield-check',
     title: 'Posílení imunity',
-    description: 'Kojení přenáší na dítě protilátky a pomáhá budovat silný imunitní systém, který chrání před infekcemi a nemocemi.',
+    description: 'Kojení přináší dítěti protilátky, odrážející aktuální stav domova, zdraví či nemoci jeho členů a pomáhá budovat silný imunitní systém, který chrání před infekcemi a nemocemi.',
     bgColor: 'bg-rose-600'
   },
   {
     icon: 'mdi:heart-pulse',
     title: 'Prevence nemocí',
-    description: 'Kojené děti mají nižší riziko obezity, diabetu, astmatu, alergií a některých typů rakoviny v pozdějším věku.',
+    description: 'Kojené děti mají nižší riziko obezity, diabetu, astmatu, alergií a některých typů rakoviny v pozdějším věku. V tomto smyslu profituje i maminka.',
     bgColor: 'bg-pink-700'
   },
   {
     icon: 'mdi:emoticon-happy',
     title: 'Emoční pouto',
-    description: 'Kojení podporuje vznik hlubokého citového pouta mezi matkou a dítětem, což je důležité pro zdravý psychický vývoj.',
+    description: 'Kojení vytváří hluboké citové pouto mezi matkou a dítětem, důležité pro zdravý psychický vývoj.',
     bgColor: 'bg-fuchsia-600'
   },
   {
     icon: 'mdi:brain',
     title: 'Vývoj mozku',
-    description: 'Látky obsažené v mateřském mléce podporují vývoj mozku a kognitivních funkcí, což se projevuje i v dospělosti.',
+    description: 'Stále nové a nové látky objevované v mateřském mléce podporují vývoj mozku a kognitivních funkcí, které si odnášíme do dospělosti.',
     bgColor: 'bg-pink-600'
   },
   {
     icon: 'mdi:cash',
     title: 'Ekonomické',
-    description: 'Kojení je zdarma, dostupné kdykoliv a kdekoliv, bez nutnosti přípravy, ohřívání nebo sterilizace.',
+    description: 'Kojení je zdarma, dostupné kdykoliv a kdekoliv, bez nutnosti přípravy, ohřívání nebo sterilizace lahviček a dudlíků.',
     bgColor: 'bg-rose-600'
   }
 ];
@@ -140,10 +140,11 @@ const commonIssues: string[] = [
 
 // Důležité informace
 const infoItems: string[] = [
-  'Kojení je přirozený proces, ale vyžaduje trpělivost a podporu',
-  'WHO doporučuje výhradní kojení po dobu 6 měsíců',
+  'Kojení je přirozený proces, někdy vyžaduje trpělivost a podporu',
+  'WHO doporučuje výhradní kojení po dobu 6 měsíců. Sledujeme prospívání a k doporučení světové organizace individuálně přistupujeme.',
   'Kojení lze úspěšně kombinovat s pracovní kariérou',
-  'Každá kapka mateřského mléka má velkou hodnotu'
+  'Z kojení profituje i maminka',
+  'Každá kapka mateřského mléka má nevyčíslitelnou hodnotu'
 ];
 
 // SEO metadata
@@ -159,8 +160,8 @@ const SEO = {
 
   <!-- Hero sekce s animovaným pozadím -->
   <PageHeader
-    title="Kojení není jen výživa. Je to láska, která se dá změřit."
-    description="V dnešní uspěchané době se na kojení často zapomíná nebo je považováno za něco zastaralého. Přitom je to nejcennější dar, který můžete svému dítěti dát. Naši lékaři jsou všichni proškolení laktační poradci a pomohou vám s kojením od prvního přiložení až po přirozené ukončení."
+    title="Kojení není jen výživa. Je to stále nedoceněná láska, která se dá i zvážit."
+    description="V dnešní vším přesycené a neustále nové trendy nabízející době, by se kojení mohlo jevit jako neefektivní zdlouhavý proces. Možná prastarý, možná někdy trpělivosti a vzájemnému naslouchání učící, přesto nejcennější dar, který může v prvních dnech a měsících maminka svému dítěti dát. Jsme proškolení laktační poradci s vlastní letitou praktickou zkušeností a rádi Vám pomůžeme s kojením od prvního přiložení miminka až po jeho přirozené ukončení."
     variant="pink"
     animated={true}
     badge={{
@@ -197,12 +198,9 @@ const SEO = {
               </div>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 mb-3">Na kojení se bohužel často zapomíná</h3>
+              <h3 class="text-xl font-bold text-gray-900 mb-3">Na kojení vám nedovolíme zapomenout</h3>
               <p class="text-gray-700 leading-relaxed">
-                V moderní společnosti je kojení někdy považováno za nepohodlné, zastaralé nebo nepraktické.
-                Často čelí negativním reakcím v veřejném prostoru. My věříme, že každá maminka má právo kojit
-                a že kojení je nejpřirozenější a nejzdravější způsob výživy pro miminka. Proto aktivně
-                <strong>podporujeme a propagujeme kojení</strong> a pomáháme maminkám překonat jakékoliv překážky.
+                V moderní společnosti je někdy považováno za nepohodlné, zastaralé nebo nepraktické. Často čelí negativním reakcím ve veřejném prostoru. Každá maminka má právo kojit. Kojení je nejpřirozenější a nejzdravější způsob výživy miminka. Proto aktivně <strong>podporujeme a propagujeme kojení</strong> a pomáháme maminkám překonat jakékoliv překážky. Stejnou měrou chápeme opodstatněné důvody pro nekojení.
               </p>
             </div>
           </div>
@@ -279,8 +277,7 @@ const SEO = {
             Nejste v tom samy!
           </h3>
           <p class="text-lg md:text-xl mb-8 opacity-95 max-w-2xl mx-auto">
-            Mnoho maminek má na začátku s kojením potíže. Je to naprosto normální a řešitelné.
-            Jsme tu, abychom vám pomohli a podpořili vás na této krásné cestě.
+            Mnoho maminek má na začátku s kojením potíže. Je to naprosto přirozené a řešitelné. Jsme tady, abychom vám pomohli a podpořili vás na této klikaté cestě vedoucí ke spokojenému, zdravému človíkovi.
           </p>
           <a
             href="/kontakt"
@@ -308,21 +305,7 @@ const SEO = {
     </div>
   </section>
 
-  <!-- CTA sekce -->
-  <section class="py-16 md:py-20 bg-white">
-    <div class="container mx-auto px-4">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-          Potřebujete pomoc s kojením?
-        </h2>
-        <p class="text-xl text-gray-700 mb-10">
-          Neváhejte nás kontaktovat. Rádi vám pomůžeme osobně v ordinaci,
-          telefonicky nebo online.
-        </p>
-        <CTAButtons />
-      </div>
-    </div>
-  </section>
+  <div class="h-12 md:h-20"></div>
 
   <Footer />
 </Layout>

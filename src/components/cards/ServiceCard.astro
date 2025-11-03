@@ -43,25 +43,6 @@ const colors = colorClasses[service.color];
       </div>
     </div>
 
-    <!-- Meta informace (trvání, cena) -->
-    {(service.duration || service.price) && (
-      <div class="space-y-2 mb-4">
-        {service.duration && (
-          <div class="flex items-center gap-2 text-sm text-gray-500">
-            <Icon name="mdi:clock-outline" class="w-4 h-4" aria-hidden="true" />
-            <span>{service.duration}</span>
-          </div>
-        )}
-
-        {service.price && (
-          <div class="flex items-center gap-2 text-sm text-gray-500">
-            <Icon name="mdi:currency-eur" class="w-4 h-4" aria-hidden="true" />
-            <span>{service.price}</span>
-          </div>
-        )}
-      </div>
-    )}
-
     <!-- CTA odkaz -->
     <div class:list={['inline-flex items-center gap-2 font-medium text-sm', colors.text]}>
       <span>Více informací</span>

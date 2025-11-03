@@ -5,9 +5,25 @@ interface Props {
     title: string;
     description: string;
   }>;
+  color?: string;
 }
 
-const { heading, steps } = Astro.props;
+const { heading, steps, color = 'blue' } = Astro.props;
+
+const colorClasses: Record<string, string> = {
+  blue: 'bg-blue-600',
+  cyan: 'bg-cyan-600',
+  purple: 'bg-purple-600',
+  pink: 'bg-pink-600',
+  green: 'bg-green-600',
+  orange: 'bg-orange-600',
+  red: 'bg-red-600',
+  yellow: 'bg-yellow-600',
+  indigo: 'bg-indigo-600',
+  teal: 'bg-teal-600',
+};
+
+const bgColor = colorClasses[color] || colorClasses.blue;
 ---
 
 <div class="mb-12">
@@ -16,7 +32,7 @@ const { heading, steps } = Astro.props;
     {steps.map((step, index) => (
       <div class="flex gap-6">
         <div class="shrink-0">
-          <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+          <div class={`w-12 h-12 ${bgColor} text-white rounded-full flex items-center justify-center font-bold text-xl`}>
             {index + 1}
           </div>
         </div>
