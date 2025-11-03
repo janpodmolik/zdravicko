@@ -1,4 +1,6 @@
 ---
+import SectionTitle from './SectionTitle.astro';
+
 interface Props {
   title?: string;
   description?: string;
@@ -37,25 +39,7 @@ const bgClasses: Record<string, string> = {
     <!-- Hlavička s max-width pro pěkné centrování -->
     <div class="max-w-7xl mx-auto px-4">
       {(title || description) && (
-        <div class="text-center mb-6 md:mb-7">
-          <div class="max-w-3xl mx-auto space-y-3 md:space-y-4">
-            {title && (
-              <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-blue-900">
-                <span class="relative inline-block">
-                  <span class="absolute inset-x-2 bottom-1 h-3 bg-blue-100/70 rounded-full md:h-4 md:bottom-0"></span>
-                  <span class="relative px-2 md:px-3">
-                    {title}
-                  </span>
-                </span>
-              </h2>
-            )}
-            {description && (
-              <p class="text-base md:text-lg text-blue-700/90 leading-relaxed">
-                {description}
-              </p>
-            )}
-          </div>
-        </div>
+        <SectionTitle title={title!} description={description} className="mb-6 md:mb-7" />
       )}
     </div>
 
