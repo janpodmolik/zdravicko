@@ -68,6 +68,7 @@ const iconBgClass = getNewsIconBg(news.data.color);
           id={`content-${uniqueId}`}
           class="prose prose-sm max-w-none text-gray-700 [&>p]:mb-2 [&>p:last-child]:mb-0 [&>ul]:mb-2 [&>strong]:text-gray-900 [&>strong]:font-semibold transition-all duration-300 content-container"
           style={`max-height: ${maxHeight}px; overflow: hidden;`}
+          data-collapsed="true"
         >
           <Content />
         </div>
