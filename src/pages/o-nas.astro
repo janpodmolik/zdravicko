@@ -4,6 +4,7 @@ import Header from '../components/common/Header.astro';
 import MobileMenu from '../components/common/MobileMenu.astro';
 import Footer from '../components/common/Footer.astro';
 import PageHeader from '../components/common/PageHeader.astro';
+import HeroWithLottieClouds from '../components/home/HeroWithLottieClouds.astro';
 import CTAButtons from '../components/common/CTAButtons.astro';
 import SectionHeader from '../components/common/SectionHeader.astro';
 import ValueCard from '../components/cards/ValueCard.astro';
@@ -69,11 +70,11 @@ const values = [
   <MobileMenu activePage="o-nas" />
 
   <main>
-    <!-- Page Header -->
-    <PageHeader
+    <!-- Hero with Lottie Clouds -->
+    <HeroWithLottieClouds
       title="O naší ordinaci"
       description="Poznejte náš tým a historii ordinace, která se stará o zdraví vašich dětí s láskou a profesionalitou"
-      animated={true}
+      showButtons={false}
     />
 
     <!-- Our Story -->
