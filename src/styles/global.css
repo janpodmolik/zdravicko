@@ -2,16 +2,16 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --color-primary-50: #e9f0f9;
-  --color-primary-100: #d6e3f4;
-  --color-primary-200: #b0c8e8;
-  --color-primary-300: #88aee0;
-  --color-primary-400: #6794d1;
-  --color-primary-500: #4678b8;
-  --color-primary-600: #3c6ca9;
-  --color-primary-700: #30588b;
-  --color-primary-800: #25446c;
-  --color-primary-900: #1b3050;
+  --color-primary-50: #eff6fc;
+  --color-primary-100: #dcedfb;
+  --color-primary-200: #b9daf7;
+  --color-primary-300: #96c8f3;
+  --color-primary-400: #73b5ef;
+  --color-primary-500: #5085c6;
+  --color-primary-600: #4070b0;
+  --color-primary-700: #335a8a;
+  --color-primary-800: #274564;
+  --color-primary-900: #1a2f3e;
 }
 
 .bg-primary-50 {

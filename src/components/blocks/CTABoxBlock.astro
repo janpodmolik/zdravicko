@@ -10,7 +10,7 @@ interface Props {
 const { heading, description, buttonText, buttonLink, color = 'blue' } = Astro.props;
 
 const colorClasses: Record<string, { gradient: string; button: string }> = {
-  blue: { gradient: 'from-blue-50 via-blue-50 to-blue-100', button: 'bg-blue-600 hover:bg-blue-700' },
+  blue: { gradient: 'from-blue-50 via-blue-50 to-blue-100', button: 'bg-primary hover:bg-primary-600' },
   purple: { gradient: 'from-purple-50 via-pink-50 to-purple-100', button: 'bg-purple-600 hover:bg-purple-700' },
   pink: { gradient: 'from-pink-50 via-pink-50 to-pink-100', button: 'bg-pink-600 hover:bg-pink-700' },
   green: { gradient: 'from-green-50 via-emerald-50 to-green-100', button: 'bg-green-600 hover:bg-green-700' },

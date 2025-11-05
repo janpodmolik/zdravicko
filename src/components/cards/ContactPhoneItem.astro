@@ -16,7 +16,7 @@ interface Props {
 }
 
 const DEFAULT_BG_COLOR = 'bg-blue-100';
-const DEFAULT_ICON_COLOR = 'text-blue-600';
+const DEFAULT_ICON_COLOR = 'text-primary';
 
 const {
   icon,
@@ -47,7 +47,7 @@ const {
           <a
             href={`tel:${phone.number}`}
             class:list={[
-              'text-blue-600 hover:text-blue-700 font-medium hover:underline text-base'
+              'text-primary hover:text-primary-600 font-medium hover:underline text-base'
             ]}
           >
             {phone.display}

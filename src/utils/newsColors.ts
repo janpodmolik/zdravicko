@@ -35,12 +35,12 @@ interface NewsColorConfig {
  */
 const newsColorsConfig: Record<string, NewsColorConfig> = {
   blue: {
-    cardBg: "bg-blue-50",
-    cardBorder: "border-blue-200",
-    cardBorderHover: "hover:border-blue-300",
-    iconBg: "bg-blue-500",
-    textTitle: "text-blue-900",
-    textBody: "text-blue-800",
+    cardBg: "bg-[#5085c6]/5",
+    cardBorder: "border-[#5085c6]/30",
+    cardBorderHover: "hover:border-[#5085c6]/50",
+    iconBg: "bg-[#5085c6]",
+    textTitle: "text-gray-900",
+    textBody: "text-gray-800",
   },
   orange: {
     cardBg: "bg-orange-50",

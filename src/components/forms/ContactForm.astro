@@ -3,11 +3,11 @@ import { Icon } from 'astro-icon/components';
 import { contactInfo } from '../../data/contact';
 
 // Společné CSS třídy pro input fieldy
-const inputClasses = "w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors";
+const inputClasses = "w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#5085c6] focus:border-transparent transition-colors";
 const labelClasses = "block text-sm font-semibold text-gray-700 mb-2";
 ---
 
-<div class="bg-linear-to-br from-gray-50 to-blue-50 rounded-2xl p-8 border-2 border-blue-100 shadow-sm">
+<div class="bg-linear-to-br from-gray-50 to-[#5085c6]/5 rounded-2xl p-8 border-2 border-[#5085c6]/30 shadow-sm">
   <h2 class="text-3xl font-bold text-gray-900 mb-2">Napište nám</h2>
   <p class="text-gray-600 mb-6">Zanechte nám zprávu a my se vám ozveme co nejdříve</p>
 
@@ -91,18 +91,18 @@ const labelClasses = "block text-sm font-semibold text-gray-700 mb-2";
         id="gdpr"
         name="gdpr"
         required
-        class="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+        class="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-2 focus:ring-[#5085c6]"
       />
       <label for="gdpr" class="text-sm text-gray-700">
-        Souhlasím se zpracováním osobních údajů pro účely zodpovězení dotazu. 
-        Vaše data budou zpracována v souladu s <a href="/gdpr" class="text-blue-600 hover:text-blue-700 underline">GDPR</a> 
+        Souhlasím se zpracováním osobních údajů pro účely zodpovězení dotazu.
+        Vaše data budou zpracována v souladu s <a href="/gdpr" class="text-primary hover:text-primary-600 underline">GDPR</a>
         a nebudou předána třetím stranám. *
       </label>
     </div>
 
     <button
       type="submit"
-      class="w-full bg-blue-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
+      class="w-full bg-[#5085c6] text-white font-semibold px-8 py-4 rounded-lg hover:opacity-90 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
     >
       <Icon name="mdi:send" class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
       Odeslat zprávu

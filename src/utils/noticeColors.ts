@@ -50,14 +50,14 @@ export function getNoticeColors(type?: NoticeType): NoticeColorScheme {
   } else {
     // info
     return {
-      bg: "bg-blue-50",
-      border: "border-blue-300",
-      icon: "bg-blue-600",
-      text: "text-blue-700",
-      badge: "bg-blue-100 text-blue-800",
-      description: "text-blue-600",
-      infoBanner: "bg-blue-100",
-      infoBannerBorder: "border-blue-500",
+      bg: "bg-[#5085c6]/5",
+      border: "border-[#5085c6]/30",
+      icon: "bg-[#5085c6]",
+      text: "text-[#5085c6]",
+      badge: "bg-[#5085c6]/10 text-[#5085c6]",
+      description: "text-[#5085c6]",
+      infoBanner: "bg-[#5085c6]/10",
+      infoBannerBorder: "border-[#5085c6]",
     };
   }
 }
@@ -88,11 +88,11 @@ export function getSpecialNoticeVisualConfig(
   }
 
   return {
-    gradient: "from-blue-50 to-cyan-50",
-    border: "border-blue-300",
-    iconGradient: "from-blue-500 to-cyan-500",
+    gradient: "from-[#5085c6]/5 to-cyan-50",
+    border: "border-[#5085c6]/30",
+    iconGradient: "from-[#5085c6] to-cyan-500",
     iconName: "mdi:information",
-    badgeBg: "bg-blue-50",
-    badgeText: "text-blue-700",
+    badgeBg: "bg-[#5085c6]/5",
+    badgeText: "text-[#5085c6]",
   };
 }

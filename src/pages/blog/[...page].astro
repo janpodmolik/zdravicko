@@ -26,14 +26,14 @@ type Props = {
 const { page } = Astro.props;
 ---
 
-<Layout title="Blog - Zdravíčko" description="Odborné články a rady pro rodiče od našeho týmu. Zdraví dětí, prevence, výživa a mnoho dalšího.">
+<Layout title="Blog - Zdravíčko" description="Články ze života ordinace, rady pro rodiče a odborné tipy od našeho týmu. Nejen medicína, ale i osobní příběhy a zkušenosti.">
   <Header activePage="blog" />
   <MobileMenu activePage="blog" />
 
   <div class="relative">
     <PageHeader
       title="Blog"
-      description="Odborné články a rady pro rodiče od našeho týmu"
+      description="Příběhy ze života ordinace, rady pro rodiče a odborné tipy"
       gradient={true}
     />
     <StaticDragonfly left={12} top={14} size="155px" sizeMobile="108px" opacity={0.9} rotation={-8} zIndex={5} />
@@ -69,11 +69,11 @@ const { page } = Astro.props;
           Pokud máte konkrétní otázku ohledně zdraví vašeho dítěte, neváhejte nás kontaktovat.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href={`tel:${contactInfo.phones.doctor.number}`} class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center justify-center gap-2">
+          <a href={`tel:${contactInfo.phones.doctor.number}`} class="bg-[#5085c6] text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity inline-flex items-center justify-center gap-2">
             <Icon name="mdi:phone" class="w-5 h-5" />
             Zavolat
           </a>
-          <a href="/kontakt" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors border-2 border-blue-600">
+          <a href="/kontakt" class="bg-white text-[#5085c6] px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors border-2 border-[#5085c6]">
             Napsat email
           </a>
         </div>

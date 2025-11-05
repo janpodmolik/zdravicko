@@ -14,16 +14,16 @@ const { title, description, className = 'mb-6 md:mb-8' } = Astro.props;
 
 <div class:list={['text-center', className]}>
   <div class="max-w-3xl mx-auto space-y-3 md:space-y-4">
-    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-blue-900">
+    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">
       <span class="relative inline-block">
-        <span class="absolute inset-x-2 bottom-1 h-3 bg-blue-100/70 rounded-full md:h-4 md:bottom-0"></span>
+        <span class="absolute inset-x-2 bottom-1 h-3 bg-[#5085c6]/10 rounded-full md:h-4 md:bottom-0"></span>
         <span class="relative px-2 md:px-3">
           {title}
         </span>
       </span>
     </h2>
     {description && (
-      <p class="text-base md:text-lg text-blue-700/90 leading-relaxed">
+      <p class="text-base md:text-lg text-[#5085c6] leading-relaxed">
         {description}
       </p>
     )}

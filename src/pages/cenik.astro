@@ -8,7 +8,7 @@ import CTAButtons from '../components/common/CTAButtons.astro';
 import PriceSection from '../components/layouts/PriceSection.astro';
 import InfoBox from '../components/common/InfoBox.astro';
 import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
-import { priceSections, priceInfoItems } from '../data/pricing';
+import { priceSections, priceInfoItems, paymentWarningItems } from '../data/pricing';
 ---
 
 <Layout title="Ceník služeb - Zdravíčko" description="Přehled cen služeb dětské ordinace Zdravíčko. Základní péče je hrazena z veřejného zdravotního pojištění.">
@@ -22,6 +22,7 @@ import { priceSections, priceInfoItems } from '../data/pricing';
       gradient={true}
     />
     <StaticDragonfly left={6} top={16} size="150px" sizeMobile="105px" opacity={0.9} rotation={-10} zIndex={5} />
+    <StaticDragonfly right={8} bottom={10} size="155px" sizeMobile="108px" opacity={0.85} rotation={15} zIndex={5} />
   </div>
 
   <!-- Pricing Page - Main Content -->
@@ -34,11 +35,21 @@ import { priceSections, priceInfoItems } from '../data/pricing';
           <PriceSection section={section} />
         ))}
 
-        <!-- Important Information -->
+        <!-- Payment Warning -->
         <InfoBox
-          title="Důležité informace"
-          items={priceInfoItems}
+          title="Upozornění k platbě"
+          icon="mdi:alert"
+          items={paymentWarningItems}
+          variant="amber"
         />
+
+        <!-- Important Information -->
+        <div class="mt-8">
+          <InfoBox
+            title="Důležité informace"
+            items={priceInfoItems}
+          />
+        </div>
 
         <!-- CTA Section -->
         <div class="mt-12 text-center">

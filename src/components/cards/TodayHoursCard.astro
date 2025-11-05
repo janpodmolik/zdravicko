@@ -15,26 +15,26 @@ const specialNoticeDisplay = getSpecialNoticeDisplay();
 const closureInfo = specialNoticeDisplay.isClosed ? specialNoticeDisplay.closureInfo : null;
 const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
 const closureAccent = {
-  border: colors?.border ?? "border-blue-100",
-  icon: colors?.icon ?? "bg-linear-to-br from-blue-500 to-blue-600",
-  text: colors?.text ?? "text-blue-700",
+  border: colors?.border ?? "border-[#5085c6]/30",
+  icon: colors?.icon ?? "bg-linear-to-br from-[#5085c6] to-[#4070b0]",
+  text: colors?.text ?? "text-[#5085c6]",
 };
 const displayHours = todayInfo.hours ?? "Zavřeno";
 const hoursClass = todayInfo.isModified
-  ? colors?.text ?? "text-blue-600"
+  ? colors?.text ?? "text-primary"
   : todayInfo.isClosed
     ? "text-gray-600"
-    : "text-blue-600";
+    : "text-primary";
 ---
 
 <div class:list={[
   "rounded-2xl shadow-lg p-8 border-2",
-  todayInfo.isModified ? `${colors?.bg} ${colors?.border}` : "bg-white border-blue-100"
+  todayInfo.isModified ? `${colors?.bg} ${colors?.border}` : "bg-white border-[#5085c6]/30"
 ]}>
   <div class="flex items-center gap-4 mb-4">
     <div class:list={[
       "w-12 h-12 rounded-full flex items-center justify-center",
-      todayInfo.isModified ? colors?.icon : "bg-blue-600"
+      todayInfo.isModified ? colors?.icon : "bg-[#5085c6]"
     ]}>
       <Icon
         name={todayInfo.isModified ? "mdi:alert-circle-outline" : "mdi:clock-outline"}

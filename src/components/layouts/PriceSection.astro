@@ -1,11 +1,10 @@
 ---
 /**
- * PriceSection - Sekce ceníku (hrazené / nadstandardní služby)
+ * PriceSection - Sekce ceníku
  *
  * Zobrazuje skupinu služeb s jednotným stylingem
  */
 import { Icon } from 'astro-icon/components';
-import PriceItem from '../cards/PriceItem.astro';
 import type { PriceSection as PriceSectionType } from '../../data/pricing';
 
 interface Props {
@@ -17,27 +16,23 @@ const { section } = Astro.props;
 
 <div class="mb-12">
   <!-- Header -->
-  <div class="flex items-center gap-3 mb-6">
-    <div class:list={['w-12 h-12 rounded-lg flex items-center justify-center', section.iconBg]}>
-      <Icon name={section.icon} class:list={['w-8 h-8', section.priceColor]} aria-hidden="true" />
-    </div>
-    <h2 class="text-3xl font-bold text-gray-900">{section.title}</h2>
+  <div class="mb-6 text-center">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-900">{section.title}</h2>
   </div>
 
   <!-- Items -->
-  <div class:list={['rounded-2xl p-8', section.sectionBg]}>
-    <div class="space-y-4">
+  <div class:list={['rounded-2xl p-6 md:p-8', section.sectionBg]}>
+    <div class="space-y-3">
       {section.items.map((item, index) => (
         <div class:list={[
-          'flex justify-between items-center py-4',
+          'flex justify-between items-start gap-4 py-3',
           index < section.items.length - 1 && `border-b ${section.borderColor}`
         ]}>
-          <div>
-            <h3 class="font-semibold text-gray-900 mb-1">{item.title}</h3>
-            <p class="text-sm text-gray-600">{item.description}</p>
+          <div class="flex-1">
+            <p class="text-gray-800 leading-relaxed">{item.title}</p>
           </div>
           <span class:list={[
-            'font-semibold text-lg whitespace-nowrap ml-4',
+            'font-semibold text-base whitespace-nowrap',
             section.priceColor
           ]}>
             {item.price}
@@ -45,5 +40,12 @@ const { section } = Astro.props;
         </div>
       ))}
     </div>
+
+    {section.note && (
+      <div class="mt-8 pt-6 border-t border-gray-200">
+        <h3 class="font-bold text-gray-900 mb-2">Rozhodnutí poskytovatele zdravotních služeb</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">{section.note}</p>
+      </div>
+    )}
   </div>
 </div>

@@ -21,12 +21,12 @@ export interface ColorClasses {
 
 export const colorClasses: Record<ColorName, ColorClasses> = {
   blue: {
-    bg: "bg-blue-600",
-    bgLight: "bg-blue-50",
-    border: "border-blue-100",
-    hoverBorder: "hover:border-blue-500",
-    text: "text-blue-600",
-    gradient: "from-blue-50 via-cyan-50 to-blue-100",
+    bg: "bg-[#5085c6]",
+    bgLight: "bg-[#5085c6]/5",
+    border: "border-[#5085c6]/30",
+    hoverBorder: "hover:border-[#5085c6]",
+    text: "text-[#5085c6]",
+    gradient: "from-[#5085c6]/5 via-cyan-50 to-[#5085c6]/10",
   },
   cyan: {
     bg: "bg-cyan-600",

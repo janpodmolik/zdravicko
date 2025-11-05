@@ -29,7 +29,7 @@ import { contactInfo } from '../data/contact';
           <!-- Intro -->
           <div class="mb-12 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl">
             <div class="flex gap-4">
-              <Icon name="mdi:shield-check" class="w-8 h-8 text-blue-600 shrink-0" />
+              <Icon name="mdi:shield-check" class="w-8 h-8 text-primary shrink-0" />
               <div>
                 <h2 class="text-xl font-bold text-gray-900 mb-2">Vaše soukromí je pro nás prioritou</h2>
                 <p class="text-gray-700">
@@ -43,19 +43,19 @@ import { contactInfo } from '../data/contact';
           <!-- Content -->
           <div class="prose prose-lg max-w-none">
             <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-              <Icon name="mdi:account-circle" class="w-7 h-7 text-blue-600" />
+              <Icon name="mdi:account-circle" class="w-7 h-7 text-primary" />
               Správce osobních údajů
             </h2>
             <div class="bg-gray-50 p-6 rounded-xl mb-8">
               <p class="mb-2"><strong>{siteConfig.primaryDoctor.name}</strong></p>
               <p class="mb-2">{siteConfig.primaryDoctor.specialization}</p>
               <p class="mb-2">{contactInfo.address.street}, {contactInfo.address.zip} {contactInfo.address.city}</p>
-              <p class="mb-2">Email: <a href={`mailto:${contactInfo.email}`} class="text-blue-600 hover:underline">{contactInfo.email}</a></p>
-              <p>Telefon: <a href={`tel:${contactInfo.phones.doctor.number}`} class="text-blue-600 hover:underline">{contactInfo.phones.doctor.display}</a></p>
+              <p class="mb-2">Email: <a href={`mailto:${contactInfo.email}`} class="text-primary hover:underline">{contactInfo.email}</a></p>
+              <p>Telefon: <a href={`tel:${contactInfo.phones.doctor.number}`} class="text-primary hover:underline">{contactInfo.phones.doctor.display}</a></p>
             </div>
 
             <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-              <Icon name="mdi:file-document-outline" class="w-7 h-7 text-blue-600" />
+              <Icon name="mdi:file-document-outline" class="w-7 h-7 text-primary" />
               Jaké údaje zpracováváme
             </h2>
             <p class="mb-6 text-gray-700">Zpracováváme následující kategorie osobních údajů:</p>
@@ -79,7 +79,7 @@ import { contactInfo } from '../data/contact';
             </ul>
 
             <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-              <Icon name="mdi:scale-balance" class="w-7 h-7 text-blue-600" />
+              <Icon name="mdi:scale-balance" class="w-7 h-7 text-primary" />
               Účel a právní základ zpracování
             </h2>
             <div class="space-y-4 mb-8">
@@ -101,55 +101,55 @@ import { contactInfo } from '../data/contact';
             </div>
 
             <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-              <Icon name="mdi:clock-outline" class="w-7 h-7 text-blue-600" />
+              <Icon name="mdi:clock-outline" class="w-7 h-7 text-primary" />
               Doba uchovávání údajů
             </h2>
             <p class="mb-4 text-gray-700">Osobní údaje uchováváme po dobu:</p>
             <ul class="mb-8 space-y-2">
               <li class="flex gap-3">
-                <Icon name="mdi:arrow-right" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <Icon name="mdi:arrow-right" class="w-5 h-5 text-primary shrink-0 mt-1" />
                 <span><strong>Zdravotnická dokumentace dospělých:</strong> minimálně 10 let od posledního zápisu</span>
               </li>
               <li class="flex gap-3">
-                <Icon name="mdi:arrow-right" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <Icon name="mdi:arrow-right" class="w-5 h-5 text-primary shrink-0 mt-1" />
                 <span><strong>Zdravotnická dokumentace dětí:</strong> minimálně do dovršení 18 let věku + 10 let</span>
               </li>
               <li class="flex gap-3">
-                <Icon name="mdi:arrow-right" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <Icon name="mdi:arrow-right" class="w-5 h-5 text-primary shrink-0 mt-1" />
                 <span><strong>Účetní doklady:</strong> 10 let</span>
               </li>
             </ul>
 
             <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-              <Icon name="mdi:account-key" class="w-7 h-7 text-blue-600" />
+              <Icon name="mdi:account-key" class="w-7 h-7 text-primary" />
               Vaše práva
             </h2>
             <p class="mb-4 text-gray-700">Jako subjekt údajů máte následující práva:</p>
             <ul class="mb-8 space-y-3">
               <li class="flex gap-3">
-                <Icon name="mdi:eye-outline" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <Icon name="mdi:eye-outline" class="w-5 h-5 text-primary shrink-0 mt-1" />
                 <span><strong>Právo na přístup:</strong> Můžete si vyžádat informace o tom, jaké vaše osobní údaje zpracováváme</span>
               </li>
               <li class="flex gap-3">
-                <Icon name="mdi:pencil-outline" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <Icon name="mdi:pencil-outline" class="w-5 h-5 text-primary shrink-0 mt-1" />
                 <span><strong>Právo na opravu:</strong> Můžete požádat o opravu nesprávných údajů</span>
               </li>
               <li class="flex gap-3">
-                <Icon name="mdi:delete-outline" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <Icon name="mdi:delete-outline" class="w-5 h-5 text-primary shrink-0 mt-1" />
                 <span><strong>Právo na výmaz:</strong> Za určitých podmínek můžete požádat o výmaz údajů</span>
               </li>
               <li class="flex gap-3">
-                <Icon name="mdi:lock-outline" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <Icon name="mdi:lock-outline" class="w-5 h-5 text-primary shrink-0 mt-1" />
                 <span><strong>Právo na omezení zpracování:</strong> Můžete požádat o omezení zpracování</span>
               </li>
               <li class="flex gap-3">
-                <Icon name="mdi:alert-circle-outline" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <Icon name="mdi:alert-circle-outline" class="w-5 h-5 text-primary shrink-0 mt-1" />
                 <span><strong>Právo podat stížnost:</strong> Můžete podat stížnost u Úřadu pro ochranu osobních údajů</span>
               </li>
             </ul>
 
             <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-              <Icon name="mdi:shield-lock" class="w-7 h-7 text-blue-600" />
+              <Icon name="mdi:shield-lock" class="w-7 h-7 text-primary" />
               Zabezpečení údajů
             </h2>
             <p class="mb-6 text-gray-700">Přijali jsme vhodná technická a organizační opatření k zabezpečení vašich osobních údajů:</p>
@@ -173,27 +173,27 @@ import { contactInfo } from '../data/contact';
             </ul>
 
             <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-              <Icon name="mdi:share-variant" class="w-7 h-7 text-blue-600" />
+              <Icon name="mdi:share-variant" class="w-7 h-7 text-primary" />
               Předávání údajů třetím stranám
             </h2>
             <p class="mb-4 text-gray-700">Vaše osobní údaje předáváme pouze:</p>
             <ul class="mb-8 space-y-2">
               <li class="flex gap-3">
-                <Icon name="mdi:hospital-building" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <Icon name="mdi:hospital-building" class="w-5 h-5 text-primary shrink-0 mt-1" />
                 <span>Zdravotním pojišťovnám (za účelem vyúčtování péče)</span>
               </li>
               <li class="flex gap-3">
-                <Icon name="mdi:hospital-box" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <Icon name="mdi:hospital-box" class="w-5 h-5 text-primary shrink-0 mt-1" />
                 <span>Jiným zdravotnickým zařízením (s vaším souhlasem nebo při předání do péče)</span>
               </li>
               <li class="flex gap-3">
-                <Icon name="mdi:gavel" class="w-5 h-5 text-blue-600 shrink-0 mt-1" />
+                <Icon name="mdi:gavel" class="w-5 h-5 text-primary shrink-0 mt-1" />
                 <span>Orgánům veřejné moci (pokud to vyžaduje zákon)</span>
               </li>
             </ul>
 
             <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-              <Icon name="mdi:email-outline" class="w-7 h-7 text-blue-600" />
+              <Icon name="mdi:email-outline" class="w-7 h-7 text-primary" />
               Kontakt
             </h2>
             <div class="bg-blue-50 p-6 rounded-xl mb-8">
@@ -201,15 +201,15 @@ import { contactInfo } from '../data/contact';
                 Pokud máte jakékoli dotazy ohledně zpracování vašich osobních údajů nebo chcete uplatnit svá práva,
                 kontaktujte nás:
               </p>
-              <p class="mb-2"><strong>Email:</strong> <a href={`mailto:${contactInfo.email}`} class="text-blue-600 hover:underline">{contactInfo.email}</a></p>
-              <p class="mb-2"><strong>Telefon:</strong> <a href={`tel:${contactInfo.phones.doctor.number}`} class="text-blue-600 hover:underline">{contactInfo.phones.doctor.display}</a></p>
+              <p class="mb-2"><strong>Email:</strong> <a href={`mailto:${contactInfo.email}`} class="text-primary hover:underline">{contactInfo.email}</a></p>
+              <p class="mb-2"><strong>Telefon:</strong> <a href={`tel:${contactInfo.phones.doctor.number}`} class="text-primary hover:underline">{contactInfo.phones.doctor.display}</a></p>
               <p><strong>Adresa:</strong> {contactInfo.address.full}</p>
             </div>
 
             <div class="bg-gray-100 p-6 rounded-xl text-sm text-gray-600">
               <p class="mb-2"><strong>Úřad pro ochranu osobních údajů</strong></p>
               <p class="mb-1">Pplk. Sochora 27, 170 00 Praha 7</p>
-              <p class="mb-1">Web: <a href="https://www.uoou.cz" target="_blank" rel="noopener" class="text-blue-600 hover:underline">www.uoou.cz</a></p>
+              <p class="mb-1">Web: <a href="https://www.uoou.cz" target="_blank" rel="noopener" class="text-primary hover:underline">www.uoou.cz</a></p>
               <p>Tel.: +420 234 665 111</p>
             </div>
           </div>

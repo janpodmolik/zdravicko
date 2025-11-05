@@ -82,7 +82,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
                   title="Email"
                   href={`mailto:${contactInfo.email}`}
                 >
-                  <p class="text-blue-600 hover:text-blue-700 font-medium text-base">{contactInfo.email}</p>
+                  <p class="text-primary hover:text-primary-600 font-medium text-base">{contactInfo.email}</p>
                 </ContactInfoItem>
 
                 <!-- Opening Hours Summary - clickable, goes to full schedule -->
@@ -97,7 +97,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
                   ]}>
                     {displayHours}
                   </p>
-                  <p class="text-blue-600 text-sm font-medium inline-flex items-center gap-1 mt-2 hover:text-blue-700">
+                  <p class="text-primary text-sm font-medium inline-flex items-center gap-1 mt-2 hover:text-primary-600">
                     Celý rozvrh
                     <Icon name="mdi:arrow-right" class="w-4 h-4" />
                   </p>
