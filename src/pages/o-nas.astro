@@ -4,8 +4,6 @@ import Header from '../components/common/Header.astro';
 import MobileMenu from '../components/common/MobileMenu.astro';
 import Footer from '../components/common/Footer.astro';
 import PageHeader from '../components/common/PageHeader.astro';
-import HeroWithLottieClouds from '../components/home/HeroWithLottieClouds.astro';
-import CTAButtons from '../components/common/CTAButtons.astro';
 import SectionTitle from '../components/common/SectionTitle.astro';
 import ValueCard from '../components/cards/ValueCard.astro';
 import OfficeFacilities from '../components/about/OfficeFacilities.astro';
@@ -70,11 +68,12 @@ const values = [
   <MobileMenu activePage="o-nas" />
 
   <main>
-    <!-- Hero with Lottie Clouds -->
-    <HeroWithLottieClouds
+    <!-- Page header -->
+    <PageHeader
       title="O naší ordinaci"
-      description="Poznejte náš tým a historii ordinace, která se stará o zdraví vašich dětí s láskou a profesionalitou"
-      showButtons={false}
+      description="Poznejte náš tým a historii ordinace, která se stará o zdraví vašich dětí s láskou a profesionalitou."
+      badge={{ icon: 'mdi:home-heart', text: 'Rodinná péče' }}
+      animated={false}
     />
 
     <!-- Our Story -->
