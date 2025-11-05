@@ -6,7 +6,7 @@ import Footer from '../components/common/Footer.astro';
 import PageHeader from '../components/common/PageHeader.astro';
 import HeroWithLottieClouds from '../components/home/HeroWithLottieClouds.astro';
 import CTAButtons from '../components/common/CTAButtons.astro';
-import SectionHeader from '../components/common/SectionHeader.astro';
+import SectionTitle from '../components/common/SectionTitle.astro';
 import ValueCard from '../components/cards/ValueCard.astro';
 import OfficeFacilities from '../components/about/OfficeFacilities.astro';
 import { Icon } from 'astro-icon/components';
@@ -81,23 +81,23 @@ const values = [
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
-          <SectionHeader icon="mdi:book-open-page-variant" title="Naše historie" />
+          <SectionTitle title="Naše historie" />
 
           <div class="prose prose-lg max-w-none text-gray-700 space-y-4">
             <p>
-              Ordinace Zdravíčko neoslavila už mnohá kulatá výročí. Zahájila svou činnost v&nbsp;roce 2005. Ani na dvacáté výročí si přes všechno ordinování nevzpomněla. Až teď zamrzelo. Dort a pár balónků 🎈 naplněných heliem by si všichni za ta léta zúčastnění zasloužili. Každý zanechal svou stopu ve vinylu a v&nbsp;duši ordinace a všem patří poděkování.
+              Ordinace Zdravíčko neoslavila už mnohá kulatá výročí. Zahájila svou činnost v&nbsp;roce 2005. Ani na dvacáté výročí si přes všechno ordinování nevzpomněla. Až teď zamrzelo. Dort a pár balónků naplněných heliem by si všichni za ta léta zúčastnění zasloužili. Každý zanechal svou stopu ve vinylu a v&nbsp;duši ordinace a všem patří poděkování.
             </p>
             <p>
-              Jednoznačně nám však proces stárnutí připomnějí „naše děti" 👪, první z nich jsou již sami rodiči a otevírají dveře Zdravíčka dětem svým. A historie se opakuje.
+              Jednoznačně nám však proces stárnutí připomnějí „naše děti", první z nich jsou již sami rodiči a otevírají dveře Zdravíčka dětem svým. A historie se opakuje.
             </p>
             <p>
-              Velkou inspirací při vzniku Zdravíčka byl opakovaný studentský pobyt doktorky Jany v&nbsp;ordinaci pediatra dr Petera Gordona v&nbsp;Basileji 📖. Myšlenku založit obdobu si nesla po celou dobu studia na medicíně i při klikaté cestě k&nbsp;pediatrii.
+              Velkou inspirací při vzniku Zdravíčka byl opakovaný studentský pobyt doktorky Jany v&nbsp;ordinaci pediatra dr Petera Gordona v&nbsp;Basileji. Myšlenku založit obdobu si nesla po celou dobu studia na medicíně i při klikaté cestě k&nbsp;pediatrii.
             </p>
             <p>
-              Důraz jsme vždy kladli na individuální přístup ke každému malému pacientovi, dbali na vytvoření přátelské barevné neformální atmosféry 🎨 i prostoru, kde se budete cítit svobodně i v&nbsp;nepopulárních situacích.
+              Důraz jsme vždy kladli na individuální přístup ke každému malému pacientovi, dbali na vytvoření přátelské barevné neformální atmosféry i prostoru, kde se budete cítit svobodně i v&nbsp;nepopulárních situacích.
             </p>
             <p>
-              Velmi rádi a s&nbsp;láskou ❤️ Vás při Vašem prvním příchodu s&nbsp;uzlíčkem v&nbsp;náručí vezmeme za ruku a provedeme všemi etapami vývoje Vašeho smyslu života. Od prvních dnů, batolení, přes předškolní a školní léta až po dospívání. Nejraději nebudeme léčit, ale zlounům předcházet, věnovat se prevenci a v&nbsp;dnešní době udržení optimistické mysli.
+              Velmi rádi a s&nbsp;láskou Vás při Vašem prvním příchodu s&nbsp;uzlíčkem v&nbsp;náručí vezmeme za ruku a provedeme všemi etapami vývoje Vašeho smyslu života. Od prvních dnů, batolení, přes předškolní a školní léta až po dospívání. Nejraději nebudeme léčit, ale zlounům předcházet, věnovat se prevenci a v&nbsp;dnešní době udržení optimistické mysli.
             </p>
           </div>
         </div>
@@ -108,7 +108,7 @@ const values = [
     <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
-          <SectionHeader icon="mdi:account-group" title="Náš tým" centered />
+          <SectionTitle title="Náš tým" />
 
           <div class="grid md:grid-cols-2 gap-8">
             {teamMembers.map((member) => {
@@ -137,7 +137,7 @@ const values = [
     <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
-          <SectionHeader icon="mdi:office-building-outline" title="Naše prostory" centered />
+          <SectionTitle title="Naše prostory" />
           <OfficeFacilities />
         </div>
       </div>
@@ -147,28 +147,13 @@ const values = [
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
         <div class="max-w-5xl mx-auto">
-          <SectionHeader icon="mdi:star" title="Naše hodnoty" centered />
+          <SectionTitle title="Naše hodnoty" />
 
           <div class="grid md:grid-cols-3 gap-8">
             {values.map((value) => (
               <ValueCard {...value} />
             ))}
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-16 bg-blue-600">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto text-center">
-          <h2 class="text-3xl font-bold text-white mb-4">
-            Staňte se součástí naší ordinace
-          </h2>
-          <p class="text-xl text-blue-100 mb-8">
-            Registrujte své dítě k nám a získejte přístup ke kvalitní pediatrické péči
-          </p>
-          <CTAButtons phoneLabel="Zavolat nám" emailLabel="Napsat e-mail" />
         </div>
       </div>
     </section>
