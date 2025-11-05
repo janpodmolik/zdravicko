@@ -1,0 +1,87 @@
+---
+/**
+ * Moderní gradientové pozadí s blur efekty
+ * Lehké, čisté CSS řešení bez závislostí
+ */
+export interface Props {
+  /** Primární barva (hex) */
+  primaryColor?: string;
+  /** Sekundární barva (hex) */
+  secondaryColor?: string;
+}
+
+const {
+  primaryColor = '#3a6fa8',
+  secondaryColor = '#6ba3e0',
+} = Astro.props;
+---
+
+<div class="gradient-bg" aria-hidden="true">
+  <div class="gradient-orb gradient-orb-1"></div>
+  <div class="gradient-orb gradient-orb-2"></div>
+  <div class="gradient-orb gradient-orb-3"></div>
+</div>
+
+<style define:vars={{ primaryColor, secondaryColor }}>
+  .gradient-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    background: linear-gradient(135deg, var(--primaryColor) 0%, var(--secondaryColor) 100%);
+  }
+
+  .gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+  }
+
+  .gradient-orb-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+    top: -10%;
+    left: -10%;
+  }
+
+  .gradient-orb-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
+    bottom: -15%;
+    right: -10%;
+  }
+
+  .gradient-orb-3 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(107, 163, 224, 0.4) 0%, transparent 70%);
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Responzivní optimalizace */
+  @media (max-width: 768px) {
+    .gradient-orb {
+      filter: blur(60px);
+    }
+
+    .gradient-orb-1 {
+      width: 300px;
+      height: 300px;
+    }
+
+    .gradient-orb-2 {
+      width: 250px;
+      height: 250px;
+    }
+
+    .gradient-orb-3 {
+      width: 200px;
+      height: 200px;
+    }
+  }
+</style>
