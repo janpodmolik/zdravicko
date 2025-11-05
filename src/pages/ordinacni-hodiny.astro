@@ -9,6 +9,7 @@ import WeeklySchedule from '../components/layouts/WeeklySchedule.astro';
 import TodayHoursCard from '../components/cards/TodayHoursCard.astro';
 import EmergencyCard from '../components/cards/EmergencyCard.astro';
 import InfoBox from '../components/common/InfoBox.astro';
+import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
 import { contactInfo } from '../data/contact';
 
 const importantInfoItems = [
@@ -26,11 +27,15 @@ const importantInfoItems = [
   <MobileMenu activePage="ordinacni-hodiny" />
 
   <main>
-    <PageHeader
-      title="Ordinační hodiny"
-      description="Provozní doba naší ordinace"
-      gradient={true}
-    />
+    <div class="relative">
+      <PageHeader
+        title="Ordinační hodiny"
+        description="Provozní doba naší ordinace"
+        gradient={true}
+      />
+      <StaticDragonfly left={8} top={10} size="145px" sizeMobile="100px" opacity={0.9} rotation={-15} zIndex={15} />
+      <StaticDragonfly right={10} top={22} size="155px" sizeMobile="108px" opacity={0.85} rotation={12} zIndex={15} />
+    </div>
 
     <!-- Today's hours highlight -->
     <section class="py-8 bg-linear-to-br from-blue-50 to-cyan-50">

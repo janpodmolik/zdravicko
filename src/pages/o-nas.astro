@@ -7,6 +7,7 @@ import PageHeader from '../components/common/PageHeader.astro';
 import SectionTitle from '../components/common/SectionTitle.astro';
 import ValueCard from '../components/cards/ValueCard.astro';
 import OfficeFacilities from '../components/about/OfficeFacilities.astro';
+import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
 import { Icon } from 'astro-icon/components';
 import { colorClasses, type ColorName } from '../utils/colors';
 import { siteConfig } from '../data/siteConfig';
@@ -69,12 +70,15 @@ const values = [
 
   <main>
     <!-- Page header -->
-    <PageHeader
-      title="O naší ordinaci"
-      description="Poznejte náš tým a historii ordinace, která se stará o zdraví vašich dětí s láskou a profesionalitou."
-      badge={{ icon: 'mdi:home-heart', text: 'Rodinná péče' }}
-      gradient={true}
-    />
+    <div class="relative">
+      <PageHeader
+        title="O naší ordinaci"
+        description="Poznejte náš tým a historii ordinace, která se stará o zdraví vašich dětí s láskou a profesionalitou."
+        badge={{ icon: 'mdi:home-heart', text: 'Rodinná péče' }}
+        gradient={true}
+      />
+      <StaticDragonfly right={8} top={15} size="160px" sizeMobile="112px" opacity={0.9} rotation={15} zIndex={15} />
+    </div>
 
     <!-- Our Story -->
     <section class="py-16 bg-white">

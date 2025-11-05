@@ -7,6 +7,7 @@ import Footer from '../components/common/Footer.astro';
 import CTAButtons from '../components/common/CTAButtons.astro';
 import PriceSection from '../components/layouts/PriceSection.astro';
 import InfoBox from '../components/common/InfoBox.astro';
+import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
 import { priceSections, priceInfoItems } from '../data/pricing';
 ---
 
@@ -14,11 +15,14 @@ import { priceSections, priceInfoItems } from '../data/pricing';
   <Header activePage="cenik" />
   <MobileMenu activePage="cenik" />
 
-  <PageHeader
-    title="Ceník služeb"
-    description="Základní péče je hrazena z veřejného zdravotního pojištění"
-    gradient={true}
-  />
+  <div class="relative">
+    <PageHeader
+      title="Ceník služeb"
+      description="Základní péče je hrazena z veřejného zdravotního pojištění"
+      gradient={true}
+    />
+    <StaticDragonfly left={6} top={16} size="150px" sizeMobile="105px" opacity={0.9} rotation={-10} zIndex={15} />
+  </div>
 
   <!-- Pricing Page - Main Content -->
   <section class="py-20 bg-white">

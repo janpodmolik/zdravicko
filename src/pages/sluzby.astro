@@ -6,6 +6,7 @@ import PageHeader from '../components/common/PageHeader.astro';
 import Footer from '../components/common/Footer.astro';
 import ServiceCard from '../components/cards/ServiceCard.astro';
 import CTAButtons from '../components/common/CTAButtons.astro';
+import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
 import { getCollection } from 'astro:content';
 import type { ServiceColor } from '../data/services';
 
@@ -34,12 +35,16 @@ const services = allServices
   <MobileMenu activePage="sluzby" />
 
   <main>
-    <PageHeader
-      title="Naše služby"
-      description="Poskytujeme komplexní pediatrickou péči s individuálním přístupem k vašim dětem."
-      badge={{ icon: 'mdi:medical-bag', text: 'Komplexní péče' }}
-      gradient={true}
-    />
+    <div class="relative">
+      <PageHeader
+        title="Naše služby"
+        description="Poskytujeme komplexní pediatrickou péči s individuálním přístupem k vašim dětem."
+        badge={{ icon: 'mdi:medical-bag', text: 'Komplexní péče' }}
+        gradient={true}
+      />
+      <StaticDragonfly left={10} top={12} size="140px" sizeMobile="100px" opacity={0.9} rotation={-12} zIndex={15} />
+      <StaticDragonfly right={6} top={20} size="160px" sizeMobile="110px" opacity={0.85} rotation={18} zIndex={15} />
+    </div>
 
     <!-- Services Grid -->
     <section class="py-20 bg-white">
