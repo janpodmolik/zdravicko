@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/common/Header.astro';
 import MobileMenu from '../components/common/MobileMenu.astro';
-import PageHeader from '../components/common/PageHeader.astro';
+import HeroWithSheep from '../components/home/HeroWithSheep.astro';
 import Footer from '../components/common/Footer.astro';
 import ServiceCard from '../components/cards/ServiceCard.astro';
 import CTAButtons from '../components/common/CTAButtons.astro';
@@ -34,11 +34,10 @@ const services = allServices
   <MobileMenu activePage="sluzby" />
 
   <main>
-    <PageHeader
+    <HeroWithSheep
       title="Naše služby"
-      description="Poskytujeme kompletní pediatrickou péči pro děti všech věkových kategorií. Od preventivních prohlídek až po akutní péči - vždy s individuálním přístupem."
-      badge={{ icon: 'mdi:medical-bag', text: 'Komplexní péče' }}
-      animated={true}
+      description="Poskytujeme komplexní pediatrickou péči s individuálním přístupem k vašim dětem"
+      showButtons={false}
     />
 
     <!-- Services Grid -->
