@@ -28,6 +28,10 @@ interface NewsColorConfig {
   textTitle: string;
   /** Barva běžného textu */
   textBody: string;
+  /** Barva CTA textu */
+  ctaText: string;
+  /** Hover barva CTA textu */
+  ctaHover: string;
 }
 
 /**
@@ -35,52 +39,64 @@ interface NewsColorConfig {
  */
 const newsColorsConfig: Record<string, NewsColorConfig> = {
   blue: {
-    cardBg: "bg-[#5085c6]/5",
-    cardBorder: "border-[#5085c6]/30",
-    cardBorderHover: "hover:border-[#5085c6]/50",
+    cardBg: "",
+    cardBorder: "border-[rgba(80,133,198,0.35)]",
+    cardBorderHover: "hover:border-[rgba(80,133,198,0.55)]",
     iconBg: "bg-[#5085c6]",
     textTitle: "text-gray-900",
     textBody: "text-gray-800",
+    ctaText: "text-[#4070b0]",
+    ctaHover: "group-hover:text-[#274564]",
   },
   orange: {
-    cardBg: "bg-orange-50",
-    cardBorder: "border-orange-200",
-    cardBorderHover: "hover:border-orange-300",
+    cardBg: "",
+    cardBorder: "border-[rgba(249,115,22,0.35)]",
+    cardBorderHover: "hover:border-[rgba(249,115,22,0.55)]",
     iconBg: "bg-orange-500",
     textTitle: "text-orange-900",
     textBody: "text-orange-800",
+    ctaText: "text-[#c2410c]",
+    ctaHover: "group-hover:text-[#9a3412]",
   },
   green: {
-    cardBg: "bg-green-50",
-    cardBorder: "border-green-200",
-    cardBorderHover: "hover:border-green-300",
+    cardBg: "",
+    cardBorder: "border-[rgba(34,197,94,0.35)]",
+    cardBorderHover: "hover:border-[rgba(34,197,94,0.55)]",
     iconBg: "bg-green-500",
     textTitle: "text-green-900",
     textBody: "text-green-800",
+    ctaText: "text-[#15803d]",
+    ctaHover: "group-hover:text-[#166534]",
   },
   red: {
-    cardBg: "bg-red-50",
-    cardBorder: "border-red-200",
-    cardBorderHover: "hover:border-red-300",
+    cardBg: "",
+    cardBorder: "border-[rgba(239,68,68,0.35)]",
+    cardBorderHover: "hover:border-[rgba(239,68,68,0.55)]",
     iconBg: "bg-red-500",
     textTitle: "text-red-900",
     textBody: "text-red-800",
+    ctaText: "text-[#b91c1c]",
+    ctaHover: "group-hover:text-[#991b1b]",
   },
   yellow: {
-    cardBg: "bg-yellow-50",
-    cardBorder: "border-yellow-200",
-    cardBorderHover: "hover:border-yellow-300",
+    cardBg: "",
+    cardBorder: "border-[rgba(234,179,8,0.35)]",
+    cardBorderHover: "hover:border-[rgba(234,179,8,0.55)]",
     iconBg: "bg-yellow-500",
     textTitle: "text-yellow-900",
     textBody: "text-yellow-800",
+    ctaText: "text-[#a16207]",
+    ctaHover: "group-hover:text-[#854d0e]",
   },
   purple: {
-    cardBg: "bg-purple-50",
-    cardBorder: "border-purple-200",
-    cardBorderHover: "hover:border-purple-300",
+    cardBg: "",
+    cardBorder: "border-[rgba(168,85,247,0.35)]",
+    cardBorderHover: "hover:border-[rgba(168,85,247,0.55)]",
     iconBg: "bg-purple-500",
     textTitle: "text-purple-900",
     textBody: "text-purple-800",
+    ctaText: "text-[#7e22ce]",
+    ctaHover: "group-hover:text-[#6b21a8]",
   },
 };
 
@@ -108,4 +124,12 @@ export function getNewsCardClasses(color: string): string {
  */
 export function getNewsIconBg(color: string): string {
   return getNewsColorConfig(color).iconBg;
+}
+
+/**
+ * Získá třídy pro CTA text a hover efekt
+ */
+export function getNewsCtaClasses(color: string): string {
+  const config = getNewsColorConfig(color);
+  return `${config.ctaText} ${config.ctaHover}`;
 }

@@ -8,7 +8,7 @@ published: true
 
 Od 1. ledna 2025 došlo ke změnám v systému ošetřovného. Celý proces je nyní plně digitalizován - žádost i ukončení probíhá elektronicky. Z ordinace posíláme rozhodnutí přímo na ČSSZ.
 
-<!-- ### Co dělat, když potřebuji ošetřovné?
+### Co dělat, když potřebuji ošetřovné?
 
 Zavolejte našim sestřičkám na číslo **[+420 603 290 939](tel:+420603290939)** a domluvíme další postup. **Ošetřovné lze začínat i ukončovat pouze pracovním dnem ordinace** (tzn. PO-PÁ), nelze víkendem. Pokud si jako rodič přejete „započítat" i víkend, ukončíme OČR pondělkem - nevadí, že v dané pondělí půjdete již do práce.
 
@@ -20,4 +20,4 @@ Více informací přímo na stránkách ČSSZ: https://www.cssz.cz/web/edavky/za
 
 ### Máte ještě otázky?
 
-Zeptejte se, rádi vysvětlíme. -->
+Zeptejte se, rádi vysvětlíme.

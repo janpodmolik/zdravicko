@@ -3,7 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/common/Header.astro';
 import MobileMenu from '../../components/common/MobileMenu.astro';
 import PageHeader from '../../components/common/PageHeader.astro';
-import AktualitaCard from '../../components/cards/AktualitaCard.astro';
+import NewsCard from '../../components/cards/NewsCard.astro';
+import NewsModal from '../../components/modals/NewsModal.astro';
 import Pagination from '../../components/common/Pagination.astro';
 import EmptyState from '../../components/common/EmptyState.astro';
 import Footer from '../../components/common/Footer.astro';
@@ -38,18 +39,18 @@ const { page } = Astro.props;
         description="Aktuální informace z naší ordinace - důležitá oznámení, změny ordinačních hodin a novinky"
         gradient={true}
       />
-      <StaticDragonfly right={12} top={18} size="150px" sizeMobile="105px" opacity={0.9} rotation={10} zIndex={5} />
-      <StaticDragonfly left={8} bottom={10} size="145px" sizeMobile="100px" opacity={0.85} rotation={-12} zIndex={5} />
+      <StaticDragonfly right={12} top={18} size="150px" sizeMobile="105px" opacity={0.9} rotation={10} zIndex={1} />
+      <StaticDragonfly left={8} bottom={10} size="145px" sizeMobile="100px" opacity={0.85} rotation={-12} zIndex={1} />
     </div>
 
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-6xl mx-auto">
           {page.data.length > 0 ? (
             <>
-              <div class="space-y-4">
+              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {page.data.map((news) => (
-                  <AktualitaCard news={news} />
+                  <NewsCard news={news} />
                 ))}
               </div>
 
@@ -65,6 +66,11 @@ const { page } = Astro.props;
       </div>
     </section>
   </main>
+
+  <!-- Modals pro všechny aktuality -->
+  {page.data.map((news) => (
+    <NewsModal news={news} />
+  ))}
 
   <Footer />
 </Layout>

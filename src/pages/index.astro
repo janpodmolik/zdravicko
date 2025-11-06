@@ -10,8 +10,8 @@ import HorizontalCarousel from '../components/common/HorizontalCarousel.astro';
 import ServiceCard from '../components/cards/ServiceCardCarousel.astro';
 import BlogCard from '../components/cards/BlogCard.astro';
 import NewsCard from '../components/cards/NewsCard.astro';
+import NewsModal from '../components/modals/NewsModal.astro';
 import OpeningHours from '../components/home/OpeningHours.astro';
-import Contact from '../components/home/Contact.astro';
 import Footer from '../components/common/Footer.astro';
 import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
 import LyingTiger from '../components/decorations/LyingTiger.astro';
@@ -55,6 +55,8 @@ const homepageServices = allServices
 
   <!-- Aktuality Carousel s vážkami -->
   <div class="relative bg-gray-50">
+    <StaticDragonfly left={5} top={8} size="112px" sizeMobile="80px" opacity={1} rotation={-5} zIndex={5} />
+    <StaticDragonfly right={10} top={12} size="96px" sizeMobile="64px" opacity={1} rotation={8} zIndex={5} />
     {latestNews.length > 0 && (
       <div>
         <HorizontalCarousel
@@ -64,12 +66,13 @@ const homepageServices = allServices
           ctaLink="/aktuality"
           bgColor="gray"
         >
-          <StaticDragonfly slot="background" left={5} top={8} size="112px" sizeMobile="80px" opacity={1} rotation={-5} zIndex={5} />
-          <StaticDragonfly slot="background" right={10} top={20} size="96px" sizeMobile="64px" opacity={1} rotation={8} zIndex={5} />
           {latestNews.map(news => (
-            <NewsCard news={news} />
+            <NewsCard news={news} variant="carousel" />
           ))}
         </HorizontalCarousel>
+        {latestNews.map(news => (
+          <NewsModal news={news} />
+        ))}
         <LyingTiger />
       </div>
     )}

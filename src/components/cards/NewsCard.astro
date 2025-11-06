@@ -1,115 +1,125 @@
 ---
 /**
- * Carousel karta pro aktuality
- * Optimalizovaná pro horizontální scrollování
+ * NewsCard - Komponenta pro zobrazení jedné aktuality
+ *
+ * Zobrazuje kartu aktuality s ikonou, nadpisem, datem a zkráceným obsahem.
+ * Při kliknutí otevře modal s plným obsahem.
+ * Používá se jak v gridu na /aktuality, tak v carouselu na homepage.
+ *
+ * @component
  */
 import { Icon } from 'astro-icon/components';
+import { formatDateShort } from '../../utils/dateFormat';
+import { getNewsCardClasses, getNewsIconBg, getNewsCtaClasses } from '../../utils/newsColors';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
+  /** Aktualita z content kolekce */
   news: CollectionEntry<'news'>;
+  /** Varianta zobrazení - carousel má pevnou šířku, grid reaguje na mřížku */
+  variant?: 'carousel' | 'grid';
 }
 
-const { news } = Astro.props;
-const { title, color, icon, date } = news.data;
+const { news, variant = 'grid' } = Astro.props;
 
-// Renderování obsahu
+const modalId = `news-${news.id}`;
+
+// Renderovat markdown obsah
 const { Content } = await news.render();
 
-// Formátování data
-const dateFormatter = new Intl.DateTimeFormat('cs-CZ', {
-  day: 'numeric',
-  month: 'numeric',
-  year: 'numeric'
-});
-const formattedDate = dateFormatter.format(new Date(date));
+// Získat styly podle barvy
+const cardClasses = getNewsCardClasses(news.data.color);
+const iconBgClass = getNewsIconBg(news.data.color);
+const ctaClasses = getNewsCtaClasses(news.data.color);
 
-// Mapování barev
-const colorStyles: Record<string, {
-  background: string;
-  border: string;
-  icon: string;
-  title: string;
-  text: string;
-}> = {
-  blue: {
-    background: 'rgba(239, 246, 255, 0.7)',
-    border: 'border-blue-200',
-    icon: 'text-blue-600',
-    title: 'text-blue-900',
-    text: 'text-blue-800'
-  },
-  orange: {
-    background: 'rgba(255, 247, 237, 0.7)',
-    border: 'border-orange-200',
-    icon: 'text-orange-600',
-    title: 'text-orange-900',
-    text: 'text-orange-800'
-  },
-  green: {
-    background: 'rgba(236, 253, 245, 0.7)',
-    border: 'border-green-200',
-    icon: 'text-green-600',
-    title: 'text-green-900',
-    text: 'text-green-800'
-  },
-  red: {
-    background: 'rgba(254, 242, 242, 0.7)',
-    border: 'border-red-200',
-    icon: 'text-red-600',
-    title: 'text-red-900',
-    text: 'text-red-800'
-  },
-  yellow: {
-    background: 'rgba(254, 252, 232, 0.7)',
-    border: 'border-yellow-200',
-    icon: 'text-yellow-600',
-    title: 'text-yellow-900',
-    text: 'text-yellow-800'
-  },
-  purple: {
-    background: 'rgba(250, 245, 255, 0.7)',
-    border: 'border-purple-200',
-    icon: 'text-purple-600',
-    title: 'text-purple-900',
-    text: 'text-purple-800'
-  }
-};
-
-const styles = colorStyles[color] ?? colorStyles.blue;
+// Šířka podle varianty
+const widthClasses = variant === 'carousel'
+  ? 'flex-none w-[300px] md:w-[360px] snap-start'
+  : 'h-full';
 ---
 
-<a
-  href={`/aktuality#news-${news.id}`}
+<article
   class:list={[
-    'flex-none w-[300px] md:w-[360px] p-5 md:p-6',
-    'border-2 rounded-xl snap-start backdrop-blur-sm',
-    'hover:shadow-md transition-shadow',
-    'flex flex-col',
-    'cursor-pointer',
-    styles.border
+    'rounded-xl border-2 p-6 transition-all shadow-sm hover:shadow-lg cursor-pointer group flex flex-col',
+    'bg-white/80 supports-[backdrop-filter]:bg-white/60 backdrop-blur-md',
+    widthClasses,
+    cardClasses
   ]}
-  style={`background-color: ${styles.background};`}
+  data-modal-id={modalId}
+  role="button"
+  tabindex="0"
 >
   <!-- Header s ikonou a datem -->
-  <div class="flex items-start gap-3 mb-4">
-    <div class:list={['shrink-0', styles.icon]}>
-      <Icon name={icon} class="w-7 h-7 md:w-8 md:h-8" />
+  <div class="flex items-start gap-4 mb-4">
+    <div class:list={[
+      'w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-lg',
+      iconBgClass
+    ]}>
+      <Icon name={news.data.icon} class="w-6 h-6 text-white" />
     </div>
     <div class="flex-1 min-w-0">
-      <h3 class:list={['font-bold text-base md:text-lg mb-1', styles.title]}>
-        {title}
+      <h3 class="font-bold text-lg text-gray-900 leading-tight mb-1 group-hover:text-primary transition-colors">
+        {news.data.title}
       </h3>
-      <p class="text-xs md:text-sm text-gray-600">
-        {formattedDate}
-      </p>
+      <time class="text-xs text-gray-500">
+        {formatDateShort(news.data.date.toISOString())}
+      </time>
     </div>
   </div>
 
-  <!-- Obsah aktuality - omezeno na 4 řádky -->
-  <div class:list={['prose prose-sm max-w-none flex-1', styles.text]}>
-    <div class="line-clamp-4">
+  <!-- Preview obsahu - zkrácený -->
+  <div class="flex-1">
+    <div class="prose prose-sm max-w-none text-gray-700 line-clamp-4 [&>p]:mb-2 [&>strong]:text-gray-900 [&>strong]:font-semibold">
       <Content />
     </div>
   </div>
-</a>
+
+  <!-- CTA -->
+  <div class="mt-4 pt-4 border-t border-gray-200">
+    <div class:list={[
+      'flex items-center justify-between text-sm font-semibold transition-colors',
+      ctaClasses
+    ]}>
+      <span>Zobrazit detail</span>
+      <Icon name="mdi:arrow-right" class="w-5 h-5" />
+    </div>
+  </div>
+</article>
+
+<script define:vars={{ modalId }}>
+  // Inicializace po načtení stránky
+  function initCard() {
+    const card = document.querySelector(`[data-modal-id="${modalId}"]`);
+
+    if (!card) return;
+
+    // Funkce pro otevření modalu
+    function openModal() {
+      const modal = document.getElementById(`modal-${modalId}`);
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    // Click event
+    card.addEventListener('click', openModal);
+
+    // Keyboard accessibility
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openModal();
+      }
+    });
+  }
+
+  // Inicializovat při načtení i po view transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCard);
+  } else {
+    initCard();
+  }
+
+  document.addEventListener('astro:page-load', initCard);
+</script>
