@@ -16,11 +16,7 @@ const {
 } = Astro.props;
 ---
 
-<div class="gradient-bg" aria-hidden="true">
-  <div class="gradient-orb gradient-orb-1"></div>
-  <div class="gradient-orb gradient-orb-2"></div>
-  <div class="gradient-orb gradient-orb-3"></div>
-</div>
+<div class="gradient-bg" aria-hidden="true"></div>
 
 <style define:vars={{ primaryColor, secondaryColor }}>
   .gradient-bg {
@@ -28,60 +24,25 @@ const {
     inset: 0;
     overflow: hidden;
     z-index: 0;
-    background: linear-gradient(135deg, var(--primaryColor) 0%, var(--secondaryColor) 100%);
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 15% 18%, rgba(255, 255, 255, 0.75) 0%, transparent 58%),
+      radial-gradient(circle at 82% 78%, rgba(255, 255, 255, 0.55) 0%, transparent 62%),
+      radial-gradient(circle at 50% 42%, rgba(107, 163, 224, 0.35) 0%, transparent 60%),
+      linear-gradient(135deg, var(--primaryColor) 0%, var(--secondaryColor) 100%);
+    /* Safari fix pro smooth přechody mezi stránkami */
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
-  .gradient-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
-  }
-
-  .gradient-orb-1 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
-    top: -10%;
-    left: -10%;
-  }
-
-  .gradient-orb-2 {
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
-    bottom: -15%;
-    right: -10%;
-  }
-
-  .gradient-orb-3 {
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(107, 163, 224, 0.4) 0%, transparent 70%);
-    top: 40%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  /* Responzivní optimalizace */
   @media (max-width: 768px) {
-    .gradient-orb {
-      filter: blur(60px);
-    }
-
-    .gradient-orb-1 {
-      width: 300px;
-      height: 300px;
-    }
-
-    .gradient-orb-2 {
-      width: 250px;
-      height: 250px;
-    }
-
-    .gradient-orb-3 {
-      width: 200px;
-      height: 200px;
+    .gradient-bg {
+      background:
+        radial-gradient(circle at 20% 22%, rgba(255, 255, 255, 0.7) 0%, transparent 55%),
+        radial-gradient(circle at 78% 80%, rgba(255, 255, 255, 0.5) 0%, transparent 58%),
+        radial-gradient(circle at 50% 46%, rgba(107, 163, 224, 0.3) 0%, transparent 58%),
+        linear-gradient(135deg, var(--primaryColor) 0%, var(--secondaryColor) 100%);
     }
   }
 </style>
