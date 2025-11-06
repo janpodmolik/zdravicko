@@ -38,10 +38,7 @@ const isCarousel = variant === 'carousel';
 >
   <article>
     <!-- Obrázek článku nebo placeholder -->
-    <div class:list={[
-      'relative h-48 overflow-hidden bg-linear-to-br from-blue-100 to-cyan-100',
-      isCarousel ? 'rounded-t-xl' : ''
-    ]}>
+    <div class="relative h-48 overflow-hidden rounded-t-xl bg-linear-to-br from-blue-100 to-cyan-100">
       {image ? (
         <img
           src={image}
@@ -54,7 +51,7 @@ const isCarousel = variant === 'carousel';
         />
       ) : (
         <div class="w-full h-full flex items-center justify-center">
-          <Icon name={DEFAULT_ICON} class="w-20 h-20 text-blue-300" />
+          <Icon name={DEFAULT_ICON} class="w-20 h-20 text-primary-300" />
         </div>
       )}
       <!-- Kategorie badge - jen pro default variant -->
@@ -62,7 +59,7 @@ const isCarousel = variant === 'carousel';
         <div class="absolute top-4 left-4">
           <span class:list={[
             'bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold',
-            'text-blue-600'
+            'text-primary-600'
           ]}>
             {category}
           </span>
@@ -96,7 +93,7 @@ const isCarousel = variant === 'carousel';
       <!-- Nadpis -->
       <h3 class:list={[
         'font-bold text-gray-900 mb-2 line-clamp-2',
-        isCarousel ? 'text-lg group-hover:text-blue-600 transition-colors' : 'text-xl mb-3'
+        isCarousel ? 'text-lg transition-colors group-hover:text-primary-600' : 'text-xl mb-3'
       ]}>
         {title}
       </h3>
@@ -111,7 +108,7 @@ const isCarousel = variant === 'carousel';
 
       <!-- Call to action - jen pro default variant -->
       {!isCarousel && (
-        <div class="text-blue-600 font-semibold flex items-center gap-1 text-sm">
+        <div class="text-primary-600 font-semibold flex items-center gap-1 text-sm">
           Číst více
           <Icon name={ARROW_ICON} class="w-4 h-4" />
         </div>

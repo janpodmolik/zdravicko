@@ -44,6 +44,14 @@
   color: var(--color-primary-500);
 }
 
+.text-primary-300 {
+  color: var(--color-primary-300);
+}
+
+.text-primary-400 {
+  color: var(--color-primary-400);
+}
+
 .text-primary-600 {
   color: var(--color-primary-600);
 }
@@ -103,6 +111,10 @@
 .btn-primary:focus-visible {
   outline: 2px solid rgba(70, 120, 184, 0.35);
   outline-offset: 2px;
+}
+
+.group:hover .group-hover\:text-primary-600 {
+  color: var(--color-primary-600);
 }
 .scroll-offset-header {
   scroll-margin-top: 6rem;
