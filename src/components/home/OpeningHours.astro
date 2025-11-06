@@ -9,9 +9,22 @@ import SectionTitle from '../common/SectionTitle.astro';
     <div class="max-w-3xl mx-auto">
       <SectionTitle title="Ordinační hodiny" className="mb-8 md:mb-12" />
 
-      <WeeklySchedule
-        showLink={true}
-      />
+      <WeeklySchedule />
+
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+        <a
+          href="/ordinacni-hodiny"
+          class="btn-primary inline-flex items-center justify-center px-6 py-3 font-semibold text-sm md:text-base rounded-xl transition duration-200"
+        >
+          Celý rozvrh a kontakty
+        </a>
+        <a
+          href="/ordinacni-hodiny#mimo-ordinacni-dobu"
+          class="inline-flex items-center justify-center px-6 py-3 font-semibold text-sm md:text-base rounded-xl border-2 border-primary-200 text-primary-700 bg-white transition duration-200 hover:bg-primary-50"
+        >
+          Mimo ordinační dobu
+        </a>
+      </div>
     </div>
   </div>
 </section>

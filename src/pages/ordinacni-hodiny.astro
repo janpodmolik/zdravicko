@@ -7,16 +7,66 @@ import Footer from '../components/common/Footer.astro';
 import CTAButtons from '../components/common/CTAButtons.astro';
 import WeeklySchedule from '../components/layouts/WeeklySchedule.astro';
 import TodayHoursCard from '../components/cards/TodayHoursCard.astro';
-import EmergencyCard from '../components/cards/EmergencyCard.astro';
 import InfoBox from '../components/common/InfoBox.astro';
 import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
-import { contactInfo } from '../data/contact';
+import { Icon } from 'astro-icon/components';
+import zachrankaLogo from '../assets/zachranka-app.svg?url';
 
 const importantInfoItems = [
   'Na všechny vyšetření je nutné se objednat předem',
   'Objednání telefonicky nebo online přes náš systém',
   'V případě akutních problémů volejte vždy předem'
 ];
+
+const afterHoursLocation = {
+  name: 'Dětská pohotovost - Nemocnice AGEL Přerov',
+  address: 'Dvořákova 1215/23, Přerov',
+  mapHref: 'https://www.google.com/maps/search/?api=1&query=Nemocnice+AGEL+P%C5%99erov%2C+Dvo%C5%99%C3%A1kova+1215%2F23'
+};
+
+const lsppInfo = {
+  hours: 'Soboty, neděle a svátky 08:00-20:00',
+  description: 'LSPP zajišťuje dětský lékař (z nemocnice nebo praktický dětský lékař) a dětská sestra.'
+};
+
+const phoneContacts = [
+  {
+    label: 'Dětská ambulance',
+    display: '581 271 460',
+    href: 'tel:+420581271460'
+  },
+  {
+    label: 'Dětské oddělení',
+    display: '581 271 464',
+    href: 'tel:+420581271464'
+  }
+];
+
+const cardBase = 'rounded-2xl p-6';
+const cardVariants = {
+  primaryTint: [cardBase, 'bg-primary-50 ring-1 ring-primary-100'],
+  primarySoft: [cardBase, 'bg-primary-100 ring-1 ring-primary-100'],
+  primaryBorderLight: [cardBase, 'bg-white border border-primary-100'],
+  phoneHighlight: [cardBase, 'bg-primary-700 border border-primary-200 text-white shadow-lg'],
+  redAlert: [cardBase, 'bg-red-50 border border-red-200'],
+  zachranka: [cardBase, 'border shadow-md'],
+  kdy: [cardBase, 'border shadow-sm']
+};
+
+const brandStyles = {
+  zachranka: {
+    background: '#c6e4e2',
+    border: '#9ccbc4',
+    text: '#134540',
+    accent: '#0f756b'
+  },
+  kdy: {
+    background: '#e5effb',
+    border: '#c3d6f3',
+    text: '#1f3f6b',
+    accent: '#274f8f'
+  }
+};
 ---
 
 <Layout
@@ -52,9 +102,7 @@ const importantInfoItems = [
         <div class="max-w-3xl mx-auto">
           <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Týdenní rozvrh</h2>
 
-          <WeeklySchedule
-            showLink={false}
-          />
+          <WeeklySchedule />
 
           <!-- Important info box -->
           <div class="mt-8">
@@ -64,44 +112,142 @@ const importantInfoItems = [
       </div>
     </section>
 
-    <!-- Emergency and contact -->
-    <section class="py-16 bg-gray-50">
+    <!-- After hours and emergency guidance -->
+    <section id="mimo-ordinacni-dobu" class="py-16 bg-primary-50 scroll-offset-header">
       <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-          <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Mimořádné situace</h2>
+        <div class="max-w-4xl mx-auto">
+          <article class="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-primary-100">
+            <header class="bg-gradient-to-r from-[var(--color-primary-700)] to-[var(--color-primary-500)] px-8 py-10 text-white md:px-12">
+              <p class="text-sm uppercase tracking-widest text-white/70">MIMO ORDINAČNÍ HODINY</p>
+              <h2 class="mt-3 text-3xl font-bold md:text-4xl">Jak postupovat při akutních potížích</h2>
+              <p class="mt-4 max-w-3xl text-lg text-white/80">
+                Při vzniku akutních potíží navštivte dětskou pohotovost v ambulantním traktu dětského oddělení Přerovské nemocnice na Dvořákově ulici.
+                Cesta i ordinace jsou vyznačené orientačními tabulkami.
+              </p>
+            </header>
 
-          <div class="grid md:grid-cols-2 gap-6 mb-8">
-            <!-- Emergency -->
-            <EmergencyCard
-              icon="mdi:alert-circle"
-              title="Akutní stavy"
-              description="Při akutních stavech volejte vždy předem, abychom vás mohli co nejdříve přijmout."
-              linkHref={`tel:${contactInfo.phones.doctor.number}`}
-              linkText={contactInfo.phones.doctor.display}
-              linkIcon="mdi:phone"
-              borderColor="red"
-            />
+            <div class="space-y-10 px-6 py-10 md:px-12 md:py-12">
+              <div class="grid gap-6 md:grid-cols-2">
+                <div class:list={[...cardVariants.phoneHighlight, 'md:col-span-2']}>
+                  <h3 class="flex items-center gap-3 text-lg font-semibold">
+                    <Icon name="mdi:phone-in-talk" class="h-6 w-6 text-white" />
+                    Důležitá telefonní čísla
+                  </h3>
+                  <div class="mt-4 space-y-3 text-sm">
+                    {phoneContacts.map((contact) => (
+                      <a
+                        href={contact.href}
+                        class="flex items-center justify-between rounded-xl bg-white/10 px-4 py-3 font-semibold hover:bg-white/20"
+                      >
+                        <span>{contact.label}</span>
+                        <span class="font-mono">{contact.display}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
 
-            <!-- After hours -->
-            <EmergencyCard
-              icon="mdi:clock-alert-outline"
-              title="Mimo ordinační hodiny"
-              description="V době mimo ordinační hodiny kontaktujte lékařskou pohotovost nebo volejte 155."
-              linkHref="tel:155"
-              linkText="155 - Záchranná služba"
-              linkIcon="mdi:ambulance"
-              borderColor="orange"
-            />
-          </div>
+                <div class:list={[...cardVariants.primaryTint, 'text-primary-800']}>
+                  <h3 class="flex items-center gap-3 text-lg font-semibold text-primary-800">
+                    <Icon name="mdi:hospital-building" class="h-6 w-6 text-primary-500" />
+                    Dětská pohotovost
+                  </h3>
+                  <p class="mt-3 leading-relaxed">
+                    V pracovních dnech odpoledne a večer a víkendových nočních hodinách službu zajišťuje lékař dětského oddělení, který současně pečuje o všechny hospitalizované děti,
+                    JIP i novorozenecké oddělení. Prosíme proto o trpělivost a ohleduplnost.
+                  </p>
+                  <div class="mt-4 space-y-2 text-sm">
+                    <a
+                      href={afterHoursLocation.mapHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-2 font-semibold text-primary-600 hover:text-primary-700"
+                    >
+                      <Icon name="mdi:map-marker" class="h-5 w-5 text-primary-500" />
+                      {afterHoursLocation.name}, {afterHoursLocation.address}
+                    </a>
+                  </div>
+                </div>
 
-          <!-- CTA -->
-          <div class="text-center bg-white rounded-xl shadow-md p-8">
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">Chcete se objednat?</h3>
-            <p class="text-gray-600 mb-6">
-              Zavolejte nám nebo napište email a my vás co nejdříve objednáme
-            </p>
-            <CTAButtons phoneLabel="Objednat telefonicky" emailLabel="Napsat email" />
-          </div>
+                <div class:list={[...cardVariants.primarySoft, 'text-primary-800']}>
+                  <h3 class="flex items-center gap-3 text-lg font-semibold text-primary-800">
+                    <Icon name="mdi:clock-alert-outline" class="h-6 w-6 text-primary-500" />
+                    LSPP o víkendech a svátcích
+                  </h3>
+                  <p class="mt-3 font-medium text-primary-700">{lsppInfo.hours}</p>
+                  <p class="mt-2 leading-relaxed">
+                    {lsppInfo.description} Ambulance "Lékařské Služby První Pomoci" se nachází také v ambulantním sektoru dětského oddělení nemocnice Přerov.
+                  </p>
+                </div>
+
+                <div class:list={[...cardVariants.primaryBorderLight, 'text-primary-800']}>
+                  <h3 class="flex items-center gap-3 text-lg font-semibold text-primary-800">
+                    <Icon name="mdi:clipboard-text-multiple" class="h-6 w-6 text-primary-500" />
+                    Co si vzít s sebou
+                  </h3>
+                  <ul class="mt-3 space-y-2 list-disc pl-5 text-primary-700">
+                    <li>platný průkaz pojištěnce dítěte</li>
+                    <li>poplatek za vyšetření 90 Kč</li>
+                  </ul>
+                </div>
+
+                <div
+                  class:list={[...cardVariants.kdy, 'text-primary-800']}
+                  style={`background-color: ${brandStyles.kdy.background}; border-color: ${brandStyles.kdy.border}; color: ${brandStyles.kdy.text};`}
+                >
+                  <h3 class="flex items-center gap-3 text-lg font-semibold" style={`color: ${brandStyles.kdy.accent};`}>
+                    <Icon name="mdi:shield-alert" class="h-6 w-6" style={`color: ${brandStyles.kdy.accent};`} />
+                    Kdy pohotovost využít
+                  </h3>
+                  <p class="mt-3 leading-relaxed">
+                    Pohotovost je určena k řešení akutních potíží, které nepočkají do dalšího pracovního dne. Dlouhodobé obtíže dokážeme lépe vyřešit v ordinaci, kde máme k dispozici dokumentaci i kompletní znalost zdravotního stavu dítěte.
+                  </p>
+                </div>
+
+                <div class:list={cardVariants.redAlert}>
+                  <h3 class="flex items-center gap-3 text-lg font-semibold text-red-900">
+                    <Icon name="mdi:alarm-light" class="h-6 w-6 text-red-600" />
+                    Život ohrožující stavy
+                  </h3>
+                  <p class="mt-3 text-sm leading-relaxed text-red-800">
+                    Při dušnosti, křečích, poruchách vědomí, popáleninách nebo vážných úrazech volejte Rychlou záchrannou službu.
+                  </p>
+                  <a
+                    href="tel:155"
+                    class="mt-4 inline-flex items-center gap-3 rounded-2xl bg-red-600 px-5 py-3 font-semibold text-white shadow hover:bg-red-700"
+                  >
+                    <Icon name="mdi:ambulance" class="h-5 w-5 text-red-100" />
+                    155 • Rychlá záchranná služba
+                  </a>
+                  <p class="mt-3 text-xs text-red-700">
+                    Číslo 112 použijte v případě, že se nedovoláte na 155 nebo jste v zahraničí.
+                  </p>
+                </div>
+
+                <div
+                  class:list={cardVariants.zachranka}
+                  style={`background-color: ${brandStyles.zachranka.background}; border-color: ${brandStyles.zachranka.border}; color: ${brandStyles.zachranka.text};`}
+                >
+                  <h3 class="flex items-center gap-3 text-lg font-semibold" style={`color: ${brandStyles.zachranka.accent};`}>
+                    <Icon name="mdi:cellphone-check" class="h-6 w-6" style={`color: ${brandStyles.zachranka.accent};`} />
+                    Aplikace Záchranka
+                  </h3>
+                  <p class="mt-3 text-sm leading-relaxed" style={`color: ${brandStyles.zachranka.text};`}>
+                    Voláním přes aplikaci se automaticky odešle Vaše poloha i zdravotní údaje a výrazně se zrychlí zásah záchranné služby.
+                  </p>
+                  <a
+                    href="https://www.zachrankaapp.cz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-4 inline-flex items-center gap-3 rounded-2xl px-4 py-3 font-semibold shadow transition-all hover:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                    style={`background-color: ${brandStyles.zachranka.accent}; color: #ffffff;`}
+                  >
+                    <img src={zachrankaLogo} alt="Aplikace Záchranka" class="h-10 w-auto" loading="lazy" />
+                    Stáhnout aplikaci Záchranka
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>

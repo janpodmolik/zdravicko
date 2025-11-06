@@ -1,17 +1,10 @@
 ---
-import { Icon } from 'astro-icon/components';
 import {
   getWeekScheduleWithNotices,
   NOTICE_TYPE_CLASSES,
   type WeekDaySchedule,
   type NoticeType
 } from '../../utils/openingHours';
-
-interface Props {
-  showLink?: boolean;
-}
-
-const { showLink = false } = Astro.props;
 
 const weekSchedule = getWeekScheduleWithNotices();
 
@@ -82,19 +75,5 @@ function getChangeBadgeClass(noticeType?: NoticeType): string {
       ))}
     </div>
 
-    {showLink && (
-      <div class="mt-6 text-center">
-        <a
-          href="/ordinacni-hodiny"
-          class:list={[
-            'btn-primary',
-            'inline-flex items-center justify-center px-6 py-3 font-semibold',
-            'text-sm md:text-base rounded-xl transition duration-200'
-          ]}
-        >
-          Celý rozvrh a kontakty
-        </a>
-      </div>
-    )}
   </div>
 </div>
