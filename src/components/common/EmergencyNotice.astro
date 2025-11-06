@@ -1,19 +1,77 @@
 ---
 import { Icon } from 'astro-icon/components';
+
+interface Props {
+  variant?: 'emergency' | 'afterhours';
+}
+
+const { variant = 'emergency' } = Astro.props;
+
+const config = {
+  emergency: {
+    bgColor: 'bg-red-50',
+    borderColor: 'border-red-200',
+    iconColor: 'text-red-600',
+    textColor: 'text-red-800',
+    titleColor: 'text-red-900',
+    linkColor: 'text-red-600 hover:text-red-700',
+    icon: 'mdi:alert-circle',
+    title: 'Pouze v krajních případech',
+    description: 'Záchrannou službu <strong>155</strong> volejte pouze v případě <strong>bezprostředního ohrožení života</strong> (bezvědomí, dušnost, silné krvácení, těžký úraz). V ostatních případech kontaktujte nejprve ordinaci nebo pohotovost.',
+    linkIcon: 'mdi:ambulance',
+    linkText: '155 - Záchranná služba',
+    linkHref: 'tel:155',
+    address: undefined,
+    addressHref: undefined,
+  },
+  afterhours: {
+    bgColor: 'bg-amber-50',
+    borderColor: 'border-amber-300',
+    iconColor: 'text-amber-600',
+    textColor: 'text-amber-800',
+    titleColor: 'text-amber-900',
+    linkColor: 'text-amber-700 hover:text-amber-800',
+    icon: 'mdi:hospital-building',
+    title: 'Mimo ordinační hodiny',
+    description: 'V případě akutních problémů mimo ordinační dobu využijte dětskou pohotovost v Nemocnici AGEL Přerov.',
+    linkIcon: 'mdi:phone',
+    linkText: '+420 581 201 111',
+    linkHref: 'tel:+420581201111',
+    address: 'Dvorská 870/98, 750 02 Přerov',
+    addressHref: 'https://www.google.com/maps/search/?api=1&query=Dvorsk%C3%A1+870%2F98%2C+750+02+P%C5%99erov',
+  }
+};
+
+const settings = config[variant];
 ---
 
-<div class="mt-8 p-6 bg-red-50 border-2 border-red-200 rounded-xl">
+<div class:list={['mt-8 p-6 rounded-xl border-2', settings.bgColor, settings.borderColor]}>
   <div class="flex gap-3">
-    <Icon name="mdi:alert-circle" class="w-6 h-6 text-red-600 shrink-0" />
-    <div>
-      <h3 class="font-semibold text-red-900 mb-2">Akutní stavy</h3>
-      <p class="text-sm text-red-800 mb-3">
-        V případě akutních stavů vždy volejte předem. Mimo ordinační hodiny kontaktujte záchrannou službu.
-      </p>
-      <a href="tel:155" class="inline-flex items-center gap-2 text-red-600 font-semibold hover:text-red-700">
-        <Icon name="mdi:ambulance" class="w-5 h-5" />
-        155 - Záchranná služba
-      </a>
+    <Icon name={settings.icon} class:list={['w-6 h-6 shrink-0', settings.iconColor]} />
+    <div class="flex-1">
+      <h3 class:list={['font-semibold mb-2', settings.titleColor]}>{settings.title}</h3>
+      <p class:list={['text-sm mb-3', settings.textColor]} set:html={settings.description} />
+      <div class="space-y-2">
+        <div>
+          <a href={settings.linkHref} class:list={['inline-flex items-center gap-2 font-semibold', settings.linkColor]}>
+            <Icon name={settings.linkIcon} class="w-5 h-5" />
+            {settings.linkText}
+          </a>
+        </div>
+        {settings.address && (
+          <div>
+            <a
+              href={settings.addressHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              class:list={['inline-flex items-center gap-2 font-semibold', settings.linkColor]}
+            >
+              <Icon name="mdi:map-marker" class="w-5 h-5" />
+              {settings.address}
+            </a>
+          </div>
+        )}
+      </div>
     </div>
   </div>
 </div>
