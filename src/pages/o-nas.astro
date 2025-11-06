@@ -8,6 +8,7 @@ import SectionTitle from '../components/common/SectionTitle.astro';
 import ValueCard from '../components/cards/ValueCard.astro';
 import OfficeFacilities from '../components/about/OfficeFacilities.astro';
 import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
+import InfoBox from '../components/common/InfoBox.astro';
 import { Icon } from 'astro-icon/components';
 import { colorClasses, type ColorName } from '../utils/colors';
 import { siteConfig } from '../data/siteConfig';
@@ -58,9 +59,18 @@ const values = [
   {
     icon: 'mdi:shield-check-outline',
     title: 'Důvěryhodnost',
-    description: 'Otevřeně komunikujeme a snažíme se naslouchat, ale taky říkat. Snažíme se křehkou rovnováhu nenarušit. Vaší důvěry v nás si vážíme.',
+    description: 'Otevřeně komunikujeme a snažíme se naslouchat, ale taky říkat. Snažíme se křehkou rovnováhu nenarušit. Vaší důvěry v nás si vážíme.',
     bgColor: 'bg-purple-600'
   }
+];
+
+const insuranceCompanies = [
+  "Všeobecná zdravotní pojišťovna ČR **(111)**",
+  "Vojenská zdravotní pojišťovna ČR **(201)**",
+  "Česká průmyslová zdravotní pojišťovna **(205)**",
+  "Oborová zdravotní pojišťovna zaměstnanců bank, pojišťoven a stavebnictví **(207)**",
+  "Zdravotní pojišťovna ministerstva vnitra ČR **(211)**",
+  "Revírní bratrská pokladna, zdravotní pojišťovna **(213)**"
 ];
 ---
 
@@ -146,8 +156,26 @@ const values = [
       </div>
     </section>
 
-    <!-- Values -->
+    <!-- Insurance Companies -->
     <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <SectionTitle
+            title="Spolupracující pojišťovny"
+            description="Máme uzavřené smlouvy s následujícími zdravotními pojišťovnami"
+          />
+          <InfoBox
+            icon="mdi:shield-check"
+            title="Akceptujeme tyto zdravotní pojišťovny:"
+            items={insuranceCompanies}
+            variant="blue"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="max-w-5xl mx-auto">
           <SectionTitle title="Naše hodnoty" />

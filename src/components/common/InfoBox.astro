@@ -58,7 +58,7 @@ const colors = variantClasses[selectedVariant];
       <p class="font-semibold text-gray-900 mb-2">{title}</p>
       <ul class="text-sm text-gray-700 space-y-1">
         {items.map(item => (
-          <li>• {item}</li>
+          <li set:html={`• ${item.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}`}></li>
         ))}
       </ul>
     </div>
