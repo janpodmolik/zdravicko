@@ -6,8 +6,14 @@ date: 2025-11-03
 published: true
 ---
 
-Máme radost, že vám můžeme představit **nový web naší ordinace**! Velké poděkování jeho talentovaným tvůrcům!
+To, že nám stránky „sežral" virus, jste si asi všimli všichni… Mrzí nás, že provizorium trvalo déle, nicméně máme velkou radost, ze Vám konečně můžeme představit **nový web naší ordinace** ❤️
 
-Po nedávném bezpečnostním incidentu na našem předchozím serveru jsme se rozhodli vytvořit web zcela nový, který nám všem bude lépe a dlouho sloužit. Najdete zde všechny důležité informace o naší ordinaci, službách, ordinačních hodinách i jejich změnách.
+**Web je vytvořený s láskou a nese rukopis Zdravíčka.** Moc doufáme, že bude pro Vás jednoduchý, přehledný a že se na něj budete vracet rádi.
 
-Budeme rádi za **vaši zpětnou vazbu** – pokud máte náměty na vylepšení, sem s nimi! Děkujeme za vaši trpělivost a těšíme se na viděnou v ordinaci! 💙
+Najdete zde všechny důležité informace i zajímavosti.
+
+Vždy zde bude **aktuální pracovní doba ordinace**. A těšit se můžete například na **blogové články** 🥰
+
+Budeme rádi za **Vaši zpětnou vazbu** - pokud něco chybí nebo máte náměty na vylepšení, dejte nám vědět!
+
+Děkujeme, že jste součástí našeho střediska a těšíme se na viděnou v ordinaci!

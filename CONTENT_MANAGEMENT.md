@@ -40,7 +40,7 @@ Toto je konfigurace Decap CMS - zde definujete, co uvidí editori v rychlém vý
   widget: "select"
   options:
     - "MUDr. Jana Šlechtová"
-    - "MUDr. Johanka Podmolíková"
+    - "MUDr. Johana Podmolíková"
     # Prostě přidejte nebo smažte řádek
 ```
 

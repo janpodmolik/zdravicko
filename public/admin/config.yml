@@ -101,7 +101,7 @@ collections:
       - label: "👨‍⚕️ Autor"
         name: "author"
         widget: "select"
-        options: ["MUDr. Jana Šlechtová", "MUDr. Johanka Podmolíková"]
+        options: ["MUDr. Jana Šlechtová", "MUDr. Johana Podmolíková"]
         required: false
         hint: "Vyberte autora článku"
 

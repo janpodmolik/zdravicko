@@ -41,10 +41,10 @@ export const siteConfig = {
       isPrimary: true,
     },
     {
-      name: "MUDr. Johanka Podmolíková",
-      specialization: "Praktický lékař pro děti a dorost",
+      name: "MUDr. Johana Podmolíková",
+      specialization: "Dětská lékařka, rezidentka",
       description:
-        "Zaměřuje se na alergologii a imunologii u dětí. Přináší dlouholeté zkušenosti z nemocniční praxe a specializuje se na péči o děti s chronickými onemocněními.",
+        "Vystudovala lékařskou fakultu Univerzity Palackého v Olomouci, absolvovala v roce 2023 a rozhodla se jít ve šlépějích maminky a věnovat se těm nejmenším pacientům. Aktuálně ji v ordinaci zastihnete pouze některé dny, stále se vzdělává v rámci atestačního programu. Potkat ji můžete třeba na dětském oddělení nebo Pohotovosti Nemocnice Přerov.",
       isPrimary: false,
     },
   ] as Doctor[],

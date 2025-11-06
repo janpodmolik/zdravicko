@@ -6,33 +6,18 @@ date: 2025-10-27
 published: true
 ---
 
-**Od 1. ledna 2025 došlo k důležitým změnám v systému ošetřovného na dítě. Celý proces je nyní plně digitalizován a jednodušší pro všechny zúčastněné.**
+Od 1. ledna 2025 došlo ke změnám v systému ošetřovného. Celý proces je nyní plně digitalizován - žádost i ukončení probíhá elektronicky. Z ordinace posíláme rozhodnutí přímo na ČSSZ.
 
-### Elektronická žádost
+<!-- ### Co dělat, když potřebuji ošetřovné?
 
-Od 1. 1. 2025 je **výhradně elektronická forma žádosti a ukončení** ošetřovného. Papírové formuláře by měly být používány pouze ve výjimečných případech.
+Zavolejte našim sestřičkám na číslo **[+420 603 290 939](tel:+420603290939)** a domluvíme další postup. **Ošetřovné lze začínat i ukončovat pouze pracovním dnem ordinace** (tzn. PO-PÁ), nelze víkendem. Pokud si jako rodič přejete „započítat" i víkend, ukončíme OČR pondělkem - nevadí, že v dané pondělí půjdete již do práce.
 
-### Automatické odesílání na ČSSZ
+Do SMS či e-mailu (dle Vašeho přání) Vám přijde identifikátor OČR. Tento identifikátor následně přepošlete svému zaměstnavateli.
 
-Jako lékařská ordinace nyní posíláme **rozhodnutí o potřebě péče elektronicky přímo na Českou správu sociálního zabezpečení (ČSSZ)**. To znamená:
+### Více informací
 
-- ✅ Rodiče nepotřebují žádné papírové potvrzení od lékaře
-- ✅ Není nutné nic osobně odnášet na ČSSZ
-- ✅ Vše probíhá automaticky přes systém
+Více informací přímo na stránkách ČSSZ: https://www.cssz.cz/web/edavky/zamestnanec-osetrovne
 
-### Co musí udělat rodiče?
+### Máte ještě otázky?
 
-1. **Návštěva ordinace** - Přijďte s nemocným dítětem na vyšetření
-2. **Elektronické rozhodnutí** - My jako ordinace pošleme rozhodnutí o potřebě péče elektronicky na ČSSZ
-3. **Podání žádosti** - Vy si pak elektronicky podáte žádost svému zaměstnavateli (přes portál ČSSZ nebo přímo zaměstnavateli)
-
-### Výhody nového systému
-
-- ⚡ **Rychlejší zpracování** - Vše probíhá online
-- 📱 **Pohodlné** - Žádné papírování, vše z domova
-- ✅ **Jednodušší** - Méně administrativy pro rodiče
-- 🔒 **Bezpečné** - Elektronická komunikace je šifrovaná
-
-**Máte otázky?** Pokud máte jakékoliv dotazy týkající se nového systému ošetřovného, neváhejte se na nás obrátit během návštěvy ordinace nebo telefonicky. Rádi vám celý proces vysvětlíme.
-
-**Důležité:** Nezapomeňte si po naší elektronické zprávě sami podat žádost svému zaměstnavateli nebo přes portál ČSSZ!
+Zeptejte se, rádi vysvětlíme. -->
