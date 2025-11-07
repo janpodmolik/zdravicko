@@ -40,6 +40,34 @@ const {
 	</head>
 	<body class="font-sans antialiased">
 		<slot />
+		<script is:inline>
+			if (typeof window !== 'undefined') {
+				const scrollToHash = () => {
+					const { hash } = window.location;
+					if (!hash) return;
+
+					const target = document.querySelector(hash);
+					if (!target) return;
+
+					window.requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+				};
+
+				document.addEventListener('astro:page-load', scrollToHash);
+				window.addEventListener('hashchange', scrollToHash);
+
+				if (document.readyState !== 'loading') {
+					scrollToHash();
+				} else {
+					document.addEventListener(
+						'DOMContentLoaded',
+						() => {
+							scrollToHash();
+						},
+						{ once: true }
+					);
+				}
+			}
+		</script>
 	</body>
 </html>
 
