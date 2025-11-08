@@ -5,16 +5,47 @@ import specialNoticeClosure from "../data/closureNotice";
 // TYPY A KONSTANTY
 // ============================================================================
 
+const PRAGUE_TIMEZONE = "Europe/Prague";
+
 /**
  * Vrací aktuální datum a čas v lokální časové zóně (Europe/Prague)
  * Používá se pro zajištění správného dne v týdnu bez ohledu na časovou zónu serveru
  */
 function getLocalDate(): Date {
-  // Vytvoříme datum v lokální časové zóně (Czech Republic)
-  const localTimeString = new Date().toLocaleString("en-US", {
-    timeZone: "Europe/Prague",
+  const now = new Date();
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: PRAGUE_TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+    timeZoneName: "shortOffset",
   });
-  return new Date(localTimeString);
+
+  const parts = formatter.formatToParts(now);
+  const partValue = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((part) => part.type === type)?.value ?? "00";
+
+  const isoDate = `${partValue("year")}-${partValue("month")}-${partValue(
+    "day"
+  )}T${partValue("hour")}:${partValue("minute")}:${partValue(
+    "second"
+  )}${normalizeTimeZoneOffset(partValue("timeZoneName"))}`;
+
+  return new Date(isoDate);
+}
+
+function normalizeTimeZoneOffset(label?: string): string {
+  if (!label) return "+00:00";
+  const match = label.match(/GMT([+-]\d{1,2})(?::(\d{2}))?/i);
+  if (!match) return "+00:00";
+  const sign = match[1].startsWith("-") ? "-" : "+";
+  const hours = match[1].replace(/^[+-]/, "").padStart(2, "0");
+  const minutes = (match[2] ?? "00").padStart(2, "0");
+  return `${sign}${hours}:${minutes}`;
 }
 
 export type NoticeType = "warning" | "info" | "urgent";
