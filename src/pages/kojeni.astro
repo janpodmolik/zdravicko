@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/common/Header.astro';
 import MobileMenu from '../components/common/MobileMenu.astro';
 import Footer from '../components/common/Footer.astro';
-import CTAButtons from '../components/common/CTAButtons.astro';
 import ValueCard from '../components/cards/ValueCard.astro';
 import FeatureCard from '../components/cards/FeatureCard.astro';
 import InfoBox from '../components/common/InfoBox.astro';
@@ -48,37 +47,37 @@ const benefits: Benefit[] = [
     icon: 'mdi:food-apple',
     title: 'Ideální výživa',
     description: 'Mateřské mléko obsahuje přesně to, co dítě v daném okamžiku potřebuje. Jeho složení se mění každý den, každou hodinu přesně podle potřeb rostoucího miminka.',
-    bgColor: 'bg-pink-600'
+    bgColor: 'bg-secondary-500'
   },
   {
     icon: 'mdi:shield-check',
     title: 'Posílení imunity',
     description: 'Kojení přináší dítěti protilátky, odrážející aktuální stav domova, zdraví či nemoci jeho členů a pomáhá budovat silný imunitní systém, který chrání před infekcemi a nemocemi.',
-    bgColor: 'bg-rose-600'
+    bgColor: 'bg-secondary-500'
   },
   {
     icon: 'mdi:heart-pulse',
     title: 'Prevence nemocí',
     description: 'Kojené děti mají nižší riziko obezity, diabetu, astmatu, alergií a některých typů rakoviny v pozdějším věku. V tomto smyslu profituje i maminka.',
-    bgColor: 'bg-pink-700'
+    bgColor: 'bg-secondary-600'
   },
   {
     icon: 'mdi:emoticon-happy',
     title: 'Emoční pouto',
     description: 'Kojení vytváří hluboké citové pouto mezi matkou a dítětem, důležité pro zdravý psychický vývoj.',
-    bgColor: 'bg-fuchsia-600'
+    bgColor: 'bg-secondary-400'
   },
   {
     icon: 'mdi:brain',
     title: 'Vývoj mozku',
     description: 'Stále nové a nové látky objevované v mateřském mléce podporují vývoj mozku a kognitivních funkcí, které si odnášíme do dospělosti.',
-    bgColor: 'bg-pink-600'
+    bgColor: 'bg-secondary-500'
   },
   {
     icon: 'mdi:cash',
     title: 'Ekonomické',
     description: 'Kojení je zdarma, dostupné kdykoliv a kdekoliv, bez nutnosti přípravy, ohřívání nebo sterilizace lahviček a dudlíků.',
-    bgColor: 'bg-rose-600'
+    bgColor: 'bg-secondary-500'
   }
 ];
 
@@ -88,19 +87,19 @@ const features: Feature[] = [
     icon: 'mdi:baby-face',
     title: 'Od prvních dní',
     description: 'Pomáháme již od narození - jak s prvním přiložením, tak později s řešením jakýchkoliv komplikací.',
-    iconColor: 'text-pink-600'
+    iconColor: 'text-secondary-500'
   },
   {
     icon: 'mdi:book-open',
     title: 'Edukace a materiály',
     description: 'Poskytujeme kvalitní edukační materiály, návody a tipy založené na aktuálních vědeckých poznatcích.',
-    iconColor: 'text-rose-600'
+    iconColor: 'text-secondary-500'
   },
   {
     icon: 'mdi:weight',
     title: 'Sledování prospívání',
     description: 'Pravidelně kontrolujeme hmotnostní přírůstky a vývoj miminka, abychom zajistili správný průběh kojení.',
-    iconColor: 'text-fuchsia-600'
+    iconColor: 'text-secondary-400'
   }
 ];
 
@@ -141,14 +140,10 @@ const SEO = {
     title="Kojení není jen výživa. Je to stále nedoceněná láska, která se směje a dá se i zvážit v gramech"
     description="Certifikovaní laktační poradci s dlouholetou zkušeností"
     variant="pink"
-    badge={{
-      icon: 'mdi:star',
-      text: 'Certifikovaní laktační poradci'
-    }}
   />
 
   <!-- Proč je kojení důležité -->
-  <section class="py-16 md:py-20 bg-white">
+  <section class="py-16 md:py-20 bg-secondary-50">
     <div class="container mx-auto px-4">
       <!-- Úvodní text -->
       <div class="max-w-4xl mx-auto mb-16">
@@ -177,12 +172,17 @@ const SEO = {
           />
         ))}
       </div>
+    </div>
+  </section>
 
-      <div class="mt-12 max-w-3xl mx-auto">
-        <div class="bg-linear-to-br from-pink-100 to-rose-100 rounded-2xl p-8 border-2 border-pink-200">
+  <!-- Na kojení vám nedovolíme zapomenout -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <div class="bg-linear-to-br from-secondary-100 to-secondary-50 rounded-2xl p-8 border-2 border-secondary-200">
           <div class="flex items-start gap-4">
             <div class="shrink-0">
-              <div class="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center">
+              <div class="w-12 h-12 bg-secondary-500 rounded-full flex items-center justify-center">
                 <Icon name="mdi:alert-circle" class="w-6 h-6 text-white" />
               </div>
             </div>
@@ -199,20 +199,20 @@ const SEO = {
   </section>
 
   <!-- Naši laktační poradci -->
-  <section id="nasi-poradci" class="py-16 md:py-20 bg-linear-to-br from-pink-50 to-rose-50">
+  <section id="nasi-poradci" class="py-16 md:py-20 bg-secondary-50">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto mb-12">
-        <div class="bg-white rounded-2xl shadow-xl p-8 border-2 border-pink-200">
+        <div class="bg-white rounded-2xl shadow-xl p-8 border-2 border-secondary-200">
           <div class="flex flex-col md:flex-row items-center gap-6">
             <div class="shrink-0">
-              <div class="w-24 h-24 bg-linear-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center">
-                <Icon name="mdi:certificate" class="w-12 h-12 text-white" />
+              <div class="w-24 h-24 bg-linear-to-br from-secondary-500 to-secondary-400 rounded-full flex items-center justify-center">
+                <Icon name="mdi:certificate" class="w-12 h-12 text-secondary-700" />
               </div>
             </div>
             <div class="flex-1 text-center md:text-left">
               <h3 class="text-2xl font-bold text-gray-900 mb-3">Certifikace a odbornost</h3>
               <p class="text-gray-700 leading-relaxed">
-                <strong class="text-pink-700">MUDr. Jana Šlechtová</strong> absolvovala akreditované školení laktačního poradenství. Pravidelně se účastníme konferencí a vzdělávacích akcí, abychom vám mohli poskytovat nejnovější a ověřené informace založené na vědeckých poznatcích a mezinárodních doporučeních (WHO, UNICEF, La Leche League).
+                <strong class="text-secondary-700">MUDr. Jana Šlechtová</strong> absolvovala akreditované školení laktačního poradenství. Pravidelně se účastníme konferencí a vzdělávacích akcí, abychom vám mohli poskytovat nejnovější a ověřené informace založené na vědeckých poznatcích a mezinárodních doporučeních (WHO, UNICEF, La Leche League).
 Na akreditované školení se v rámci svého vzdělávání chystá i MUDr. Johana Podmolíková.
               </p>
             </div>
@@ -244,26 +244,26 @@ Na akreditované školení se v rámci svého vzdělávání chystá i MUDr. Joh
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-12">
           {commonIssues.map(issue => (
-            <div class="flex items-start gap-4 bg-pink-50 p-6 rounded-xl border border-pink-200 hover:bg-pink-100 transition-colors">
+            <div class="flex items-start gap-4 bg-secondary-50 p-6 rounded-xl border border-secondary-200 hover:bg-secondary-50 transition-colors">
               <div class="shrink-0 mt-1">
-                <Icon name="mdi:check-circle" class="w-6 h-6 text-pink-600" />
+                <Icon name="mdi:check-circle" class="w-6 h-6 text-secondary-500" />
               </div>
               <p class="text-gray-800 font-medium">{issue}</p>
             </div>
           ))}
         </div>
 
-        <div class="bg-linear-to-r from-pink-600 to-rose-600 rounded-2xl p-8 md:p-12 text-white text-center shadow-xl">
+        <div class="rounded-2xl p-8 md:p-12 text-white text-center shadow-xl" style="background: linear-gradient(to right, var(--color-secondary-800), var(--color-secondary-700));">
           <Icon name="mdi:heart" class="w-16 h-16 mx-auto mb-6 opacity-90" />
           <h3 class="text-2xl md:text-3xl font-bold mb-4">
             Nejste v tom samy!
           </h3>
           <p class="text-lg md:text-xl mb-8 opacity-95 max-w-2xl mx-auto">
-            Mnoho maminek má na začátku s kojením potíže. Je to naprosto přirozené a řešitelné. Jsme tady, abychom vám pomohli a podpořili vás na této klikaté cestě vedoucí ke spokojenému, zdravému človíkovi.
+            Mnoho maminek má na začátku s kojením potíže. Je to naprosto přirozené a řešitelné. Jsme tady, abychom vám pomohli a podpořili vás na této klikaté cestě vedoucí ke spokojenému, zdravému człovíkovi.
           </p>
           <a
             href="/kontakt"
-            class="inline-flex items-center gap-2 bg-white text-pink-700 px-8 py-4 rounded-xl hover:bg-pink-50 transition-colors font-semibold text-lg shadow-lg"
+            class="inline-flex items-center gap-2 bg-white text-secondary-700 px-8 py-4 rounded-xl hover:bg-secondary-50 transition-colors font-semibold text-lg shadow-lg"
           >
             <Icon name="mdi:phone" class="w-6 h-6" />
             Kontaktujte nás
@@ -274,7 +274,7 @@ Na akreditované školení se v rámci svého vzdělávání chystá i MUDr. Joh
   </section>
 
   <!-- Důležité informace -->
-  <section class="py-0 bg-white">
+  <section class="py-16 md:py-24 bg-secondary-50">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
         <InfoBox
@@ -286,8 +286,6 @@ Na akreditované školení se v rámci svého vzdělávání chystá i MUDr. Joh
       </div>
     </div>
   </section>
-
-  <div class="h-12 md:h-20"></div>
 
   <Footer />
 </Layout>

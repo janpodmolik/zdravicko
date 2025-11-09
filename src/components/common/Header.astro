@@ -3,12 +3,15 @@ import { Icon } from 'astro-icon/components';
 import { contactInfo } from '../../data/contact';
 import { navItems, type PageId } from '../../data/navigation';
 import logoSrc from '../../assets/logo.png';
+import logoPinkSrc from '../../assets/logo-pink.png';
 
 interface Props {
   activePage?: PageId;
 }
 
 const { activePage = 'home' } = Astro.props;
+const isPinkPage = activePage === 'kojeni';
+const currentLogo = isPinkPage ? logoPinkSrc : logoSrc;
 
 const colorStyles = {
   blue: {
@@ -26,7 +29,7 @@ const colorStyles = {
   <nav class="container mx-auto px-4 py-4">
     <div class="flex items-center justify-between">
       <a href="/" class="flex items-center gap-2">
-        <img src={logoSrc.src} alt="Zdravíčko" class="h-10 md:h-12" />
+        <img src={currentLogo.src} alt="Zdravíčko" class="h-10 md:h-12" />
       </a>
 
       <div class="hidden lg:flex gap-6">
@@ -49,7 +52,13 @@ const colorStyles = {
         })}
       </div>
 
-      <a href={`tel:${contactInfo.phones.doctor.number}`} class="hidden lg:block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-600 transition-colors">
+      <a
+        href={`tel:${contactInfo.phones.doctor.number}`}
+        class:list={[
+          'hidden lg:block px-6 py-2 rounded-lg transition-colors text-white',
+          isPinkPage ? 'bg-secondary-500 hover:bg-secondary-600' : 'bg-primary hover:bg-primary-600'
+        ]}
+      >
         Zavolat
       </a>
 

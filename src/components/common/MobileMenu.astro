@@ -3,12 +3,15 @@ import { Icon } from 'astro-icon/components';
 import { contactInfo } from '../../data/contact';
 import { navItems, type PageId } from '../../data/navigation';
 import logoSrc from '../../assets/logo.png';
+import logoPinkSrc from '../../assets/logo-pink.png';
 
 interface Props {
   activePage?: PageId;
 }
 
 const { activePage = 'home' } = Astro.props;
+const isPinkPage = activePage === 'kojeni';
+const currentLogo = isPinkPage ? logoPinkSrc : logoSrc;
 
 const colorStyles = {
   blue: {
@@ -28,7 +31,7 @@ const colorStyles = {
   <div class="flex flex-col h-full">
     <div class="flex items-center justify-between p-6 border-b border-gray-200">
       <div class="flex items-center gap-2">
-        <img src={logoSrc.src} alt="Zdravíčko" class="h-8" />
+        <img src={currentLogo.src} alt="Zdravíčko" class="h-8" />
       </div>
       <button id="mobile-menu-close" class="text-gray-600 hover:text-red-600 transition-colors p-2" aria-label="Zavřít menu">
         <Icon name="mdi:close" class="w-6 h-6" />
@@ -58,7 +61,13 @@ const colorStyles = {
     </nav>
 
     <div class="p-6 border-t border-gray-200">
-      <a href={`tel:${contactInfo.phones.doctor.number}`} class="block bg-primary text-white px-6 py-4 rounded-lg hover:bg-primary-600 transition-colors text-center font-semibold">
+      <a
+        href={`tel:${contactInfo.phones.doctor.number}`}
+        class:list={[
+          'block px-6 py-4 rounded-lg transition-colors text-center font-semibold text-white',
+          isPinkPage ? 'bg-secondary-500 hover:bg-secondary-600' : 'bg-primary hover:bg-primary-600'
+        ]}
+      >
         <Icon name="mdi:phone" class="w-5 h-5 inline-block mr-2" />
         Zavolat
       </a>
