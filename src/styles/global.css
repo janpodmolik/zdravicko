@@ -116,6 +116,22 @@
 .group:hover .group-hover\:text-primary-600 {
   color: var(--color-primary-600);
 }
+
+/* Scroll offset pro anchor linky kvůli fixed headeru */
 .scroll-offset-header {
   scroll-margin-top: 6rem;
+}
+
+/* Globální smooth scrollování */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .scroll-offset-header {
+    scroll-margin-top: 6rem;
+  }
 }
