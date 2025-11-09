@@ -1,6 +1,6 @@
 ---
 title: Telefonické konzultace
-excerpt: Rychlá rada od lékaře na telefonu
+excerpt: Aneb přítel na telefonu.
 icon: mdi:phone
 color: cyan
 showOnHomepage: false
@@ -9,7 +9,7 @@ published: true
 content_blocks:
   - type: text
     content: |-
-      Nabízíme možnost telefonické konzultace pro rychlou radu v případě menších zdravotních potíží nebo nejasností.
+      Možnost telefonické konzultace pro rychlou radu v případě menších zdravotních potíží nebo nejasností.
 
   - type: features_list
     heading: Kdy zavolat
@@ -23,12 +23,14 @@ content_blocks:
   - type: tip_box
     heading: Kontaktní číslo
     content: |-
-      Volejte na **[+420 603 290 939](tel:+420603290939)** během ordinačních hodin. Pokud je lékař zrovna s pacientem, zavoláme zpět.
+      Volejte na **[+420 603 290 939](tel:+420603290939)** během ordinačních hodin. Sestřička vás jistě vyposlechne, předá prosbu konzultace lékařkám.
+
+      Pokud nejsou zrovna zaneprázdněny vyšetřováním jiného pacienta, telefon sestřička jistě hned předá a můžete konzultovat.
     icon: mdi:phone-in-talk
 
   - type: warning_box
     content: |-
-      **Upozornění:** Telefonická konzultace nenahrazuje osobní vyšetření. V případě vážnějších potíží je nutná osobní návštěva.
+      **Upozornění:** Telefonická konzultace nenahrazuje osobní vyšetření. V případě vážnějších potíží je nutná osobní návštěva. Na tu se prosím vždy objednávejte.
 
   - type: cta_box
     heading: Máte dotaz?

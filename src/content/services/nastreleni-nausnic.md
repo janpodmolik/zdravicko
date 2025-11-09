@@ -1,6 +1,6 @@
 ---
 title: Nastřelení náušnic
-excerpt: Bezpečné a šetrné propíchnutí uší u dětí
+excerpt: Tiché a šetrné propíchnutí ušních boltců holčiček. Vyjímečně pubertálních chlapečků 😊
 icon: mdi:star-circle
 color: purple
 showOnHomepage: false
@@ -9,32 +9,36 @@ published: true
 content_blocks:
   - type: text
     content: |-
-      Nabízíme profesionální a bezpečné nastřelení náušnic u dětí. Používáme kvalitní hypoalergenní náušnice a sterilní nástroje.
+      Neodmítáme propíchnutí druhých či dalších dírek, ale pouze na ušním boltci. Další oblíbené části těla zachováváme celistvé.
+
+      Nabízíme nastřelení náušnic za sterilních kautel systémem Studex. Používáme kvalitní hypoalergenní náušnice.
 
   - type: features_list
     heading: Jak to probíhá
     items:
-      - Konzultace s rodiči a dítětem
+      - Konzultace s rodiči a případně starším dítětem
+      - Výběr náušniček
+      - Vždy u maminky či tatínka na klíně
       - Označení místa propíchnutí
       - Dezinfekce a příprava
       - Rychlé a šetrné nastřelení
-      - Instrukce k následné péči
+
+  - type: text
+    content: |-
+      ## Instrukce k následné péči
+
+      - Není třeba nic
+      - Vynechat na 14 dní bazén
+      - Pokud by si Šikulín náušničku vytáhnul, co nejdříve nasadit zpět
+      - Výměna za jiný klenot z domácí šperkovnice nejdříve za 3 týdny od nastřelení
+      - Není nutný
+      - **Naušnice Studex lze nosit trvale**
 
   - type: tip_box
     heading: Ideální věk
     content: |-
-      Doporučujeme nastřelení **od 6 měsíců věku**, kdy má dítě stabilnější imunitní systém. Nutná je také pravidelná ošetřovací péče.
+      Doporučujeme nastřelení **od 3 měsíců věku**, kdy má dítě za sebou první očkování.
     icon: mdi:calendar
-
-  - type: steps
-    heading: Péče po nastřelení
-    steps:
-      - title: Dezinfekce
-        description: 2x denně dezinfikujte náušnice a okolí.
-      - title: Otáčení
-        description: Jemně otáčejte náušnicemi pro prevenci zarostení.
-      - title: Čistota
-        description: Vyhýbejte se bazénům a znečištěné vodě po dobu 2-3 týdnů.
 
   - type: cta_box
     heading: Máte zájem o nastřelení?

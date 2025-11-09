@@ -1,7 +1,7 @@
 ---
 title: Laktační poradenství
-excerpt: Odborná pomoc s kojením a péčí o novorozence
-icon: mdi:baby-face
+excerpt: Trpělivá pomoc s kojením i péčí o novorozence
+icon: mdi:baby
 color: pink
 showOnHomepage: true
 order: 3
@@ -9,7 +9,7 @@ published: true
 content_blocks:
   - type: text
     content: |-
-      Všichni naši lékaři prošli specializovaným školením v laktačním poradenství a mohou vám pomoci s jakýmikoliv potížemi při kojení.
+      Doktorka Jana prošla specializovaným školením v laktačním poradenství, sestřičky mají mnoho svých praktických zkušeností a snaží se vám vždy pomoci s jakýmikoliv potížemi při kojení.
 
   - type: features_list
     heading: S čím vám pomůžeme
@@ -17,21 +17,25 @@ content_blocks:
       - Správná technika přikládání
       - Bolestivé bradavky a trhlinky
       - Nedostatek nebo přebytek mléka
-      - Ucpané mléčné kanálky
+      - Retence mléka, zánět prsu
       - Návrat do práce a kojení
       - Odstavování od kojení
 
-  - type: tip_box
-    heading: Kojení je přirozené, ale...
-    content: |-
-      ...ne vždy hned funguje samo. **Nebojte se požádat o pomoc!** Včasná konzultace může předejít mnoha problémům.
-    icon: mdi:heart
-
   - type: text
     content: |-
-      ## Individuální přístup
+      ## Kojení je darem přírody
 
-      Každá maminka a každé miminko jsou jedinečné. Najdeme společně řešení, které bude vyhovovat právě vám.
+      Kojení je darem přírody, mělo by být jednoduché a přirozené, mělo by jít vlastně samo, ale...
+
+      ...člověk je tvor složitý a každý z nás je originál, zvláště pak v čerstvé roli rodiče. Mateřství je v prvních dnech po porodu barevnou hrou hormonů, a ne vždy se laktace na lusk prstu rozběhne sama. Většinou stačí vyladit úplné maličkosti, „dotáhnout šroubek"…
+
+      **Nebojte se požádat o pomoc!** Včasná konzultace vám otevře vrátka do nejkomfortnějšího způsobu výživy kojence, i když to tak na počátku vůbec nevypadá.
+
+  - type: tip_box
+    heading: Individuální přístup
+    content: |-
+      Najdeme v míru společné řešení na míru.
+    icon: mdi:heart
 
   - type: cta_box
     heading: Potřebujete poradit?

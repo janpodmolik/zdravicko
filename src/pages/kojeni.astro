@@ -36,10 +36,6 @@ const PAGE_SECTIONS: Record<string, PageSection> = {
     title: 'Proč je kojení tak důležité?',
     description: 'Mateřské mléko je přesně ta tekutina, kterou příroda navrhla jako ideální výživu pro lidské mládě. Nikdo a nic ji doposud nepřekonalo.'
   },
-  advisors: {
-    title: 'Naši laktační poradci',
-    description: 'Všichni naši lékaři prošli specializovaným školením v laktačním poradenství.'
-  },
   help: {
     title: 'S čím vám pomůžeme?',
     description: 'Řešíme jakékoliv potíže s kojením - od technických problémů až po emoční podporu.'
@@ -88,24 +84,6 @@ const benefits: Benefit[] = [
 
 // Data pro funkce laktační poradny
 const features: Feature[] = [
-  {
-    icon: 'mdi:school',
-    title: 'Školení laktační poradci',
-    description: 'Všichni naši lékaři jsou proškoleni v laktačním poradenství a mají certifikaci od uznávaných institucí.',
-    iconColor: 'text-pink-600'
-  },
-  {
-    icon: 'mdi:account-supervisor',
-    title: 'Individuální konzultace',
-    description: 'Nabízíme osobní konzultace přímo v ordinaci i online, kde řešíme vaše konkrétní problémy s kojením.',
-    iconColor: 'text-rose-600'
-  },
-  {
-    icon: 'mdi:phone',
-    title: 'Poradna kdykoliv',
-    description: 'Pro naše maminky máme dostupnou telefonickou laktační poradnu, kde můžete získat radu i mimo ordinační hodiny.',
-    iconColor: 'text-fuchsia-600'
-  },
   {
     icon: 'mdi:baby-face',
     title: 'Od prvních dní',
@@ -160,7 +138,7 @@ const SEO = {
 
   <!-- Hero sekce s animovaným pozadím -->
   <PageHeader
-    title="Kojení není jen výživa. Je to stále nedoceněná láska, která se dá i zvážit."
+    title="Kojení není jen výživa. Je to stále nedoceněná láska, která se směje a dá se i zvážit v gramech"
     description="Certifikovaní laktační poradci s dlouholetou zkušeností"
     variant="pink"
     badge={{
@@ -223,11 +201,6 @@ const SEO = {
   <!-- Naši laktační poradci -->
   <section id="nasi-poradci" class="py-16 md:py-20 bg-linear-to-br from-pink-50 to-rose-50">
     <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{PAGE_SECTIONS.advisors.title}</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">{PAGE_SECTIONS.advisors.description}</p>
-      </div>
-
       <div class="max-w-3xl mx-auto mb-12">
         <div class="bg-white rounded-2xl shadow-xl p-8 border-2 border-pink-200">
           <div class="flex flex-col md:flex-row items-center gap-6">
@@ -239,10 +212,8 @@ const SEO = {
             <div class="flex-1 text-center md:text-left">
               <h3 class="text-2xl font-bold text-gray-900 mb-3">Certifikace a odbornost</h3>
               <p class="text-gray-700 leading-relaxed">
-                <strong class="text-pink-700">MUDr. Jana Šlechtová</strong> a celý náš tým absolvovali
-                akreditované školení laktačního poradenství. Pravidelně se účastníme konferencí a
-                vzdělávacích akcí, abychom vám mohli poskytovat nejnovější a ověřené informace založené
-                na vědeckých poznatcích a mezinárodních doporučeních (WHO, UNICEF, La Leche League).
+                <strong class="text-pink-700">MUDr. Jana Šlechtová</strong> absolvovala akreditované školení laktačního poradenství. Pravidelně se účastníme konferencí a vzdělávacích akcí, abychom vám mohli poskytovat nejnovější a ověřené informace založené na vědeckých poznatcích a mezinárodních doporučeních (WHO, UNICEF, La Leche League).
+Na akreditované školení se v rámci svého vzdělávání chystá i MUDr. Johana Podmolíková.
               </p>
             </div>
           </div>

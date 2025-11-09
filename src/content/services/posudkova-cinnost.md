@@ -1,6 +1,6 @@
 ---
 title: Posudková činnost
-excerpt: Lékařské posudky a potvrzení pro školy, kroužky a tábory
+excerpt: Lékařské posudky a potvrzení pro jesličky, školky, školy, kroužky a tábory
 icon: mdi:clipboard-text
 color: indigo
 showOnHomepage: false
@@ -9,29 +9,38 @@ published: true
 content_blocks:
   - type: text
     content: |-
-      Vystavujeme veškeré potřebné lékařské posudky a potvrzení pro školy, školky, sportovní kroužky, tábory a další aktivity.
+      Někdy se bojím, že budeme potvrzovat i způsobilost k pobytu doma 😊
 
   - type: features_list
     heading: Co vystavujeme
     items:
-      - Posudky pro školní docházku
-      - Potvrzení pro sportovní kroužky
-      - Posudky pro tábory a výjezdy
-      - Posudky pro bazén a plavání
-      - Potvrzení o zdravotní způsobilosti
-      - Očkovací průkazy a záznamy
+      - Posudek o zdravotní způsobilosti k tělovýchově a sportu
+      - Posudek o zdravotní způsobilosti dítěte k účasti na zotavovací akci (školy a školky v přírodě, tábory, sportovní soustředění, ozdravné pobyty, lyžařské a plavecké výcviky)
+      - Vyjádření lékaře k přijetí dítěte do MŠ
+      - Posudek o způsobilosti ke vzdělání
+      - Posudek o způsobilosti k řízení motorových vozidel
+      - Posudek o zdravotní způsobilosti k práci
+      - Posudek o zdravotní způsobilosti k držení zbraně
+      - Posudek o zdravotní způsobilosti k absolvování svářečského kurzu
+
+  - type: text
+    content: |-
+      ## Formáty a příprava
+
+      Většina formulářů je součástí našeho programu, nepotřebujeme vytisknutý formulář.
 
   - type: tip_box
-    heading: Přineste si s sebou
+    heading: Pro autoškolu
     content: |-
-      Formulář nebo přesné požadavky, které má posudek obsahovat. Pokud není vyšetření nutné, můžeme posudek vystavit ihned.
+      U vystavení způsobilosti pro autoškolu – vždy nutná prohlídka, **vezměte prosím občanský průkaz**.
     icon: mdi:file-document
 
   - type: text
     content: |-
-      ## Vyšetření před vydáním posudku
+      ## Ceny a objednání
 
-      V některých případech je před vydáním posudku nutné vyšetření dítěte. To závisí na typu posudku a požadavcích instituce.
+      - Ceny jednotlivých posudků – **viz [Ceník](/cenik)**
+      - Podrobnosti a objednání u sestřičky na tel **[603 293 909](tel:+420603293909)**
 
   - type: cta_box
     heading: Potřebujete posudek?

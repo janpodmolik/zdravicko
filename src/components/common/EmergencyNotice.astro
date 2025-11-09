@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 
 interface Props {
-  variant?: 'emergency' | 'afterhours';
+  variant?: 'emergency' | 'afterhours' | 'toxicology';
 }
 
 const { variant = 'emergency' } = Astro.props;
@@ -35,10 +35,26 @@ const config = {
     title: 'Mimo ordinační hodiny',
     description: 'V případě akutních problémů mimo ordinační dobu využijte dětskou pohotovost v Nemocnici AGEL Přerov.',
     linkIcon: 'mdi:phone',
-    linkText: '+420 581 201 111',
-    linkHref: 'tel:+420581201111',
-    address: 'Dvorská 870/98, 750 02 Přerov',
-    addressHref: 'https://www.google.com/maps/search/?api=1&query=Dvorsk%C3%A1+870%2F98%2C+750+02+P%C5%99erov',
+    linkText: '+420 581 271 111',
+    linkHref: 'tel:+420581271111',
+    address: 'Dvořákova 72, 750 02 Přerov',
+    addressHref: 'https://maps.app.goo.gl/GTMW3ynUvbEWLVs27',
+  },
+  toxicology: {
+    bgColor: 'bg-purple-50',
+    borderColor: 'border-purple-300',
+    iconColor: 'text-purple-600',
+    textColor: 'text-purple-800',
+    titleColor: 'text-purple-900',
+    linkColor: 'text-purple-700 hover:text-purple-800',
+    icon: 'mdi:alert-circle',
+    title: 'Toxikologické informační středisko Praha',
+    description: 'Bezplatné poradenství v případě otrav a nežádoucích účinků léků. K dispozici 24 hodin denně, 7 dní v týdnu.',
+    linkIcon: 'mdi:phone',
+    linkText: '224 91 92 93',
+    linkHref: 'tel:+420224919293',
+    address: 'www.tis-cz.cz',
+    addressHref: 'https://www.tis-cz.cz',
   }
 };
 
@@ -66,7 +82,7 @@ const settings = config[variant];
               rel="noopener noreferrer"
               class:list={['inline-flex items-center gap-2 font-semibold', settings.linkColor]}
             >
-              <Icon name="mdi:map-marker" class="w-5 h-5" />
+              <Icon name={variant === 'toxicology' ? 'mdi:web' : 'mdi:map-marker'} class="w-5 h-5" />
               {settings.address}
             </a>
           </div>

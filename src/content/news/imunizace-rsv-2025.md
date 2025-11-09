@@ -10,7 +10,7 @@ Od října 2025 je nová možnost ochrany novorozenců a kojenců pomocí podán
 
 **Přípravek Beyfortus** obsahuje protilátku nirsevimab, která poskytuje ochranu na aktuální RS virovou sezónu (čili cca 5-6 měsíců). Nejedná se o „klasické očkování", kde si imunitní systém dítěte sám tvoří protilátky. Zde je „hotová protilátka" přímo dítěti podána a účinkuje proto ihned. Aplikace probíhá jednorázově injekcí do stehýnka.
 
-**Indikovány jsou:**
+**Indikováni jsou:**
 
 - kojenci narození před RS virovou sezónou (duben-září) - podání nejlépe v říjnu či listopadu
 - novorozenci narozeni během sezóny (říjen-březen) - podání co nejdříve po narození
