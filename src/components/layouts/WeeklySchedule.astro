@@ -8,31 +8,19 @@ import {
 
 const weekSchedule = getWeekScheduleWithNotices();
 
-// ============================================================================
-// HELPER FUNKCE PRO STYLING
-// ============================================================================
-
 /**
  * Vrátí CSS třídy pro zobrazení ordinačních hodin podle stavu dne
+ * POZOR: isToday NEPOUŽÍVÁME - to se nastaví až v browseru
  */
 function getHourClass(schedule: WeekDaySchedule): string {
   if (schedule.isWeekend && schedule.isClosed) return 'text-gray-500';
   if (schedule.isClosed) return 'text-red-600';
-  if (schedule.isToday) return 'text-primary-600';
 
   if (schedule.isModified && schedule.noticeType) {
     return `${NOTICE_TYPE_CLASSES[schedule.noticeType].text} font-semibold`;
   }
 
   return 'text-gray-600';
-}
-
-/**
- * Vrátí CSS třídy pro badge se změnou
- */
-function getChangeBadgeClass(noticeType?: NoticeType): string {
-  if (!noticeType) return 'text-amber-600';
-  return NOTICE_TYPE_CLASSES[noticeType].badge;
 }
 ---
 
@@ -41,17 +29,15 @@ function getChangeBadgeClass(noticeType?: NoticeType): string {
     <div class="space-y-4">
       {weekSchedule.map((schedule) => (
         <div
-          class:list={[
-            'flex justify-between items-center py-4 px-4 rounded-lg transition-colors',
-            schedule.isToday ? 'bg-primary-50 border-2 border-primary' : 'border-b-2 border-gray-100 last:border-b-0'
-          ]}
+          data-day-of-week={schedule.dayOfWeek}
+          class="flex justify-between items-center py-4 px-4 rounded-lg transition-colors border-2 border-transparent"
         >
           <div>
-            <span class:list={['font-semibold', schedule.isToday ? 'text-primary-700' : 'text-gray-900']}>
+            <span class="font-semibold text-gray-900" data-day-name>
               {schedule.dayName}
-              {schedule.isToday && (
-                <span class="ml-2 text-xs bg-primary text-white px-2 py-1 rounded-full">Dnes</span>
-              )}
+              <span class="ml-2 text-xs bg-primary text-white px-2 py-1 rounded-full hidden" data-today-badge>
+                Dnes
+              </span>
               {schedule.noticeBadgeLabel && schedule.noticeType && (
                 <span class:list={['ml-2 text-xs text-white px-2 py-1 rounded-full', NOTICE_TYPE_CLASSES[schedule.noticeType].background]}>
                   {schedule.noticeBadgeLabel}
@@ -74,6 +60,5 @@ function getChangeBadgeClass(noticeType?: NoticeType): string {
         </div>
       ))}
     </div>
-
   </div>
 </div>

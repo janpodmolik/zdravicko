@@ -12,6 +12,9 @@ const { todayInfo } = Astro.props;
 
 // Barvy aplikujeme jen pokud je skutečně modifikace pro dnešní den
 const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
+const cardAccentDefault = "border-blue-100 hover:border-blue-400";
+const iconAccentDefault = "bg-linear-to-br from-blue-500 to-blue-600";
+const hoursTextDefault = "text-gray-600";
 ---
 
 <section class="py-6 md:py-8 bg-linear-to-br from-gray-50 to-blue-50 relative">
@@ -22,25 +25,57 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
         href="/ordinacni-hodiny"
         class="group"
       >
-        <div class:list={[
-          "flex items-center gap-3 p-4 bg-white rounded-xl border-2 transition-all hover:shadow-lg h-full",
-          colors ? `${colors.border} ${colors.bg}` : "border-blue-100 hover:border-blue-400"
-        ]}>
-          <div class:list={[
-            "w-10 h-10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform",
-            colors ? colors.icon : "bg-linear-to-br from-blue-500 to-blue-600"
-          ]}>
-            <Icon name={colors ? "mdi:alert-circle-outline" : "mdi:clock-outline"} class="w-5 h-5 text-white" />
+        <div
+          class:list={[
+            "flex items-center gap-3 p-4 bg-white rounded-xl border-2 transition-all hover:shadow-lg h-full",
+            colors ? `${colors.border} ${colors.bg}` : cardAccentDefault
+          ]}
+          data-opening-quick-card
+          data-opening-node="quick-container"
+          data-opening-default-classes={cardAccentDefault}
+        >
+          <div
+            class:list={[
+              "w-10 h-10 rounded-lg flex items-center justify-center shrink-0 relative group-hover:scale-110 transition-transform",
+              colors ? colors.icon : iconAccentDefault
+            ]}
+            data-opening-node="quick-icon"
+            data-opening-default-classes={iconAccentDefault}
+          >
+            <Icon
+              name="mdi:clock-outline"
+              class:list={[
+                "w-5 h-5 text-white",
+                colors ? "hidden" : ""
+              ]}
+              data-opening-icon="default"
+            />
+            <Icon
+              name="mdi:alert-circle-outline"
+              class:list={[
+                "w-5 h-5 text-white",
+                colors ? "" : "hidden"
+              ]}
+              data-opening-icon="modified"
+            />
           </div>
           <div class="flex-1 min-w-0">
-            <h3 class="font-bold text-sm text-gray-900 leading-tight mb-0.5">
+            <h3
+              class="font-bold text-sm text-gray-900 leading-tight mb-0.5"
+              data-opening-title
+            >
               {todayInfo.title}
             </h3>
             {(todayInfo.hours || todayInfo.isClosed) && (
-              <p class:list={[
-                "text-xs font-medium",
-                colors ? `${colors.text} font-bold` : "text-gray-600"
-              ]}>
+              <p
+                class:list={[
+                  "text-xs font-medium",
+                  colors ? `${colors.text} font-bold` : hoursTextDefault
+                ]}
+                data-opening-hours
+                data-opening-node="quick-hours"
+                data-opening-default-classes={hoursTextDefault}
+              >
                 {todayInfo.hours ?? 'Zavřeno'}
               </p>
             )}
@@ -49,20 +84,32 @@ const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : nu
       </a>
 
       <!-- TELEFONNÍ KONTAKT -->
-      <a
-        href={`tel:${contactInfo.phones.doctor.number}`}
-        class="group"
-      >
+      <div class="group">
         <div class="flex items-center gap-3 p-4 bg-white rounded-xl border-2 border-cyan-100 transition-all hover:border-cyan-400 hover:shadow-lg h-full">
           <div class="w-10 h-10 bg-linear-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
             <Icon name="mdi:phone" class="w-5 h-5 text-white" />
           </div>
           <div class="flex-1 min-w-0">
-            <h3 class="font-bold text-sm text-gray-900 leading-tight mb-0.5">Telefonní kontakt</h3>
-            <p class="text-gray-600 text-xs font-medium">{contactInfo.phones.doctor.display}</p>
+            <h3 class="font-bold text-sm text-gray-900 leading-tight mb-1">Telefonní kontakt</h3>
+            <div class="space-y-0.5">
+              <a 
+                href={`tel:${contactInfo.phones.doctor.number}`}
+                class="block text-cyan-600 hover:text-cyan-700 text-xs font-medium transition-colors"
+              >
+                {contactInfo.phones.doctor.display}
+                <span class="text-gray-500 ml-1">(Doktorka)</span>
+              </a>
+              <a 
+                href={`tel:${contactInfo.phones.nurse.number}`}
+                class="block text-cyan-600 hover:text-cyan-700 text-xs font-medium transition-colors"
+              >
+                {contactInfo.phones.nurse.display}
+                <span class="text-gray-500 ml-1">(Sestřička)</span>
+              </a>
+            </div>
           </div>
         </div>
-      </a>
+      </div>
 
       <!-- ADRESA -->
       <a

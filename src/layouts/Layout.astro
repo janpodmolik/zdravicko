@@ -41,13 +41,17 @@ const {
 	<body class="font-sans antialiased">
 		<slot />
 		<script>
-			// Jednoduchá podpora hash scrollování pro View Transitions
+			import { updateOpeningHours } from '../scripts/updateOpeningHours';
+
+			// Spustíme při každém načtení stránky (včetně View Transitions)
 			document.addEventListener('astro:page-load', () => {
+				updateOpeningHours();
+
+				// Hash scrollování
 				const hash = window.location.hash;
 				if (hash) {
 					const target = document.querySelector(hash);
 					if (target) {
-						// Krátké zpoždění pro View Transitions animaci
 						setTimeout(() => {
 							target.scrollIntoView({ behavior: 'smooth' });
 						}, 50);

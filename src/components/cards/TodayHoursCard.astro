@@ -9,10 +9,12 @@ import { Icon } from 'astro-icon/components';
 import ClosureNoticeCard from '../common/ClosureNoticeCard.astro';
 import { getTodayOpeningHours, getSpecialNoticeDisplay } from '../../utils/openingHours';
 import { getNoticeColors } from '../../utils/noticeColors';
+import specialNoticeClosure from '../../data/closureNotice';
 
 const todayInfo = getTodayOpeningHours();
 const specialNoticeDisplay = getSpecialNoticeDisplay();
 const closureInfo = specialNoticeDisplay.isClosed ? specialNoticeDisplay.closureInfo : null;
+const closureCardInfo = closureInfo ?? specialNoticeClosure;
 const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
 const closureAccent = {
   border: colors?.border ?? "border-[#5085c6]/30",
@@ -25,28 +27,52 @@ const hoursClass = todayInfo.isModified
   : todayInfo.isClosed
     ? "text-gray-600"
     : "text-primary";
+const noticeVisible = Boolean(todayInfo.isModified && todayInfo.notice);
+const closureVisible = Boolean(specialNoticeDisplay.isClosed && specialNoticeDisplay.closureInfo);
+const todayCardDefault = "bg-white border-[#5085c6]/30";
+const todayIconDefault = "bg-[#5085c6]";
+const todayHoursDefault = "text-primary";
 ---
 
 <div class:list={[
   "rounded-2xl shadow-lg p-8 border-2",
   todayInfo.isModified ? `${colors?.bg} ${colors?.border}` : "bg-white border-[#5085c6]/30"
-]}>
+]} data-opening-today-card data-opening-node="today-card" data-opening-default-classes={todayCardDefault}>
   <div class="flex items-center gap-4 mb-4">
     <div class:list={[
-      "w-12 h-12 rounded-full flex items-center justify-center",
+      "w-12 h-12 rounded-full flex items-center justify-center relative",
       todayInfo.isModified ? colors?.icon : "bg-[#5085c6]"
-    ]}>
+    ]} data-opening-node="today-icon" data-opening-default-classes={todayIconDefault}>
       <Icon
-        name={todayInfo.isModified ? "mdi:alert-circle-outline" : "mdi:clock-outline"}
-        class="w-6 h-6 text-white"
+        name="mdi:clock-outline"
+        class:list={[
+          "w-6 h-6 text-white",
+          todayInfo.isModified ? "hidden" : ""
+        ]}
         aria-hidden="true"
+        data-opening-icon="default"
+      />
+      <Icon
+        name="mdi:alert-circle-outline"
+        class:list={[
+          "w-6 h-6 text-white",
+          todayInfo.isModified ? "" : "hidden"
+        ]}
+        aria-hidden="true"
+        data-opening-icon="modified"
       />
     </div>
     <div>
-      <h2 class="text-2xl font-bold text-gray-900">
+      <h2
+        class="text-2xl font-bold text-gray-900"
+        data-opening-title
+      >
         {todayInfo.title}
       </h2>
-      <p class="text-gray-600">
+      <p
+        class="text-gray-600"
+        data-opening-date
+      >
         {new Date().toLocaleDateString('cs-CZ', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
       </p>
     </div>
@@ -54,38 +80,39 @@ const hoursClass = todayInfo.isModified
 
   <!-- Hodiny (pokud existují) -->
   {(todayInfo.hours || todayInfo.isClosed) && (
-    <div class:list={[
-      "text-3xl font-bold mb-2",
-      hoursClass
-    ]}>
+    <div
+      class:list={[
+        "text-3xl font-bold mb-2",
+        hoursClass
+      ]}
+      data-opening-hours
+      data-opening-node="today-hours"
+      data-opening-default-classes={todayHoursDefault}
+    >
       {displayHours}
     </div>
   )}
 
-  <!-- Zpráva/oznámení (pokud existuje) -->
-  {todayInfo.isModified && todayInfo.notice && (
-    <div class:list={[
-      "mt-4 p-4 border-l-4 rounded",
-      colors?.infoBanner,
-      colors?.infoBannerBorder
-    ]}>
-      <p class:list={[
-        "text-sm font-medium",
-        colors?.description
-      ]}>
-        <Icon name="mdi:information" class="w-4 h-4 inline mr-1" aria-hidden="true" />
-        {todayInfo.notice}
-      </p>
-    </div>
-  )}
+  <!-- Zpráva/oznámení -->
+  <div class:list={[
+    "mt-4 p-4 border-l-4 rounded",
+    noticeVisible ? `${colors?.infoBanner ?? ""} ${colors?.infoBannerBorder ?? ""}` : "hidden"
+  ]} data-opening-node="today-notice" data-opening-default-classes="hidden">
+    <p class:list={[
+      "text-sm font-medium",
+      noticeVisible ? colors?.description ?? "text-[#5085c6]" : "text-[#5085c6]"
+    ]} data-opening-node="today-notice-text" data-opening-default-classes="text-[#5085c6]">
+      <Icon name="mdi:information" class="w-4 h-4 inline mr-1" aria-hidden="true" />
+      <span data-opening-notice-text>{todayInfo.notice ?? ''}</span>
+    </p>
+  </div>
 
 </div>
 
-{closureInfo && (
-  <div class:list={[
-    "mt-4 p-5 rounded-xl border bg-white shadow-sm",
-    colors ? `${colors.border} ${colors.bg}` : "border-blue-100"
-  ]}>
-    <ClosureNoticeCard info={closureInfo} accent={closureAccent} />
-  </div>
-)}
+<div class:list={[
+  "mt-4 p-5 rounded-xl border bg-white shadow-sm",
+  colors ? `${colors.border} ${colors.bg}` : "border-blue-100",
+  closureVisible ? "" : "hidden"
+]} data-opening-node="closure-card" data-opening-default-classes="border-blue-100">
+  <ClosureNoticeCard info={closureCardInfo} accent={closureAccent} enableDynamicStyles={true} />
+</div>

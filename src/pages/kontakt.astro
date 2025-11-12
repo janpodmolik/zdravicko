@@ -90,11 +90,17 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
                   icon="mdi:clock-outline"
                   title={todayInfo.title}
                   href="/ordinacni-hodiny"
+                  dataOpeningTitle={true}
                 >
-                  <p class:list={[
-                    "font-medium text-base",
-                    hoursClass
-                  ]}>
+                  <p
+                    class:list={[
+                      "font-medium text-base",
+                      hoursClass
+                    ]}
+                    data-opening-hours
+                    data-opening-node="contact-hours"
+                    data-opening-default-classes="text-gray-800"
+                  >
                     {displayHours}
                   </p>
                   <p class="text-primary text-sm font-medium inline-flex items-center gap-1 mt-2 hover:text-primary-600">

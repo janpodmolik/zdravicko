@@ -11,7 +11,7 @@ const PRAGUE_TIMEZONE = "Europe/Prague";
  * Vrací aktuální datum a čas v lokální časové zóně (Europe/Prague)
  * Používá se pro zajištění správného dne v týdnu bez ohledu na časovou zónu serveru
  */
-function getLocalDate(): Date {
+export function getLocalDate(): Date {
   const now = new Date();
   const formatter = new Intl.DateTimeFormat("en-US", {
     timeZone: PRAGUE_TIMEZONE,
