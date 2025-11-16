@@ -41,9 +41,12 @@ if (!WEB3FORMS_ACCESS_KEY) {
     <!-- Redirect po úspěšném odeslání -->
     <input type="hidden" name="redirect" value="false" />
 
-    <!-- Hlavní email pro příjem zpráv -->
-    <input type="hidden" name="from_name" value="Zdravicko Kontakt" />
-    <input type="hidden" name="subject" value="Nova zprava z webu" />
+    <!-- České labely pro email -->
+    <input type="hidden" name="Jméno" value="" />
+    <input type="hidden" name="Email" value="" />
+    <input type="hidden" name="Telefon" value="" />
+    <input type="hidden" name="Předmět" value="" />
+    <input type="hidden" name="Zpráva" value="" />
 
     <!-- Honeypot pro spam ochranu -->
     <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
@@ -58,6 +61,7 @@ if (!WEB3FORMS_ACCESS_KEY) {
         required
         class={inputClasses}
         placeholder="Jan Novák"
+        autocomplete="name"
       />
     </div>
 
@@ -71,7 +75,8 @@ if (!WEB3FORMS_ACCESS_KEY) {
         name="email"
         required
         class={inputClasses}
-        placeholder="jan.novak@email.cz"
+        placeholder="vas.email@seznam.cz"
+        autocomplete="email"
       />
     </div>
 
@@ -84,7 +89,10 @@ if (!WEB3FORMS_ACCESS_KEY) {
         id="phone"
         name="phone"
         class={inputClasses}
-        placeholder="+420 123 456 789"
+        placeholder="123 456 789"
+        pattern="[0-9\s+()-]{9,}"
+        title="Zadejte platné telefonní číslo (min. 9 číslic)"
+        autocomplete="tel"
       />
     </div>
 
@@ -161,6 +169,31 @@ if (!WEB3FORMS_ACCESS_KEY) {
         const formData = new FormData(form);
         const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
 
+        // Získáme hodnoty z formuláře
+        const userName = formData.get('name') as string || 'Neznámý odesílatel';
+        const userEmail = formData.get('email') as string;
+        const userPhone = formData.get('phone') as string;
+        const subjectType = formData.get('subject') as string || 'Obecný dotaz';
+        const message = formData.get('message') as string;
+        
+        // Nastavíme from_name a subject pro hlavičku emailu
+        formData.set('from_name', `${userName} (Zdravicko.org)`);
+        formData.set('subject', `🩺 ${subjectType} - ${userName}`);
+
+        // Přidáme česká pole (přepíšeme hidden fieldy s prázdnou hodnotou)
+        formData.set('Jméno', userName);
+        formData.set('Email', userEmail);
+        formData.set('Telefon', userPhone || '-');
+        formData.set('Předmět', subjectType);
+        formData.set('Zpráva', message);
+
+        // Odstraníme anglická pole (aby se nezobrazovala v emailu)
+        formData.delete('name');
+        formData.delete('email');
+        formData.delete('phone');
+        formData.delete('message');
+        // 'subject' necháme, protože se používá pro hlavičku
+
         // Disable button during submission
         if (submitButton) {
           submitButton.disabled = true;
@@ -183,10 +216,11 @@ if (!WEB3FORMS_ACCESS_KEY) {
             // Reset form
             form.reset();
           } else {
-            alert('Něco se pokazilo. Zkuste to prosím znovu nebo nás kontaktujte telefonicky.');
+            alert('❌ Nepodařilo se odeslat zprávu. Zkuste to prosím znovu nebo nás kontaktujte telefonicky na +420 776 287 820.');
           }
         } catch (error) {
-          alert('Něco se pokazilo. Zkuste to prosím znovu nebo nás kontaktujte telefonicky.');
+          console.error('Form submission error:', error);
+          alert('❌ Nepodařilo se odeslat zprávu. Zkuste to prosím znovu nebo nás kontaktujte telefonicky na +420 776 287 820.');
         } finally {
           // Re-enable button
           if (submitButton) {
