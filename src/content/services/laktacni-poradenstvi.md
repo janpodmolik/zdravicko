@@ -3,9 +3,9 @@ title: Laktační poradenství
 excerpt: Trpělivá pomoc s kojením i péčí o novorozence
 icon: mdi:mother-nurse
 color: pink
-duration: ''
-price: ''
-showOnHomepage: true
+duration: ""
+price: ""
+showOnHomepage: false
 order: 3
 published: true
 content_blocks:
@@ -39,4 +39,3 @@ content_blocks:
     buttonText: Kontaktujte nás
     buttonLink: /kontakt
 ---
-

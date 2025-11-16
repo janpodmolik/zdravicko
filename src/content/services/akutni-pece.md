@@ -3,9 +3,9 @@ title: Akutní péče
 excerpt: Pomoc při náhlém onemocnění Vašeho dítěte.
 icon: mdi:hospital-box
 color: red
-duration: ''
-price: ''
-showOnHomepage: true
+duration: ""
+price: ""
+showOnHomepage: false
 order: 2
 published: true
 content_blocks:
@@ -31,11 +31,10 @@ content_blocks:
       - Zlobení všeho druhu
       - Další akutní potíže
   - type: warning_box
-    content: '**V případě závažných stavů** (vysoká horečka u kojence, bezvědomí, křeče, náhle vzniklá dušnost, silné krvácení, těžký úraz) volejte **155**'
+    content: "**V případě závažných stavů** (vysoká horečka u kojence, bezvědomí, křeče, náhle vzniklá dušnost, silné krvácení, těžký úraz) volejte **155**"
   - type: cta_box
     heading: Potřebujete akutní pomoc?
     description: Zavolejte nám a domluvíme termín
     buttonText: Kontakt
     buttonLink: /kontakt
 ---
-
