@@ -175,7 +175,7 @@ if (!WEB3FORMS_ACCESS_KEY) {
         const userPhone = formData.get('phone') as string;
         const subjectType = formData.get('subject') as string || 'Obecný dotaz';
         const message = formData.get('message') as string;
-        
+
         // Nastavíme from_name a subject pro hlavičku emailu
         formData.set('from_name', `${userName} (Zdravicko.org)`);
         formData.set('subject', `🩺 ${subjectType} - ${userName}`);
