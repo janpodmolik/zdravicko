@@ -115,6 +115,8 @@ collections:
         name: "body"
         widget: "markdown"
         hint: "Plný text článku - použij formátování níže"
+        modes: ["raw", "rich_text"]
+        default_mode: "rich_text"
         buttons:
           [
             "bold",
