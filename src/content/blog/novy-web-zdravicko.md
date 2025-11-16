@@ -1,14 +1,16 @@
 ---
-title: "Proč máme nový web?"
+title: Proč máme nový web?
 date: 2025-10-28
-category: "Aktuality"
-excerpt: "Krátké vysvětlení, co se stalo s původním webem a proč jsme vytvořili nový."
-author: "MUDr. Jana Šlechtová"
+category: Aktuality
+excerpt: Krátké vysvětlení, co se stalo s původním webem a proč jsme vytvořili nový.
+image: /uploads/novy web.jpg
+author: MUDr. Jana Šlechtová
 published: true
 featured: false
-tags: ["aktuality", "ordinace"]
+tags:
+  - aktuality
+  - ordinace
 ---
-
 Milí rodiče, možná i děti, které jste omylem ze svých instagramů zaběhly až sem 😊
 
 rádi bychom Vás stručně informovali o tom, proč máme nový web.

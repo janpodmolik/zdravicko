@@ -3,7 +3,7 @@ title: Horečka - jak postupovat?
 date: 2025-11-06
 category: Dětské nemoci
 excerpt: Kdy a čím teplotu měřím? Kdy podat léky? Jaké? A jakou dávku?
-image: ''
+image: /uploads/img_4467.jpg
 author: MUDr. Jana Šlechtová
 published: true
 ---
