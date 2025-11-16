@@ -28,6 +28,7 @@ echo "PUBLIC_WEB3FORMS_KEY=your_access_key" > .env
 ## 🏃 Spuštění
 
 ### Development
+
 ```bash
 # Spustit dev server
 npm run dev
@@ -40,6 +41,7 @@ npm run cms:proxy
 ```
 
 ### Production
+
 ```bash
 # Build
 npm run build
@@ -128,6 +130,7 @@ zdravicko/
 ### Přístup k CMS
 
 **Lokálně:**
+
 ```bash
 npm run cms:proxy  # Terminál 1
 npm run dev        # Terminál 2
@@ -135,14 +138,17 @@ npm run dev        # Terminál 2
 ```
 
 **Produkce:**
+
 ```
 https://zdravicko.org/admin
 ```
+
 - Přihlášení přes GitHub
 
 ### Správa obsahu
 
 #### 📝 Blog
+
 - Články s kategoriemi (prevence, očkování, tipy...)
 - Markdown editor
 - Featured image
@@ -150,23 +156,27 @@ https://zdravicko.org/admin
 - Automatická paginace (9 článků/stránka)
 
 #### 📢 Aktuality
+
 - Krátká oznámení pro carousel
 - Typy: info, varování, důležité
 - Ikony (Material Design)
 - Automatická paginace (10 aktualit/stránka)
 
 #### 💊 Služby
+
 - Popis služeb ordinace
 - Ikony a obrázky
 - Dynamické bloky obsahu
 
 #### ⚠️ Důležité oznámení
+
 - Banner v horní části webu
 - Typy: info (modrá), warning (žlutá), urgent (červená)
 - Časové omezení (platnost od-do)
 - Upravené ordinační hodiny
 
 #### �️ Galerie
+
 - Konfigurace v `src/data/galleries.ts`
 - Kategorie: Čekárna, Herní koutek, Ordinace
 - Zdravé/nemocné děti separace
@@ -194,22 +204,52 @@ Více: `docs/WEB3FORMS_SETUP.md`
 Dynamické zobrazování ordinačních hodin s client-side aktualizací.
 
 ### Architektura:
+
+**Utils (modulární struktura):**
+- `src/utils/date-utils.ts` - Práce s datumy, časové zóny, rozsahy (getLocalDate, isDateInRange, formatShortDate)
+- `src/utils/time-formatting.ts` - Formátování časů a hodin (normalizeTimeValue, formatHoursRange, areHoursEqual)
+- `src/utils/notice-resolver.ts` - Business logika pro special notices (isNoticeEarlyWarning, getSpecialNoticeForDate, resolveNoticeOutcome)
+- `src/utils/openingHours.ts` - API vrstva a konstanty (getTodayActualHours, getTodayHoursWithNotice, getSpecialNoticeDisplay)
+
+**Client-side:**
 - **Global script**: `src/layouts/Layout.astro` - single event listener
 - **Update funkce**: `src/scripts/updateOpeningHours.ts` - 70 řádků
-- **Data atributy**: 
+- **Data atributy**:
   - `data-opening-title` - "Dnes otevřeno" / "Zítra otevřeno"
   - `data-opening-hours` - hodiny
   - `data-opening-date` - datum
   - `data-day-of-week` - číslo dne pro weekly schedule
   - `data-today-badge` - "Dnes" badge
 
+### API Funkce:
+
+**Hlavní API (openingHours.ts):**
+- `getTodayActualHours()` - Dnešní hodiny **BEZ early warnings** (pro QuickInfo, TodayHoursCard)
+- `getTodayHoursWithNotice()` - Dnešní hodiny **S early warnings** (pro stránky s upozorněními na budoucnost)
+- `getSpecialNoticeDisplay()` - Předzpracovaná data pro bannery (SpecialNotice.astro)
+- `getActiveSpecialNotice()` - Raw data z special-notice.json
+- `getWeekScheduleWithNotices()` - Týdenní rozvrh s respektováním notices
+
+**Pomocné funkce (internal use):**
+- `getSpecialNoticeForDate(date, respectShowEarly)` - Notice pro konkrétní den
+- `resolveNoticeOutcome(date, regularHours, respectShowEarly)` - Vypočítá výsledné hodiny s notices
+- `isNoticeEarlyWarning(notice)` - Detekce early warning režimu
+
+**Konstanty:**
+- `DayOfWeek` - Enum dnů v týdnu
+- `DAY_NAMES` - České názvy dnů
+- `NOTICE_TYPE_CLASSES` - CSS třídy pro typy oznámení
+- `HOURS_LABELS` - Textové labely (Zavřeno, Dnes otevřeno, atd.)
+
 ### Komponenty:
+
 - `QuickInfo.astro` - homepage quick access
 - `TodayHoursCard.astro` - detailní kartička
 - `WeeklySchedule.astro` - týdenní přehled s highlightem
 - `kontakt.astro` - kontaktní stránka
 
 ### Technické detaily:
+
 - Client-side: aktuální datum vždy správné (ne build-time)
 - Single global script: žádné duplikace
 - Border fix: `border-2 border-transparent` → žádný layout shift
@@ -217,6 +257,7 @@ Dynamické zobrazování ordinačních hodin s client-side aktualizací.
 ## 🎯 Klíčové funkce
 
 ### Design & UX
+
 - ✅ Responzivní design (mobile-first)
 - ✅ Animované vážky (dekorace)
 - ✅ View Transitions (plynulé přechody)
@@ -224,6 +265,7 @@ Dynamické zobrazování ordinačních hodin s client-side aktualizací.
 - ✅ Accessibility (ARIA, sémantické HTML)
 
 ### Content
+
 - ✅ Markdown blog s kategoriemi
 - ✅ Aktuality carousel
 - ✅ Dynamické služby s bloky
@@ -231,6 +273,7 @@ Dynamické zobrazování ordinačních hodin s client-side aktualizací.
 - ✅ Důležité oznámení (banner)
 
 ### Funkcionality
+
 - ✅ Kontaktní formulář (Web3Forms)
 - ✅ Client-side opening hours update
 - ✅ Weekly schedule s "Dnes" highlightem
@@ -239,6 +282,7 @@ Dynamické zobrazování ordinačních hodin s client-side aktualizací.
 - ✅ SEO optimalizace
 
 ### Admin
+
 - ✅ Decap CMS (Git-based)
 - ✅ WYSIWYG editor
 - ✅ Image upload
@@ -256,10 +300,12 @@ Dynamické zobrazování ordinačních hodin s client-side aktualizací.
 3. Deploy na GitHub Pages
 
 **Environment variables:**
+
 - GitHub: Settings → Secrets → Actions
 - Secret: `PUBLIC_WEB3FORMS_KEY`
 
 **Konfigurace:**
+
 - `.github/workflows/deploy.yml`
 - Build command: `npm run build`
 - Output: `dist/`
@@ -267,6 +313,7 @@ Dynamické zobrazování ordinačních hodin s client-side aktualizací.
 ### Alternativní hosting
 
 #### Netlify
+
 ```bash
 # Build settings
 Build command: npm run build
@@ -277,8 +324,9 @@ PUBLIC_WEB3FORMS_KEY = your_access_key
 ```
 
 #### Vercel
+
 ```bash
-# Build settings  
+# Build settings
 Framework Preset: Astro
 Build Command: npm run build
 Output Directory: dist
@@ -290,33 +338,41 @@ PUBLIC_WEB3FORMS_KEY = your_access_key
 ## 🔧 Konfigurace
 
 ### Kontaktní informace
+
 `src/data/contact.ts`
+
 ```typescript
 export const contactInfo = {
   phones: {
     doctor: "+420 731 232 333",
-    nurse: "+420 603 290 939"
+    nurse: "+420 603 290 939",
   },
   email: "doktorka.jana@zdravicko.org",
-  address: "Svisle 2/785, 750 02 Přerov"
-}
+  address: "Svisle 2/785, 750 02 Přerov",
+};
 ```
 
 ### Ordinační hodiny
+
 `src/utils/openingHours.ts`
+
 ```typescript
 // Úprava hodin podle dnů
 export const getOpeningHours = (day: number): OpeningHours
 ```
 
 ### Navigace
+
 `src/data/navigation.ts`
+
 ```typescript
 // Hlavní menu, footer odkazy
 ```
 
 ### Barvy
+
 `tailwind.config.mjs`
+
 ```javascript
 colors: {
   primary: '#5085c6',
@@ -327,21 +383,25 @@ colors: {
 ## 🛠️ Vývoj
 
 ### Přidání nové stránky
+
 1. Vytvoř `src/pages/nova-stranka.astro`
 2. Přidej do navigace: `src/data/navigation.ts`
 3. Build: `npm run build`
 
 ### Přidání komponenty
+
 1. Vytvoř v `src/components/category/`
 2. Import a použij v page/layout
 3. TypeScript typy v `src/types/`
 
 ### Přidání content kolekce
+
 1. Definuj schéma: `src/content/config.ts`
 2. Přidej do CMS: `public/admin/config.yml`
 3. Vytvoř page template: `src/pages/[collection]/`
 
 ### Přidání galerie
+
 1. Nahraj obrázky do `public/images/category/`
 2. Přidej konfiguraci: `src/data/galleries.ts`
 3. Použij `<Lightbox />` komponentu
@@ -375,14 +435,17 @@ colors: {
 ## � Známé issues & řešení
 
 ### Build-time vs Runtime
+
 - **Problém**: Opening hours zmrazené při buildu
 - **Řešení**: Client-side update v `Layout.astro`
 
 ### Layout shift při "Dnes" badge
+
 - **Problém**: Border přidaný dynamicky → shift
 - **Řešení**: `border-2 border-transparent` vždy
 
 ### Diakritika v emailech
+
 - **Problém**: Web3Forms UTF-8 encoding
 - **Řešení**: Používat text bez diakritiky v předmětu/from_name
 
@@ -392,18 +455,18 @@ colors: {
 
 ## 👨‍💻 Autor
 
-Vytvořil: Jan Podmolík  
-Email: jan.podmolik@gmail.com  
+Vytvořil: Jan Podmolík
+Email: jan.podmolik@gmail.com
 GitHub: [@janpodmolik](https://github.com/janpodmolik)
 
 ## 🤝 Kontakt & Podpora
 
 Pro technickou podporu nebo dotazy:
+
 - Email: jan.podmolik@gmail.com
 - GitHub Issues: https://github.com/janpodmolik/zdravicko/issues
 
 ---
 
-**Web**: https://zdravicko.org  
+**Web**: https://zdravicko.org
 **Admin**: https://zdravicko.org/admin
-

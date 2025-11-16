@@ -17,12 +17,13 @@ import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
 import LyingTiger from '../components/decorations/LyingTiger.astro';
 import StandingSheep from '../components/decorations/StandingSheep.astro';
 
-import { getTodayOpeningHours } from '../utils/openingHours';
+import { getTodayActualHours } from '../utils/openingHours';
 import { getPublishedNews, getPublishedBlogPosts } from '../utils/contentHelpers';
 import { getCollection } from 'astro:content';
 import type { ServiceColor } from '../data/services';
 
-const todayInfo = getTodayOpeningHours();
+// Pro QuickInfo používáme getTodayActualHours (zobrazí warning jen když platí DNES)
+const todayInfo = getTodayActualHours();
 const latestNews = (await getPublishedNews()).slice(0, 3);
 const latestBlogPosts = (await getPublishedBlogPosts()).slice(0, 3);
 

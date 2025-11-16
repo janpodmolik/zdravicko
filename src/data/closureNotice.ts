@@ -1,7 +1,7 @@
 import type { SpecialNoticeClosureInfo } from "../utils/openingHours";
 
 const specialNoticeClosure: SpecialNoticeClosureInfo = {
-  introText: "Zastupuje nás",
+  introText: "V době naší nepřítomnosti nás zastupuje",
   doctorName: "paní dr. Alena Lošťáková",
   addressLabel: "Optická ulice",
   mapUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(

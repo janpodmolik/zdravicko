@@ -2,28 +2,16 @@
 import type { SpecialNoticeClosureInfo } from '../../utils/openingHours';
 import { Icon } from 'astro-icon/components';
 
-interface AccentClasses {
-  border?: string;
-  icon?: string;
-  text?: string;
-}
-
 interface Props {
   info: SpecialNoticeClosureInfo;
-  accent?: AccentClasses;
-  enableDynamicStyles?: boolean;
 }
 
-const {
-  info,
-  accent = {},
-  enableDynamicStyles = false,
-} = Astro.props;
+const { info } = Astro.props;
 
-const borderClass = accent.border ?? "border-blue-100";
-const iconClass =
-  accent.icon ?? "bg-linear-to-br from-blue-500 to-blue-600";
-const textClass = accent.text ?? "text-primary-600";
+// Fixed orange/amber colors for substitute doctor info
+const borderClass = "border-orange-200";
+const iconClass = "bg-linear-to-br from-orange-500 to-orange-600";
+const textClass = "text-orange-600";
 ---
 
 <p class="text-sm md:text-base text-gray-700 leading-relaxed mb-3">
@@ -40,16 +28,11 @@ const textClass = accent.text ?? "text-primary-600";
       "group flex items-center gap-3 p-3 bg-white rounded-lg border transition-all hover:shadow-md",
       borderClass,
     ]}
-    data-opening-node={enableDynamicStyles ? 'closure-border' : undefined}
-    data-opening-default-classes={enableDynamicStyles ? borderClass : undefined}
   >
     <div class:list={[
       "w-10 h-10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform",
       iconClass,
-    ]}
-    data-opening-node={enableDynamicStyles ? 'closure-icon' : undefined}
-    data-opening-default-classes={enableDynamicStyles ? iconClass : undefined}
-    >
+    ]}>
       <Icon name="mdi:map-marker" class="w-5 h-5 text-white" aria-hidden="true" />
     </div>
 
@@ -57,10 +40,7 @@ const textClass = accent.text ?? "text-primary-600";
       <p class:list={[
         "font-semibold text-sm md:text-base",
         textClass,
-      ]}
-      data-opening-node={enableDynamicStyles ? 'closure-text' : undefined}
-      data-opening-default-classes={enableDynamicStyles ? textClass : undefined}
-      >
+      ]}>
         {info.addressLabel}
       </p>
       <p class="text-xs md:text-sm text-gray-600">
@@ -77,16 +57,11 @@ const textClass = accent.text ?? "text-primary-600";
       "group flex items-center gap-3 p-3 bg-white rounded-lg border transition-all hover:shadow-md",
       borderClass,
     ]}
-    data-opening-node={enableDynamicStyles ? 'closure-border' : undefined}
-    data-opening-default-classes={enableDynamicStyles ? borderClass : undefined}
   >
     <div class:list={[
       "w-10 h-10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform",
       iconClass,
-    ]}
-    data-opening-node={enableDynamicStyles ? 'closure-icon' : undefined}
-    data-opening-default-classes={enableDynamicStyles ? iconClass : undefined}
-    >
+    ]}>
       <Icon name="mdi:phone" class="w-5 h-5 text-white" aria-hidden="true" />
     </div>
 
@@ -94,10 +69,7 @@ const textClass = accent.text ?? "text-primary-600";
       <p class:list={[
         "font-semibold text-sm md:text-base",
         textClass,
-      ]}
-      data-opening-node={enableDynamicStyles ? 'closure-text' : undefined}
-      data-opening-default-classes={enableDynamicStyles ? textClass : undefined}
-      >
+      ]}>
         {info.phoneDisplay}
       </p>
       <p class="text-xs md:text-sm text-gray-600">

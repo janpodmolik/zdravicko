@@ -478,6 +478,18 @@ collections:
             default: false
             hint: "Zapni pro celé zavření ordinace. Pokud je zapnuto, pole níže 'Upravené hodiny' se ignorují!"
 
+          - label: "👨‍⚕️ Zobrazit zástupující ordinaci"
+            name: "showSubstituteDoctor"
+            widget: "boolean"
+            default: true
+            hint: "Vypni, pokud má i zástupující ordinace zavřeno (např. o svátcích). Pokud je zapnuto a ordinace je zavřená, zobrazí se kontakt na zástupujícího lékaře."
+
+          - label: "⏰ Zobrazit oznámení předem (ještě před platností)"
+            name: "showEarly"
+            widget: "boolean"
+            default: false
+            hint: "Zapni pro zobrazení oznámení již před 'Platnost OD'. Užitečné pro informace o zítřejším zavření - pacienti budou informováni už dnes. Oznámení zmizí až po 'Platnost DO'."
+
           # ---------------------------------------------------------------
           # UPRAVENÉ ORDINAČNÍ HODINY
           # Vyplň OBA pole (OD i DO) nebo ŽÁDNÉ

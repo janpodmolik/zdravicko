@@ -13,11 +13,6 @@ const {
 } = getSpecialNoticeDisplay();
 
 const config = getSpecialNoticeVisualConfig(specialNotice?.type);
-const closureAccent = {
-  border: config.border,
-  icon: `bg-linear-to-br ${config.iconGradient}`,
-  text: config.badgeText,
-};
 ---
 
 {shouldDisplay && specialNotice && (
@@ -44,8 +39,8 @@ const closureAccent = {
               </div>
             )}
             {isClosed && closureInfo && (
-              <div class={`mt-4 md:mt-5 p-4 rounded-xl border ${config.border} bg-white/80`}>
-                <ClosureNoticeCard info={closureInfo} accent={closureAccent} />
+              <div class="mt-4 md:mt-5 p-4 rounded-xl border border-orange-200 bg-white/80">
+                <ClosureNoticeCard info={closureInfo} />
               </div>
             )}
           </div>

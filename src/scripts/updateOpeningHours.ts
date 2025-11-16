@@ -1,7 +1,8 @@
 // Client-side script pro aktualizaci otevíracích hodin
 // Veškerý "today" highlighting se dělá až tady v browseru
 
-import { getTodayOpeningHours, getLocalDate } from "../utils/openingHours";
+import { getTodayActualHours } from "../utils/openingHours";
+import { getLocalDate } from "../utils/date-utils";
 
 export function getCurrentDayOfWeek(): number {
   return getLocalDate().getDay(); // 0 = Neděle, 1 = Pondělí, ..., 6 = Sobota
@@ -36,7 +37,7 @@ function updateWeeklyScheduleHighlight(): void {
 export function updateOpeningHours(): void {
   if (typeof document === "undefined") return;
 
-  const todayInfo = getTodayOpeningHours();
+  const todayInfo = getTodayActualHours();
 
   // Aktualizujeme titulky "Dnes otevřeno" / "Dnes neordinujeme"
   document

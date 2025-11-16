@@ -1,54 +1,20 @@
-import specialNoticeData from "../data/special-notice.json";
 import specialNoticeClosure from "../data/closureNotice";
+import { getLocalDate, getDateForDayInWeek, formatShortDate } from "./date-utils";
+import { formatHoursRange } from "./time-formatting";
+import {
+  getSpecialNoticeForDate,
+  resolveNoticeOutcome,
+  isNoticeEarlyWarning,
+  type SpecialNotice,
+  type NoticeType,
+} from "./notice-resolver";
 
 // ============================================================================
 // TYPY A KONSTANTY
 // ============================================================================
 
-const PRAGUE_TIMEZONE = "Europe/Prague";
-
-/**
- * Vrací aktuální datum a čas v lokální časové zóně (Europe/Prague)
- * Používá se pro zajištění správného dne v týdnu bez ohledu na časovou zónu serveru
- */
-export function getLocalDate(): Date {
-  const now = new Date();
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: PRAGUE_TIMEZONE,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-    timeZoneName: "shortOffset",
-  });
-
-  const parts = formatter.formatToParts(now);
-  const partValue = (type: Intl.DateTimeFormatPartTypes) =>
-    parts.find((part) => part.type === type)?.value ?? "00";
-
-  const isoDate = `${partValue("year")}-${partValue("month")}-${partValue(
-    "day"
-  )}T${partValue("hour")}:${partValue("minute")}:${partValue(
-    "second"
-  )}${normalizeTimeZoneOffset(partValue("timeZoneName"))}`;
-
-  return new Date(isoDate);
-}
-
-function normalizeTimeZoneOffset(label?: string): string {
-  if (!label) return "+00:00";
-  const match = label.match(/GMT([+-]\d{1,2})(?::(\d{2}))?/i);
-  if (!match) return "+00:00";
-  const sign = match[1].startsWith("-") ? "-" : "+";
-  const hours = match[1].replace(/^[+-]/, "").padStart(2, "0");
-  const minutes = (match[2] ?? "00").padStart(2, "0");
-  return `${sign}${hours}:${minutes}`;
-}
-
-export type NoticeType = "warning" | "info" | "urgent";
+// Re-export typů pro zpětnou kompatibilitu
+export type { NoticeType, SpecialNotice } from "./notice-resolver";
 
 export interface OpeningHoursInfo {
   title: string;
@@ -57,17 +23,6 @@ export interface OpeningHoursInfo {
   isClosed?: boolean;
   notice?: string;
   noticeType?: NoticeType;
-}
-
-export interface SpecialNotice {
-  active: boolean;
-  message?: string;
-  closed?: boolean;
-  hoursFrom?: string; // Formát "HH:mm" např. "08:00"
-  hoursTo?: string; // Formát "HH:mm" např. "14:00"
-  type: NoticeType;
-  validFrom?: string;
-  validTo?: string;
 }
 
 export interface WeekDaySchedule {
@@ -130,6 +85,14 @@ export const NOTICE_TYPE_CLASSES = {
   },
 } as const;
 
+/** Textové labely pro ordinační hodiny */
+export const HOURS_LABELS = {
+  CLOSED: "Zavřeno",
+  TODAY_OPEN: "Dnes otevřeno",
+  TODAY_CLOSED: "Dnes zavřeno",
+  TODAY_NOT_WORKING: "Dnes neordinujeme",
+} as const;
+
 const openingHoursByDay: Record<DayOfWeekValue, string | null> = {
   [DayOfWeek.SUNDAY]: null,
   [DayOfWeek.MONDAY]: "7:30 - 16:00",
@@ -151,75 +114,8 @@ const WORKING_DAYS: DayOfWeekValue[] = [
 const WEEKEND_DAYS: DayOfWeekValue[] = [DayOfWeek.SATURDAY, DayOfWeek.SUNDAY];
 
 // ============================================================================
-// POMOCNÉ FUNKCE
+// POMOCNÉ FUNKCE PRO SPECIAL NOTICE
 // ============================================================================
-
-const HOURS_SEPARATOR = "-";
-
-function normalizeTimeValue(time: string): string {
-  const [hours = "0", minutes = "0"] = time.trim().split(":");
-  const normalizedHours = hours.trim();
-  const normalizedMinutes = minutes.trim();
-  const parsedHours = Number.parseInt(normalizedHours, 10);
-  const minutePart = normalizedMinutes.padStart(2, "0");
-
-  return `${
-    Number.isNaN(parsedHours) ? normalizedHours : parsedHours
-  }:${minutePart}`;
-}
-
-function buildHoursRange(hoursFrom: string, hoursTo: string): string {
-  return `${normalizeTimeValue(
-    hoursFrom
-  )} ${HOURS_SEPARATOR} ${normalizeTimeValue(hoursTo)}`;
-}
-
-/**
- * Zkombinuje hoursFrom a hoursTo do standardního formátu "HH:MM - HH:MM"
- */
-function formatHoursRange(hoursFrom?: string, hoursTo?: string): string | null {
-  if (!hoursFrom || !hoursTo) return null;
-  return buildHoursRange(hoursFrom, hoursTo);
-}
-
-/**
- * Porovná dvě časová rozpětí a vrátí true, pokud jsou stejné
- * Ignoruje rozdíly ve formátování (7:30 vs 07:30)
- */
-function normalizeHoursRangeValue(range: string | null): string | null {
-  if (!range) return null;
-
-  const [fromRaw, toRaw] = range
-    .split(HOURS_SEPARATOR)
-    .map((part) => part.trim());
-  if (!fromRaw || !toRaw) {
-    return range.trim();
-  }
-
-  return buildHoursRange(fromRaw, toRaw);
-}
-
-function areHoursEqual(hours1: string | null, hours2: string | null): boolean {
-  return normalizeHoursRangeValue(hours1) === normalizeHoursRangeValue(hours2);
-}
-
-function isDateInRange(date: Date, fromStr?: string, toStr?: string): boolean {
-  if (!fromStr && !toStr) return true; // Žádné datum = platí vždy
-
-  if (fromStr) {
-    const from = new Date(fromStr);
-    from.setHours(0, 0, 0, 0);
-    if (date < from) return false;
-  }
-
-  if (toStr) {
-    const to = new Date(toStr);
-    to.setHours(23, 59, 59, 999);
-    if (date > to) return false;
-  }
-
-  return true;
-}
 
 /**
  * Vrátí aktivní special notice pokud existuje a je platné
@@ -233,6 +129,7 @@ export interface SpecialNoticeDisplay {
   shouldDisplay: boolean;
   displayHours: string | null;
   isClosed: boolean;
+  isEarlyWarning: boolean; // Pokud true, oznámení se zobrazuje před validFrom (informuje o budoucnosti)
   closureInfo?: SpecialNoticeClosureInfo;
 }
 
@@ -248,7 +145,6 @@ export interface SpecialNoticeClosureInfo {
 
 /**
  * Vrátí předzpracovaná data pro komponenty zobrazující speciální oznámení.
- * Konsoliduje logiku kolem zavřených dnů a formátu času.
  */
 export function getSpecialNoticeDisplay(): SpecialNoticeDisplay {
   const notice = getActiveSpecialNotice();
@@ -259,17 +155,25 @@ export function getSpecialNoticeDisplay(): SpecialNoticeDisplay {
       shouldDisplay: false,
       displayHours: null,
       isClosed: false,
+      isEarlyWarning: false,
       closureInfo: undefined,
     };
   }
+
+  const isEarlyWarning = isNoticeEarlyWarning(notice);
 
   if (notice.closed) {
     return {
       notice,
       shouldDisplay: true,
-      displayHours: "Zavřeno",
+      displayHours: HOURS_LABELS.CLOSED,
       isClosed: true,
-      closureInfo: specialNoticeClosure,
+      isEarlyWarning,
+      // Zobraz zástupujícího lékaře pouze pokud showSubstituteDoctor není explicitně false
+      closureInfo:
+        notice.showSubstituteDoctor !== false
+          ? specialNoticeClosure
+          : undefined,
     };
   }
 
@@ -278,28 +182,28 @@ export function getSpecialNoticeDisplay(): SpecialNoticeDisplay {
     shouldDisplay: true,
     displayHours: formatHoursRange(notice.hoursFrom, notice.hoursTo),
     isClosed: false,
+    isEarlyWarning,
     closureInfo: undefined,
   };
 }
 
 /**
- * Získá informace o dnešních ordinačních hodinách
- * Logika (v pořadí priority):
- * 1. Special notice (zavřeno/upravené hodiny/informace)
- * 2. Standardní ordinační hodiny podle dne v týdnu
+ * Získá informace o dnešních ordinačních hodinách (AKTUÁLNÍ STAV - pouze když platí DNES)
+ * Ignoruje showEarly flag - zobrazí warning pouze když změna platí dnes.
+ * Použití: QuickInfo, TodayHoursCard (kdy nechceme pokazovat "dnes zavřeno" když je zavřeno až zítra)
  */
-export function getTodayOpeningHours(): OpeningHoursInfo {
+export function getTodayActualHours(): OpeningHoursInfo {
   const today = getLocalDate();
   const dayOfWeek = today.getDay() as DayOfWeekValue;
   const regularHours = openingHoursByDay[dayOfWeek];
 
-  const resolution = resolveNoticeOutcome(today, regularHours);
+  const resolution = resolveNoticeOutcome(today, regularHours, false); // respectShowEarly = false
 
   const title = resolution.isClosed
     ? resolution.hasSpecialNotice
-      ? "Dnes zavřeno"
-      : "Dnes neordinujeme"
-    : "Dnes otevřeno";
+      ? HOURS_LABELS.TODAY_CLOSED
+      : HOURS_LABELS.TODAY_NOT_WORKING
+    : HOURS_LABELS.TODAY_OPEN;
 
   return {
     title,
@@ -312,6 +216,45 @@ export function getTodayOpeningHours(): OpeningHoursInfo {
 }
 
 /**
+ * Získá informace o dnešních ordinačních hodinách (S EARLY WARNINGS)
+ * Respektuje showEarly flag - zobrazí upozornění i na budoucí změny.
+ * Použití: Stránky kde chceme zobrazit předčasná upozornění.
+ * 
+ * @deprecated Použij getTodayActualHours() pro většinu případů
+ */
+export function getTodayHoursWithNotice(): OpeningHoursInfo {
+  const today = getLocalDate();
+  const dayOfWeek = today.getDay() as DayOfWeekValue;
+  const regularHours = openingHoursByDay[dayOfWeek];
+
+  const resolution = resolveNoticeOutcome(today, regularHours, true); // respectShowEarly = true
+
+  const title = resolution.isClosed
+    ? resolution.hasSpecialNotice
+      ? HOURS_LABELS.TODAY_CLOSED
+      : HOURS_LABELS.TODAY_NOT_WORKING
+    : HOURS_LABELS.TODAY_OPEN;
+
+  return {
+    title,
+    hours: resolution.finalHours,
+    isModified: resolution.isModified,
+    isClosed: resolution.isClosed,
+    notice: resolution.notice,
+    noticeType: resolution.noticeType,
+  };
+}
+
+/**
+ * @deprecated Použij getTodayActualHours() nebo getTodayHoursWithNotice()
+ */
+export function getTodayOpeningHours(
+  respectShowEarly: boolean = true
+): OpeningHoursInfo {
+  return respectShowEarly ? getTodayHoursWithNotice() : getTodayActualHours();
+}
+
+/**
  * Vrátí ordinační hodiny pro konkrétní den v týdnu (0 = neděle, 6 = sobota)
  * Používá se pro zobrazení týdenního rozvrhu
  */
@@ -319,121 +262,6 @@ export function getOpeningHoursForDay(
   dayOfWeek: DayOfWeekValue
 ): string | null {
   return openingHoursByDay[dayOfWeek];
-}
-
-/**
- * Vrátí datum ve formátu YYYY-MM-DD pro daný den v týdnu
- */
-function getDateForDayInWeek(
-  dayOfWeek: DayOfWeekValue,
-  weekOffset: number = 0,
-  referenceDate: Date = getLocalDate()
-): Date {
-  const currentDay = referenceDate.getDay() as DayOfWeekValue;
-
-  let daysToAdd = dayOfWeek - currentDay;
-  if (daysToAdd < 0) {
-    daysToAdd += 7;
-  }
-
-  daysToAdd += weekOffset * 7;
-
-  const targetDate = new Date(referenceDate);
-  targetDate.setHours(0, 0, 0, 0);
-  targetDate.setDate(referenceDate.getDate() + daysToAdd);
-
-  return targetDate;
-}
-
-/**
- * Zkontroluje, zda pro daný den existuje aktivní special notice
- */
-function getSpecialNoticeForDate(targetDate: Date): SpecialNotice | null {
-  const notice = specialNoticeData as SpecialNotice;
-
-  if (!notice.active) return null;
-
-  if (!isDateInRange(targetDate, notice.validFrom, notice.validTo)) {
-    return null;
-  }
-
-  return notice;
-}
-
-interface NoticeResolution {
-  finalHours: string | null;
-  isClosed: boolean;
-  isModified: boolean;
-  matchesRegularHours: boolean;
-  hasSpecialNotice: boolean;
-  notice?: string;
-  noticeType?: NoticeType;
-}
-
-function resolveNoticeOutcome(
-  date: Date,
-  regularHours: string | null
-): NoticeResolution {
-  const notice = getSpecialNoticeForDate(date);
-
-  if (!notice) {
-    return {
-      finalHours: regularHours,
-      isClosed: !regularHours,
-      isModified: false,
-      matchesRegularHours: true,
-      hasSpecialNotice: false,
-    };
-  }
-
-  if (notice.closed) {
-    return {
-      finalHours: null,
-      isClosed: true,
-      isModified: true,
-      matchesRegularHours: false,
-      hasSpecialNotice: true,
-      notice: notice.message,
-      noticeType: notice.type,
-    };
-  }
-
-  const modifiedHours = formatHoursRange(notice.hoursFrom, notice.hoursTo);
-
-  if (modifiedHours) {
-    const matchesRegularHours = areHoursEqual(modifiedHours, regularHours);
-
-    return {
-      finalHours: modifiedHours,
-      isClosed: false,
-      isModified: !matchesRegularHours,
-      matchesRegularHours,
-      hasSpecialNotice: true,
-      notice: !matchesRegularHours ? notice.message : undefined,
-      noticeType: !matchesRegularHours ? notice.type : undefined,
-    };
-  }
-
-  return {
-    finalHours: regularHours,
-    isClosed: !regularHours,
-    isModified: false,
-    matchesRegularHours: true,
-    hasSpecialNotice: true,
-    notice: notice.message,
-    noticeType: notice.type,
-  };
-}
-
-// ============================================================================
-// UTILITY FUNKCE PRO DATUM
-// ============================================================================
-
-function formatShortDate(targetDate: Date): string {
-  const day = targetDate.getDate();
-  const month = targetDate.getMonth() + 1;
-
-  return `${day}.${month}.`;
 }
 
 /**
