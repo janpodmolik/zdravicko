@@ -1,5 +1,9 @@
 import specialNoticeClosure from "../data/closureNotice";
-import { getLocalDate, getDateForDayInWeek, formatShortDate } from "./date-utils";
+import {
+  getLocalDate,
+  getDateForDayInWeek,
+  formatShortDate,
+} from "./date-utils";
 import { formatHoursRange } from "./time-formatting";
 import {
   getSpecialNoticeForDate,
@@ -219,7 +223,7 @@ export function getTodayActualHours(): OpeningHoursInfo {
  * Získá informace o dnešních ordinačních hodinách (S EARLY WARNINGS)
  * Respektuje showEarly flag - zobrazí upozornění i na budoucí změny.
  * Použití: Stránky kde chceme zobrazit předčasná upozornění.
- * 
+ *
  * @deprecated Použij getTodayActualHours() pro většinu případů
  */
 export function getTodayHoursWithNotice(): OpeningHoursInfo {

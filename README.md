@@ -206,12 +206,14 @@ Dynamické zobrazování ordinačních hodin s client-side aktualizací.
 ### Architektura:
 
 **Utils (modulární struktura):**
+
 - `src/utils/date-utils.ts` - Práce s datumy, časové zóny, rozsahy (getLocalDate, isDateInRange, formatShortDate)
 - `src/utils/time-formatting.ts` - Formátování časů a hodin (normalizeTimeValue, formatHoursRange, areHoursEqual)
 - `src/utils/notice-resolver.ts` - Business logika pro special notices (isNoticeEarlyWarning, getSpecialNoticeForDate, resolveNoticeOutcome)
 - `src/utils/openingHours.ts` - API vrstva a konstanty (getTodayActualHours, getTodayHoursWithNotice, getSpecialNoticeDisplay)
 
 **Client-side:**
+
 - **Global script**: `src/layouts/Layout.astro` - single event listener
 - **Update funkce**: `src/scripts/updateOpeningHours.ts` - 70 řádků
 - **Data atributy**:
@@ -224,6 +226,7 @@ Dynamické zobrazování ordinačních hodin s client-side aktualizací.
 ### API Funkce:
 
 **Hlavní API (openingHours.ts):**
+
 - `getTodayActualHours()` - Dnešní hodiny **BEZ early warnings** (pro QuickInfo, TodayHoursCard)
 - `getTodayHoursWithNotice()` - Dnešní hodiny **S early warnings** (pro stránky s upozorněními na budoucnost)
 - `getSpecialNoticeDisplay()` - Předzpracovaná data pro bannery (SpecialNotice.astro)
@@ -231,11 +234,13 @@ Dynamické zobrazování ordinačních hodin s client-side aktualizací.
 - `getWeekScheduleWithNotices()` - Týdenní rozvrh s respektováním notices
 
 **Pomocné funkce (internal use):**
+
 - `getSpecialNoticeForDate(date, respectShowEarly)` - Notice pro konkrétní den
 - `resolveNoticeOutcome(date, regularHours, respectShowEarly)` - Vypočítá výsledné hodiny s notices
 - `isNoticeEarlyWarning(notice)` - Detekce early warning režimu
 
 **Konstanty:**
+
 - `DayOfWeek` - Enum dnů v týdnu
 - `DAY_NAMES` - České názvy dnů
 - `NOTICE_TYPE_CLASSES` - CSS třídy pro typy oznámení
