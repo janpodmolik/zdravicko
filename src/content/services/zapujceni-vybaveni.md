@@ -10,10 +10,10 @@ order: 15
 published: true
 content_blocks:
   - type: features_list
-    heading: Co si můžete půjčit
+    heading: Co půjčujeme
     items:
+      - Kojeneckou váhu
       - Laktační pomůcky
-      - Váhu
   - type: tip_box
     content: Zapůjčení je **zpoplatněno** symbolickým poplatkem pro servis a obnovu přístrojového parku.
     heading: Jak to funguje

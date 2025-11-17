@@ -156,55 +156,49 @@ export function updateQuickInfoCardUI(
 /**
  * Update WeeklySchedule highlighting (dnes + odstranění starých badges)
  */
-export function updateWeeklyScheduleUI(
-  currentDay: number,
-  today: Date
-): void {
-  document
-    .querySelectorAll<HTMLElement>("[data-day-of-week]")
-    .forEach((el) => {
-      const day = parseInt(el.getAttribute("data-day-of-week") || "-2");
-      const isToday =
-        day === currentDay || (day === -1 && [0, 6].includes(currentDay));
+export function updateWeeklyScheduleUI(currentDay: number, today: Date): void {
+  document.querySelectorAll<HTMLElement>("[data-day-of-week]").forEach((el) => {
+    const day = parseInt(el.getAttribute("data-day-of-week") || "-2");
+    const isToday =
+      day === currentDay || (day === -1 && [0, 6].includes(currentDay));
 
-      if (isToday) {
-        // Přidáme today styling
-        el.classList.add("bg-primary-50", "!border-primary");
+    if (isToday) {
+      // Přidáme today styling
+      el.classList.add("bg-primary-50", "!border-primary");
 
-        const nameSpan = el.querySelector("[data-day-name]");
-        if (nameSpan) {
-          nameSpan.classList.remove("text-gray-900");
-          nameSpan.classList.add("text-primary-700");
-        }
-
-        const badge = el.querySelector("[data-today-badge]");
-        if (badge) {
-          badge.classList.remove("hidden");
-        }
+      const nameSpan = el.querySelector("[data-day-name]");
+      if (nameSpan) {
+        nameSpan.classList.remove("text-gray-900");
+        nameSpan.classList.add("text-primary-700");
       }
 
-      // Odstraň date badge pokud už datum proběhlo
-      const noticeBadges = el.querySelectorAll(
-        "span.text-xs.px-2.py-1.rounded-full"
-      );
-      noticeBadges.forEach((badge) => {
-        const badgeText = badge.textContent?.trim();
-        if (badgeText && badgeText.match(/^\d{1,2}\.\d{1,2}\.$/)) {
-          // Je to datum formátu "17.11."
-          const [dayStr, monthStr] = badgeText.split(".");
-          const badgeDay = parseInt(dayStr);
-          const badgeMonth = parseInt(monthStr);
+      const badge = el.querySelector("[data-today-badge]");
+      if (badge) {
+        badge.classList.remove("hidden");
+      }
+    }
 
-          // Porovnej s dnešním datem
-          if (
-            badgeMonth < today.getMonth() + 1 ||
-            (badgeMonth === today.getMonth() + 1 &&
-              badgeDay <= today.getDate())
-          ) {
-            // Datum je dnes nebo v minulosti - skryj badge
-            badge.classList.add("hidden");
-          }
+    // Odstraň date badge pokud už datum proběhlo
+    const noticeBadges = el.querySelectorAll(
+      "span.text-xs.px-2.py-1.rounded-full"
+    );
+    noticeBadges.forEach((badge) => {
+      const badgeText = badge.textContent?.trim();
+      if (badgeText && badgeText.match(/^\d{1,2}\.\d{1,2}\.$/)) {
+        // Je to datum formátu "17.11."
+        const [dayStr, monthStr] = badgeText.split(".");
+        const badgeDay = parseInt(dayStr);
+        const badgeMonth = parseInt(monthStr);
+
+        // Porovnej s dnešním datem
+        if (
+          badgeMonth < today.getMonth() + 1 ||
+          (badgeMonth === today.getMonth() + 1 && badgeDay <= today.getDate())
+        ) {
+          // Datum je dnes nebo v minulosti - skryj badge
+          badge.classList.add("hidden");
         }
-      });
+      }
     });
+  });
 }

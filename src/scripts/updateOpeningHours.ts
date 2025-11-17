@@ -44,4 +44,3 @@ export function updateOpeningHours(): void {
   updateQuickInfoCardUI(todayInfo, colors);
   updateWeeklyScheduleUI(getCurrentDayOfWeek(), getLocalDate());
 }
-

@@ -67,9 +67,16 @@ export function updateElementWithDefaults(
   if (!element) return;
 
   const defaultClasses =
-    element.getAttribute("data-opening-default-classes") || fallbackDefault || "";
+    element.getAttribute("data-opening-default-classes") ||
+    fallbackDefault ||
+    "";
 
-  applyConditionalClasses(element, baseClasses, modifiedClasses, defaultClasses);
+  applyConditionalClasses(
+    element,
+    baseClasses,
+    modifiedClasses,
+    defaultClasses
+  );
 }
 
 /**
