@@ -7,8 +7,8 @@ import mdx from "@astrojs/mdx";
 
 /// https://astro.build/config
 export default defineConfig({
-  // Test subdomain configuration
-  site: "https://test.zdravicko.org",
+  // Production configuration
+  site: "https://zdravicko.org",
   // No base path needed for custom domain
 
   integrations: [icon(), mdx()],

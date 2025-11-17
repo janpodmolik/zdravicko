@@ -21,7 +21,7 @@ export const siteConfig = {
   title: "Praktický lékař pro děti a dorost",
   description:
     "Moderní pediatrická ordinace v Přerově. Poskytujeme kvalitní a individuální péči pro vaše děti od narození až po dospělost.",
-  url: "https://zdravicko.cz",
+  url: "https://zdravicko.org",
 
   // Team descriptions
   teamDescription: {
