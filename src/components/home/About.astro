@@ -15,7 +15,7 @@ const features: Feature[] = [
     icon: 'mdi:doctor',
     bgColor: 'bg-primary',
     title: 'Odborný tým',
-    description: 'Certifikovaní pediatři s mnohaletou praxí'
+    description: 'Certifikovaný pediatr s mnohaletou zkušeností vychovávající svého nástupce.'
   },
   {
     icon: 'mdi:heart-pulse',
@@ -43,13 +43,9 @@ const ARROW_ICON = 'mdi:arrow-right';
   <div class="container mx-auto px-4 relative z-10">
     <div class="max-w-4xl mx-auto">
       <SectionTitle title="O naší ordinaci" />
-      
-      <h2 class="text-xl md:text-2xl font-semibold text-center text-gray-800 mb-4">
-        Váš pediatr v Přerově
-      </h2>
 
       <p class="text-base md:text-lg text-gray-600 mb-6 md:mb-8 text-center">
-        {siteConfig.teamDescription.doctors} {siteConfig.teamDescription.nurses}
+        Zdravíčko je dětská ordinace s letitou zkušeností. Důraz klademe na individuální přístup ke každému malému pacientovi a vytvoření přátelské, barevné, neformální atmosféry i prostoru.
       </p>
       <div class="grid md:grid-cols-3 gap-6 md:gap-8 mt-8 md:mt-12">
         {features.map(feature => (

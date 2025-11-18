@@ -72,6 +72,7 @@ const servicesCollection = defineCollection({
             type: z.literal("features_list"),
             heading: z.string(),
             items: z.array(z.string()),
+            singleColumn: z.boolean().optional(),
           }),
           // Tip box - zvýrazněný box s radou
           z.object({

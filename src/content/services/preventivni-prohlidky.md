@@ -1,6 +1,6 @@
 ---
 title: Preventivní prohlídky
-excerpt: Pravidelné kontroly vývoje a zdraví dítěte od narození po dospělost
+excerpt: Pravidelné kontroly zdravotního stavu dítěte podle platného preventivního programu.
 icon: mdi:stethoscope
 color: blue
 showOnHomepage: true
@@ -9,75 +9,69 @@ published: true
 content_blocks:
   - type: text
     content: |-
-      Již od narození má Vaše děťátko nárok na řadu kontrolních vyšetření u dětského lékaře plně hrazených zdravotní pojišťovnou. Tyto prohlídky (pro kojence historicky pojmenovány jako „poradny") jsou velmi důležité, slouží nejen k monitorování růstu či změření zraku, sluchu, ale hlavně k **včasnému podchycení případných problémů**.
+      Již od narození má Vaše děťátko nárok na řadu kontrolních vyšetření u dětského lékaře plně hrazených zdravotní pojišťovnou. Tyto prohlídky (pro nejmenší nazývány jako „poradny“) jsou velmi důležité, protože slouží nejen k měření výšky, zvážení či změření zraku, sluchu, ale hlavně k včasnému odhalení případných problémů.
 
   - type: features_list
     heading: Součást každé preventivní prohlídky
     items:
-      - Zjištění hmotnosti a výšky-délky a jejich vyhodnocení podle percentilových grafů
-      - Kontrola zraku a sluchu pomocí přístroje Optosmart
-      - Vyšetření krevního tlaku (děti od 3 let věku)
-      - Kontrola psychomotorického vývoje
-      - Komplexní fyzikální vyšetření dítěte
-      - Očkování dle platného očkovacího kalendáře
-      - Vyšetření moči (u dětí od 1 roku věku)
-      - Rozhovor s rodičem zaměřený na doplnění anamnézy
-      - Edukace o preventivních opatřeních ke zdravému životnímu stylu
+      - zjištění hmotnosti, výšky a vyhodnocení růstu podle percentilových grafů
+      - kontrola psychomotorického vývoje
+      - komplexní fyzikální vyšetření dítěte
+      - kontrola zraku a sluchu pomocí přístroje Optosmart (od 3 let věku)
+      - vyšetření krevního tlaku (od 3 let věku)
+      - Vyšetření moči (od 1 roku věku)
+      - Edukace o preventivních opatřeních, rozhovor zaměřený na doplnění anamnézy a ev. odhalení zdravotních problémů
+      - Případně očkování dle platného očkovacího kalendáře
 
   - type: text
     content: |-
-      ## 👶 Speciální péče o nejmenší
+      ## 👶 Součástí poradny nejmenších
 
-      U novorozenců a kojenců velký prostor v rámci poradny patří **podpoře laktace** a praktickým dovednostem. U adolescentů klademe důraz na důležitost samovyšetřování prsou a varlat, pohovor o návykových látkách a zdravotních rizicích souvisejících se zahájením sexuálního života.
+      U novorozenců a kojenců věnujeme velký prostor v rámci poradny podpoře laktace. Při nejistotě maminky rádi vysvětlíme a ukážeme správnou techniku kojení. Věříme, že kojení je ten nejcennější dar, který může maminka v prvních dnech a měsících života svému dítěti dát. Aktivně proto kojení podporujeme. Stejnou měrou chápeme opodstatněné důvody pro nekojení.
 
   - type: steps
     heading: Harmonogram preventivních prohlídek
     steps:
       - title: Novorozenci
-        description: Po propuštění z porodnice a ve 14 dnech
+        description: po propuštění z porodnice a ve 14 dnech
       - title: Kojenci
-        description: V 6 týdnech, 3, 4,5, 6, 8, 10 měsících a v roce věku (dle individuální potřeby častěji)
+        description: v 6 týdnech, 3 měsících, 4,5 měsících, 6 měsících, 8 měsících, 10 měsících a v roce věku
       - title: Batolata
-        description: V 18 měsících
+        description: v 18 měsících
       - title: Předškoláci
-        description: Ve 3 a 5 letech
+        description: ve 3 a 5 letech
       - title: Školáci
-        description: V 7, 9 a 11 letech
+        description: v 7 letech, 9 letech, 11 letech
       - title: Adolescenti
-        description: Ve 13, 15, 17 a 19 letech
+        description: ve 13 letech, 15 letech, 17 letech, výstupní prohlídka v 19 letech
 
   - type: tip_box
-    heading: Co s sebou na prevenci
     content: |-
+      Realita je taková, že poradny u novorozenců a kojenců probíhají mnohem častěji (zvláště u prvorozených) a to dle individuální potřeby maminky a miminka. Vždy ladíme péči na míru.
+    icon: mdi:heart
+
+  - type: text
+    content: |-
+      ## Co s sebou na prevenci
       **Nezapomeňte si přinést:**
-      - Děťátko 😇❤️
-      - Očkovací průkaz
-      - Vzorek moči (u dětí od 1 roku věku)
-      - U kojenců nález z vyšetření kyčlí
-      - Lékařské zprávy od specialistů
-    icon: mdi:bag-checked
+      - děťátko 😇❤️
+      - očkovací průkaz
+      - vzorek moči (u dětí od 1 roku)
+      - Lékařské zprávy (v případě že jste s dítětem byli vyšetřeni u jiného lékaře)
 
   - type: text
     content: |-
       ## 🏥 Ordinace pro zdravé děti
 
-      Pro účel poradny, prevencí a očkování máme zvlášť vymezenou **ordinaci pouze pro zdravé děti**, kde se vaše děťátko nesetká s nemocnými pacienty.
+      Pro účel poradny, prevencí a očkování máme zvlášť vymezenou **ordinaci pouze pro zdravé děti**.
 
-  - type: faq
-    heading: Často kladené otázky
-    items:
-      - question: Jak často probíhají poradny u kojenců?
-        answer: <p>Oficiální harmonogram je v 6 týdnech, 3, 4,5, 6, 8, 10 měsících a v roce věku. Realita je však taková, že poradny probíhají mnohem častěji (zvláště u prvorozených) a to dle individuální potřeby maminky a miminka. Vždy ladíme péči na míru.</p>
-      - question: Musím se objednávat?
-        answer: <p>Ano, na prevenci je třeba se telefonicky objednat. Volejte nebo pište, prosím, na telefon sestřičky.</p>
-      - question: Co zahrnuje edukace při prohlídce?
-        answer: <p>Edukace se zaměřuje na výživu, pohyb, preventivní opatření ke zdravému životnímu stylu. U adolescentů probíráme důležitost samovyšetřování, návykové látky a zdravotní rizika související se zahájením sexuálního života. Poskytujeme i případný podpůrný psychoterapeutický rozhovor.</p>
-      - question: Je vyšetření moči povinné?
-        answer: <p>Vyšetření moči je součástí prevence u dětí od 1 roku věku. Přineste prosím vzorek s sebou na každou preventivní prohlídku.</p>
+  - type: text
+    content: |-
+      ## ⏰ Čas a objednání prevencí
 
-  - type: cta_box
-    heading: Objednejte se na preventivní prohlídku
-    description: Máte dotazy nebo chcete se objednat? Kontaktujte naši sestřičku telefonicky nebo přes formulář.
-    buttonText: Kontaktujte nás
-    buttonLink: /kontakt
+      Prevence probíhají nejčastěji od 9:30. V pondělky pro ně máme vyhrazené i odpoledne.
+
+      Na prevenci je třeba se telefonicky objednat - volejte nebo pište, prosím, na telefon sestřičky <a href="tel:+420603290939" style="white-space: nowrap;">+420 603 290 939</a>
+
+      Těšíme se na Vás! ❤️
 ---

@@ -8,13 +8,9 @@ interface Props {
   description: string;
   variant?: 'blue' | 'pink';
   gradient?: boolean;
-  badge?: {
-    icon: string;
-    text: string;
-  };
 }
 
-const { title, description, variant = 'blue', gradient = false, badge } = Astro.props;
+const { title, description, variant = 'blue', gradient = false } = Astro.props;
 ---
 
 {gradient ? (
@@ -22,12 +18,6 @@ const { title, description, variant = 'blue', gradient = false, badge } = Astro.
     <GradientBackground />
     <div class="container mx-auto px-4 relative z-10">
       <div class="max-w-4xl mx-auto text-center">
-        {badge && (
-          <div class="inline-flex items-center gap-2 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium mb-2 md:mb-5 shadow-lg backdrop-blur-sm bg-white/20 border border-white/30">
-            <Icon name={badge.icon} class="w-4 h-4 md:w-5 md:h-5" />
-            <span>{badge.text}</span>
-          </div>
-        )}
         <h1 class="text-3xl md:text-5xl font-bold text-white mb-2 md:mb-5 drop-shadow-lg">
           {title}
         </h1>
@@ -41,15 +31,6 @@ const { title, description, variant = 'blue', gradient = false, badge } = Astro.
   <AnimatedBackground variant={variant} className="pt-12 pb-6 md:pt-16 md:pb-12 min-h-[200px] md:min-h-[280px]">
     <div class="container mx-auto px-4 relative z-10">
       <div class="max-w-4xl mx-auto text-center">
-        {badge && (
-          <div class:list={[
-            'inline-flex items-center gap-2 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium mb-2 md:mb-5',
-            variant === 'pink' ? 'bg-pink-600' : 'bg-[#5085c6]'
-          ]}>
-            <Icon name={badge.icon} class="w-4 h-4 md:w-5 md:h-5" />
-            <span>{badge.text}</span>
-          </div>
-        )}
         <h1 class="text-3xl md:text-5xl font-bold text-white mb-2 md:mb-5" style="opacity: 0.95;">
           {title}
         </h1>

@@ -10,9 +10,9 @@ order: 3
 published: true
 content_blocks:
   - type: text
-    content: Doktorka Jana prošla specializovaným školením v laktačním poradenství, sestřičky mají mnoho svých praktických zkušeností a snaží se vám vždy pomoci s jakýmikoliv potížemi při kojení.
+    content: Doktorka Jana prošla specializovaným školením v laktačním poradenství, sestřičky mají mnoho svých praktických zkušeností a snaží se Vám vždy pomoci s jakýmikoliv potížemi při kojení.
   - type: features_list
-    heading: S čím vám pomůžeme
+    heading: S čím Vám pomůžeme
     items:
       - Správná technika přikládání
       - Bolestivé bradavky a trhlinky
@@ -28,7 +28,7 @@ content_blocks:
 
       ...člověk je tvor složitý a každý z nás je originál, zvláště pak v čerstvé roli rodiče. Mateřství je v prvních dnech po porodu barevnou hrou hormonů, a ne vždy se laktace na lusk prstu rozběhne sama. Většinou stačí vyladit úplné maličkosti, „dotáhnout šroubek"…
 
-      **Nebojte se požádat o pomoc!** Včasná konzultace vám otevře vrátka do nejkomfortnějšího způsobu výživy kojence, i když to tak na počátku vůbec nevypadá.
+      **Nebojte se požádat o pomoc!** Včasná konzultace Vám otevře vrátka do nejkomfortnějšího způsobu výživy kojence, i když to tak na počátku vůbec nevypadá.
   - type: tip_box
     content: Najdeme v míru společné řešení na míru.
     heading: Individuální přístup

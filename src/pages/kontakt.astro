@@ -40,7 +40,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
     <div class="relative">
       <PageHeader
         title="Kontakt"
-        description="Jsme tu pro vás a vaše děti"
+        description="Jsme tu pro Vás a Vaše děti"
         gradient={true}
       />
       <StaticDragonfly right={10} top={12} size="160px" sizeMobile="110px" opacity={0.9} rotation={14} zIndex={5} />
@@ -83,6 +83,15 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
                   href={`mailto:${contactInfo.email}`}
                 >
                   <p class="text-primary hover:text-primary-600 font-medium text-base">{contactInfo.email}</p>
+                </ContactInfoItem>
+
+                <!-- IČO a IČZ -->
+                <ContactInfoItem
+                  icon="mdi:file-document-outline"
+                  title="IČO a IČZ"
+                >
+                  <p class="text-gray-800 font-medium text-base">IČO: 71249117</p>
+                  <p class="text-gray-700 text-base">IČZ: 92354000</p>
                 </ContactInfoItem>
 
                 <!-- Opening Hours Summary - clickable, goes to full schedule -->

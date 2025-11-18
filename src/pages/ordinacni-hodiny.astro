@@ -11,11 +11,14 @@ import InfoBox from '../components/common/InfoBox.astro';
 import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
 import { Icon } from 'astro-icon/components';
 import zachrankaLogo from '../assets/zachranka-app.svg?url';
+import { contactInfo } from '../data/contact';
 
 const importantInfoItems = [
   'Na všechny vyšetření je nutné se objednat předem',
-  'Objednání telefonicky nebo online přes náš systém',
-  'V případě akutních problémů volejte vždy předem'
+  `Objednání telefonicky na čísle sestřičky <a href="tel:${contactInfo.phones.nurse.number}" style="white-space: nowrap; color: inherit; text-decoration: underline;">${contactInfo.phones.nurse.display}</a>`,
+  `I v případě akutních problémů volejte, prosím, vždy předem na číslo sestřičky a domluvíme čas vyšetření. \
+Snažíme se tímto předejít dlouhému čekání a kumulaci nemocných dětí v čekárně. Bude jim lépe doma v pelíšku. \
+Zároveň se tímto snažíme chránit zdravé děti a miminka přicházející na prevenci.`
 ];
 
 const afterHoursLocation = {

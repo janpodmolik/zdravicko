@@ -9,22 +9,21 @@ published: true
 content_blocks:
   - type: text
     content: |-
-      Od roku 2025 přináší ošetřovné (OČR) významné změny v administrativě. Celý proces je nyní plně digitalizován a zjednodušen pro rodiče i lékaře.
+      Od 1. ledna 2025 došlo ke změnám v systému ošetřovného. Celý proces je nyní plně digitalizován a zjednodušen.
 
   - type: features_list
     heading: Hlavní výhody nového systému
+    singleColumn: true
     items:
-      - Elektronické rozhodnutí o potřebě péče od 1. 1. 2025
-      - Automatické odesílání na ČSSZ
+      - Žádost i ukončení ošetřování je prováděna elektronicky.
       - Žádné papírové formuláře pro rodiče
+      - Online evidence a automatické odesílání na Českou správu sociálního zabezpečení (ČSSZ)
       - Rychlejší zpracování žádosti
-      - Online evidence přes portál ČSSZ
-      - Rodiče si elektronicky podávají žádost zaměstnavateli
 
   - type: tip_box
-    heading: Vyřízení ihned během návštěvy
+    heading: Co dělat, když potřebuji ošetřovné?
     content: |-
-      Agendu vede sestřička – volejte <a href="tel:+420603290939" class="font-bold text-cyan-700 hover:text-cyan-900 underline">+420 603 290 939</a> pro domluvení a další informace.
+      Zavolejte našim sestřičkám na číslo <a href="tel:+420603290939" class="font-bold text-cyan-700 hover:text-cyan-900 underline">+420 603 290 939</a> a domluvíme další postup.
     icon: mdi:phone
 
   - type: steps
@@ -34,24 +33,19 @@ content_blocks:
         description: Lékař vystaví elektronické rozhodnutí o potřebě ošetřování člena rodiny.
       - title: Odeslání na ČSSZ
         description: Rozhodnutí je automaticky odesláno do systému ČSSZ.
-      - title: Podání žádosti
-        description: Rodič podá žádost zaměstnavateli (elektronicky nebo osobně) nebo vyplní formulář na portálu ČSSZ.
+      - title: Informování zaměstnavatele
+        description: Do SMS či e-mailu (dle Vašeho přání) Vám přijde identifikátor OČR. Tento identifikátor následně přepošlete svému zaměstnavateli.
       - title: Schválení
         description: ČSSZ má všechny informace a žádost vyřídí bez zbytečných průtahů.
 
-  - type: faq
-    heading: Často kladené otázky
-    items:
-      - question: Musím ještě něco vyplňovat na papíře?
-        answer: <p>Ne, vše probíhá elektronicky. Papírové formuláře už nejsou potřeba.</p>
-      - question: Jak rychle bude žádost vyřízena?
-        answer: <p>Ve většině případů ihned během návštěvy, zbytek řeší ČSSZ online.</p>
-      - question: Kdo mi poradí s postupem?
-        answer: <p>Agendu vede sestřička, volejte <a href="tel:+420603290939" class="font-bold text-cyan-700 hover:text-cyan-900 underline">+420 603 290 939</a> pro jakékoli dotazy.</p>
+  - type: tip_box
+    heading: Dobré vědět
+    content: |-
+      Ošetřovné lze začít i ukončit pouze pracovním dnem ordinace (tzn. PO-PÁ), nelze víkendem. Pokud si jako rodič přejete „započítat" i víkend, ukončíme OČR pondělkem - nevadí, že v dané pondělí půjdete již do práce.
+    icon: mdi:lightbulb
 
-  - type: cta_box
-    heading: Potřebujete potvrzení OČR?
-    description: Zavolejte na +420 603 290 939 nebo nás kontaktujte přes formulář. Vše vyřídíme rychle a elektronicky.
-    buttonText: Kontaktujte nás
-    buttonLink: /kontakt
+  - type: text
+    content: |-
+      Pro více informací navštivte přímo stránky ČSSZ:
+      [https://www.cssz.cz/web/edavky/zamestnanec-osetrovne](https://www.cssz.cz/web/edavky/zamestnanec-osetrovne)
 ---

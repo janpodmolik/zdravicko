@@ -90,6 +90,10 @@ const colors = colorClasses[color] || colorClasses.blue;
 // Parse markdown pokud není HTML
 const isHtml = content.includes('<p>') || content.includes('<h2>');
 const htmlContent = isHtml ? content : marked.parse(content);
+
+// Parse heading pokud obsahuje HTML
+const headingIsHtml = heading && heading.includes('<');
+const htmlHeading = heading && headingIsHtml ? heading : heading;
 ---
 
 <div class={`${colors.bg} border-l-4 ${colors.border} rounded-lg p-6 mb-8`}>
@@ -99,7 +103,11 @@ const htmlContent = isHtml ? content : marked.parse(content);
     </div>
     <div class="flex-1">
       {heading && (
-        <h4 class={`text-lg font-bold ${colors.heading} mb-2`}>{heading}</h4>
+        headingIsHtml ? (
+          <h4 class={`text-lg font-bold ${colors.heading} mb-2`} set:html={htmlHeading} />
+        ) : (
+          <h4 class={`text-lg font-bold ${colors.heading} mb-2`}>{heading}</h4>
+        )
       )}
       <div class={`prose ${colors.prose} max-w-none`}>
         <Fragment set:html={htmlContent} />
@@ -107,3 +115,10 @@ const htmlContent = isHtml ? content : marked.parse(content);
     </div>
   </div>
 </div>
+
+<style>
+  .prose :global(strong),
+  .prose :global(b) {
+    color: inherit;
+  }
+</style>

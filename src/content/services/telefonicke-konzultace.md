@@ -23,18 +23,12 @@ content_blocks:
   - type: tip_box
     heading: Kontaktní číslo
     content: |-
-      Volejte na **[+420 603 290 939](tel:+420603290939)** během ordinačních hodin. Sestřička vás jistě vyposlechne, předá prosbu konzultace lékařkám.
+      Volejte na **[+420 603 290 939](tel:+420603290939)** během ordinačních hodin. Sestřička Vás jistě vyposlechne, předá prosbu konzultace lékařkám.
 
       Pokud nejsou zrovna zaneprázdněny vyšetřováním jiného pacienta, telefon sestřička jistě hned předá a můžete konzultovat.
     icon: mdi:phone-in-talk
 
   - type: warning_box
     content: |-
-      **Upozornění:** Telefonická konzultace nenahrazuje osobní vyšetření. V případě vážnějších potíží je nutná osobní návštěva. Na tu se prosím vždy objednávejte.
-
-  - type: cta_box
-    heading: Máte dotaz?
-    description: Zavolejte nám během ordinačních hodin
-    buttonText: Ordinační hodiny
-    buttonLink: /ordinacni-hodiny
+      **Upozornění:** Telefonická konzultace nenahrazuje osobní vyšetření. V případě vážnějších potíží je nutná osobní návštěva. Na tu se, prosím, vždy objednávejte.
 ---

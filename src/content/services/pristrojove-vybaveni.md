@@ -30,8 +30,8 @@ content_blocks:
       Všechny přístroje jsou pravidelně kontrolovány a kalibrovány podle platných norem.
 
   - type: cta_box
-    heading: Zajímá vás více?
-    description: Při návštěvě vám rádi ukážeme naše vybavení
+    heading: Zajímá Vás více?
+    description: Při návštěvě Vám rádi ukážeme naše vybavení
     buttonText: Kontakt
     buttonLink: /kontakt
 ---

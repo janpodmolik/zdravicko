@@ -25,3 +25,10 @@ const htmlContent = isHtml ? content : marked.parse(content);
     </div>
   </div>
 </div>
+
+<style>
+  .prose :global(strong),
+  .prose :global(b) {
+    color: inherit;
+  }
+</style>

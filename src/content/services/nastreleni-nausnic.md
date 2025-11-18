@@ -1,6 +1,6 @@
 ---
 title: Nastřelení náušnic
-excerpt: Tiché a šetrné propíchnutí ušních boltců holčiček. Vyjímečně pubertálních chlapečků 😊
+excerpt: Tiché a šetrné propíchnutí ušních boltců holčiček. Výjimečně pubertálních chlapečků 😊
 icon: mdi:star-circle
 color: purple
 showOnHomepage: false
@@ -11,7 +11,7 @@ content_blocks:
     content: |-
       Neodmítáme propíchnutí druhých či dalších dírek, ale pouze na ušním boltci. Další oblíbené části těla zachováváme celistvé.
 
-      Nabízíme nastřelení náušnic za sterilních kautel systémem Studex. Používáme kvalitní hypoalergenní náušnice.
+      Nabízíme nastřelení náušnic za sterilních kautel systémem Studex. Používáme kvalitní hypoalergenní náušnice. Vybrat si můžete aktuálně ze 4 vzorů - malý a větší zirkonek, růžová kytička, modrá kytička.
 
   - type: features_list
     heading: Jak to probíhá
@@ -31,8 +31,7 @@ content_blocks:
       - Vynechat na 14 dní bazén
       - Pokud by si Šikulín náušničku vytáhnul, co nejdříve nasadit zpět
       - Výměna za jiný klenot z domácí šperkovnice nejdříve za 3 týdny od nastřelení
-      - Není nutný
-      - **Naušnice Studex lze nosit trvale**
+      - Výměna ale není nutná, náušnice Studex lze nosit trvale.
 
   - type: tip_box
     heading: Ideální věk

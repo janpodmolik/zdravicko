@@ -1,6 +1,6 @@
 ---
 title: Zapůjčení vybavení
-excerpt: Nabízíme možnost zapůjčení základních zdravotnických pomůcek.
+excerpt: Nabízíme možnost zapůjčení pomůcek a knížek.
 icon: mdi:home-heart
 color: green
 duration: ""
@@ -11,11 +11,13 @@ published: true
 content_blocks:
   - type: features_list
     heading: Co půjčujeme
+    singleColumn: true
     items:
-      - Kojeneckou váhu
-      - Laktační pomůcky
+      - kojeneckou váhu
+      - laktační pomůcky
+      - populárně naučnou literaturu
   - type: tip_box
-    content: Zapůjčení je **zpoplatněno** symbolickým poplatkem pro servis a obnovu přístrojového parku.
+    content: Zapůjčení je **zpoplatněno** symbolickým poplatkem pro servis a obnovu přístrojového parku. Půjčení knih poskytujeme zdarma.
     heading: Jak to funguje
     icon: mdi:check-circle
   - type: steps

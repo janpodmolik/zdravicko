@@ -1,10 +1,10 @@
 ---
 title: Očkování dětí
-excerpt: Povinné i doporučované očkování podle očkovacího kalendáře
+excerpt: Zajišťujeme veškerá povinná i nadstandardní očkování včetně nákupu očkovacích látek.
 icon: mdi:needle
 color: blue
 showOnHomepage: true
-order: 1
+order: 2
 published: true
 content_blocks:
   - type: text
@@ -28,7 +28,7 @@ content_blocks:
 
   - type: cta_box
     heading: Máte dotazy k očkování?
-    description: Rádi vám poradíme s výběrem vhodných vakcín
+    description: Rádi Vám poradíme s výběrem vhodných vakcín
     buttonText: Kontaktujte nás
     buttonLink: /kontakt
 ---
