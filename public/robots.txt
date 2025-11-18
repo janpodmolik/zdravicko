@@ -1,0 +1,6 @@
+# robots.txt pro zdravicko.org
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://zdravicko.org/sitemap-index.xml

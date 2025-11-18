@@ -81,5 +81,5 @@ export const siteConfig = {
     instagram: "https://instagram.com/zdravicko",
   },
 
-  ogImage: "/og-image.jpg",
+  ogImage: "/og-image.png",
 };

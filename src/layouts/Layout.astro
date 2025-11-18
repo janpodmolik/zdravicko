@@ -6,6 +6,7 @@ import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 import { SEO } from 'astro-seo';
 import { ViewTransitions } from 'astro:transitions';
+import StructuredData from '../components/common/StructuredData.astro';
 
 interface Props {
   title?: string;
@@ -13,9 +14,11 @@ interface Props {
 }
 
 const {
-  title = 'Zdravíčko - Dětská ordinace',
-  description = 'Moderní dětská ordinace s komplexní péčí o vaše děti. Odborné lékařské služby v přátelském prostředí.'
+  title = 'Zdravíčko - Dětská ordinace Přerov | Praktický lékař pro děti a dorost',
+  description = 'Moderní pediatrická ordinace v Přerově. Poskytujeme kvalitní a individuální péči pro vaše děti od narození až po dospělost. MUDr. Jana Šlechtová.'
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -24,18 +27,51 @@ const {
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonicalURL} />
+		
+		<!-- Basic SEO -->
+		<meta name="keywords" content="pediatr Přerov, dětský lékař Přerov, Zdravíčko, dětská ordinace, praktický lékař pro děti, MUDr. Jana Šlechtová, pediatrie Přerov" />
+		<meta name="author" content="Zdravíčko - Dětská ordinace" />
+		<meta name="robots" content="index, follow" />
+		
 		<ViewTransitions />
+		
 		<SEO
 			title={title}
 			description={description}
+			canonical={canonicalURL.toString()}
 			openGraph={{
 				basic: {
 					title: title,
 					type: 'website',
-					image: '/og-image.jpg',
+					image: 'https://zdravicko.org/og-image.png',
+					url: canonicalURL.toString(),
+				},
+				optional: {
+					description: description,
+					locale: 'cs_CZ',
+					siteName: 'Zdravíčko',
+				},
+				image: {
+					url: 'https://zdravicko.org/og-image.png',
+					secureUrl: 'https://zdravicko.org/og-image.png',
+					alt: 'Zdravíčko - Dětská ordinace Přerov',
+					type: 'image/png',
+					width: 1200,
+					height: 630,
 				}
 			}}
+			twitter={{
+				card: 'summary_large_image',
+				site: '@zdravicko',
+				title: title,
+				description: description,
+				image: 'https://zdravicko.org/og-image.png',
+				imageAlt: 'Zdravíčko - Dětská ordinace Přerov',
+			}}
 		/>
+		
+		<StructuredData />
 	</head>
 	<body class="font-sans antialiased">
 		<slot />

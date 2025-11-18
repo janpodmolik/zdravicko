@@ -1,0 +1,71 @@
+---
+/**
+ * Komponenta pro strukturovaná data (JSON-LD) pro lepší SEO
+ * Použití: <StructuredData /> v Layout.astro
+ */
+import { siteConfig } from '../../data/siteConfig';
+import { contactInfo } from '../../data/contact';
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalClinic",
+      "@id": "https://zdravicko.org/#organization",
+      "name": "Zdravíčko",
+      "alternateName": "Zdravíčko - Praktický lékař pro děti a dorost",
+      "url": "https://zdravicko.org",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://zdravicko.org/og-image.png"
+      },
+      "description": "Moderní pediatrická ordinace v Přerově. Poskytujeme kvalitní a individuální péči pro vaše děti od narození až po dospělost.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": contactInfo.address.street,
+        "addressLocality": contactInfo.address.city,
+        "postalCode": contactInfo.address.zip,
+        "addressCountry": "CZ"
+      },
+      "telephone": contactInfo.phones.doctor.number,
+      "email": contactInfo.email,
+      "medicalSpecialty": "Pediatrie",
+      "priceRange": "$$",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "49.4554",
+        "longitude": "17.4509"
+      },
+      "sameAs": [
+        siteConfig.social.facebook,
+        siteConfig.social.instagram
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://zdravicko.org/#website",
+      "url": "https://zdravicko.org",
+      "name": "Zdravíčko",
+      "description": "Moderní pediatrická ordinace v Přerově",
+      "publisher": {
+        "@id": "https://zdravicko.org/#organization"
+      },
+      "inLanguage": "cs-CZ"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://zdravicko.org/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Úvod",
+          "item": "https://zdravicko.org"
+        }
+      ]
+    }
+  ]
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
