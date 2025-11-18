@@ -18,15 +18,15 @@ export interface Nurse {
 
 export const siteConfig = {
   name: "Zdravíčko",
-  title: "Praktický lékař pro děti a dorost",
+  title: "Pediatr Přerov | Praktický lékař pro děti a dorost",
   description:
-    "Moderní pediatrická ordinace v Přerově. Poskytujeme kvalitní a individuální péči pro vaše děti od narození až po dospělost.",
+    "Pediatrická ordinace v Přerově. Váš dětský lékař s individuálním přístupem. Poskytujeme kvalitní péči pro děti od narození až po dospělost.",
   url: "https://zdravicko.org",
 
   // Team descriptions
   teamDescription: {
     doctors:
-      "Jsme tým zkušených lékařů, kteří se specializují na péči o děti a dorost. Každému malému pacientovi věnujeme maximální pozornost a individuální přístup.",
+      "Jsme pediatrická ordinace v Přerově se zkušeným týmem lékařů. Jako váš dětský lékař v Přerově poskytujeme každému malému pacientovi maximální pozornost a individuální přístup.",
     nurses:
       "Naše zdravotní sestry jsou odbornice s dlouholetou praxí v péči o děti. Vytvářejí příjemné a bezpečné prostředí pro každé vyšetření.",
   },

@@ -14,8 +14,8 @@ interface Props {
 }
 
 const {
-  title = 'Zdravíčko - Dětská ordinace Přerov | Praktický lékař pro děti a dorost',
-  description = 'Moderní pediatrická ordinace v Přerově. Poskytujeme kvalitní a individuální péči pro vaše děti od narození až po dospělost. MUDr. Jana Šlechtová.'
+  title = 'Pediatr Přerov - Zdravíčko | Dětský lékař MUDr. Jana Šlechtová',
+  description = 'Hledáte pediatra v Přerově? Moderní dětská ordinace s individuálním přístupem. Kvalitní péči pro vaše děti poskytuje MUDr. Jana Šlechtová a tým zkušených lékařů.'
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -28,14 +28,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="canonical" href={canonicalURL} />
-		
+
 		<!-- Basic SEO -->
 		<meta name="keywords" content="pediatr Přerov, dětský lékař Přerov, Zdravíčko, dětská ordinace, praktický lékař pro děti, MUDr. Jana Šlechtová, pediatrie Přerov" />
 		<meta name="author" content="Zdravíčko - Dětská ordinace" />
 		<meta name="robots" content="index, follow" />
-		
+
 		<ViewTransitions />
-		
+
 		<SEO
 			title={title}
 			description={description}
@@ -70,7 +70,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 				imageAlt: 'Zdravíčko - Dětská ordinace Přerov',
 			}}
 		/>
-		
+
 		<StructuredData />
 	</head>
 	<body class="font-sans antialiased">

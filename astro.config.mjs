@@ -13,13 +13,13 @@ export default defineConfig({
   // No base path needed for custom domain
 
   integrations: [
-    icon(), 
+    icon(),
     mdx(),
     sitemap({
-      changefreq: 'weekly',
+      changefreq: "weekly",
       priority: 0.7,
       lastmod: new Date(),
-    })
+    }),
   ],
   vite: {
     plugins: [tailwindcss()],
