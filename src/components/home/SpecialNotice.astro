@@ -4,48 +4,43 @@ import ClosureNoticeCard from '../common/ClosureNoticeCard.astro';
 import { getSpecialNoticeDisplay } from '../../utils/openingHours';
 import { getSpecialNoticeVisualConfig } from '../../utils/noticeColors';
 
+// Použijeme respectShowEarly=true aby se zobrazily i budoucí special notices (pro informaci dopředu)
 const {
   notice: specialNotice,
   shouldDisplay,
   displayHours,
   isClosed,
   closureInfo,
-} = getSpecialNoticeDisplay();
+} = getSpecialNoticeDisplay(true);
 
 const config = getSpecialNoticeVisualConfig(specialNotice?.type);
 ---
 
 {shouldDisplay && specialNotice && (
-  <section class={`py-8 bg-linear-to-r ${config.gradient}`}>
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto">
-        <div class={`bg-white rounded-2xl shadow-lg border-2 ${config.border} p-5 md:p-6 relative`}>
-          <div class={`absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-linear-to-br ${config.iconGradient} rounded-lg flex items-center justify-center opacity-80`}>
-            <Icon name={config.iconName} class="w-6 h-6 md:w-7 md:h-7 text-white" />
-          </div>
-          <div class="pr-14 md:pr-16">
-            <h3 class="font-bold text-lg md:text-xl text-gray-900 mb-2">
-              Důležité oznámení
-            </h3>
-            {specialNotice.message && (
-              <p class="text-gray-700 text-sm md:text-base leading-relaxed">
-                {specialNotice.message}
-              </p>
-            )}
-            {displayHours && (
-              <div class={`inline-flex items-center gap-2 ${config.badgeText} ${config.badgeBg} px-3 py-1.5 rounded-lg text-sm ${specialNotice.message ? 'mt-3' : ''}`}>
-                <Icon name="mdi:clock-outline" class="w-4 h-4" />
-                <span class="font-semibold">{displayHours}</span>
-              </div>
-            )}
-            {isClosed && closureInfo && (
-              <div class="mt-4 md:mt-5 p-4 rounded-xl border border-orange-200 bg-white/80">
-                <ClosureNoticeCard info={closureInfo} />
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+  <div class={`bg-white rounded-2xl shadow-lg border-2 ${config.border} p-5 md:p-6 relative`}>
+    <div class={`absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-linear-to-br ${config.iconGradient} rounded-lg flex items-center justify-center opacity-80`}>
+      <Icon name={config.iconName} class="w-6 h-6 md:w-7 md:h-7 text-white" />
     </div>
-  </section>
+    <div class="pr-14 md:pr-16">
+      <h3 class="font-bold text-lg md:text-xl text-gray-900 mb-2">
+        Důležité oznámení
+      </h3>
+      {specialNotice.message && (
+        <p class="text-gray-700 text-sm md:text-base leading-relaxed">
+          {specialNotice.message}
+        </p>
+      )}
+      {displayHours && (
+        <div class={`inline-flex items-center gap-2 ${config.badgeText} ${config.badgeBg} px-3 py-1.5 rounded-lg text-sm ${specialNotice.message ? 'mt-3' : ''}`}>
+          <Icon name="mdi:clock-outline" class="w-4 h-4" />
+          <span class="font-semibold">{displayHours}</span>
+        </div>
+      )}
+      {isClosed && closureInfo && (
+        <div class="mt-4 md:mt-5 p-4 rounded-xl border border-orange-200 bg-white/80">
+          <ClosureNoticeCard info={closureInfo} />
+        </div>
+      )}
+    </div>
+  </div>
 )}

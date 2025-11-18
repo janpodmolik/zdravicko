@@ -4,61 +4,49 @@
  *
  * Zobrazuje aktuální den a otevírací hodiny s případným speciálním oznámením.
  * Barvy se mění podle typu oznámení (warning, urgent, info).
+ *
+ * DŮLEŽITÉ: Výchozí styl je vždy "normal" (modrá). Client-side script aplikuje
+ * warning styling pouze pokud platí special notice DNES.
  */
 import { Icon } from 'astro-icon/components';
-import ClosureNoticeCard from '../common/ClosureNoticeCard.astro';
+import SpecialNotice from '../home/SpecialNotice.astro';
 import { getTodayActualHours, getSpecialNoticeDisplay } from '../../utils/openingHours';
-import { getNoticeColors, getSpecialNoticeVisualConfig } from '../../utils/noticeColors';
-import specialNoticeClosure from '../../data/closureNotice';
 
 // getTodayActualHours ignoruje showEarly flag (zobrazí warning jen když platí DNES)
 const todayInfo = getTodayActualHours();
-const specialNoticeDisplay = getSpecialNoticeDisplay();
-const isEarlyWarning = specialNoticeDisplay.isEarlyWarning;
 
-// Pro zobrazení closure card jen když není early warning (tj. když to platí DNES)
-const closureInfo = !isEarlyWarning && specialNoticeDisplay.isClosed ? specialNoticeDisplay.closureInfo : null;
-const closureCardInfo = closureInfo ?? specialNoticeClosure;
-const colors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
+// Zkontroluj jestli je early warning (showEarly=true a datum ještě neplatí)
+const specialNoticeDisplay = getSpecialNoticeDisplay(true);
+const showEarlyWarning = specialNoticeDisplay.shouldDisplay && specialNoticeDisplay.isEarlyWarning;
 
-// Pro early warning oznámení
-const earlyNoticeConfig = specialNoticeDisplay.notice ? getSpecialNoticeVisualConfig(specialNoticeDisplay.notice.type) : null;
-const displayHours = todayInfo.hours ?? "Zavřeno";
-const hoursClass = todayInfo.isModified
-  ? colors?.text ?? "text-primary"
-  : todayInfo.isClosed
-    ? "text-gray-600"
-    : "text-primary";
-const noticeVisible = Boolean(todayInfo.isModified && todayInfo.notice);
+// Výchozí styly - vždy "normal" (modrá)
 const todayCardDefault = "rounded-2xl shadow-lg p-8 border-2 bg-white border-[#5085c6]/30";
 const todayIconDefault = "w-12 h-12 rounded-full flex items-center justify-center relative bg-[#5085c6]";
-const todayHoursDefault = "text-primary";
+const todayHoursDefault = "text-3xl font-bold mb-2 text-primary";
+const displayHours = todayInfo.hours ?? "Zavřeno";
 ---
 
-<div class:list={[
-  "rounded-2xl shadow-lg p-8 border-2",
-  todayInfo.isModified ? `${colors?.bg} ${colors?.border}` : "bg-white border-[#5085c6]/30"
-]} data-opening-today-card data-opening-node="today-card" data-opening-default-classes={todayCardDefault}>
+<div
+  class="rounded-2xl shadow-lg p-8 border-2 bg-white border-[#5085c6]/30"
+  data-opening-today-card
+  data-opening-node="today-card"
+  data-opening-default-classes={todayCardDefault}
+>
   <div class="flex items-center gap-4 mb-4">
-    <div class:list={[
-      "w-12 h-12 rounded-full flex items-center justify-center relative",
-      todayInfo.isModified ? colors?.icon : "bg-[#5085c6]"
-    ]} data-opening-node="today-icon" data-opening-default-classes={todayIconDefault}>
+    <div
+      class="w-12 h-12 rounded-full flex items-center justify-center relative bg-[#5085c6]"
+      data-opening-node="today-icon"
+      data-opening-default-classes={todayIconDefault}
+    >
       <Icon
         name="mdi:clock-outline"
-        class:list={[
-          "w-6 h-6 text-white",
-          todayInfo.isModified ? "hidden" : ""
-        ]}
+        class="w-6 h-6 text-white"
         aria-hidden="true"
         data-opening-icon="default"
       />
       <Icon
         name="mdi:alert-circle-outline"
-        class:list={[
-          "w-6 h-6 text-white",
-          todayInfo.isModified ? "" : "hidden"
-        ]}
+        class="w-6 h-6 text-white hidden"
         aria-hidden="true"
         data-opening-icon="modified"
       />
@@ -82,10 +70,7 @@ const todayHoursDefault = "text-primary";
   <!-- Hodiny (pokud existují) -->
   {(todayInfo.hours || todayInfo.isClosed) && (
     <div
-      class:list={[
-        "text-3xl font-bold mb-2",
-        hoursClass
-      ]}
+      class="text-3xl font-bold mb-2 text-primary"
       data-opening-hours
       data-opening-node="today-hours"
       data-opening-default-classes={todayHoursDefault}
@@ -94,56 +79,26 @@ const todayHoursDefault = "text-primary";
     </div>
   )}
 
-  <!-- Zpráva/oznámení -->
-  <div class:list={[
-    "mt-4 p-4 border-l-4 rounded",
-    noticeVisible ? `${colors?.infoBanner ?? ""} ${colors?.infoBannerBorder ?? ""}` : "hidden"
-  ]} data-opening-node="today-notice" data-opening-default-classes="hidden">
-    <p class:list={[
-      "text-sm font-medium",
-      noticeVisible ? colors?.description ?? "text-[#5085c6]" : "text-[#5085c6]"
-    ]} data-opening-node="today-notice-text" data-opening-default-classes="text-[#5085c6]">
+  <!-- Zpráva/oznámení (skrytá defaultně, zobrazí se scriptem) -->
+  <div
+    class="mt-4 p-4 border-l-4 rounded hidden"
+    data-opening-node="today-notice"
+    data-opening-default-classes="hidden"
+  >
+    <p
+      class="text-sm font-medium text-[#5085c6]"
+      data-opening-node="today-notice-text"
+      data-opening-default-classes="text-[#5085c6]"
+    >
       <Icon name="mdi:information" class="w-4 h-4 inline mr-1" aria-hidden="true" />
       <span data-opening-notice-text>{todayInfo.notice ?? ''}</span>
     </p>
   </div>
-
 </div>
 
-<!-- Closure card (zobrazí se JEN když to platí DNES, ne při early warning) -->
-<div class:list={[
-  "mt-4 p-5 rounded-xl border border-orange-200 bg-orange-50 shadow-sm",
-  closureInfo ? "" : "hidden"
-]}>
-  <ClosureNoticeCard info={closureCardInfo} />
-</div>
-
-<!-- Early Warning oznámení (zobrazí se JEN když showEarly=true a dnes < validFrom) -->
-{isEarlyWarning && specialNoticeDisplay.notice && earlyNoticeConfig && (
-  <div class={`mt-4 bg-white rounded-2xl shadow-lg border-2 ${earlyNoticeConfig.border} p-5 relative`}>
-    <div class={`absolute top-4 right-4 w-10 h-10 bg-linear-to-br ${earlyNoticeConfig.iconGradient} rounded-lg flex items-center justify-center opacity-80`}>
-      <Icon name={earlyNoticeConfig.iconName} class="w-6 h-6 text-white" />
-    </div>
-    <div class="pr-14">
-      <h3 class="font-bold text-lg text-gray-900 mb-2">
-        Důležité oznámení
-      </h3>
-      {specialNoticeDisplay.notice.message && (
-        <p class="text-gray-700 text-sm leading-relaxed">
-          {specialNoticeDisplay.notice.message}
-        </p>
-      )}
-      {specialNoticeDisplay.displayHours && (
-        <div class={`inline-flex items-center gap-2 ${earlyNoticeConfig.badgeText} ${earlyNoticeConfig.badgeBg} px-3 py-1.5 rounded-lg text-sm ${specialNoticeDisplay.notice.message ? 'mt-3' : ''}`}>
-          <Icon name="mdi:clock-outline" class="w-4 h-4" />
-          <span class="font-semibold">{specialNoticeDisplay.displayHours}</span>
-        </div>
-      )}
-      {specialNoticeDisplay.closureInfo && (
-        <div class="mt-4 p-4 rounded-xl border border-orange-200 bg-white/80">
-          <ClosureNoticeCard info={specialNoticeDisplay.closureInfo} />
-        </div>
-      )}
-    </div>
+<!-- Special Notice komponenta (zobrazí se JEN pokud je early warning - showEarly=true a datum ještě neplatí) -->
+{showEarlyWarning && (
+  <div class="mt-6">
+    <SpecialNotice />
   </div>
 )}

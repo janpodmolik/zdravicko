@@ -123,9 +123,12 @@ const WEEKEND_DAYS: DayOfWeekValue[] = [DayOfWeek.SATURDAY, DayOfWeek.SUNDAY];
 
 /**
  * Vrátí aktivní special notice pokud existuje a je platné
+ * @param respectShowEarly - pokud true, zobrazí notice i před validFrom (early warning)
  */
-export function getActiveSpecialNotice(): SpecialNotice | null {
-  return getSpecialNoticeForDate(getLocalDate());
+export function getActiveSpecialNotice(
+  respectShowEarly: boolean = false
+): SpecialNotice | null {
+  return getSpecialNoticeForDate(getLocalDate(), respectShowEarly);
 }
 
 export interface SpecialNoticeDisplay {
@@ -149,9 +152,12 @@ export interface SpecialNoticeClosureInfo {
 
 /**
  * Vrátí předzpracovaná data pro komponenty zobrazující speciální oznámení.
+ * @param respectShowEarly - pokud true, zobrazí notice i před validFrom (early warning)
  */
-export function getSpecialNoticeDisplay(): SpecialNoticeDisplay {
-  const notice = getActiveSpecialNotice();
+export function getSpecialNoticeDisplay(
+  respectShowEarly: boolean = false
+): SpecialNoticeDisplay {
+  const notice = getActiveSpecialNotice(respectShowEarly);
 
   if (!notice) {
     return {
@@ -284,6 +290,7 @@ export function formatDateForDay(dayOfWeek: DayOfWeekValue): string {
 /**
  * Vrátí kompletní týdenní rozvrh s respektováním special notices
  * Zahrnuje jak běžné hodiny, tak případné výjimky
+ * Nepoužívá showEarly - zobrazuje změny pouze pro dny, kdy skutečně platí
  */
 export function getWeekScheduleWithNotices(): WeekDaySchedule[] {
   const today = getLocalDate();
@@ -292,7 +299,7 @@ export function getWeekScheduleWithNotices(): WeekDaySchedule[] {
   const schedule: WeekDaySchedule[] = WORKING_DAYS.map((dayOfWeek) => {
     const targetDate = getDateForDayInWeek(dayOfWeek, 0, today);
     const regularHours = openingHoursByDay[dayOfWeek];
-    const resolution = resolveNoticeOutcome(targetDate, regularHours);
+    const resolution = resolveNoticeOutcome(targetDate, regularHours, false); // respectShowEarly = false
     const isToday = currentDay === dayOfWeek;
 
     const actualHours = resolution.matchesRegularHours
