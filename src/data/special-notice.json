@@ -1,12 +1,12 @@
 {
-  "active": false,
-  "message": "Zdravíčko má dovolenou.",
+  "active": true,
+  "message": "Zkrácená ordinační doba.",
   "type": "warning",
-  "closed": true,
-  "showSubstituteDoctor": true,
+  "closed": false,
+  "showSubstituteDoctor": false,
   "showEarly": true,
-  "hoursFrom": "08:00",
+  "hoursFrom": "07:30",
   "hoursTo": "12:00",
-  "validFrom": "2025-11-19",
-  "validTo": "2025-11-22"
+  "validFrom": "2025-11-27",
+  "validTo": "2025-11-27"
 }
