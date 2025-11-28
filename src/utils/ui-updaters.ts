@@ -5,6 +5,8 @@
 
 import type { OpeningHoursInfo } from "./openingHours";
 import type { NoticeColorScheme } from "./noticeColors";
+import { getDateForDayInWeek, isDateInRange } from "./date-utils";
+import { resolveNoticeOutcome } from "./notice-resolver";
 import {
   applyConditionalClasses,
   toggleIcons,
@@ -154,14 +156,51 @@ export function updateQuickInfoCardUI(
 }
 
 /**
- * Update WeeklySchedule highlighting (dnes + odstranění starých badges)
+ * Update WeeklySchedule highlighting (dnes + odstranění starých badges + reset hodin pro minulé dny)
  */
 export function updateWeeklyScheduleUI(currentDay: number, today: Date): void {
   document.querySelectorAll<HTMLElement>("[data-day-of-week]").forEach((el) => {
     const day = parseInt(el.getAttribute("data-day-of-week") || "-2");
     const isToday =
       day === currentDay || (day === -1 && [0, 6].includes(currentDay));
+    const regularHours = el.getAttribute("data-regular-hours") || "Zavřeno";
 
+    // Získáme datum pro tento den v týdnu
+    const dayDate = day >= 0 ? getDateForDayInWeek(day, 0, today) : null;
+    const isPastDay = dayDate ? dayDate < today && !isToday : false;
+
+    // Elementy pro update
+    const actualHoursEl = el.querySelector<HTMLElement>("[data-actual-hours]");
+    const noticeBadge = el.querySelector<HTMLElement>("[data-notice-badge]");
+    const strikethroughEl = el.querySelector<HTMLElement>("[data-regular-hours-strikethrough]");
+    const isModified = actualHoursEl?.getAttribute("data-is-modified") === "true";
+
+    // Pokud je den v minulosti a měl special notice, resetujeme na regular hours
+    if (isPastDay && isModified && dayDate) {
+      // Zkontroluj jestli special notice ještě platí pro tento den
+      const resolution = resolveNoticeOutcome(dayDate, regularHours === "Zavřeno" ? null : regularHours, false);
+      
+      if (!resolution.isModified) {
+        // Notice už neplatí - resetuj na regular hours
+        if (actualHoursEl) {
+          actualHoursEl.textContent = regularHours;
+          actualHoursEl.className = "font-medium text-gray-600";
+          actualHoursEl.setAttribute("data-is-modified", "false");
+        }
+        
+        // Skryj notice badge
+        if (noticeBadge) {
+          noticeBadge.classList.add("hidden");
+        }
+        
+        // Skryj přeškrtnuté regular hours
+        if (strikethroughEl) {
+          strikethroughEl.classList.add("hidden");
+        }
+      }
+    }
+
+    // Today styling
     if (isToday) {
       // Přidáme today styling
       el.classList.add("bg-primary-50", "!border-primary");
@@ -178,9 +217,9 @@ export function updateWeeklyScheduleUI(currentDay: number, today: Date): void {
       }
     }
 
-    // Odstraň date badge pokud už datum proběhlo
+    // Odstraň date badge pokud už datum proběhlo (fallback pro staré badges bez data-notice-badge)
     const noticeBadges = el.querySelectorAll(
-      "span.text-xs.px-2.py-1.rounded-full"
+      "span.text-xs.px-2.py-1.rounded-full:not([data-today-badge])"
     );
     noticeBadges.forEach((badge) => {
       const badgeText = badge.textContent?.trim();
@@ -193,12 +232,33 @@ export function updateWeeklyScheduleUI(currentDay: number, today: Date): void {
         // Porovnej s dnešním datem
         if (
           badgeMonth < today.getMonth() + 1 ||
-          (badgeMonth === today.getMonth() + 1 && badgeDay <= today.getDate())
+          (badgeMonth === today.getMonth() + 1 && badgeDay < today.getDate())
         ) {
-          // Datum je dnes nebo v minulosti - skryj badge
+          // Datum je v minulosti - skryj badge
           badge.classList.add("hidden");
         }
       }
     });
   });
+}
+
+/**
+ * Update SpecialNotice banner visibility based on current date
+ * Komponenta je defaultně skrytá a zobrazí se pouze pokud je notice aktuálně platná
+ */
+export function updateSpecialNoticeBannerUI(today: Date): void {
+  const banner = document.getElementById("special-notice-banner");
+  if (!banner) return;
+
+  const validFrom = banner.getAttribute("data-valid-from");
+  const validTo = banner.getAttribute("data-valid-to");
+
+  // Zkontroluj jestli je dnešní datum v rozsahu platnosti
+  const isValid = isDateInRange(today, validFrom || undefined, validTo || undefined);
+
+  if (isValid) {
+    banner.classList.remove("hidden");
+  } else {
+    banner.classList.add("hidden");
+  }
 }

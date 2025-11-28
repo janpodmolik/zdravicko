@@ -12,6 +12,7 @@ import {
   updateTodayHoursCardUI,
   updateQuickInfoCardUI,
   updateWeeklyScheduleUI,
+  updateSpecialNoticeBannerUI,
 } from "../utils/ui-updaters";
 
 export function getCurrentDayOfWeek(): number {
@@ -21,6 +22,7 @@ export function getCurrentDayOfWeek(): number {
 export function updateOpeningHours(): void {
   if (typeof document === "undefined") return;
 
+  const today = getLocalDate();
   const todayInfo = getTodayActualHours();
   const colors =
     todayInfo.isModified && todayInfo.noticeType
@@ -31,7 +33,7 @@ export function updateOpeningHours(): void {
   updateTextContent("[data-opening-title]", todayInfo.title);
   updateTextContent("[data-opening-hours]", todayInfo.hours ?? "Zavřeno");
 
-  const formattedDate = getLocalDate().toLocaleDateString("cs-CZ", {
+  const formattedDate = today.toLocaleDateString("cs-CZ", {
     weekday: "long",
     year: "numeric",
     month: "long",
@@ -42,5 +44,6 @@ export function updateOpeningHours(): void {
   // Update komponent pomocí dedikovaných updaterů
   updateTodayHoursCardUI(todayInfo, colors);
   updateQuickInfoCardUI(todayInfo, colors);
-  updateWeeklyScheduleUI(getCurrentDayOfWeek(), getLocalDate());
+  updateWeeklyScheduleUI(getCurrentDayOfWeek(), today);
+  updateSpecialNoticeBannerUI(today);
 }

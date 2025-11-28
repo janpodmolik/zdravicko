@@ -17,7 +17,12 @@ const config = getSpecialNoticeVisualConfig(specialNotice?.type);
 ---
 
 {shouldDisplay && specialNotice && (
-  <div class={`bg-white rounded-2xl shadow-lg border-2 ${config.border} p-5 md:p-6 relative`}>
+  <div 
+    id="special-notice-banner"
+    data-valid-from={specialNotice.validFrom}
+    data-valid-to={specialNotice.validTo}
+    class={`bg-white rounded-2xl shadow-lg border-2 ${config.border} p-5 md:p-6 relative hidden`}
+  >
     <div class={`absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-linear-to-br ${config.iconGradient} rounded-lg flex items-center justify-center opacity-80`}>
       <Icon name={config.iconName} class="w-6 h-6 md:w-7 md:h-7 text-white" />
     </div>
