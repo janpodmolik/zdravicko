@@ -226,45 +226,6 @@ export function getTodayActualHours(): OpeningHoursInfo {
 }
 
 /**
- * Získá informace o dnešních ordinačních hodinách (S EARLY WARNINGS)
- * Respektuje showEarly flag - zobrazí upozornění i na budoucí změny.
- * Použití: Stránky kde chceme zobrazit předčasná upozornění.
- *
- * @deprecated Použij getTodayActualHours() pro většinu případů
- */
-export function getTodayHoursWithNotice(): OpeningHoursInfo {
-  const today = getLocalDate();
-  const dayOfWeek = today.getDay() as DayOfWeekValue;
-  const regularHours = openingHoursByDay[dayOfWeek];
-
-  const resolution = resolveNoticeOutcome(today, regularHours, true); // respectShowEarly = true
-
-  const title = resolution.isClosed
-    ? resolution.hasSpecialNotice
-      ? HOURS_LABELS.TODAY_CLOSED
-      : HOURS_LABELS.TODAY_NOT_WORKING
-    : HOURS_LABELS.TODAY_OPEN;
-
-  return {
-    title,
-    hours: resolution.finalHours,
-    isModified: resolution.isModified,
-    isClosed: resolution.isClosed,
-    notice: resolution.notice,
-    noticeType: resolution.noticeType,
-  };
-}
-
-/**
- * @deprecated Použij getTodayActualHours() nebo getTodayHoursWithNotice()
- */
-export function getTodayOpeningHours(
-  respectShowEarly: boolean = true
-): OpeningHoursInfo {
-  return respectShowEarly ? getTodayHoursWithNotice() : getTodayActualHours();
-}
-
-/**
  * Vrátí ordinační hodiny pro konkrétní den v týdnu (0 = neděle, 6 = sobota)
  * Používá se pro zobrazení týdenního rozvrhu
  */
@@ -288,41 +249,23 @@ export function formatDateForDay(dayOfWeek: DayOfWeekValue): string {
 // ============================================================================
 
 /**
- * Vrátí kompletní týdenní rozvrh s respektováním special notices
- * Zahrnuje jak běžné hodiny, tak případné výjimky
- * Nepoužívá showEarly - zobrazuje změny pouze pro dny, kdy skutečně platí
+ * Vrátí statický týdenní rozvrh s POUZE regular hours.
+ * Použití: Pro SSG/build - žádné special notices nejsou aplikovány.
+ * Client-side script pak rozhodne o modifikacích na základě aktuálního data.
  */
-export function getWeekScheduleWithNotices(): WeekDaySchedule[] {
-  const today = getLocalDate();
-  const currentDay = today.getDay() as DayOfWeekValue;
-
+export function getWeekScheduleStatic(): WeekDaySchedule[] {
   const schedule: WeekDaySchedule[] = WORKING_DAYS.map((dayOfWeek) => {
-    const targetDate = getDateForDayInWeek(dayOfWeek, 0, today);
     const regularHours = openingHoursByDay[dayOfWeek];
-    const resolution = resolveNoticeOutcome(targetDate, regularHours, false); // respectShowEarly = false
-    const isToday = currentDay === dayOfWeek;
-
-    const actualHours = resolution.matchesRegularHours
-      ? regularHours
-      : resolution.finalHours;
-    const changedFromRegular = !resolution.matchesRegularHours;
-    const noticeBadgeLabel =
-      resolution.isModified && !isToday
-        ? formatShortDate(targetDate)
-        : undefined;
 
     return {
       dayOfWeek,
       dayName: DAY_NAMES[dayOfWeek],
       regularHours,
-      actualHours,
-      isToday,
-      isClosed: resolution.isClosed,
-      isModified: resolution.isModified,
-      changedFromRegular,
-      notice: resolution.isModified ? resolution.notice : undefined,
-      noticeType: resolution.isModified ? resolution.noticeType : undefined,
-      noticeBadgeLabel,
+      actualHours: regularHours, // Při buildu vždy regular hours
+      isToday: false, // Nastaví se client-side
+      isClosed: !regularHours,
+      isModified: false, // Při buildu nikdy není modifikováno
+      changedFromRegular: false,
       isWeekend: false,
     };
   });
@@ -333,7 +276,7 @@ export function getWeekScheduleWithNotices(): WeekDaySchedule[] {
     dayName: "Sobota - Neděle",
     regularHours: null,
     actualHours: null,
-    isToday: WEEKEND_DAYS.includes(currentDay),
+    isToday: false,
     isClosed: true,
     isModified: false,
     changedFromRegular: false,

@@ -13,10 +13,10 @@ import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
 import { Icon } from 'astro-icon/components';
 import { contactInfo } from '../data/contact';
 import { directions } from '../data/directions';
-import { getTodayOpeningHours } from '../utils/openingHours';
+import { getTodayActualHours } from '../utils/openingHours';
 import { getNoticeColors } from '../utils/noticeColors';
 
-const todayInfo = getTodayOpeningHours();
+const todayInfo = getTodayActualHours();
 const noticeColors = todayInfo.isModified ? getNoticeColors(todayInfo.noticeType) : null;
 const displayHours = todayInfo.hours ?? "Zavřeno";
 const hoursClass = todayInfo.isModified

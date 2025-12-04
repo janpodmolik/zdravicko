@@ -1,10 +1,7 @@
 // Client-side script pro aktualizaci otevíracích hodin
 // Veškerý "today" highlighting se dělá až tady v browseru
 
-import {
-  getTodayActualHours,
-  getSpecialNoticeDisplay,
-} from "../utils/openingHours";
+import { getTodayActualHours } from "../utils/openingHours";
 import { getLocalDate } from "../utils/date-utils";
 import { getNoticeColors } from "../utils/noticeColors";
 import { updateTextContent } from "../utils/dom-helpers";

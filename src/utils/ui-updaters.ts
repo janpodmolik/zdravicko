@@ -3,9 +3,9 @@
  * Každá funkce aktualizuje konkrétní komponentu na základě current date a special notices
  */
 
-import type { OpeningHoursInfo } from "./openingHours";
+import { NOTICE_TYPE_CLASSES, type OpeningHoursInfo } from "./openingHours";
 import type { NoticeColorScheme } from "./noticeColors";
-import { getDateForDayInWeek, isDateInRange } from "./date-utils";
+import { getDateForDayInWeek, isDateInRange, formatShortDate } from "./date-utils";
 import { resolveNoticeOutcome } from "./notice-resolver";
 import {
   applyConditionalClasses,
@@ -156,44 +156,69 @@ export function updateQuickInfoCardUI(
 }
 
 /**
- * Update WeeklySchedule highlighting (dnes + odstranění starých badges + reset hodin pro minulé dny)
+ * Update WeeklySchedule - aplikuje special notices pro aktuální týden client-side
+ * Build renderuje vždy regular hours, tato funkce pak aplikuje modifikace na základě aktuálního data
  */
 export function updateWeeklyScheduleUI(currentDay: number, today: Date): void {
+  // Normalizujeme today na začátek dne pro správné porovnání
+  const todayStart = new Date(today);
+  todayStart.setHours(0, 0, 0, 0);
+
   document.querySelectorAll<HTMLElement>("[data-day-of-week]").forEach((el) => {
     const day = parseInt(el.getAttribute("data-day-of-week") || "-2");
-    const isToday =
-      day === currentDay || (day === -1 && [0, 6].includes(currentDay));
+    const isToday = day === currentDay || (day === -1 && [0, 6].includes(currentDay));
     const regularHours = el.getAttribute("data-regular-hours") || "Zavřeno";
-
-    // Získáme datum pro tento den v týdnu
-    const dayDate = day >= 0 ? getDateForDayInWeek(day, 0, today) : null;
-    const isPastDay = dayDate ? dayDate < today && !isToday : false;
 
     // Elementy pro update
     const actualHoursEl = el.querySelector<HTMLElement>("[data-actual-hours]");
     const noticeBadge = el.querySelector<HTMLElement>("[data-notice-badge]");
     const strikethroughEl = el.querySelector<HTMLElement>("[data-regular-hours-strikethrough]");
-    const isModified = actualHoursEl?.getAttribute("data-is-modified") === "true";
 
-    // Pokud je den v minulosti a měl special notice, resetujeme na regular hours
-    if (isPastDay && isModified && dayDate) {
-      // Zkontroluj jestli special notice ještě platí pro tento den
-      const resolution = resolveNoticeOutcome(dayDate, regularHours === "Zavřeno" ? null : regularHours, false);
+    // Získáme datum pro tento den v týdnu (pro working days)
+    if (day >= 0 && day <= 6) {
+      const dayDate = getDateForDayInWeek(day, 0, today);
+      dayDate.setHours(0, 0, 0, 0);
       
-      if (!resolution.isModified) {
-        // Notice už neplatí - resetuj na regular hours
+      // Zkontroluj jestli pro tento den platí special notice
+      const resolution = resolveNoticeOutcome(
+        dayDate, 
+        regularHours === "Zavřeno" ? null : regularHours, 
+        false // respectShowEarly = false
+      );
+
+      if (resolution.isModified && actualHoursEl) {
+        // Aplikuj modifikované hodiny
+        actualHoursEl.textContent = resolution.finalHours || "Zavřeno";
+        
+        // Aplikuj správné CSS třídy podle typu notice
+        if (resolution.noticeType) {
+          const noticeClasses = NOTICE_TYPE_CLASSES[resolution.noticeType];
+          actualHoursEl.className = `font-medium ${noticeClasses.text} font-semibold`;
+        }
+
+        // Zobraz notice badge s datem (ale ne pro dnešek)
+        if (noticeBadge && !isToday) {
+          noticeBadge.textContent = formatShortDate(dayDate);
+          if (resolution.noticeType) {
+            noticeBadge.className = `ml-2 text-xs text-white px-2 py-1 rounded-full ${NOTICE_TYPE_CLASSES[resolution.noticeType].background}`;
+          }
+          noticeBadge.classList.remove("hidden");
+        }
+
+        // Zobraz přeškrtnuté regular hours
+        if (strikethroughEl && regularHours !== "Zavřeno") {
+          strikethroughEl.textContent = regularHours;
+          strikethroughEl.classList.remove("hidden");
+        }
+      } else {
+        // Není modifikace - ujisti se, že jsou regular hours a skryté notice elementy
         if (actualHoursEl) {
           actualHoursEl.textContent = regularHours;
           actualHoursEl.className = "font-medium text-gray-600";
-          actualHoursEl.setAttribute("data-is-modified", "false");
         }
-        
-        // Skryj notice badge
         if (noticeBadge) {
           noticeBadge.classList.add("hidden");
         }
-        
-        // Skryj přeškrtnuté regular hours
         if (strikethroughEl) {
           strikethroughEl.classList.add("hidden");
         }
@@ -202,7 +227,6 @@ export function updateWeeklyScheduleUI(currentDay: number, today: Date): void {
 
     // Today styling
     if (isToday) {
-      // Přidáme today styling
       el.classList.add("bg-primary-50", "!border-primary");
 
       const nameSpan = el.querySelector("[data-day-name]");
@@ -216,29 +240,6 @@ export function updateWeeklyScheduleUI(currentDay: number, today: Date): void {
         badge.classList.remove("hidden");
       }
     }
-
-    // Odstraň date badge pokud už datum proběhlo (fallback pro staré badges bez data-notice-badge)
-    const noticeBadges = el.querySelectorAll(
-      "span.text-xs.px-2.py-1.rounded-full:not([data-today-badge])"
-    );
-    noticeBadges.forEach((badge) => {
-      const badgeText = badge.textContent?.trim();
-      if (badgeText && badgeText.match(/^\d{1,2}\.\d{1,2}\.$/)) {
-        // Je to datum formátu "17.11."
-        const [dayStr, monthStr] = badgeText.split(".");
-        const badgeDay = parseInt(dayStr);
-        const badgeMonth = parseInt(monthStr);
-
-        // Porovnej s dnešním datem
-        if (
-          badgeMonth < today.getMonth() + 1 ||
-          (badgeMonth === today.getMonth() + 1 && badgeDay < today.getDate())
-        ) {
-          // Datum je v minulosti - skryj badge
-          badge.classList.add("hidden");
-        }
-      }
-    });
   });
 }
 

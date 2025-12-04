@@ -1,25 +1,21 @@
 ---
 import {
-  getWeekScheduleWithNotices,
+  getWeekScheduleStatic,
   NOTICE_TYPE_CLASSES,
   type WeekDaySchedule,
   type NoticeType
 } from '../../utils/openingHours';
 
-const weekSchedule = getWeekScheduleWithNotices();
+// Použij statickou verzi - client-side script rozhodne o special notices
+const weekSchedule = getWeekScheduleStatic();
 
 /**
  * Vrátí CSS třídy pro zobrazení ordinačních hodin podle stavu dne
- * POZOR: isToday NEPOUŽÍVÁME - to se nastaví až v browseru
+ * Při buildu vždy vrací defaultní třídy - modifikace se dělají client-side
  */
 function getHourClass(schedule: WeekDaySchedule): string {
   if (schedule.isWeekend && schedule.isClosed) return 'text-gray-500';
   if (schedule.isClosed) return 'text-red-600';
-
-  if (schedule.isModified && schedule.noticeType) {
-    return `${NOTICE_TYPE_CLASSES[schedule.noticeType].text} font-semibold`;
-  }
-
   return 'text-gray-600';
 }
 ---
@@ -39,14 +35,11 @@ function getHourClass(schedule: WeekDaySchedule): string {
               <span class="ml-2 text-xs bg-primary text-white px-2 py-1 rounded-full hidden" data-today-badge>
                 Dnes
               </span>
-              {schedule.noticeBadgeLabel && schedule.noticeType && (
-                <span 
-                  class:list={['ml-2 text-xs text-white px-2 py-1 rounded-full', NOTICE_TYPE_CLASSES[schedule.noticeType].background]}
-                  data-notice-badge
-                >
-                  {schedule.noticeBadgeLabel}
-                </span>
-              )}
+              {/* Notice badge se zobrazuje pouze client-side */}
+              <span 
+                class="ml-2 text-xs text-white px-2 py-1 rounded-full hidden"
+                data-notice-badge
+              ></span>
             </span>
           </div>
 
@@ -54,16 +47,14 @@ function getHourClass(schedule: WeekDaySchedule): string {
             <span 
               class:list={['font-medium', getHourClass(schedule)]}
               data-actual-hours
-              data-is-modified={schedule.isModified ? 'true' : 'false'}
             >
               {schedule.actualHours || 'Zavřeno'}
             </span>
 
-            {schedule.changedFromRegular && schedule.regularHours && (
-              <span class="text-sm ml-2 text-gray-600 line-through" data-regular-hours-strikethrough>
-                {schedule.regularHours}
-              </span>
-            )}
+            {/* Strikethrough regular hours - zobrazuje se pouze client-side */}
+            <span class="text-sm ml-2 text-gray-600 line-through hidden" data-regular-hours-strikethrough>
+              {schedule.regularHours}
+            </span>
           </div>
         </div>
       ))}
