@@ -537,3 +537,73 @@ collections:
             time_format: false
             format: "YYYY-MM-DD"
             hint: "Vyplň OBA datumy (OD i DO) nebo ŽÁDNÉ pro trvalou platnost."
+
+  # ============================================================================
+  # VÁNOČNÍ / SVÁTEČNÍ ORDINAČNÍ DOBA
+  # ============================================================================
+  # Speciální rozvrh pro období s více změnami (Vánoce, prázdniny, atd.)
+  - name: "holiday-schedule"
+    label: "🎄 Sváteční ordinační doba"
+    files:
+      - name: "schedule"
+        label: "⚙️ Nastavení svátečního rozvrhu"
+        file: "src/data/holiday-schedule.json"
+        fields:
+          - label: "🔔 Zobrazit sváteční rozvrh"
+            name: "active"
+            widget: "boolean"
+            default: false
+            hint: "Zapněte pro zobrazení speciálního rozvrhu na webu (zobrazí se i před datem platnosti)"
+
+          - label: "📌 Nadpis"
+            name: "title"
+            widget: "string"
+            default: "Vánoční ordinační doba"
+            hint: "Např. 'Vánoční ordinační doba', 'Prázdninový provoz'"
+
+          - label: "📅 Platnost OD"
+            name: "validFrom"
+            widget: "datetime"
+            date_format: "DD.MM.YYYY"
+            time_format: false
+            format: "YYYY-MM-DD"
+            hint: "První den platnosti rozvrhu"
+
+          - label: "📅 Platnost DO"
+            name: "validTo"
+            widget: "datetime"
+            date_format: "DD.MM.YYYY"
+            time_format: false
+            format: "YYYY-MM-DD"
+            hint: "Poslední den platnosti rozvrhu"
+
+          - label: "👨‍⚕️ Zobrazit zastupujícího lékaře"
+            name: "showSubstituteDoctor"
+            widget: "boolean"
+            default: true
+            hint: "Zobrazit kontakt na zastupujícího lékaře pod rozvrhem"
+
+          - label: "📋 Rozvrh změn"
+            name: "schedule"
+            widget: "list"
+            hint: "Seznam dnů se změněnými hodinami. Přidejte pouze dny, které se liší od běžného rozvrhu."
+            fields:
+              - label: "📅 Datum"
+                name: "date"
+                widget: "datetime"
+                date_format: "DD.MM.YYYY"
+                time_format: false
+                format: "YYYY-MM-DD"
+                hint: "Datum změny"
+
+              - label: "🕐 Ordinační hodiny"
+                name: "hours"
+                widget: "string"
+                required: false
+                hint: "Např. '8:00 - 12:00'. Nechte prázdné pokud je zavřeno."
+
+              - label: "📝 Poznámka"
+                name: "note"
+                widget: "string"
+                required: false
+                hint: "Nepovinná poznámka (např. 'Dovolená'). Zobrazí se pouze interně."

@@ -248,6 +248,23 @@ export function updateWeeklyScheduleUI(currentDay: number, today: Date): void {
  * Komponenta je defaultně skrytá a zobrazí se pouze pokud je notice aktuálně platná
  */
 export function updateSpecialNoticeBannerUI(today: Date): void {
+  // Kontrola holiday schedule notice - zobrazujeme i před validFrom (showEarly)
+  const holidayBanner = document.getElementById("holiday-schedule-notice");
+  if (holidayBanner) {
+    const validTo = holidayBanner.getAttribute("data-valid-to");
+    // Pro holiday schedule kontrolujeme pouze validTo (showEarly režim)
+    const isValid = isDateInRange(today, undefined, validTo || undefined);
+
+    if (isValid) {
+      holidayBanner.classList.remove("hidden");
+    } else {
+      holidayBanner.classList.add("hidden");
+    }
+    // Pokud je holiday schedule aktivní, neskrývej ho a vrať se
+    if (isValid) return;
+  }
+
+  // Kontrola standardního special notice banneru
   const banner = document.getElementById("special-notice-banner");
   if (!banner) return;
 

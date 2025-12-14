@@ -1,6 +1,7 @@
 import specialNoticeData from "../data/special-notice.json";
 import { isDateInRange, getLocalDate } from "./date-utils";
 import { formatHoursRange, areHoursEqual } from "./time-formatting";
+import { getHolidayScheduleForDate } from "./holiday-schedule";
 
 // ============================================================================
 // TYPY
@@ -89,6 +90,27 @@ export function resolveNoticeOutcome(
   regularHours: string | null,
   respectShowEarly: boolean = true
 ): NoticeResolution {
+  // 1. Nejprve zkontroluj holiday-schedule (má přednost před special-notice)
+  const holidayDay = getHolidayScheduleForDate(date);
+  if (holidayDay) {
+    const isClosed = !holidayDay.hours;
+    const matchesRegular = areHoursEqual(holidayDay.hours, regularHours);
+    const isModified = isClosed || !matchesRegular;
+
+    return {
+      finalHours: holidayDay.hours,
+      isClosed,
+      isModified,
+      matchesRegularHours: matchesRegular,
+      hasSpecialNotice: true,
+      notice: isModified
+        ? holidayDay.note || (isClosed ? "Dovolená" : undefined)
+        : undefined,
+      noticeType: isModified ? "warning" : undefined,
+    };
+  }
+
+  // 2. Pak standardní special-notice
   const notice = getSpecialNoticeForDate(date, respectShowEarly);
 
   if (!notice) {

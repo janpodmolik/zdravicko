@@ -1,8 +1,13 @@
 ---
 import { Icon } from 'astro-icon/components';
 import ClosureNoticeCard from '../common/ClosureNoticeCard.astro';
+import HolidayScheduleNotice from './HolidayScheduleNotice.astro';
 import { getSpecialNoticeDisplay } from '../../utils/openingHours';
 import { getSpecialNoticeVisualConfig } from '../../utils/noticeColors';
+import { isHolidayScheduleActive } from '../../utils/holiday-schedule';
+
+// Zkontroluj zda je aktivní holiday schedule
+const holidayScheduleActive = isHolidayScheduleActive(true);
 
 // Použijeme respectShowEarly=true aby se zobrazily i budoucí special notices (pro informaci dopředu)
 const {
@@ -16,7 +21,13 @@ const {
 const config = getSpecialNoticeVisualConfig(specialNotice?.type);
 ---
 
-{shouldDisplay && specialNotice && (
+{/* Pokud je aktivní holiday schedule, zobrazíme HolidayScheduleNotice */}
+{holidayScheduleActive && (
+  <HolidayScheduleNotice />
+)}
+
+{/* Jinak zobrazíme standardní SpecialNotice banner */}
+{!holidayScheduleActive && shouldDisplay && specialNotice && (
   <div 
     id="special-notice-banner"
     data-valid-from={specialNotice.validFrom}

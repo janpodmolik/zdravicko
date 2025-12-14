@@ -1,0 +1,59 @@
+---
+import { Icon } from 'astro-icon/components';
+import ClosureNoticeCard from '../common/ClosureNoticeCard.astro';
+import { getHolidaySchedule, getHolidayScheduleItems, isHolidayScheduleActive } from '../../utils/holiday-schedule';
+import specialNoticeClosure from '../../data/closureNotice';
+
+const schedule = getHolidaySchedule();
+const isActive = isHolidayScheduleActive(true); // showEarly = true pro upozornění dopředu
+const items = getHolidayScheduleItems();
+const showSubstituteDoctor = schedule?.showSubstituteDoctor ?? false;
+---
+
+{isActive && schedule && (
+  <div
+    id="holiday-schedule-notice"
+    data-valid-from={schedule.validFrom}
+    data-valid-to={schedule.validTo}
+    class="bg-white rounded-2xl shadow-lg border-2 border-amber-200 p-5 md:p-6 relative"
+  >
+    <div class="absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-linear-to-br from-amber-500 to-orange-500 rounded-lg flex items-center justify-center opacity-80">
+      <Icon name="mdi:calendar-clock" class="w-6 h-6 md:w-7 md:h-7 text-white" />
+    </div>
+
+    <div class="pr-14 md:pr-16">
+      <h3 class="font-bold text-lg md:text-xl text-gray-900 mb-4">
+        {schedule.title}
+      </h3>
+
+      <div class="space-y-1.5">
+        {items.map((item) => (
+          <div class="flex items-center gap-3 py-1.5 px-3 rounded-lg bg-gray-50">
+            <span class="font-medium text-gray-700 w-20 shrink-0 text-sm">
+              {item.dateFormatted}
+            </span>
+            {item.isClosed ? (
+              <span class="text-gray-900 font-semibold text-sm">
+                Neordinujeme
+              </span>
+            ) : (
+              <span class="text-gray-900 font-semibold text-sm">
+                {item.hours}
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {showSubstituteDoctor && (
+        <div class="mt-5 pt-4 border-t border-gray-200">
+          <div class="flex items-center gap-2 mb-3">
+            <Icon name="mdi:doctor" class="w-5 h-5 text-orange-500" />
+            <span class="font-semibold text-gray-800 text-sm">Zastupující lékař</span>
+          </div>
+          <ClosureNoticeCard info={specialNoticeClosure} />
+        </div>
+      )}
+    </div>
+  </div>
+)}
