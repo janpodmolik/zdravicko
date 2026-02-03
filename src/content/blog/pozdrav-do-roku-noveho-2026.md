@@ -114,7 +114,7 @@ postoje a bez specialistů ovlivnit nelze, těch mám pocit, je naštěstí kons
 
 ### Sociální sítě a jejich vliv
 
-Velkou negativní roli hrají v aktuální rozpoložení dětí a dospívajících, ale i našem,
+Velkou negativní roli hrají v aktuálním rozpoložení dětí a dospívajících, ale i našem,
 jednoznačně a průkazně sociální sítě. Délka pobytu na sociálních sítích i každé
 přihlášení nebo počet kontrol zpráv na mobilu se sčítá
 a negativně se promítá do
