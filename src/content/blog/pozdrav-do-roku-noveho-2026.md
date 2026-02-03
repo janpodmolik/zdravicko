@@ -1,6 +1,6 @@
 ---
 title: Pozdrav do roku nového 2026
-date: 2026-02-03
+date: 2026-01-31
 category: Zdraví
 excerpt: Zpomalme a veďme děti zlatou střední cestou. Novoroční pozdrav o dlouhověkosti, zdravém životním stylu a duševním zdraví dětí.
 image: /uploads/zimni-cesta-pozdrav-2026.jpeg
@@ -15,7 +15,8 @@ Obsahuje dvě krátká motta.
 Zpomalme!
 
 A veďme děti zlatou střední … ve všem, žádná jiná cesta není, i když nás občas
-navigace nabádá k odbočení. A i když frčíte po dálnici, stojí za to se i na sto
+navigace nabádá k odbočení.
+A i když frčíte po dálnici, stojí za to se i na sto
 kilometrů vzdáleném nejbližším sjezdu otočit a vrátit zpět. A i bez dálniční známky to
 po okrskách jede taky.
 
@@ -58,20 +59,22 @@ D, který je třeba dodávat, a u značné části populace hořčík.
 
 A tak pořád dokola. Potřebné látky by měl člověk do těla dostat pestrou a
 vyváženou stravou. A tak se budu opakovat po několika x letech, vařte zdravě a
-jednoduše svým dětem, i když nabídky všech restaurací a jídelen a obchodů se
-„zdravou výživou" s dovážkou až na stůl jsou bombastické.
+jednoduše svým dětem, i když nabídky všech restaurací a jídelen
+a obchodů se „zdravou výživou" s dovážkou až na stůl jsou bombastické.
 
 ### "Otužování duše" jako součást zdravého životního stylu
 
 A teď postřehy z kapitoly „dušička v péřu", jak říkala moje babička.
 
-Situace v oblasti duševního zdraví se dlouhodobě zhoršuje. S prudkým nárůstem informačních technologií v digitálně transformovaném prostředí se budou objevovat nové a další psychopatologie.
+Situace v oblasti duševního zdraví se dlouhodobě zhoršuje. S prudkým nárůstem informačních technologií
+v digitálně transformovaném prostředí se budou objevovat nové a další psychopatologie.
 Stejně jako čelíme epidemii sebepoškozování, poruch potravinového příjmu, úzkostí
 až s rysy psychosociální nakažlivosti, můžeme velmi brzy čelit epidemii agresivity,
 digitálních závislostí.
 
 Stejně jako je prokázanou prevencí respiračních nákaz zdravé otužování těla, je
-třeba v digitálním ekosystému s narušenou psychickou rovnováhou zmíněným
+třeba v digitálním ekosystému
+s narušenou psychickou rovnováhou zmíněným
 stavům od ranného dětství čelit otužováním duše a budovat psychosociální odolnost.
 Nebojte se děti vystavovat přiměřené psychické zátěži a nechtějte za ně vše řešit.
 Slýcháte to ode mě v ordinaci čím dále častěji, možná souvislostem ještě
@@ -98,8 +101,8 @@ Dochází k tak zvané psychiatrizaci života.
 Smutek nebo strach nejsou hned nemoc. Člověk může být lítostivý, zasmušilý nebo
 posmutnělý. Když těmto emocím jen přiřazujeme diagnózy, ztrácíme šanci jim
 porozumět a vyřešit je jinak, než léky. Obdobně často řešíme u dospívajících únavu,
-když rozeberete jejich den, pobyt venku, pohyb, stravu a čas strávený na sociálních
-sítích, nemusíte už po ničem pátrat. A mohli bychom vyjmenovávat poruchy
+když rozeberete jejich den, pobyt venku, pohyb, stravu a čas strávený
+na sociálních sítích, nemusíte už po ničem pátrat. A mohli bychom vyjmenovávat poruchy
 koncentrace, hyperaktivity…
 
 Psychiatrizace se promítá do statistik, které zaznamenávají významné zhoršení
@@ -113,7 +116,8 @@ postoje a bez specialistů ovlivnit nelze, těch mám pocit, je naštěstí kons
 
 Velkou negativní roli hrají v aktuální rozpoložení dětí a dospívajících, ale i našem,
 jednoznačně a průkazně sociální sítě. Délka pobytu na sociálních sítích i každé
-přihlášení nebo počet kontrol zpráv na mobilu se sčítá a negativně se promítá do
+přihlášení nebo počet kontrol zpráv na mobilu se sčítá
+a negativně se promítá do
 psychické rozlady. Čím víc, tím hůř. Čísla jsou krkolomná. Negativní efekt je tak
 výrazný, že se otevírá možnost pro úplně jednoduchou prevenci spočívající
 v prostém omezení pobytu na sítích, třeba i jen o 10 minut. Již takto krátká doba se
