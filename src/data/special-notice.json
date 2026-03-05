@@ -1,12 +1,12 @@
 {
   "active": true,
-  "message": "Zkrácená ordinační doba.",
+  "message": "Z důvodu vzdělávání na kongresu zavřeno.",
   "type": "warning",
-  "closed": false,
+  "closed": true,
   "showSubstituteDoctor": false,
   "showEarly": true,
   "hoursFrom": "07:30",
   "hoursTo": "10:30",
-  "validFrom": "2026-03-03",
-  "validTo": "2026-03-03"
+  "validFrom": "2026-03-06",
+  "validTo": "2026-03-06"
 }
