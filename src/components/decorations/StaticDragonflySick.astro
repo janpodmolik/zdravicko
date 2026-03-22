@@ -1,0 +1,108 @@
+---
+/**
+ * Dekorativní nemocná vážka (dragonfly-sick)
+ * Používá se u upozornění na výpadky/problémy
+ * Automaticky se flipne horizontálně, pokud je umístěna na pravé straně (>50%)
+ */
+import dragonflyImage from '../../assets/dragonfly-sick.png';
+
+export interface Props {
+  /** Pozice zleva v % (0-100) */
+  left?: number;
+  /** Pozice zprava v % (0-100) - alternativa k left */
+  right?: number;
+  /** Pozice shora v % (0-100) */
+  top?: number;
+  /** Pozice zdola v % (0-100) - alternativa k top */
+  bottom?: number;
+  /** Velikost v px nebo vw/vh jednotkách */
+  size?: string;
+  /** Responsive velikost pro mobile */
+  sizeMobile?: string;
+  /** Opacity (0-1) */
+  opacity?: number;
+  /** Rotace v stupních */
+  rotation?: number;
+  /** Z-index */
+  zIndex?: number;
+}
+
+const {
+  left,
+  right,
+  top,
+  bottom,
+  size = '128px',
+  sizeMobile = '80px',
+  opacity = 0.2,
+  rotation = 0,
+  zIndex = 10,
+} = Astro.props;
+
+// Automaticky flipnout, pokud je vpravo (right definováno NEBO left > 50)
+const isOnRight = right !== undefined || (left !== undefined && left > 50);
+
+// Sestavit position styling
+const positionStyle = [
+  left !== undefined ? `left: ${left}%;` : '',
+  right !== undefined ? `right: ${right}%;` : '',
+  top !== undefined ? `top: ${top}%;` : '',
+  bottom !== undefined ? `bottom: ${bottom}%;` : '',
+].filter(Boolean).join(' ');
+---
+
+<img
+  src={dragonflyImage.src}
+  alt=""
+  class="dragonfly-sick-decoration absolute pointer-events-none animate-float-sick"
+  style={`
+    ${positionStyle}
+    width: ${sizeMobile};
+    height: ${sizeMobile};
+    opacity: ${opacity};
+    z-index: ${zIndex};
+    aspect-ratio: 1;
+    object-fit: contain;
+    --rotation: ${rotation}deg;
+    --flip: ${isOnRight ? '-1' : '1'};
+  `}
+/>
+
+<style>
+  @media (min-width: 768px) {
+    .dragonfly-sick-decoration {
+      width: var(--size-desktop-sick, 128px) !important;
+      height: var(--size-desktop-sick, 128px) !important;
+    }
+  }
+
+  .animate-float-sick {
+    animation: floatDragonflySick 20s infinite ease-in-out;
+    animation-delay: calc(var(--float-delay, 0) * 1s);
+  }
+
+  @keyframes floatDragonflySick {
+    0% {
+      transform: translate(0, 0) rotate(var(--rotation, 0deg)) scaleX(var(--flip, 1));
+    }
+    25% {
+      transform: translate(15px, -10px) rotate(calc(var(--rotation, 0deg) + 3deg)) scaleX(var(--flip, 1));
+    }
+    50% {
+      transform: translate(-10px, -20px) rotate(calc(var(--rotation, 0deg) - 3deg)) scaleX(var(--flip, 1));
+    }
+    75% {
+      transform: translate(20px, -15px) rotate(calc(var(--rotation, 0deg) + 2deg)) scaleX(var(--flip, 1));
+    }
+    100% {
+      transform: translate(0, 0) rotate(var(--rotation, 0deg)) scaleX(var(--flip, 1));
+    }
+  }
+</style>
+
+<script define:vars={{ size }}>
+  document.querySelectorAll('.dragonfly-sick-decoration').forEach((el, index) => {
+    el.style.setProperty('--size-desktop-sick', size);
+    el.style.setProperty('--float-delay', (index * -3).toString());
+  });
+</script>

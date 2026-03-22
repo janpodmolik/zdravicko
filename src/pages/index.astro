@@ -5,6 +5,7 @@ import MobileMenu from '../components/common/MobileMenu.astro';
 import HeroWithDragonflies from '../components/home/HeroWithDragonflies.astro';
 import QuickInfo from '../components/home/QuickInfo.astro';
 import SpecialNotice from '../components/home/SpecialNotice.astro';
+import ServerOutageNotice from '../components/home/ServerOutageNotice.astro';
 import About from '../components/home/About.astro';
 import HorizontalCarousel from '../components/common/HorizontalCarousel.astro';
 import ServiceCard from '../components/cards/ServiceCardCarousel.astro';
@@ -14,6 +15,7 @@ import NewsModal from '../components/modals/NewsModal.astro';
 import OpeningHours from '../components/home/OpeningHours.astro';
 import Footer from '../components/common/Footer.astro';
 import StaticDragonfly from '../components/decorations/StaticDragonfly.astro';
+import StaticDragonflySick from '../components/decorations/StaticDragonflySick.astro';
 import LyingTiger from '../components/decorations/LyingTiger.astro';
 import StandingSheep from '../components/decorations/StandingSheep.astro';
 
@@ -59,6 +61,16 @@ const homepageServices = allServices
       </div>
     </div>
   </section>
+
+  <div class="relative py-8 overflow-hidden">
+    <StaticDragonflySick left={3} top={15} size="200px" sizeMobile="100px" opacity={1} rotation={-5} zIndex={5} />
+    <StaticDragonflySick right={3} top={10} size="200px" sizeMobile="100px" opacity={1} rotation={8} zIndex={5} />
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <ServerOutageNotice />
+      </div>
+    </div>
+  </div>
 
   <!-- Aktuality Carousel s vážkami -->
   <div class="relative bg-gray-50">
