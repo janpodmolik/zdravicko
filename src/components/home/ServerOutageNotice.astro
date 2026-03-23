@@ -2,52 +2,48 @@
 import { Icon } from 'astro-icon/components';
 ---
 
-<div class="bg-white rounded-2xl shadow-lg border-2 border-amber-300 p-5 md:p-6 relative">
-  <div class="absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-linear-to-br from-amber-500 to-orange-500 rounded-lg flex items-center justify-center opacity-80">
-    <Icon name="mdi:alert-circle" class="w-6 h-6 md:w-7 md:h-7 text-white" />
+<div class="bg-white rounded-2xl shadow-lg border-2 border-green-300 p-5 md:p-6 relative">
+  <div class="absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-linear-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center opacity-80">
+    <Icon name="mdi:check-circle" class="w-6 h-6 md:w-7 md:h-7 text-white" />
   </div>
   <div class="pr-14 md:pr-16">
     <h3 class="font-bold text-lg md:text-xl text-gray-900 mb-2">
-      Upozornění — pondělí 23.&nbsp;3.&nbsp;2026
+      Porucha vyřešena — ordinace opět plně funguje
     </h3>
     <p class="text-gray-700 text-sm md:text-base leading-relaxed">
-      Z&nbsp;důvodu nečekané technické poruchy počítače v&nbsp;ordinaci je v&nbsp;pondělí 23.&nbsp;března provoz výrazně omezen.
-      Jsme schopni dítě pouze klinicky vyšetřit.
+      Technická porucha počítače v&nbsp;ordinaci byla úspěšně opravena. Ordinace opět funguje v&nbsp;plném rozsahu.
     </p>
 
-    <div class="mt-4 p-4 rounded-xl bg-amber-50/60 border border-amber-200">
-      <p class="text-gray-800 text-sm md:text-base font-semibold mb-2">Dočasně nejsme schopni:</p>
+    <div class="mt-4 p-4 rounded-xl bg-green-50/60 border border-green-200">
+      <p class="text-gray-800 text-sm md:text-base font-semibold mb-2">Nyní zpětně odbavujeme:</p>
       <ul class="space-y-1.5 text-gray-700 text-sm md:text-base">
         <li class="flex items-start gap-2">
-          <Icon name="mdi:close-circle" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-          <span>Vystavit recept</span>
+          <Icon name="mdi:check-circle" class="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+          <span>Recepty</span>
         </li>
         <li class="flex items-start gap-2">
-          <Icon name="mdi:close-circle" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-          <span>Vytisknout jakékoliv potvrzení</span>
+          <Icon name="mdi:check-circle" class="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+          <span>Potvrzení a&nbsp;lékařské zprávy</span>
         </li>
         <li class="flex items-start gap-2">
-          <Icon name="mdi:close-circle" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-          <span>Vystavit OČR</span>
+          <Icon name="mdi:check-circle" class="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+          <span>OČR a&nbsp;další dokumenty</span>
         </li>
       </ul>
     </div>
 
     <p class="text-gray-700 text-sm md:text-base leading-relaxed mt-4">
-      Pokud máte naplánované vyšetření, očkování či prohlídku — vše platí beze změny.
+      Pokud potřebujete cokoliv z&nbsp;toho, co jsme v&nbsp;pondělí nemohli vyřídit, neváhejte nám zavolat.
+      Vše zpětně dořešíme — prosíme jen o&nbsp;trpělivost, postupně odbavujeme všechny požadavky.
     </p>
 
-    <div class="inline-flex items-center gap-2 text-amber-700 bg-amber-50 px-3 py-1.5 rounded-lg text-sm mt-3">
-      <Icon name="mdi:clock-outline" class="w-4 h-4" />
-      <span class="font-semibold">Ordinační doba: 7:30 – 14:30 (zkrácená)</span>
+    <div class="inline-flex items-center gap-2 text-green-700 bg-green-50 px-3 py-1.5 rounded-lg text-sm mt-3">
+      <Icon name="mdi:phone" class="w-4 h-4" />
+      <span class="font-semibold">Volejte nám — jsme tu pro vás</span>
     </div>
 
-    <p class="text-gray-700 text-sm md:text-base leading-relaxed mt-4">
-      Pevně věříme, že se technikům firmy Dell podaří v&nbsp;průběhu pondělí závadu vyřešit.
-      Vzniklé komplikace zpětně dořešíme.
-    </p>
     <p class="text-gray-500 text-xs md:text-sm mt-3 italic">
-      Pro aktuální informace sledujte naše webové stránky. Děkujeme za pochopení.
+      Děkujeme za pochopení a&nbsp;trpělivost během pondělního výpadku.
     </p>
   </div>
 </div>
