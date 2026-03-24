@@ -2,7 +2,7 @@
   "active": true,
   "message": "Dnes je zkrácená ordinační doba.",
   "type": "warning",
-  "closed": true,
+  "closed": false,
   "showSubstituteDoctor": false,
   "showEarly": true,
   "hoursFrom": "07:30",
