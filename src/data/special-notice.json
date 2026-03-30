@@ -1,12 +1,12 @@
 {
   "active": true,
-  "message": "Dnes je zkrácená ordinační doba.",
+  "message": "Zelený čtvrtek ordinujeme krátce 7.30–10.00. Prosíme řešit jen akutní stavy. Děkujeme.",
   "type": "warning",
   "closed": false,
   "showSubstituteDoctor": false,
   "showEarly": true,
   "hoursFrom": "07:30",
-  "hoursTo": "13:00",
-  "validFrom": "2026-03-26",
-  "validTo": "2026-03-26"
+  "hoursTo": "10:00",
+  "validFrom": "2026-04-02",
+  "validTo": "2026-04-02"
 }
