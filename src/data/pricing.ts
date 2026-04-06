@@ -104,13 +104,22 @@ export const priceSections: PriceSection[] = [
         title: "CRP vyšetření provedené na vlastní žádost ve Zdravíčku",
         price: "300,- Kč",
       },
+      {
+        title:
+          "Plusoptix (vyšetření zraku na vlastní žádost mimo věkovou kategorii screeningu)",
+        price: "350,- Kč",
+      },
+      {
+        title: "Úkon na počkání (výpis, potvrzení)",
+        price: "450,- Kč",
+      },
     ],
     note: "K poskytnutí žádné ze zdravotních služeb nebude po dni 1.4.2012 vyžadován informovaný souhlas pacienta písemnou formou, s výjimkou případů, které stanoví zákon.",
   },
 ];
 
 export const priceInfoItems = [
-  "Aktualizováno: únor 2024",
+  "Aktualizováno: duben 2026",
   "Všechny ceny jsou uvedeny včetně DPH",
 ];
 
