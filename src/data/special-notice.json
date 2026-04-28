@@ -1,12 +1,12 @@
 {
   "active": true,
-  "message": "",
+  "message": "Zdravíčko má ve čtvrtek 30.4. dovolenou.",
   "type": "warning",
-  "closed": false,
-  "showSubstituteDoctor": false,
+  "closed": true,
+  "showSubstituteDoctor": true,
   "showEarly": true,
-  "hoursFrom": "07:30",
-  "hoursTo": "11:00",
-  "validFrom": "2026-04-21",
-  "validTo": "2026-04-22"
+  "hoursFrom": "",
+  "hoursTo": "",
+  "validFrom": "2026-04-23",
+  "validTo": "2026-04-23"
 }
