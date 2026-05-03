@@ -1,12 +1,12 @@
 {
   "active": true,
-  "message": "Zdravíčko má ve čtvrtek 30.4. dovolenou.",
+  "message": "Zkrácená ordinační doba.",
   "type": "warning",
   "closed": true,
   "showSubstituteDoctor": true,
   "showEarly": true,
-  "hoursFrom": "",
-  "hoursTo": "",
-  "validFrom": "2026-04-30",
-  "validTo": "2026-04-30"
+  "hoursFrom": "07:30",
+  "hoursTo": "14:00",
+  "validFrom": "2026-05-04",
+  "validTo": "2026-05-04"
 }
