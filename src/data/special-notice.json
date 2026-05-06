@@ -1,12 +1,12 @@
 {
   "active": true,
-  "message": "Zkrácená ordinační doba.",
+  "message": "Malujeme pro Vas ordinaci!",
   "type": "warning",
   "closed": false,
   "showSubstituteDoctor": false,
   "showEarly": true,
   "hoursFrom": "07:30",
-  "hoursTo": "14:00",
-  "validFrom": "2026-05-04",
-  "validTo": "2026-05-04"
+  "hoursTo": "12:00",
+  "validFrom": "2026-05-07",
+  "validTo": "2026-05-07"
 }
