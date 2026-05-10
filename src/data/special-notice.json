@@ -1,12 +1,12 @@
 {
   "active": true,
-  "message": "Malujeme pro Vás ordinaci!",
+  "message": "",
   "type": "warning",
   "closed": false,
   "showSubstituteDoctor": false,
   "showEarly": true,
   "hoursFrom": "07:30",
-  "hoursTo": "12:00",
-  "validFrom": "2026-05-07",
-  "validTo": "2026-05-07"
+  "hoursTo": "14:30",
+  "validFrom": "2026-05-11",
+  "validTo": "2026-05-11"
 }
