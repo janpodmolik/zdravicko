@@ -1,12 +1,12 @@
 {
   "active": true,
-  "message": "",
+  "message": "Zkrácená ordinační doba.",
   "type": "warning",
   "closed": false,
   "showSubstituteDoctor": false,
   "showEarly": true,
-  "hoursFrom": "07:30",
-  "hoursTo": "14:30",
-  "validFrom": "2026-05-18",
-  "validTo": "2026-05-18"
+  "hoursFrom": "07:00",
+  "hoursTo": "10:00",
+  "validFrom": "2026-05-22",
+  "validTo": "2026-05-22"
 }
