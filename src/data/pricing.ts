@@ -57,7 +57,7 @@ export const priceSections: PriceSection[] = [
       },
       {
         title: "Potvrzení před příjetím do mateřské školky a jeslí",
-        price: "200,- Kč",
+        price: "300,- Kč",
       },
       {
         title: "Potvrzení na odklad školní docházky",
