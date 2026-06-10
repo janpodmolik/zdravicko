@@ -1,12 +1,12 @@
 {
   "active": true,
-  "message": "V pátek 5.6.2026 ordinuje MUDr. Podmolíková",
+  "message": "",
   "type": "warning",
   "closed": false,
   "showSubstituteDoctor": false,
   "showEarly": true,
-  "hoursFrom": "07:15",
-  "hoursTo": "10:30",
-  "validFrom": "2026-06-05",
-  "validTo": "2026-06-05"
+  "hoursFrom": "07:30",
+  "hoursTo": "11:00",
+  "validFrom": "2026-06-12",
+  "validTo": "2026-06-12"
 }
