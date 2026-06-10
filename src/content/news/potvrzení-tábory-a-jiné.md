@@ -6,6 +6,12 @@ date: 2026-06-10
 published: true
 ---
 
-Blíží se prázdniny a s nimi spojené tábory a jiné akce dětí. Nenechávejte, prosím, vyřízení potvrzení na poslední chvíli. V rámci zástupu vystavit nelze. 
+Blíží se prázdniny a s nimi tábory i jiné aktivity dětí. Nenechávejte, prosím, vyřízení potvrzení o způsobilosti na poslední chvíli. Pamatujte i na naše dovolené. V rámci zástupu žádná potvrzení vystavovat  nelze. 
 
-Vám i Vašim dětem přejeme krásné zakončení školního roku. Pro aktuality stran ordinačních hodin během prázdnin, dovolené, zástupu, sledujte, prosím, webové stránky.
+Vám i Vašim dětem přejeme klidné zakončení školního roku! 
+
+A HURÁ! KONEČNĚ PRÁZDNINY! 
+
+Pro aktuality stran ordinačních hodin sledujte, prosím, webové stránky.
+
+Krásné léto přejeme☀️
