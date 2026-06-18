@@ -6,7 +6,7 @@
   "showSubstituteDoctor": false,
   "showEarly": true,
   "hoursFrom": "07:30",
-  "hoursTo": "12:30",
-  "validFrom": "2026-06-17",
-  "validTo": "2026-06-17"
+  "hoursTo": "11:00",
+  "validFrom": "2026-06-19",
+  "validTo": "2026-06-19"
 }
