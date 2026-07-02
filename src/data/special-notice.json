@@ -5,8 +5,8 @@
   "closed": false,
   "showSubstituteDoctor": false,
   "showEarly": true,
-  "hoursFrom": "07:30",
-  "hoursTo": "12:30",
-  "validFrom": "2026-06-30",
-  "validTo": "2026-06-30"
+  "hoursFrom": "07:15",
+  "hoursTo": "10:00",
+  "validFrom": "2026-07-03",
+  "validTo": "2026-07-03"
 }
