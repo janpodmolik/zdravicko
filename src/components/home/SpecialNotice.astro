@@ -5,6 +5,7 @@ import HolidayScheduleNotice from './HolidayScheduleNotice.astro';
 import { getSpecialNoticeDisplay } from '../../utils/openingHours';
 import { getSpecialNoticeVisualConfig } from '../../utils/noticeColors';
 import { isHolidayScheduleActive } from '../../utils/holiday-schedule';
+import { formatShortDate } from '../../utils/date-utils';
 
 // Zkontroluj zda je aktivní holiday schedule
 const holidayScheduleActive = isHolidayScheduleActive(true);
@@ -19,6 +20,12 @@ const {
 } = getSpecialNoticeDisplay(true);
 
 const config = getSpecialNoticeVisualConfig(specialNotice?.type);
+
+// U uzavření se známým termínem doplníme do badge rozsah dat (např. "Zavřeno 13.7. – 24.7.")
+const closedDateRange =
+  isClosed && specialNotice?.validFrom && specialNotice?.validTo
+    ? `${formatShortDate(new Date(specialNotice.validFrom))} – ${formatShortDate(new Date(specialNotice.validTo))}`
+    : null;
 ---
 
 {/* Pokud je aktivní holiday schedule, zobrazíme HolidayScheduleNotice */}
@@ -32,6 +39,7 @@ const config = getSpecialNoticeVisualConfig(specialNotice?.type);
     id="special-notice-banner"
     data-valid-from={specialNotice.validFrom}
     data-valid-to={specialNotice.validTo}
+    data-show-early={specialNotice.showEarly ? "true" : "false"}
     class={`bg-white rounded-2xl shadow-lg border-2 ${config.border} p-5 md:p-6 relative hidden`}
   >
     <div class={`absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-linear-to-br ${config.iconGradient} rounded-lg flex items-center justify-center opacity-80`}>
@@ -49,7 +57,7 @@ const config = getSpecialNoticeVisualConfig(specialNotice?.type);
       {displayHours && (
         <div class={`inline-flex items-center gap-2 ${config.badgeText} ${config.badgeBg} px-3 py-1.5 rounded-lg text-sm ${specialNotice.message ? 'mt-3' : ''}`}>
           <Icon name="mdi:clock-outline" class="w-4 h-4" />
-          <span class="font-semibold">{displayHours}</span>
+          <span class="font-semibold">{displayHours}{closedDateRange && ` ${closedDateRange}`}</span>
         </div>
       )}
       {isClosed && closureInfo && (

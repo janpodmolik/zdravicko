@@ -270,9 +270,15 @@ export function updateSpecialNoticeBannerUI(today: Date): void {
 
   const validFrom = banner.getAttribute("data-valid-from");
   const validTo = banner.getAttribute("data-valid-to");
+  const showEarly = banner.getAttribute("data-show-early") === "true";
 
   // Zkontroluj jestli je dnešní datum v rozsahu platnosti
-  const isValid = isDateInRange(today, validFrom || undefined, validTo || undefined);
+  // Pokud showEarly = true, kontrolujeme pouze validTo (zobrazí se už před validFrom)
+  const isValid = isDateInRange(
+    today,
+    showEarly ? undefined : validFrom || undefined,
+    validTo || undefined
+  );
 
   if (isValid) {
     banner.classList.remove("hidden");
