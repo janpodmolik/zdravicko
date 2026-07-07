@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import ClosureNoticeCard from '../common/ClosureNoticeCard.astro';
 import HolidayScheduleNotice from './HolidayScheduleNotice.astro';
-import { getSpecialNoticeDisplay } from '../../utils/openingHours';
+import { getSpecialNoticesDisplay } from '../../utils/openingHours';
 import { getSpecialNoticeVisualConfig } from '../../utils/noticeColors';
 import { isHolidayScheduleActive } from '../../utils/holiday-schedule';
 import { formatShortDate } from '../../utils/date-utils';
@@ -10,22 +10,9 @@ import { formatShortDate } from '../../utils/date-utils';
 // Zkontroluj zda je aktivní holiday schedule
 const holidayScheduleActive = isHolidayScheduleActive(true);
 
-// Použijeme respectShowEarly=true aby se zobrazily i budoucí special notices (pro informaci dopředu)
-const {
-  notice: specialNotice,
-  shouldDisplay,
-  displayHours,
-  isClosed,
-  closureInfo,
-} = getSpecialNoticeDisplay(true);
-
-const config = getSpecialNoticeVisualConfig(specialNotice?.type);
-
-// U uzavření se známým termínem doplníme do badge rozsah dat (např. "Zavřeno 13.7. – 24.7.")
-const closedDateRange =
-  isClosed && specialNotice?.validFrom && specialNotice?.validTo
-    ? `${formatShortDate(new Date(specialNotice.validFrom))} – ${formatShortDate(new Date(specialNotice.validTo))}`
-    : null;
+// Použijeme respectShowEarly=true aby se zobrazily i budoucí special notices (pro informaci dopředu).
+// Vrací pole - může být aktivních víc oznámení naráz (např. dlouhodobá dovolená + akutní zavření).
+const noticeDisplays = getSpecialNoticesDisplay(true);
 ---
 
 {/* Pokud je aktivní holiday schedule, zobrazíme HolidayScheduleNotice */}
@@ -33,38 +20,56 @@ const closedDateRange =
   <HolidayScheduleNotice />
 )}
 
-{/* Jinak zobrazíme standardní SpecialNotice banner */}
-{!holidayScheduleActive && shouldDisplay && specialNotice && (
-  <div 
-    id="special-notice-banner"
-    data-valid-from={specialNotice.validFrom}
-    data-valid-to={specialNotice.validTo}
-    data-show-early={specialNotice.showEarly ? "true" : "false"}
-    class={`bg-white rounded-2xl shadow-lg border-2 ${config.border} p-5 md:p-6 relative hidden`}
-  >
-    <div class={`absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-linear-to-br ${config.iconGradient} rounded-lg flex items-center justify-center opacity-80`}>
-      <Icon name={config.iconName} class="w-6 h-6 md:w-7 md:h-7 text-white" />
-    </div>
-    <div class="pr-14 md:pr-16">
-      <h3 class="font-bold text-lg md:text-xl text-gray-900 mb-2">
-        Důležité oznámení
-      </h3>
-      {specialNotice.message && (
-        <p class="text-gray-700 text-sm md:text-base leading-relaxed">
-          {specialNotice.message}
-        </p>
-      )}
-      {displayHours && (
-        <div class={`inline-flex items-center gap-2 ${config.badgeText} ${config.badgeBg} px-3 py-1.5 rounded-lg text-sm ${specialNotice.message ? 'mt-3' : ''}`}>
-          <Icon name="mdi:clock-outline" class="w-4 h-4" />
-          <span class="font-semibold">{displayHours}{closedDateRange && ` ${closedDateRange}`}</span>
+{/* Jinak zobrazíme jeden nebo více SpecialNotice bannerů pod sebou */}
+{!holidayScheduleActive && (
+  <div class="space-y-4">
+    {noticeDisplays.map((display, index) => {
+      const { notice: specialNotice, displayHours, isClosed, closureInfo } = display;
+      if (!specialNotice) return null;
+
+      const config = getSpecialNoticeVisualConfig(specialNotice.type);
+
+      // U uzavření se známým termínem doplníme do badge rozsah dat (např. "Zavřeno 13.7. – 24.7.")
+      const closedDateRange =
+        isClosed && specialNotice.validFrom && specialNotice.validTo
+          ? `${formatShortDate(new Date(specialNotice.validFrom))} – ${formatShortDate(new Date(specialNotice.validTo))}`
+          : null;
+
+      return (
+        <div
+          data-special-notice-banner
+          data-notice-index={index}
+          data-valid-from={specialNotice.validFrom}
+          data-valid-to={specialNotice.validTo}
+          data-show-early={specialNotice.showEarly ? 'true' : 'false'}
+          class={`bg-white rounded-2xl shadow-lg border-2 ${config.border} p-5 md:p-6 relative hidden`}
+        >
+          <div class={`absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 bg-linear-to-br ${config.iconGradient} rounded-lg flex items-center justify-center opacity-80`}>
+            <Icon name={config.iconName} class="w-6 h-6 md:w-7 md:h-7 text-white" />
+          </div>
+          <div class="pr-14 md:pr-16">
+            <h3 class="font-bold text-lg md:text-xl text-gray-900 mb-2">
+              Důležité oznámení
+            </h3>
+            {specialNotice.message && (
+              <p class="text-gray-700 text-sm md:text-base leading-relaxed">
+                {specialNotice.message}
+              </p>
+            )}
+            {displayHours && (
+              <div class={`inline-flex items-center gap-2 ${config.badgeText} ${config.badgeBg} px-3 py-1.5 rounded-lg text-sm ${specialNotice.message ? 'mt-3' : ''}`}>
+                <Icon name="mdi:clock-outline" class="w-4 h-4" />
+                <span class="font-semibold">{displayHours}{closedDateRange && ` ${closedDateRange}`}</span>
+              </div>
+            )}
+            {isClosed && closureInfo && (
+              <div class="mt-4 md:mt-5 p-4 rounded-xl border border-orange-200 bg-white/80">
+                <ClosureNoticeCard info={closureInfo} />
+              </div>
+            )}
+          </div>
         </div>
-      )}
-      {isClosed && closureInfo && (
-        <div class="mt-4 md:mt-5 p-4 rounded-xl border border-orange-200 bg-white/80">
-          <ClosureNoticeCard info={closureInfo} />
-        </div>
-      )}
-    </div>
+      );
+    })}
   </div>
 )}

@@ -446,97 +446,104 @@ collections:
         label: "⚙️ Nastavení oznámení"
         file: "src/data/special-notice.json"
         fields:
-          # ---------------------------------------------------------------
-          # ZÁKLADNÍ NASTAVENÍ
-          # ---------------------------------------------------------------
-          - label: "🔔 Zobrazit oznámení na webu"
-            name: "active"
-            widget: "boolean"
-            default: false
-            hint: "Zapněte pro okamžité zobrazení banneru nahoře na všech stránkách webu"
+          - label: "📋 Oznámení"
+            name: "notices"
+            label_singular: "Oznámení"
+            widget: "list"
+            hint: "Můžete mít víc oznámení naráz (např. dlouhodobá dovolená + akutní zavření). Každé má vlastní platnost a zobrazí se jako samostatný banner. Když se dvě oznámení překrývají ve stejný den, o ordinačních hodinách rozhoduje to VÝŠE v seznamu - dej proto zavření/dovolenou nahoru. Přetáhni oznámení pro změnu pořadí."
+            summary: "{{fields.message}} ({{fields.validFrom}} – {{fields.validTo}})"
+            fields:
+              # ---------------------------------------------------------------
+              # ZÁKLADNÍ NASTAVENÍ
+              # ---------------------------------------------------------------
+              - label: "🔔 Zobrazit oznámení na webu"
+                name: "active"
+                widget: "boolean"
+                default: false
+                hint: "Zapněte pro zobrazení tohoto oznámení jako banner nahoře na všech stránkách webu"
 
-          - label: "💬 Text zprávy"
-            name: "message"
-            widget: "text"
-            required: false
-            hint: "Nepovinné - dodatečný text k oznámení. Např: 'Ordinace bude 24.12. zavřená'. Pokud nevyplníte, zobrazí se pouze informace o hodinách."
+              - label: "💬 Text zprávy"
+                name: "message"
+                widget: "text"
+                required: false
+                hint: "Nepovinné - dodatečný text k oznámení. Např: 'Ordinace bude 24.12. zavřená'. Pokud nevyplníte, zobrazí se pouze informace o hodinách."
 
-          - label: "🎨 Typ oznámení"
-            name: "type"
-            widget: "select"
-            default: "warning"
-            hint: "Určuje barvu banneru a všech souvisejících prvků na webu"
-            options:
-              - { label: "Varování (žlutá)", value: "warning" }
-              - { label: "Informace (modrá)", value: "info" }
-              - { label: "Důležité/Urgentní (červená)", value: "urgent" }
+              - label: "🎨 Typ oznámení"
+                name: "type"
+                widget: "select"
+                default: "warning"
+                hint: "Určuje barvu banneru a všech souvisejících prvků na webu"
+                options:
+                  - { label: "Varování (žlutá)", value: "warning" }
+                  - { label: "Informace (modrá)", value: "info" }
+                  - { label: "Důležité/Urgentní (červená)", value: "urgent" }
 
-          # ---------------------------------------------------------------
-          # STAV ORDINACE
-          # ---------------------------------------------------------------
-          - label: "🔒 Ordinace je zavřená"
-            name: "closed"
-            widget: "boolean"
-            default: false
-            hint: "Zapni pro celé zavření ordinace. Pokud je zapnuto, pole níže 'Upravené hodiny' se ignorují!"
+              # ---------------------------------------------------------------
+              # STAV ORDINACE
+              # ---------------------------------------------------------------
+              - label: "🔒 Ordinace je zavřená"
+                name: "closed"
+                widget: "boolean"
+                default: false
+                hint: "Zapni pro celé zavření ordinace. Pokud je zapnuto, pole níže 'Upravené hodiny' se ignorují!"
 
-          - label: "👨‍⚕️ Zobrazit zástupující ordinaci"
-            name: "showSubstituteDoctor"
-            widget: "boolean"
-            default: true
-            hint: "Vypni, pokud má i zástupující ordinace zavřeno (např. o svátcích). Pokud je zapnuto a ordinace je zavřená, zobrazí se kontakt na zástupujícího lékaře."
+              - label: "👨‍⚕️ Zobrazit zástupující ordinaci"
+                name: "showSubstituteDoctor"
+                widget: "boolean"
+                default: true
+                hint: "Vypni, pokud má i zástupující ordinace zavřeno (např. o svátcích). Pokud je zapnuto a ordinace je zavřená, zobrazí se kontakt na zástupujícího lékaře."
 
-          - label: "⏰ Zobrazit oznámení předem (ještě před platností)"
-            name: "showEarly"
-            widget: "boolean"
-            default: false
-            hint: "Zapni pro zobrazení oznámení již před 'Platnost OD'. Užitečné pro informace o zítřejším zavření - pacienti budou informováni už dnes. Oznámení zmizí až po 'Platnost DO'."
+              - label: "⏰ Zobrazit oznámení předem (ještě před platností)"
+                name: "showEarly"
+                widget: "boolean"
+                default: false
+                hint: "Zapni pro zobrazení oznámení již před 'Platnost OD'. Užitečné pro informace o zítřejším zavření - pacienti budou informováni už dnes. Oznámení zmizí až po 'Platnost DO'."
 
-          # ---------------------------------------------------------------
-          # UPRAVENÉ ORDINAČNÍ HODINY
-          # Vyplň OBA pole (OD i DO) nebo ŽÁDNÉ
-          # ---------------------------------------------------------------
-          - label: "🕐 Upravená ordinační doba - OD (čas otevření)"
-            name: "hoursFrom"
-            widget: "datetime"
-            required: false
-            date_format: false
-            time_format: "HH:mm"
-            format: "HH:mm"
-            picker_utc: false
-            default: ""
+              # ---------------------------------------------------------------
+              # UPRAVENÉ ORDINAČNÍ HODINY
+              # Vyplň OBA pole (OD i DO) nebo ŽÁDNÉ
+              # ---------------------------------------------------------------
+              - label: "🕐 Upravená ordinační doba - OD (čas otevření)"
+                name: "hoursFrom"
+                widget: "datetime"
+                required: false
+                date_format: false
+                time_format: "HH:mm"
+                format: "HH:mm"
+                picker_utc: false
+                default: ""
 
-          - label: "🕔 Upravená ordinační doba - DO (čas zavření)"
-            name: "hoursTo"
-            widget: "datetime"
-            required: false
-            date_format: false
-            time_format: "HH:mm"
-            format: "HH:mm"
-            picker_utc: false
-            default: ""
-            hint: "Vyplň OBA časy (OD i DO) nebo ŽÁDNÝ! DO musí být později než čas OD. Systém automaticky porovná s běžnými hodinami."
+              - label: "🕔 Upravená ordinační doba - DO (čas zavření)"
+                name: "hoursTo"
+                widget: "datetime"
+                required: false
+                date_format: false
+                time_format: "HH:mm"
+                format: "HH:mm"
+                picker_utc: false
+                default: ""
+                hint: "Vyplň OBA časy (OD i DO) nebo ŽÁDNÝ! DO musí být později než čas OD. Systém automaticky porovná s běžnými hodinami."
 
-          # ---------------------------------------------------------------
-          # ČASOVÁ PLATNOST OZNÁMENÍ
-          # Vyplň OBA data (OD i DO) nebo ŽÁDNÉ pro trvalou platnost
-          # ---------------------------------------------------------------
-          - label: "📅 Platnost OD (datum)"
-            name: "validFrom"
-            widget: "datetime"
-            required: false
-            date_format: "DD.MM.YYYY"
-            time_format: false
-            format: "YYYY-MM-DD"
+              # ---------------------------------------------------------------
+              # ČASOVÁ PLATNOST OZNÁMENÍ
+              # Vyplň OBA data (OD i DO) nebo ŽÁDNÉ pro trvalou platnost
+              # ---------------------------------------------------------------
+              - label: "📅 Platnost OD (datum)"
+                name: "validFrom"
+                widget: "datetime"
+                required: false
+                date_format: "DD.MM.YYYY"
+                time_format: false
+                format: "YYYY-MM-DD"
 
-          - label: "📅 Platnost DO (datum)"
-            name: "validTo"
-            widget: "datetime"
-            required: false
-            date_format: "DD.MM.YYYY"
-            time_format: false
-            format: "YYYY-MM-DD"
-            hint: "Vyplň OBA datumy (OD i DO) nebo ŽÁDNÉ pro trvalou platnost."
+              - label: "📅 Platnost DO (datum)"
+                name: "validTo"
+                widget: "datetime"
+                required: false
+                date_format: "DD.MM.YYYY"
+                time_format: false
+                format: "YYYY-MM-DD"
+                hint: "Vyplň OBA datumy (OD i DO) nebo ŽÁDNÉ pro trvalou platnost."
 
   # ============================================================================
   # VÁNOČNÍ / SVÁTEČNÍ ORDINAČNÍ DOBA

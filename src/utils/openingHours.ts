@@ -7,6 +7,7 @@ import {
 import { formatHoursRange } from "./time-formatting";
 import {
   getSpecialNoticeForDate,
+  getSpecialNoticesForDate,
   resolveNoticeOutcome,
   isNoticeEarlyWarning,
   type SpecialNotice,
@@ -151,25 +152,9 @@ export interface SpecialNoticeClosureInfo {
 }
 
 /**
- * Vrátí předzpracovaná data pro komponenty zobrazující speciální oznámení.
- * @param respectShowEarly - pokud true, zobrazí notice i před validFrom (early warning)
+ * Předzpracuje jedno konkrétní oznámení do display formátu.
  */
-export function getSpecialNoticeDisplay(
-  respectShowEarly: boolean = false
-): SpecialNoticeDisplay {
-  const notice = getActiveSpecialNotice(respectShowEarly);
-
-  if (!notice) {
-    return {
-      notice: null,
-      shouldDisplay: false,
-      displayHours: null,
-      isClosed: false,
-      isEarlyWarning: false,
-      closureInfo: undefined,
-    };
-  }
-
+function buildNoticeDisplay(notice: SpecialNotice): SpecialNoticeDisplay {
   const isEarlyWarning = isNoticeEarlyWarning(notice);
 
   if (notice.closed) {
@@ -195,6 +180,42 @@ export function getSpecialNoticeDisplay(
     isEarlyWarning,
     closureInfo: undefined,
   };
+}
+
+/**
+ * Vrátí předzpracovaná data pro VŠECHNA aktivní oznámení (víc bannerů naráz).
+ * @param respectShowEarly - pokud true, zobrazí notices i před validFrom (early warning)
+ */
+export function getSpecialNoticesDisplay(
+  respectShowEarly: boolean = false
+): SpecialNoticeDisplay[] {
+  return getSpecialNoticesForDate(getLocalDate(), respectShowEarly).map(
+    buildNoticeDisplay
+  );
+}
+
+/**
+ * Vrátí předzpracovaná data pro první aktivní special notice.
+ * Ponecháno pro zpětnou kompatibilitu (např. early-warning karta).
+ * @param respectShowEarly - pokud true, zobrazí notice i před validFrom (early warning)
+ */
+export function getSpecialNoticeDisplay(
+  respectShowEarly: boolean = false
+): SpecialNoticeDisplay {
+  const notice = getActiveSpecialNotice(respectShowEarly);
+
+  if (!notice) {
+    return {
+      notice: null,
+      shouldDisplay: false,
+      displayHours: null,
+      isClosed: false,
+      isEarlyWarning: false,
+      closureInfo: undefined,
+    };
+  }
+
+  return buildNoticeDisplay(notice);
 }
 
 /**

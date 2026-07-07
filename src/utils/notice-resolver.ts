@@ -22,6 +22,35 @@ export interface SpecialNotice {
   validTo?: string;
 }
 
+/**
+ * Nový formát: soubor obsahuje pole oznámení pod klíčem `notices`.
+ * Starý formát: soubor byl jeden objekt SpecialNotice.
+ * Tato struktura pokrývá obě varianty kvůli zpětné kompatibilitě.
+ */
+type SpecialNoticeData =
+  | { notices: SpecialNotice[] }
+  | SpecialNotice;
+
+// ============================================================================
+// NAČTENÍ OZNÁMENÍ
+// ============================================================================
+
+/**
+ * Vrátí všechna oznámení ze souboru jako pole.
+ * Podporuje nový formát ({ notices: [...] }) i starý (jeden objekt).
+ * Pořadí v poli je významné - při překryvu vyhrává první aktivní oznámení.
+ */
+export function getAllSpecialNotices(): SpecialNotice[] {
+  const data = specialNoticeData as SpecialNoticeData;
+
+  if (data && Array.isArray((data as { notices?: unknown }).notices)) {
+    return (data as { notices: SpecialNotice[] }).notices;
+  }
+
+  // Zpětná kompatibilita - starý formát jednoho objektu
+  return [data as SpecialNotice];
+}
+
 // ============================================================================
 // NOTICE RESOLVER
 // ============================================================================
@@ -39,7 +68,48 @@ export function isNoticeEarlyWarning(notice: SpecialNotice): boolean {
 }
 
 /**
- * Vrací special notice pokud je aktivní a platí pro daný den
+ * Zkontroluje, jestli konkrétní oznámení platí pro daný den.
+ * @param respectShowEarly - pokud true, respektuje showEarly flag (platí i před validFrom)
+ */
+function isNoticeValidForDate(
+  notice: SpecialNotice,
+  targetDate: Date,
+  respectShowEarly: boolean
+): boolean {
+  if (!notice.active) return false;
+
+  // Pokud showEarly = true a respektujeme ho, kontrolujeme pouze validTo
+  if (notice.showEarly && respectShowEarly) {
+    if (notice.validTo) {
+      const validToDate = new Date(notice.validTo);
+      validToDate.setHours(23, 59, 59, 999);
+      if (targetDate > validToDate) return false;
+    }
+    return true;
+  }
+
+  // Standardní chování - kontrola validFrom i validTo
+  return isDateInRange(targetDate, notice.validFrom, notice.validTo);
+}
+
+/**
+ * Vrací všechna oznámení, která jsou aktivní a platí pro daný den.
+ * Zachovává pořadí ze souboru (první = nejvyšší priorita).
+ * @param targetDate - datum pro které kontrolujeme
+ * @param respectShowEarly - pokud true, respektuje showEarly flag (zobrazí i před validFrom)
+ */
+export function getSpecialNoticesForDate(
+  targetDate: Date,
+  respectShowEarly: boolean = true
+): SpecialNotice[] {
+  return getAllSpecialNotices().filter((notice) =>
+    isNoticeValidForDate(notice, targetDate, respectShowEarly)
+  );
+}
+
+/**
+ * Vrací JEDNO special notice pro daný den (pro výpočet hodin v kalendáři).
+ * Při překryvu více oznámení vyhrává první aktivní v pořadí ze souboru.
  * @param targetDate - datum pro které kontrolujeme
  * @param respectShowEarly - pokud true, respektuje showEarly flag (zobrazí i před validFrom)
  */
@@ -47,26 +117,7 @@ export function getSpecialNoticeForDate(
   targetDate: Date,
   respectShowEarly: boolean = true
 ): SpecialNotice | null {
-  const notice = specialNoticeData as SpecialNotice;
-
-  if (!notice.active) return null;
-
-  // Pokud showEarly = true a respektujeme ho, kontrolujeme pouze validTo
-  if (notice.showEarly && respectShowEarly) {
-    if (notice.validTo) {
-      const validToDate = new Date(notice.validTo);
-      validToDate.setHours(23, 59, 59, 999);
-      if (targetDate > validToDate) return null;
-    }
-    return notice;
-  }
-
-  // Standardní chování - kontrola validFrom i validTo
-  if (!isDateInRange(targetDate, notice.validFrom, notice.validTo)) {
-    return null;
-  }
-
-  return notice;
+  return getSpecialNoticesForDate(targetDate, respectShowEarly)[0] ?? null;
 }
 
 export interface NoticeResolution {

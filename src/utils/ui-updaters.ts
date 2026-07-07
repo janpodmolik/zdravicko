@@ -264,25 +264,28 @@ export function updateSpecialNoticeBannerUI(today: Date): void {
     if (isValid) return;
   }
 
-  // Kontrola standardního special notice banneru
-  const banner = document.getElementById("special-notice-banner");
-  if (!banner) return;
-
-  const validFrom = banner.getAttribute("data-valid-from");
-  const validTo = banner.getAttribute("data-valid-to");
-  const showEarly = banner.getAttribute("data-show-early") === "true";
-
-  // Zkontroluj jestli je dnešní datum v rozsahu platnosti
-  // Pokud showEarly = true, kontrolujeme pouze validTo (zobrazí se už před validFrom)
-  const isValid = isDateInRange(
-    today,
-    showEarly ? undefined : validFrom || undefined,
-    validTo || undefined
+  // Kontrola standardních special notice bannerů (může jich být víc)
+  const banners = document.querySelectorAll<HTMLElement>(
+    "[data-special-notice-banner]"
   );
 
-  if (isValid) {
-    banner.classList.remove("hidden");
-  } else {
-    banner.classList.add("hidden");
-  }
+  banners.forEach((banner) => {
+    const validFrom = banner.getAttribute("data-valid-from");
+    const validTo = banner.getAttribute("data-valid-to");
+    const showEarly = banner.getAttribute("data-show-early") === "true";
+
+    // Zkontroluj jestli je dnešní datum v rozsahu platnosti
+    // Pokud showEarly = true, kontrolujeme pouze validTo (zobrazí se už před validFrom)
+    const isValid = isDateInRange(
+      today,
+      showEarly ? undefined : validFrom || undefined,
+      validTo || undefined
+    );
+
+    if (isValid) {
+      banner.classList.remove("hidden");
+    } else {
+      banner.classList.add("hidden");
+    }
+  });
 }

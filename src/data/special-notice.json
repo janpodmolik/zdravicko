@@ -1,12 +1,16 @@
 {
-  "active": true,
-  "message": "Letní dovolená Zdravíčka v červenci☀️🦩",
-  "type": "warning",
-  "closed": true,
-  "showSubstituteDoctor": true,
-  "showEarly": true,
-  "hoursFrom": "",
-  "hoursTo": "",
-  "validFrom": "2026-07-13",
-  "validTo": "2026-07-24"
+  "notices": [
+    {
+      "active": true,
+      "message": "Letní dovolená Zdravíčka v červenci☀️🦩",
+      "type": "warning",
+      "closed": true,
+      "showSubstituteDoctor": true,
+      "showEarly": true,
+      "hoursFrom": "",
+      "hoursTo": "",
+      "validFrom": "2026-07-13",
+      "validTo": "2026-07-24"
+    }
+  ]
 }

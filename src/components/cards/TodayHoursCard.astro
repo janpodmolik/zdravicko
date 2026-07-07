@@ -10,14 +10,16 @@
  */
 import { Icon } from 'astro-icon/components';
 import SpecialNotice from '../home/SpecialNotice.astro';
-import { getTodayActualHours, getSpecialNoticeDisplay } from '../../utils/openingHours';
+import { getTodayActualHours, getSpecialNoticesDisplay } from '../../utils/openingHours';
 
 // getTodayActualHours ignoruje showEarly flag (zobrazí warning jen když platí DNES)
 const todayInfo = getTodayActualHours();
 
-// Zkontroluj jestli je early warning (showEarly=true a datum ještě neplatí)
-const specialNoticeDisplay = getSpecialNoticeDisplay(true);
-const showEarlyWarning = specialNoticeDisplay.shouldDisplay && specialNoticeDisplay.isEarlyWarning;
+// Zkontroluj jestli je aktivní aspoň jedno early warning (showEarly=true a datum ještě neplatí).
+// Pokud ano, vložíme SpecialNotice komponentu, která sama vykreslí všechny aktivní bannery.
+const showEarlyWarning = getSpecialNoticesDisplay(true).some(
+  (display) => display.shouldDisplay && display.isEarlyWarning
+);
 
 // Výchozí styly - vždy "normal" (modrá)
 const todayCardDefault = "rounded-2xl shadow-lg p-8 border-2 bg-white border-[#5085c6]/30";
