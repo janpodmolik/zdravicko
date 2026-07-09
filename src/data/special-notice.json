@@ -1,11 +1,11 @@
 {
   "notices": [
     {
-      "active": false,
+      "active": true,
       "message": "Zkrácená ordinační doba",
       "type": "warning",
       "closed": false,
-      "showSubstituteDoctor": true,
+      "showSubstituteDoctor": false,
       "showEarly": true,
       "hoursFrom": "07:30",
       "hoursTo": "10:00",
