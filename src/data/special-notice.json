@@ -1,6 +1,18 @@
 {
   "notices": [
     {
+      "active": false,
+      "message": "Zkrácená ordinační doba",
+      "type": "warning",
+      "closed": false,
+      "showSubstituteDoctor": true,
+      "showEarly": true,
+      "hoursFrom": "07:30",
+      "hoursTo": "10:00",
+      "validFrom": "2026-07-10",
+      "validTo": "2026-07-10"
+    },
+    {
       "active": true,
       "message": "Letní dovolená Zdravíčka v červenci☀️🦩",
       "type": "warning",
