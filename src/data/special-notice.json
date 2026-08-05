@@ -2,15 +2,27 @@
   "notices": [
     {
       "active": true,
-      "message": "V pátek 31.7. zkrácená ordinační doba",
+      "message": "Ve čtvrtek 5.8. zkrácená ordinační doba",
       "type": "warning",
       "closed": false,
       "showSubstituteDoctor": false,
       "showEarly": true,
       "hoursFrom": "07:30",
-      "hoursTo": "11:00",
-      "validFrom": "2026-07-31",
-      "validTo": "2026-07-31"
+      "hoursTo": "13:00",
+      "validFrom": "2026-08-06",
+      "validTo": "2026-08-06"
+    },
+    {
+      "active": false,
+      "message": "Zdravíčko má v týdnu 10.-16.8.2026 dovolenou.",
+      "type": "warning",
+      "closed": true,
+      "showSubstituteDoctor": true,
+      "showEarly": true,
+      "hoursFrom": "",
+      "hoursTo": "",
+      "validFrom": "2026-08-10",
+      "validTo": "2026-08-16"
     }
   ]
 }
