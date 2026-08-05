@@ -13,7 +13,7 @@
       "validTo": "2026-08-06"
     },
     {
-      "active": false,
+      "active": true,
       "message": "Zdravíčko má v týdnu 10.-16.8.2026 dovolenou.",
       "type": "warning",
       "closed": true,
