@@ -23,5 +23,11 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    define: {
+      // Unikátní ID buildu - stejná hodnota se zapeče do klientského JS
+      // i do /version.json (config se vyhodnocuje jednou pro celý build).
+      // Slouží k detekci zastaralé cache na GitHub Pages (max-age=600).
+      "import.meta.env.PUBLIC_BUILD_ID": JSON.stringify(String(Date.now())),
+    },
   },
 });

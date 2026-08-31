@@ -77,10 +77,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<slot />
 		<script>
 			import { updateOpeningHours } from '../scripts/updateOpeningHours';
+			import { reloadIfStale } from '../scripts/freshness';
 
 			// Spustíme při každém načtení stránky (včetně View Transitions)
 			document.addEventListener('astro:page-load', () => {
 				updateOpeningHours();
+				reloadIfStale();
 
 				// Hash scrollování
 				const hash = window.location.hash;
@@ -91,6 +93,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 							target.scrollIntoView({ behavior: 'smooth' });
 						}, 50);
 					}
+				}
+			});
+
+			// Stránka obnovená z bfcache (návrat šipkou zpět, obnovení karty
+			// na mobilu) - neproběhne žádný network request ani astro:page-load,
+			// takže hodiny přepočítáme a zkontrolujeme čerstvost ručně
+			window.addEventListener('pageshow', (event) => {
+				if (event.persisted) {
+					updateOpeningHours();
+					reloadIfStale();
+				}
+			});
+
+			// Uživatel se vrátil do dávno otevřené karty - datum se mohlo změnit
+			// a na serveru může být novější verze webu
+			document.addEventListener('visibilitychange', () => {
+				if (document.visibilityState === 'visible') {
+					updateOpeningHours();
+					reloadIfStale();
 				}
 			});
 		</script>

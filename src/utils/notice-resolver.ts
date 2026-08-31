@@ -2,6 +2,7 @@ import specialNoticeData from "../data/special-notice.json";
 import { isDateInRange, getLocalDate } from "./date-utils";
 import { formatHoursRange, areHoursEqual } from "./time-formatting";
 import { getHolidayScheduleForDate } from "./holiday-schedule";
+import { getCzechHolidayName } from "./czech-holidays";
 
 // ============================================================================
 // TYPY
@@ -165,6 +166,22 @@ export function resolveNoticeOutcome(
   const notice = getSpecialNoticeForDate(date, respectShowEarly);
 
   if (!notice) {
+    // 3. Automatické zavření o českých státních svátcích.
+    // Uplatní se jen když neexistuje explicitní oznámení (to má vždy přednost)
+    // a jen v pracovní dny - o víkendu je zavřeno tak jako tak.
+    const holidayName = getCzechHolidayName(date);
+    if (holidayName && regularHours) {
+      return {
+        finalHours: null,
+        isClosed: true,
+        isModified: true,
+        matchesRegularHours: false,
+        hasSpecialNotice: true,
+        notice: `Státní svátek – ${holidayName}`,
+        noticeType: "info",
+      };
+    }
+
     return {
       finalHours: regularHours,
       isClosed: !regularHours,
