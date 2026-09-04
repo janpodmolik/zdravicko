@@ -15,6 +15,10 @@
   </head>
   <body>
     <!-- Sveltia CMS - modern fork of Decap CMS -->
-    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
+    <!-- Verze je záměrně připnutá: bez ní se každé nové vydání Sveltie
+         projeví okamžitě a už dvakrát nám samovolně rozbilo admin
+         (validace media_library, editorial workflow vs. token).
+         Aktualizuj verzi ručně a ověř, že ukládání funguje. -->
+    <script src="https://unpkg.com/@sveltia/cms@0.205.3/dist/sveltia-cms.js" type="module"></script>
   </body>
 </html>

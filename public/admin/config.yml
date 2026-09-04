@@ -11,8 +11,10 @@ backend:
 # Lokální vývoj - proxy server pro editaci bez GitHubu
 local_backend: true
 
-# Publikování - články procházejí schvalovacím procesem
-publish_mode: editorial_workflow
+# Publikování - uložení jde rovnou do main (bez schvalovacího procesu).
+# POZOR: editorial_workflow nezapínat - Sveltia ho nově podporuje a při
+# uložení pak vytváří pull request, na což token s právy jen na Contents
+# nestačí ("Resource not accessible by personal access token").
 
 # Vypnutí preview linků - editor pracuje pouze s obsahem
 show_preview_links: false
