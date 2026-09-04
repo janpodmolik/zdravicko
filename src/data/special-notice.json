@@ -2,15 +2,15 @@
   "notices": [
     {
       "active": true,
-      "message": "V pondělí 31.8. bude zkrácena ordinační doba",
+      "message": "V pátek 4.9. zkrácena ordinační doba.",
       "type": "warning",
       "closed": false,
       "showSubstituteDoctor": false,
       "showEarly": true,
       "hoursFrom": "07:30",
-      "hoursTo": "13:00",
-      "validFrom": "2026-08-31",
-      "validTo": "2026-08-31"
+      "hoursTo": "11:00",
+      "validFrom": "2026-09-04",
+      "validTo": "2026-09-04"
     }
   ]
 }
