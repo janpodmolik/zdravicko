@@ -1,29 +1,11 @@
 {
+  // Minimal setup: content is edited through the CMS and code changes are made
+  // by an agent, so no formatter/linter extensions are required here.
+  // The only recommended extension is astro-build.astro-vscode (see extensions.json).
+
   // === Editor behavior ===
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabSize": 2,
   "files.trimTrailingWhitespace": true,
-
-  // === ESLint ===
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
-
-  // === Tailwind ===
-  "tailwindCSS.includeLanguages": {
-    "astro": "html"
-  },
-  "tailwindCSS.experimental.classRegex": [
-    ["class:([A-Za-z0-9\\-:]+)", "class:\\1"]
-  ],
-
-  // === Spellchecker ===
-  "cSpell.language": "en,cs",
-  "cSpell.enableFiletypes": ["astro", "markdown"],
-
-  // === Headwind ===
-  "headwind.runOnSave": true,
 
   // === File associations ===
   "files.associations": {
