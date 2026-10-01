@@ -2,15 +2,15 @@
   "notices": [
     {
       "active": true,
-      "message": "V pátek 25.9.2026 má Zdravíčko dovolenou. Jako vždy nás zastupuje MUDr. Alena Lošťáková v dopoledních hodinách na adrese Optiky 1, Přerov. Objednávejte se, prosím, telefonicky na čísle 581 201 141",
+      "message": "Ve čtvrtek 1.10. zkrácená ordinační doba.",
       "type": "warning",
-      "closed": true,
-      "showSubstituteDoctor": true,
+      "closed": false,
+      "showSubstituteDoctor": false,
       "showEarly": true,
-      "hoursFrom": "",
-      "hoursTo": "",
-      "validFrom": "2026-09-25",
-      "validTo": "2026-09-25"
+      "hoursFrom": "07:30",
+      "hoursTo": "12:30",
+      "validFrom": "2026-10-01",
+      "validTo": "2026-10-01"
     }
   ]
 }
