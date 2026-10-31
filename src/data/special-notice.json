@@ -2,27 +2,15 @@
   "notices": [
     {
       "active": true,
-      "message": "V úterý 27.10. zkrácená ordinační doba.",
+      "message": "V pondělí 2.11. zkrácená ordinační doba.",
       "type": "warning",
       "closed": false,
       "showSubstituteDoctor": false,
       "showEarly": true,
       "hoursFrom": "07:30",
-      "hoursTo": "12:00",
-      "validFrom": "2026-10-27",
-      "validTo": "2026-10-27"
-    },
-    {
-      "active": false,
-      "message": "Středa 28.10. - státní svátek - zavřeno",
-      "type": "warning",
-      "closed": true,
-      "showSubstituteDoctor": false,
-      "showEarly": true,
-      "hoursFrom": "",
-      "hoursTo": "",
-      "validFrom": "2026-10-28",
-      "validTo": "2026-10-28"
+      "hoursTo": "13:00",
+      "validFrom": "2026-11-02",
+      "validTo": "2026-11-02"
     }
   ]
 }
