@@ -2,15 +2,15 @@
   "notices": [
     {
       "active": true,
-      "message": "V pátek 6.11. zkrácená ordinační doba z důvodu vzdělávání na Kongresu v Luhačovicích.",
+      "message": "V pondělí 9.11. zkrácená ordinační doba.",
       "type": "warning",
       "closed": false,
       "showSubstituteDoctor": false,
       "showEarly": true,
       "hoursFrom": "07:30",
-      "hoursTo": "10:00",
-      "validFrom": "2026-11-06",
-      "validTo": "2026-11-06"
+      "hoursTo": "14:00",
+      "validFrom": "2026-11-09",
+      "validTo": "2026-11-09"
     }
   ]
 }
