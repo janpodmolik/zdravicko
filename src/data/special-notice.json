@@ -2,15 +2,15 @@
   "notices": [
     {
       "active": true,
-      "message": "V pondělí 9.11. zkrácená ordinační doba.",
+      "message": "V úterý 10.11. zkrácená ordinační doba.",
       "type": "warning",
       "closed": false,
       "showSubstituteDoctor": false,
       "showEarly": true,
       "hoursFrom": "07:30",
-      "hoursTo": "14:00",
-      "validFrom": "2026-11-09",
-      "validTo": "2026-11-09"
+      "hoursTo": "12:15",
+      "validFrom": "2026-11-10",
+      "validTo": "2026-11-10"
     }
   ]
 }
