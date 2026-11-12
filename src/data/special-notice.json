@@ -2,15 +2,15 @@
   "notices": [
     {
       "active": true,
-      "message": "V úterý 10.11. zkrácená ordinační doba.",
+      "message": "V pátek 13.11. a pondělí 16.11. neordinujeme. Zastupuje nás jako vždy MUDr. Alena Lošťáková.",
       "type": "warning",
-      "closed": false,
-      "showSubstituteDoctor": false,
+      "closed": true,
+      "showSubstituteDoctor": true,
       "showEarly": true,
-      "hoursFrom": "07:30",
-      "hoursTo": "12:15",
-      "validFrom": "2026-11-10",
-      "validTo": "2026-11-10"
+      "hoursFrom": "",
+      "hoursTo": "",
+      "validFrom": "2026-11-13",
+      "validTo": "2026-11-17"
     }
   ]
 }
