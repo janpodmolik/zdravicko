@@ -11,6 +11,18 @@
       "hoursTo": "",
       "validFrom": "2026-11-13",
       "validTo": "2026-11-17"
+    },
+    {
+      "active": false,
+      "message": "Dnes zkrácená ordinační doba.",
+      "type": "warning",
+      "closed": false,
+      "showSubstituteDoctor": false,
+      "showEarly": true,
+      "hoursFrom": "07:30",
+      "hoursTo": "12:30",
+      "validFrom": "2026-11-12",
+      "validTo": "2026-11-12"
     }
   ]
 }
