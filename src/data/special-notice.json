@@ -2,7 +2,7 @@
   "notices": [
     {
       "active": true,
-      "message": "V pátek 13.11. a pondělí 16.11. neordinujeme. Zastupuje nás jako vždy MUDr. Alena Lošťáková.",
+      "message": "V pátek 13.11. a pondělí 16.11. neordinujeme. Telefonické konzultace možné na čísle 731 232 333. Akutní případy ošetří MUDr. Alena Lošťáková.",
       "type": "warning",
       "closed": true,
       "showSubstituteDoctor": true,
@@ -11,18 +11,6 @@
       "hoursTo": "",
       "validFrom": "2026-11-13",
       "validTo": "2026-11-17"
-    },
-    {
-      "active": false,
-      "message": "Dnes zkrácená ordinační doba.",
-      "type": "warning",
-      "closed": false,
-      "showSubstituteDoctor": false,
-      "showEarly": true,
-      "hoursFrom": "07:30",
-      "hoursTo": "12:30",
-      "validFrom": "2026-11-12",
-      "validTo": "2026-11-12"
     }
   ]
 }
